@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "react-native",
+    "flow"
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd-mobile-rn"
+      }
+    ],
+    "transform-decorators-legacy"
+  ]
+}
