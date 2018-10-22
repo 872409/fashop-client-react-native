@@ -5,14 +5,17 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "fix-xcode10": "node scripts/fix-xcode10"
+    "fix-xcode10": "node scripts/fix-xcode10",
+    "theme": "node scripts/custom-rn-theme"
   },
   "dependencies": {
+    "antd-mobile-rn": "^2.3.0",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "babel-plugin-import": "^1.10.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
     "react-test-renderer": "16.6.0-alpha.8af6728"
