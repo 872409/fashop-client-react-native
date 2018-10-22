@@ -3,17 +3,6 @@ package com.fashop;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.theweflex.react.WeChatPackage;
-import com.brentvatne.react.ReactVideoPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.corbt.keepawake.KCKeepAwakePackage;
-import com.imagepicker.ImagePickerPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.reactlibrary.RNBadgerAndroidPackage;
-import cn.jpush.reactnativejpush.JPushPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -33,18 +22,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new WeChatPackage(),
-            new ReactVideoPackage(),
-            new VectorIconsPackage(),
-            new SplashScreenReactPackage(),
-            new OrientationPackage(),
-            new LinearGradientPackage(),
-            new KCKeepAwakePackage(),
-            new ImagePickerPackage(),
-            new RNDeviceInfo(),
-            new RNBadgerAndroidPackage(),
-            new JPushPackage()
+          new MainReactPackage()
       );
     }
 

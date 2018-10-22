@@ -1,4 +1,0 @@
-export const GET_HOME_AD_DATA = 'GET_HOME_AD_DATA'; // 获取首页广告数据
-export const GET_SECONDHAND_MARKET_DETAIL_DATA = 'GET_SECONDHAND_MARKET_DETAIL_DATA'; // 获取二手市场详情
-export const GET_RECRUIT_DETAIL_DATA = 'GET_RECRUIT_DETAIL_DATA'; // 获取招聘详情
-export const GET_REVIEW_DETAIL_DATA = 'GET_REVIEW_DETAIL_DATA'; // 获取点评详情
