@@ -19,7 +19,6 @@ import {
 } from "../../utils/PublicStyleModule";
 import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/PublicViewModule";
-import FontAwesomeIcons from "react-native-vector-icons/FontAwesome";
 import { Button, InputItem } from "antd-mobile-rn";
 import { env, AppPlatform } from "../../utils/APP_ROOT_CONFIG";
 import { ThemeButton } from "../../components/theme";

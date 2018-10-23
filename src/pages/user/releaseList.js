@@ -9,7 +9,6 @@ import {
     Text
 } from 'react-native';
 import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils/PublicStyleModule';
-import { Image } from '../../components/theme';
 import {
     BreedDogReleaseList,
     PuppyReleaseList,

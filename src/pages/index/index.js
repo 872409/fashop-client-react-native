@@ -16,8 +16,8 @@ class TabBarItem extends Component {
                 style={[
                     {
                         // tintColor:this.props.tintColor,
-                        width: 18,
-                        height: 19
+                        width: 28,
+                        height: 28
                     }
                 ]}
             />
@@ -25,7 +25,7 @@ class TabBarItem extends Component {
     }
 }
 
-export default  createBottomTabNavigator(
+export default createBottomTabNavigator(
     {
         Home: {
             screen: HomeIndex,

@@ -1,10 +1,10 @@
 module.exports = {
     brand_primary: "#FF635C",
-    brand_primary_tap: "#fe8a59",
+    brand_primary_tap: "#ff837d",
     primary_button_fill: "#FF635C",
-    primary_button_fill_tap: "#fe8a59",
+    primary_button_fill_tap: "#ff837d",
     ghost_button_color: "#FF635C",
-    ghost_button_fill_tap: "#fe8a59",
+    ghost_button_fill_tap: "#ff837d",
     button_font_size: 16,
     button_height: 44,
     list_item_height: 50,

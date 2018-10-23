@@ -22,9 +22,9 @@ export const PublicStylesString = {
 }
 
 export const ThemeStyle = {
-    ThemeColor: '#FE6E2E',                        // 主题1
-    ThemeColor2: '#FE6E2E',               // 上下导航器主题色
-    ThemeColor3: '#FFF0EA',                    // 主题1半透明
+    ThemeColor: '#FF635C',                        // 主题1
+    ThemeColor2: '#FBAF4D',                        // 主题1
+    ThemeColor3: '#ff837d',                    // 主题1半透明
     PriceColor: '#EB7641',                    // 价格主题
     ThemeSubColor : '#333',                        // 主题次黑
     ThemeBorderColor : '#e3e3e3',
@@ -220,7 +220,7 @@ export const PublicStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 44,
-        backgroundColor:ThemeStyle.ThemeColor2,
+        backgroundColor:ThemeStyle.ThemeColor,
         borderWidth: 0,
     },
     defaultBtnText:{

@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-    Image,
-    Text,
-} from "react-native";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/PublicStyleModule";
 import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
@@ -21,8 +17,8 @@ import IndexView from "../pages/index";
 
 
 // user
-// import UserLogin from "../pages/user/login";
-// import UserRegister from "../pages/user/register";
+import UserLogin from "../pages/user/login";
+import UserRegister from "../pages/user/register";
 
 
 // CardStackStyleInterpolator.forVertical
@@ -53,6 +49,15 @@ export default createStackNavigator(
             navigationOptions:({ navigation }) => {
                 const options = indexNavigationOptions({navigation})[navigation.state.routes[navigation.state.index].routeName]
                 return options
+            }
+        },
+        UserLogin: {
+            screen: UserLogin,
+        },
+        UserRegister: {
+            screen: UserRegister,
+            navigationOptions: {
+                title: '注册'
             }
         },
     }, {
