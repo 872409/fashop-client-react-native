@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { Button } from "antd-mobile-rn";
+import App from "./containers";
+import { Provider } from "react-redux";
+import store from "./store";
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class Root extends Component {
     render() {
-        return <Button style={styles.btn} type="primary">Start</Button>;
+        return <Provider store={store}>
+            <App />
+        </Provider>;
     }
 }
-
-const styles = StyleSheet.create({
-    btn: {
-        marginTop: 100
-    },
-});
 
