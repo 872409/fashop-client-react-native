@@ -45,7 +45,7 @@ export default class Avatar extends Component{
                 ]}
             >
                 <NewworkImage
-                    errImg={require('../../images/defaultAvatar-man.png')}
+                    errImg={require('../../images/default-avatar.png')}
                     style={{
                         width: size,
                         height: size,

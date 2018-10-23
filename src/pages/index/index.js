@@ -16,8 +16,8 @@ class TabBarItem extends Component {
                 style={[
                     {
                         // tintColor:this.props.tintColor,
-                        width: 28,
-                        height: 28
+                        width: 22,
+                        height: 22
                     }
                 ]}
             />
@@ -35,8 +35,8 @@ export default createBottomTabNavigator(
                     <TabBarItem
                         tintColor={tintColor}
                         focused={focused}
-                        normalImage={require("../../images/tab1.png")}
-                        selectedImage={require("../../images/tabActive1.png")}
+                        normalImage={require("../../images/tab/tab1.png")}
+                        selectedImage={require("../../images/tab/tabActive1.png")}
                     />
                 ),
             }),
@@ -49,8 +49,8 @@ export default createBottomTabNavigator(
                     <TabBarItem
                         tintColor={tintColor}
                         focused={focused}
-                        normalImage={require("../../images/tab2.png")}
-                        selectedImage={require("../../images/tabActive2.png")}
+                        normalImage={require("../../images/tab/tab2.png")}
+                        selectedImage={require("../../images/tab/tabActive2.png")}
                     />
                 ),
             }),
@@ -63,8 +63,8 @@ export default createBottomTabNavigator(
                     <TabBarItem
                         tintColor={tintColor}
                         focused={focused}
-                        normalImage={require("../../images/tab3.png")}
-                        selectedImage={require("../../images/tabActive3.png")}
+                        normalImage={require("../../images/tab/tab3.png")}
+                        selectedImage={require("../../images/tab/tabActive3.png")}
                     />
                 ),
             })
@@ -77,8 +77,8 @@ export default createBottomTabNavigator(
                     <TabBarItem
                         tintColor={tintColor}
                         focused={focused}
-                        normalImage={require("../../images/tab4.png")}
-                        selectedImage={require("../../images/tabActive4.png")}
+                        normalImage={require("../../images/tab/tab4.png")}
+                        selectedImage={require("../../images/tab/tabActive4.png")}
                     />
                 ),
             })
