@@ -45,7 +45,7 @@ export default class Home extends Component {
     render() {
         const { homeView } = this.props
         const { background_color, name, body } = homeView
-        console.log(homeView);
+        // console.log(homeView);
         return <View style={[PublicStyles.ViewMax, { backgroundColor: background_color}]}>
             <ScrollView>
                 <SafeAreaView style={styles.titleWarp}>
