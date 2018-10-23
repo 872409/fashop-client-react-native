@@ -6,7 +6,8 @@ import { env, developer } from './APP_ROOT_CONFIG';
 
 const { domain, mockDomain } = env
 
-const ROOT_URL = `${domain}/Api/`;
+const ROOT_URL = `${domain}/server/`;
+const ROOT_URL1 = `${domain}/Api/`;
 const ROOT_URL2 = `${domain}/app/`;
 const MOCK_ROOT_URL = `${mockDomain}/`;
 
@@ -20,19 +21,6 @@ const MOCK_ROOT_URL = `${mockDomain}/`;
 const girl1 = 'liujinmeng';
 
 export const API_URL = {
-	INFOSEARCH: {
-		domain: ROOT_URL,
-		apiUrl: 'info/search',
-		author: '孙泉',
-		fetchUrl: `${ROOT_URL}info/search`,
-		remark: '首页轮播',
-		method: 'GET',
-		tableName: 'ez_store',
-		needLogin: false,
-		showLoading: false,
-		developer: girl1,
-		mock: false,
-	},
 	SHOPINFO: {
 		domain: ROOT_URL,
 		apiUrl: 'shop/info',

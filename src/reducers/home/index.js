@@ -2,20 +2,20 @@ import types from '../../constants/ActionTypes';
 import { fetchStatus } from "../../utils";
 
 const initialState = {
-    // homeAdData: [],
-    // homeAdFetchStatus: fetchStatus.l,
+    // homeView: [],
+    // homeViewFetchStatus: fetchStatus.l,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case types.home.GET_HOME_AD_DATA:
+        case types.home.GET_HOME_VIEW:
             return {
                 ...{
-                    homeAdData: [],
-                    homeAdFetchStatus: fetchStatus.l,
+                    homeView: null,
+                    homeViewFetchStatus: fetchStatus.l,
                 },
-                homeAdData: action.data,
-                homeAdFetchStatus: action.fetchStatus
+                homeView: action.data,
+                homeViewFetchStatus: action.fetchStatus
             }
         default:
             return state;

@@ -29,7 +29,8 @@ const modalStyleStackNames = [
 
 const indexNavigationOptions = ({ navigation})=>({
     'Home': {
-        title:'首页',
+        header: null,
+        // title:'首页',
     },
     'Category': {
         title: '分类'
