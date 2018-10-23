@@ -74,8 +74,7 @@ const developer =  {
 const developmentConfig =  {
 
     // api域名
-    // domain : 'https://demo.fashop.cn',
-    domain : 'http://www.caoxiansheng.com',
+    domain : 'https://demo.fashop.cn',
 
     // 是否开启输出日志
     log : true,

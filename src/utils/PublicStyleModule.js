@@ -80,65 +80,39 @@ export const PublicStyles = StyleSheet.create({
     backgroundColor:{
         backgroundColor:'#F8F8F8',
     },
-    Text1:{                                     //适用于商品标题
-        color:'#333333',
-        fontSize:14,
+    boldTitle: {                                     // 适用于加粗标题
+        fontSize: 16,
+        color: '#333333',
+        fontFamily: 'PingFangSC-Medium',
     },
-    Text2:{                                     //适用于商品副标题
-        fontSize:12,
-        color:'#A1A1A1',
+    title: {                                     // 适用于普通标题
+        fontSize: 16,
+        color: '#333',
+        fontFamily: 'PingFangSC-Regular',
     },
-    Text3:{                                     //副标题颜色加深
-        fontSize:12,
-        color:'#8D8897',
+    descFour9: {                                     // 普通描述
+        fontSize: 14,
+        color: '#999',
+        fontFamily: 'PingFangSC-Regular'
     },
-    Text4:{                                     //用于距离显示，偏红色字体
-        fontSize:12,
-        color:'#8D8897',
+    descTwo6: {                                     // time 描述
+        fontSize: 12,
+        color: '#666',
+        fontFamily: 'PingFangSC-Regular'
     },
-    Text5:{                                     //很浅的灰色字体，用于商品信息
-        fontSize:11,
-        color:'#8D8897',
+    descTwoc: {                                     // time 描述
+        fontSize: 12,
+        color: '#ccc',
+        fontFamily: 'PingFangSC-Regular'
     },
-    Text6:{                                     //评价中的打分字体，颜色很黑
-        fontSize:10,
-        color:'#8D8897',
+    rowCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    Text7:{                                     //评价内容的字体，颜色黑，稍大一些,用于段落
-        fontSize:12,
-        color:'#333',
-        lineHeight:18,
-    },
-    Text8:{                                     //用于商店信息,小，黑
-        fontSize:12,
-        color:'#333',
-    },
-    Text9:{                                     //用于商店轮播标题文字
-        fontSize:17,
-        color:'#fff',
-        backgroundColor:'rgba(0,0,0,0)',
-    },
-    Text10:{                                     //用于商店轮播描述文字
-        fontSize:13,
-        color:'#fff',
-        backgroundColor:'rgba(0,0,0,0)',
-    },
-    Text11:{                                    //用于商品服务样式，小，绿
-        fontSize:10,
-        color:'#11cd6e',
-    },
-    Text12:{                                    //用于商品服务样式，小，绿
-        fontSize:12,
-        color:PublicStylesString.grayColor,
-    },
-    Text13:{                                     //适用于支付界面标题
-        fontSize:14,
-        color:'#333',
-    },
-    Text14:{                                     //适用于支付界面副标题
-        fontSize:10,
-        color:'#999',
-        marginTop:3,
+    rowBetweenCenter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     BottomButton:{
         backgroundColor:'#333',

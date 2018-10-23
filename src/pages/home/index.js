@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from "antd-mobile-rn";
 import { connect } from "react-redux";
-import { getHomeAdData } from "../../actions/home";
+// import { getHomeAdData } from "../../actions/home";
 
 @connect(({
     view: {
@@ -17,7 +17,7 @@ import { getHomeAdData } from "../../actions/home";
 }))
 export default class Home extends Component {
     componentDidMount() {
-        this.props.dispatch(getHomeAdData())
+        // this.props.dispatch(getHomeAdData())
     }
     render() {
         console.log(this.props);

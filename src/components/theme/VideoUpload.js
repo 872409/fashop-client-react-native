@@ -14,7 +14,7 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { getHeaders } from "../../utils";
 import { env } from "../../utils/APP_ROOT_CONFIG";
 import ImagePicker from "react-native-image-picker";
-import axios from "axios";
+// import axios from "axios";
 import * as Progress from "react-native-progress";
 
 export default class VideoUpload extends Component {
@@ -121,34 +121,34 @@ export default class VideoUpload extends Component {
         })
         console.log(formData);
         try{
-            const { data:e } = await axios({
-                method: 'post',
-                headers: {
-                    ...getHeaders(),
-                    'Content-Type': 'multipart/form-data',
-                },
-                url: `${env.domain}/Api/Upload/videos`,
-                data: formData,
-                onUploadProgress:  (progressEvent)=>{
-                    const progressNumber = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
-                    this.setState({
-                        progressNumber,
-                    })
-                },
-            })
-            console.log(e);
-            if(e.errcode===0){
-                this.props.onChange(e.data.url)
-                this.setState({
-                    video: e.data.url,
-                    videoLoading: false,
-                    videoUri: uri,
-                    // video_cover: e.data.url,
-                    progressNumber: 0,
-                })
-            }else{
-                Toast.info(e.errmsg)
-            }
+            // const { data:e } = await axios({
+            //     method: 'post',
+            //     headers: {
+            //         ...getHeaders(),
+            //         'Content-Type': 'multipart/form-data',
+            //     },
+            //     url: `${env.domain}/Api/Upload/videos`,
+            //     data: formData,
+            //     onUploadProgress:  (progressEvent)=>{
+            //         const progressNumber = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
+            //         this.setState({
+            //             progressNumber,
+            //         })
+            //     },
+            // })
+            // console.log(e);
+            // if(e.errcode===0){
+            //     this.props.onChange(e.data.url)
+            //     this.setState({
+            //         video: e.data.url,
+            //         videoLoading: false,
+            //         videoUri: uri,
+            //         // video_cover: e.data.url,
+            //         progressNumber: 0,
+            //     })
+            // }else{
+            //     Toast.info(e.errmsg)
+            // }
         }catch(err){
             alert(`uploadVudio error is ${err}`)
         }
