@@ -28,12 +28,11 @@ export default class Index extends Component {
                         showMarketPrice
                     }
                     switch (layout_style) {
-                        // case 1: return this.big(params);
-                        // case 2: return this.small(params);
-                        // case 3: return this.oneBigTwoSmall(params);
-                        // case 4: return this.list(params);
-                        // default: return <Text>NULL</Text>
-                        default: return this.small(params);
+                        case 1: return this.big(params);
+                        case 2: return this.small(params);
+                        case 3: return this.oneBigTwoSmall(params);
+                        case 4: return this.list(params);
+                        default: return <Text>NULL</Text>
                     }
                 })
             }
@@ -68,10 +67,10 @@ export default class Index extends Component {
                     index % 2 === 0 ? {
                         marginRight: 10,
                         width: (windowWidth - 10 - 30) / 2,
-                        marginBottom: 10
+                        marginBottom: 10,
                     } : {
                         width: (windowWidth - 10 - 30) / 2,
-                        marginBottom: 10
+                        marginBottom: 10,
                     }
                 }
             >
@@ -87,21 +86,19 @@ export default class Index extends Component {
         )
     }
     oneBigTwoSmall({item, index, showTitle, showPrice, showMarketPrice}) {
+        const width = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-30) / 2 : windowWidth-30
+        const height = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-30) / 2 : (windowWidth-30)*0.88
         return (
             <View
                 key={index}
                 onPress={() => this.pushFunc(item.id)}
                 style={{
-                    width: `${
-                        (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ?
-                            (windowWidth - 10 - 30) / 2 : windowWidth
-                        }`,
-                    marginRight: `${
-                        (index + 1) % 3 === 2 ? 10 : 0
-                        }`
+                    width,
+                    marginRight: (index + 1) % 3 === 2 ? 10 : 0,
+                    marginBottom: 10
                 }}
             >
-                <Image style={styles.smallImg} source={{uri: item.img}} />
+                <Image style={[styles.smallImg,{ width, height }]} source={{uri: item.img}} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
@@ -119,12 +116,10 @@ export default class Index extends Component {
                 key={index}
                 onPress={() => this.pushFunc(item.id)}
             >
-                <View style={styles.listImgWarp}>
-                    <Image style={styles.listImg} source={{uri: item.img}} />
-                </View>
+                <Image style={styles.listImg} source={{uri: item.img}} />
                 <View style={styles.listRight}>
                     <Text style={styles.listTitle} numberOfLines={3} >{showTitle ? item.title : ''}</Text>
-                    <View style={styles.listPrice}>
+                    <View>
                         <Text style={styles.listMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
                         <Text style={styles.listPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
@@ -143,25 +138,21 @@ const styles = StyleSheet.create({
     },
     // list
     listWarp:{
-        width: windowWidth,
+        width: windowWidth-30,
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingVertical: 10,
         borderBottomWidth: 0.5,
         borderBottomColor: '#eaeaea',
     },
-    listImgWarp:{
+    listImg:{
         width: 100,
         height: 100,
         marginRight: 10,
     },
-    listImg:{
-        // width: (windowWidth-40)/2,
-        // height: (windowWidth-40)/2,
-    },
     listRight:{
         flex: 1,
-        /* justify-content: space-around, */
+        justifyContent: 'space-around',
     },
     listTitle:{
         marginBottom: 20,
@@ -173,7 +164,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginRight: 6,
         color: '#ccc',
-        textDecorationLine: 'line-through'
+        textDecorationLine: 'line-through',
     },
     listPriceText:{
         color: ThemeStyle.ThemeColor,

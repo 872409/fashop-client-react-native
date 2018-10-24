@@ -46,11 +46,18 @@ export default class Home extends Component {
         const { homeView } = this.props
         const { background_color, name, body } = homeView
         // console.log(homeView);
-        return <View style={[PublicStyles.ViewMax, { backgroundColor: background_color}]}>
+        return <View 
+            style={[
+                PublicStyles.ViewMax, { 
+                    backgroundColor: '#f8f8f8'
+                    // backgroundColor: background_color
+                }
+            ]}
+        >
+            <SafeAreaView style={styles.titleWarp}>
+                <Text style={styles.title}>{name}</Text>
+            </SafeAreaView>
             <ScrollView>
-                <SafeAreaView style={styles.titleWarp}>
-                    <Text style={styles.title}>{name}</Text>
-                </SafeAreaView>
                 {
                     body.map((item,index)=> this.bodyItem(item,index))
                 }
@@ -59,8 +66,8 @@ export default class Home extends Component {
     }
     bodyItem(item,index){
         switch (item.type) {
-            // case "goods":
-            //     return <Goods key={index} data={item} />;
+            case "goods":
+                return <Goods key={index} data={item} />;
             case "goods_list":
                 return <GoodsList key={index} data={item} />;
             case "goods_search":

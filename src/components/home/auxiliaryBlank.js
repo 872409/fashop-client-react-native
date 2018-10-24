@@ -8,10 +8,9 @@ import {
 
 export default class Index extends Component {
     render() {
-        const { data } = this.props
-        return <View>
-            <Text>123</Text>
-        </View>
+        const { options } = this.props.data
+        const { height } = options
+        return <View style={{height}}/>
     }
 }
 

@@ -5,13 +5,20 @@ import {
     ScrollView,
     Text
 } from 'react-native';
+import { List } from "antd-mobile-rn";
+
+const Item = List.Item
 
 export default class Index extends Component {
     render() {
-        const { data } = this.props
-        return <View>
-            <Text>123</Text>
-        </View>
+        const { data } = this.props.data
+        return <List>
+            {
+                data.map((item,index)=>(
+                    <Item key={index} arrow="horizontal">{item.title}</Item>
+                ))
+            }
+        </List>
     }
 }
 
