@@ -95,6 +95,11 @@ export const PublicStyles = StyleSheet.create({
         color: '#999',
         fontFamily: 'PingFangSC-Regular'
     },
+    descTwo9: {                                     // 普通描述
+        fontSize: 12,
+        color: '#999',
+        fontFamily: 'PingFangSC-Regular'
+    },
     descTwo6: {                                     // time 描述
         fontSize: 12,
         color: '#666',

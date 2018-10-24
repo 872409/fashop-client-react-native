@@ -72,7 +72,7 @@ export const API_URL = {
 		showLoading: false,
 		tableName: 'ez_store',
 	},
-	GOODSDETAIL: {
+	GOODSINFO: {
 		domain: ROOT_URL,
 		apiUrl: 'goods/info',
 		author: '孙泉',

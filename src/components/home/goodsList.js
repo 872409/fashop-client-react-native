@@ -4,7 +4,8 @@ import {
     View,
     ScrollView,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/PublicStyleModule';
 
@@ -40,10 +41,10 @@ export default class Index extends Component {
     }
     big({item, index, showTitle, showPrice, showMarketPrice}) {
         return (
-            <View
+            <TouchableOpacity
                 key={index}
                 style={styles.bigWarp}
-                onPress={() => this.pushFunc(item.id)}
+                onPress={() => this.goDetail(item.id)}
             >
                 <Image style={styles.bigImg} source={{uri: item.img}} />
                 <View style={styles.bigBot}>
@@ -53,16 +54,15 @@ export default class Index extends Component {
                         <Text style={styles.bigPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     small({item, index, showTitle, showPrice, showMarketPrice}) {
         // const { data } = this.props;
         return (
-            <View
-                // className={styles.smallWarp}
+            <TouchableOpacity
                 key={index}
-                onPress={() => this.pushFunc(item.id)}
+                onPress={() => this.goDetail(item.id)}
                 style={
                     index % 2 === 0 ? {
                         marginRight: 10,
@@ -82,16 +82,16 @@ export default class Index extends Component {
                         <Text style={styles.smallPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     oneBigTwoSmall({item, index, showTitle, showPrice, showMarketPrice}) {
         const width = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-30) / 2 : windowWidth-30
         const height = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-30) / 2 : (windowWidth-30)*0.88
         return (
-            <View
+            <TouchableOpacity
                 key={index}
-                onPress={() => this.pushFunc(item.id)}
+                onPress={() => this.goDetail(item.id)}
                 style={{
                     width,
                     marginRight: (index + 1) % 3 === 2 ? 10 : 0,
@@ -106,15 +106,15 @@ export default class Index extends Component {
                         <Text style={styles.smallPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     list({item, index, showTitle, showPrice, showMarketPrice}) {
         return (
-            <View
-                style={styles.listWarp}
+            <TouchableOpacity
                 key={index}
-                onPress={() => this.pushFunc(item.id)}
+                style={styles.listWarp}
+                onPress={() => this.goDetail(item.id)}
             >
                 <Image style={styles.listImg} source={{uri: item.img}} />
                 <View style={styles.listRight}>
@@ -124,8 +124,13 @@ export default class Index extends Component {
                         <Text style={styles.listPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
+    }
+    goDetail(id){
+        this.props.navigation.navigate('GoodsDetail',{
+            id
+        })
     }
 }
 

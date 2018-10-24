@@ -11,7 +11,7 @@ import IndexView from "../pages/index";
 
 
 // category
-
+import GoodsDetail from "../pages/category/goodsDetail";
 
 // shopCart
 
@@ -52,6 +52,14 @@ export default createStackNavigator(
                 return options
             }
         },
+        // category
+        GoodsDetail: {
+            screen: GoodsDetail,
+            navigationOptions: {
+                title: '商品详情'
+            }
+        },
+        // user
         UserLogin: {
             screen: UserLogin,
         },

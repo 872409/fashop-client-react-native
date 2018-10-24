@@ -9,7 +9,7 @@ import {
 import Navigator from './navigator';
 import { initUserInfoStorage } from "../actions/user";
 import { NavigationActions } from 'react-navigation';
-// import { createNavigationPropConstructor } frozm 'react-navigation-redux-helpers';
+// import { createNavigationPropConstructor } from 'react-navigation-redux-helpers';
 // import FetchLoading from '../components/FetchLoading';
 
 // const navigationPropConstructor = createNavigationPropConstructor("root");
@@ -90,7 +90,7 @@ const mapStateToProps = store => {
     return {
         login: user.login,
         showBootPage: initial.showBootPage,
-        navigation: store.navigation,
+        // navigation: store.navigation,
         cityName,
     };
 };

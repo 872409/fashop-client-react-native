@@ -5,7 +5,6 @@ import {
     ScrollView,
     Text 
 } from 'react-native';
-// import { Button } from "antd-mobile-rn";
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
@@ -45,12 +44,10 @@ export default class Home extends Component {
     render() {
         const { homeView } = this.props
         const { background_color, name, body } = homeView
-        // console.log(homeView);
         return <View 
             style={[
                 PublicStyles.ViewMax, { 
-                    backgroundColor: '#f8f8f8'
-                    // backgroundColor: background_color
+                    backgroundColor: background_color
                 }
             ]}
         >
@@ -65,11 +62,12 @@ export default class Home extends Component {
         </View>
     }
     bodyItem(item,index){
+        const { navigation } = this.props;
         switch (item.type) {
             case "goods":
-                return <Goods key={index} data={item} />;
+                return <Goods key={index} data={item} navigation={navigation} />;
             case "goods_list":
-                return <GoodsList key={index} data={item} />;
+                return <GoodsList key={index} data={item} navigation={navigation} />;
             case "goods_search":
                 return <GoodsSearch key={index} data={item} />;
             case "separator":

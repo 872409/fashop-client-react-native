@@ -17,6 +17,21 @@ export default (state = initialState, action) => {
                 categoryList: action.data,
                 categoryListFetchStatus: action.fetchStatus
             }
+        case types.category.GET_GOODS_DETAIL_DATA:
+            return {
+                ...{
+                    goodsDetailData: {},
+                    goodsDetailFetchStatus: {},
+                },
+                goodsDetailData: {
+                    ...{}, 
+                    ...action.goodsDetailData
+                },
+                goodsDetailFetchStatus: {
+                    ...{}, 
+                    ...action.goodsDetailFetchStatus
+                },
+            }
         default:
             return state;
     }
