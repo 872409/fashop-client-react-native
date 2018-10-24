@@ -48,7 +48,7 @@ export const API_URL = {
 		mock: false,
 		mockFetchUrl: `${MOCK_ROOT_URL}page/portal`,
 	},
-	SORTBUTTITLE: {
+	GOODSCATEGORYLIST: {
 		apiUrl: 'goodscategory/list',
 		author: '孙泉',
 		developer: girl1,
@@ -56,7 +56,7 @@ export const API_URL = {
 		fetchUrl: `${ROOT_URL}goodscategory/list`,
 		method: 'GET',
 		needLogin: false,
-		remark: '第三分类最上面的按钮标题',
+		remark: '商品分类列表',
 		showLoading: false,
 		tableName: 'ez_store',
 	},

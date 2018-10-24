@@ -3,8 +3,7 @@ import user from "./user";
 import appInitial from "./app";
 // import navigation from "./navigation";
 import home from "./home";
-// import explore from "./explore";
-// import exploreSearch from "./explore/search";
+import category from "./category";
 // import collect from "./collect";
 import location from "./app/location";
 // import aboutus from './aboutus';
@@ -30,8 +29,7 @@ const rootReducer = combineReducers({
     // navigation,
     view: combineReducers({
         home,
-        // explore,
-        // exploreSearch,
+        category,
         // collect,
         // aboutus,
         // message,
