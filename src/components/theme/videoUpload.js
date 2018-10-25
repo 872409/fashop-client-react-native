@@ -12,7 +12,7 @@ import { Toast } from '../../utils/PublicFuncitonModule';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { getHeaders } from "../../utils";
-import { env } from "../../utils/APP_ROOT_CONFIG";
+import { env } from "../../config/APP_ROOT_CONFIG";
 import ImagePicker from "react-native-image-picker";
 // import axios from "axios";
 import * as Progress from "react-native-progress";
@@ -39,7 +39,7 @@ export default class VideoUpload extends Component {
                     videoLoading ? <View style={styles.view6}>
                         <Text style={{ color: '#333', fontSize: 14, marginBottom: 10, }}>上传进度：{progressNumber}%</Text>
                         <Progress.Bar progress={progressNumber / 100} width={300} color={ThemeStyle.ThemeColor} />
-                    </View> : 
+                    </View> :
                     video ? <ImageBackground
                         source={{ uri: 'http://tjcdpet.com/upload/video/153622216741428.mp4' }}
                         style={styles.image1}
@@ -104,10 +104,10 @@ export default class VideoUpload extends Component {
         filename = filename.replace(/ /g, '-')
         // const type = filename.split('.')[filename.split('.').length-1]
         let formData = new FormData();
-        formData.append("video", { 
-            uri, 
-            type: 'video', 
-            name: filename 
+        formData.append("video", {
+            uri,
+            type: 'video',
+            name: filename
         })
         formData.append("dog_type", 'breed_dog')
         // const e = await Fetch.formData(`${env.domain}/Api/Upload/videos`,formData)

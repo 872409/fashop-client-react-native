@@ -28,7 +28,7 @@
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "redux-thunk": "2.3.0",
-    "ws-react-native-utils": "^1.2.0"
+    "moji-react-native-utils": "^2.0.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.1.2",

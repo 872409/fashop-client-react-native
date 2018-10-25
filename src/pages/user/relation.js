@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
-import { env, AppPlatform } from '../../utils/APP_ROOT_CONFIG';
+import { env, AppPlatform } from '../../config/APP_ROOT_CONFIG';
 import { Toast } from '../../utils/PublicFuncitonModule';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
@@ -64,7 +64,7 @@ class UserRelation extends Component {
                             </Text>
                         )}
                         style={{
-                            borderBottomColor: '#eaeaea', 
+                            borderBottomColor: '#eaeaea',
                             borderBottomWidth: 0.5
                         }}
                         arrow="horizontal"

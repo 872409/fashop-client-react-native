@@ -1,19 +1,19 @@
 import { stateHoc } from 'ws-react-native-utils';
 import {
-    LoadingView,
+    Loading,
     FailureView,
-    ErrorView,
-    NullDataView,
-    LoginView,
+    Error,
+    NullData,
+    Login,
 } from '../components/fetchView';
 
 const ThisModule = (params = {})=>{
     return stateHoc(Object.assign({},{
-        LoadingView,
+        LoadingView: Loading,
         FailureView,
-        ErrorView,
-        NullDataView,
-        LoginView,
+        ErrorView: Error,
+        NullDataView: NullData,
+        LoginView: Login,
     },params))
 }
 

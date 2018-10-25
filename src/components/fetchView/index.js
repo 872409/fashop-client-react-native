@@ -1,13 +1,13 @@
-import LoadingView from './LoadingView';
+import Loading from './LoadingView';
 import FailureView from './FailureView';
-import ErrorView from './ErrorView';
-import NullDataView from './NullDataView';
-import LoginView from './LoginView';
+import Error from './ErrorView';
+import NullData from './NullDataView';
+import Login from './LoginView';
 
 export{
-    LoadingView,
+    Loading,
     FailureView,
-    ErrorView,
-    NullDataView,
-    LoginView,
+    Error,
+    NullData,
+    Login,
 }
