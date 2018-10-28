@@ -8,7 +8,7 @@ import {
     Image
 } from 'react-native';
 import { Carousel } from "antd-mobile-rn";
-import { windowWidth, ThemeStyle } from '../../utils/PublicStyleModule';
+import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class Index extends Component {
     render() {
@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
         width: windowWidth,
         height: windowWidth/2
     },
-    dotActive:{ 
-        backgroundColor: ThemeStyle.ThemeColor 
+    dotActive:{
+        backgroundColor: ThemeStyle.ThemeColor
     },
-    dot:{ 
-        marginHorizontal: 10, 
-        backgroundColor: '#fff', 
-        height: 7, 
-        width: 7 
+    dot:{
+        marginHorizontal: 10,
+        backgroundColor: '#fff',
+        height: 7,
+        width: 7
     },
 });

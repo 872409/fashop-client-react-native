@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "react-native";
-import { ThemeStyle } from "../../utils/PublicStyleModule";
+import { ThemeStyle } from "../../utils/publicStyleModule";
 import { createBottomTabNavigator } from 'react-navigation';
 
 import HomeIndex from '../home';

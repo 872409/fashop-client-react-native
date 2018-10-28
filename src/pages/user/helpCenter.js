@@ -13,7 +13,7 @@ import {
     windowWidth,
     windowHeight,
     ThemeStyle
-} from '../../utils/PublicStyleModule';
+} from '../../utils/publicStyleModule';
 import { getListHelpList } from '../../actions/user/helpCenter';
 import { Button,List } from 'antd-mobile-rn';
 import { env } from '../../config/root';

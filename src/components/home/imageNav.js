@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { windowWidth } from '../../utils/PublicStyleModule';
+import { windowWidth } from '../../utils/publicStyleModule';
 
 export default class Index extends Component {
     render() {
@@ -47,11 +47,11 @@ export default class Index extends Component {
 }
 
 const styles = StyleSheet.create({
-    list: { 
-        backgroundColor: '#fff', 
+    list: {
+        backgroundColor: '#fff',
         marginVertical: 10,
         flexDirection: 'row',
-        flexWrap: 'wrap' 
+        flexWrap: 'wrap'
     },
     item: {
         backgroundColor: '#fff',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 //     TouchableOpacity,
 //     Image
 // } from 'react-native';
-// import { windowWidth } from '../../utils/PublicStyleModule';
+// import { windowWidth } from '../../utils/publicStyleModule';
 
 // export default class Index extends Component {
 //     render() {

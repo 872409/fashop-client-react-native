@@ -14,11 +14,11 @@ import{
     Keyboard,
     ViewPropTypes
 } from 'react-native';
-import { Toast } from './PublicFuncitonModule';
-import { windowWidth, windowHeight, ThemeStyle } from './PublicStyleModule';
+import { Toast } from './publicFuncitonModule';
+import { windowWidth, windowHeight, ThemeStyle } from './publicStyleModule';
 import { Fetch } from '../utils';
 import { Button } from 'antd-mobile-rn';
-import { removeEmpty } from "./PublicFuncitonModule";
+import { removeEmpty } from "./publicFuncitonModule";
 
 
 
@@ -467,7 +467,7 @@ export class CountdownButton extends Component{
                 }, style]}
                 activeStyle={false}
             >
-                <Text 
+                <Text
                     style={[{
                         fontSize: 16,
                         color: '#999'
@@ -489,9 +489,9 @@ export class CountdownButton extends Component{
         // })
         // console.log(sms);
         // if (sms.errcode === 0) {
-            
+
         // } else {
-            
+
         // }
         // getData(e)
     }

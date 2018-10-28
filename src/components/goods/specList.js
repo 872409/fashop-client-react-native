@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { Button } from "antd-mobile-rn";
-import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/PublicStyleModule';
+import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "../../components/goods/stepper";
 
@@ -115,7 +115,7 @@ export default class GoodsSpecList extends Component{
                                                     backgroundColor: selected > -1 ? ThemeStyle.ThemeColor : '#f8f8f8',
                                                 },styles.sepcItemTouch]}
                                             >
-                                                <Text 
+                                                <Text
                                                     style={[{
                                                         color: selected > -1 ? '#fff' : '#333',
                                                     },styles.sepcItemText]}

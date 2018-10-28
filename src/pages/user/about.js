@@ -19,7 +19,7 @@ import {
      windowWidth,
      windowHeight,
      ThemeStyle
- } from '../../utils/PublicStyleModule';
+ } from '../../utils/publicStyleModule';
 
 const Item = List.Item;
 

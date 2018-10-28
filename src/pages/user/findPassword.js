@@ -8,9 +8,9 @@ import {
 	View,
 	KeyboardAvoidingView,
 } from 'react-native';
-import {Toast} from '../../utils/PublicFuncitonModule';
+import {Toast} from '../../utils/publicFuncitonModule';
 import {Fetch} from '../../utils';
-import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/PublicStyleModule';
+import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
 import {CountdownButton} from '../../utils/PublicViewModule';
 import {

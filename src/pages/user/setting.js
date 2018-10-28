@@ -11,7 +11,7 @@ import {
 import { Button, List } from 'antd-mobile-rn';
 import { userSignOut } from '../../actions/user';
 import { ThemeButton } from "../../components/theme";
-import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/PublicStyleModule'
+import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule'
 
 const Item = List.Item;
 const Brief = Item.Brief;

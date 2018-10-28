@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { 
+import {
     StyleSheet,
     Text,
     View,
     ScrollView,
     TouchableOpacity,
-    Image 
+    Image
 } from 'react-native';
-import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/PublicStyleModule";
+import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
 import { connect } from "react-redux";
 import { getCategoryList } from "../../actions/category";
 import { stateHoc } from "../../utils";
@@ -61,8 +61,8 @@ export default class Category extends Component {
             </ScrollView>
             <ScrollView style={styles.right}>
                 {
-                    !current ? this.empty({content: '请选择'}) : 
-                    current&&child.length ? this.renderRight(child) : 
+                    !current ? this.empty({content: '请选择'}) :
+                    current&&child.length ? this.renderRight(child) :
                     current&&!child.length ? this.empty({content: '当前分类为空'}) : null
                 }
             </ScrollView>

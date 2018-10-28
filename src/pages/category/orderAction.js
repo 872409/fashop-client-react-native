@@ -18,7 +18,7 @@ import { getDefaultAddress } from "../../actions/address";
 // } from "../../components/public";
 // import Address from "../../components/orderAction/Address";
 import { storageModule } from "moji-react-native-utils";
-import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/PublicStyleModule';
+import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
 
 const Item = List.Item
 

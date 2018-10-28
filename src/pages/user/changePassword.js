@@ -4,14 +4,14 @@ import {
     Text,
     View,
 } from "react-native";
-import { Toast } from "../../utils/PublicFuncitonModule";
+import { Toast } from "../../utils/publicFuncitonModule";
 import {
     PublicStyles,
     PublicStylesString,
     windowWidth,
     windowHeight,
     ThemeStyle
-} from "../../utils/PublicStyleModule";
+} from "../../utils/publicStyleModule";
 import { connect } from "react-redux";
 import {Fetch} from '../../utils';
 import { List, InputItem, Button } from "antd-mobile-rn";

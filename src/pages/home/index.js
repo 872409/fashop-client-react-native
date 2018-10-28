@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { 
+import {
     StyleSheet,
     View,
     ScrollView,
-    Text 
+    Text
 } from 'react-native';
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
 import SafeAreaView from "react-native-safe-area-view";
-import { PublicStyles } from '../../utils/PublicStyleModule';
+import { PublicStyles } from '../../utils/publicStyleModule';
 import {
     Goods,
     GoodsList,
@@ -44,9 +44,9 @@ export default class Home extends Component {
     render() {
         const { homeView } = this.props
         const { background_color, name, body } = homeView
-        return <View 
+        return <View
             style={[
-                PublicStyles.ViewMax, { 
+                PublicStyles.ViewMax, {
                     backgroundColor: background_color
                 }
             ]}

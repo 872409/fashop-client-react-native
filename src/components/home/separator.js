@@ -5,7 +5,6 @@ import {
     ScrollView,
     Text
 } from 'react-native';
-import { windowWidth } from '../../utils/PublicStyleModule';
 
 export default class Index extends Component {
     render() {

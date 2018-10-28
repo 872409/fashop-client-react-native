@@ -1,8 +1,7 @@
 import Fetch from './fetch';
 import stateHoc from "./stateHoc";
-import { Toast } from './PublicFuncitonModule';
+import { Toast } from './publicFuncitonModule';
 import { initLibraryConfig, fetchStatus, storageModule } from "moji-react-native-utils";
-// import { API_URL } from "./APP_ROOT_NETWORK_CONFIG";
 import {
     AppName,
     AppPlatform,
@@ -13,7 +12,6 @@ import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
 import { NavigationActions } from "react-navigation";
 import { userSignOut } from "../actions/user";
-
 
 initLibraryConfig({
     ToastInfo: (content) => {
@@ -68,9 +66,9 @@ initLibraryConfig({
         //     latitude,
         // } = location
         const header = {
-            'User-Id': "740",
+            'User-Id': "563",
             // 'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': "d5f9f915b0559147f30fe2976eeb70a5",
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNTMwIiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDA3NDE5MTIsImV4cCI6MTU0MTM0NjcxMn0.3VyGsPU3U-TZDsC7xBQzVbyK6n5I1tsE9BqKaEmpCJM",
             // 'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,
@@ -85,5 +83,5 @@ export {
     Fetch,
     stateHoc,
     fetchStatus,
-    storageModule,
+    storageModule
 }

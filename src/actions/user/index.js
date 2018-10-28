@@ -2,7 +2,7 @@ import types from '../../constants';
 import { Fetch } from "../../utils";
 import { fetchStatus, storageModule } from "moji-react-native-utils";
 // import { NavigationActions } from "react-navigation";
-import { Toast } from "../../utils/PublicFuncitonModule";
+import { Toast } from "../../utils/publicFuncitonModule";
 import store from "../../store";
 import { UserApi } from "../../config/api/user";
 // import { initializeSDKWithOptions, logOut } from "ws-im-react-native";
@@ -18,7 +18,7 @@ export const userLogin = ({userInfoData,func}={})=>{
     return async dispatch => {
         //整理用户信息
         const userInfo = manageUserInfo(userInfoData)
-        
+
         //设置登陆状态
         await dispatch(setUserStatus(true,userInfo))
 
@@ -243,7 +243,7 @@ const userLoginOutFunc = async({dispatch,userInfo})=>{
     // } else {
     //     Toast.warn(imData.errmsg)
     // }
-    
+
     // JPushModule.SetAlias({
     //     userInfo
     // })

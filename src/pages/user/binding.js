@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView
 } from "react-native";
-import { Toast } from "../../utils/PublicFuncitonModule";
+import { Toast } from "../../utils/publicFuncitonModule";
 import { Fetch } from "../../utils";
 import {
     PublicStyles,
@@ -16,7 +16,7 @@ import {
     windowWidth,
     windowHeight,
     ThemeStyle
-} from "../../utils/PublicStyleModule";
+} from "../../utils/publicStyleModule";
 import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/PublicViewModule";
 import { Button, InputItem } from "antd-mobile-rn";

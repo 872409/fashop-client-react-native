@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/PublicStyleModule';
+import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class Index extends Component {
     render() {

@@ -6,7 +6,7 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth } from '../../utils/PublicStyleModule';
+import { windowWidth } from '../../utils/publicStyleModule';
 
 export default class Index extends Component {
     render() {

@@ -10,13 +10,13 @@ import {
 	TouchableOpacity,
 	SafeAreaView
 } from 'react-native';
-import { Toast } from '../../utils/PublicFuncitonModule';
+import { Toast } from '../../utils/publicFuncitonModule';
 import {
 	PublicStyles,
 	windowWidth,
 	windowHeight,
 	ThemeStyle
-} from '../../utils/PublicStyleModule';
+} from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
 import { userLogin } from '../../actions/user';
 import { env } from "../../config/root";

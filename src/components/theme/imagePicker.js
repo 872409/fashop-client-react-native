@@ -6,15 +6,15 @@ import {
     Image,
     Alert
 } from 'react-native';
-import { imagePicker } from '../../utils/ImagePickerModule';
-import { ThemeStyle } from '../../utils/PublicStyleModule';
-import { Toast } from '../../utils/PublicFuncitonModule';
+import { imagePicker } from '../../utils/imagePickerModule';
+import { ThemeStyle } from '../../utils/publicStyleModule';
+import { Toast } from '../../utils/publicFuncitonModule';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default class ImagePickers extends Component {
     static defaultProps = {
-        type: 'user_avatar', 
-        onChange: ()=>{}, 
+        type: 'user_avatar',
+        onChange: ()=>{},
         max_num: 3,
         defaultValue: []
     }
@@ -29,8 +29,8 @@ export default class ImagePickers extends Component {
                 {
                     images.map((item, index) => (
                         <View style={styles.subImage} key={index}>
-                            <TouchableOpacity 
-                                style={styles.closeView} 
+                            <TouchableOpacity
+                                style={styles.closeView}
                                 activeOpacity={0.8}
                                 onPress={()=>{
                                     Alert.alert(
@@ -55,9 +55,9 @@ export default class ImagePickers extends Component {
                                 }}
                             >
                                 <Text>123</Text>
-                                {/* <Image 
-                                    style={{ height: 16, width: 16 }} 
-                                    source={require('../../images/delicon.png')} 
+                                {/* <Image
+                                    style={{ height: 16, width: 16 }}
+                                    source={require('../../images/delicon.png')}
                                 /> */}
                             </TouchableOpacity>
                             <Image source={{ uri:item }} style={{ width: 75, height: 75 }}/>
@@ -65,7 +65,7 @@ export default class ImagePickers extends Component {
                     ))
                 }
                 {
-                    images.length >= max_num ? null : 
+                    images.length >= max_num ? null :
                     <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.pickerView}

@@ -8,7 +8,7 @@ import {
     Alert,
 } from 'react-native';
 import { env, AppPlatform } from '../../config/root';
-import { Toast } from '../../utils/PublicFuncitonModule';
+import { Toast } from '../../utils/publicFuncitonModule';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
 import { connect } from "react-redux";

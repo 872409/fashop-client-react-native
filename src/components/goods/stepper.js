@@ -8,7 +8,7 @@ import {
     Image,
 } from "react-native";
 import { Toast } from "antd-mobile-rn";
-import { PublicStyles } from '../../utils/PublicStyleModule';
+import { PublicStyles } from '../../utils/publicStyleModule';
 
 export default class Stepper extends Component{
     state = {

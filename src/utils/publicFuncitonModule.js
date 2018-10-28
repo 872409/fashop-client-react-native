@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import RootSiblings from "react-native-root-siblings";
 import DropdownAlert from "react-native-dropdownalert";
-import { windowWidth, windowHeight, ThemeStyle } from './PublicStyleModule';
+import { windowWidth, windowHeight, ThemeStyle } from './publicStyleModule';
 import moment from "moment";
 // import RNFS from "react-native-fs";
 

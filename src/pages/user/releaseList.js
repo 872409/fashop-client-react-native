@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Text
 } from 'react-native';
-import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils/PublicStyleModule';
+import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils/publicStyleModule';
 import {
     BreedDogReleaseList,
     PuppyReleaseList,
@@ -98,5 +98,5 @@ export default class ReleaseList extends Component {
 
 
 const styles = StyleSheet.create({
-    
+
 })

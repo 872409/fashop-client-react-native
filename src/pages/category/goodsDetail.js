@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
 import { stateHoc } from "../../utils";
 // import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/PublicStyleModule';
+import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
 import { Carousel, Modal } from 'antd-mobile-rn'
 import {
     Goods,
@@ -229,7 +229,7 @@ export default class Index extends Component {
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <Text style={styles.price}>￥ {data.price}</Text>
-                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')}></Image>
+                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')}/>
                     </View>
                 </View>
                 <View style={[styles.titleBot,PublicStyles.rowBetweenCenter]}>
@@ -276,7 +276,7 @@ export default class Index extends Component {
                             style={styles.botItem}
                             onPress={() => { }}
                         >
-                            <Image source={require('../../images/goodsDetail/im.png')}></Image>
+                            <Image source={require('../../images/goodsDetail/im.png')}/>
                             <Text style={leftText}>客服</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -284,7 +284,7 @@ export default class Index extends Component {
                             style={styles.botItem}
                             onPress={() => { }}
                         >
-                            <Image source={require('../../images/goodsDetail/collect.png')}></Image>
+                            <Image source={require('../../images/goodsDetail/collect.png')}/>
                             <Text style={leftText}>收藏</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -292,7 +292,7 @@ export default class Index extends Component {
                             style={styles.botItem}
                             onPress={() => { }}
                         >
-                            <Image source={require('../../images/goodsDetail/cart.png')}></Image>
+                            <Image source={require('../../images/goodsDetail/cart.png')}/>
                             <Text style={leftText}>购物车</Text>
                         </TouchableOpacity>
                     </View>

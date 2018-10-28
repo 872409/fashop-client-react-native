@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { windowWidth } from '../../utils/PublicStyleModule';
+import { windowWidth } from '../../utils/publicStyleModule';
 import PropTypes from 'prop-types';
 import{
     StyleSheet,

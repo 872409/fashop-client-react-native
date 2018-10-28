@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { 
+import {
     StyleSheet,
     View,
     Text,
     Image,
-    TouchableOpacity 
+    TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-import { PublicStyles } from '../../utils/PublicStyleModule';
+import { PublicStyles } from '../../utils/publicStyleModule';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
@@ -33,7 +33,7 @@ export default class User extends Component {
         const avatar = ""
         const { navigation } = this.props
         return(
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={[PublicStyles.rowBetweenCenter,styles.topWarp]}
                 activeOpacity={.8}
                 onPress={()=>{
@@ -58,7 +58,7 @@ export default class User extends Component {
                     <Text style={PublicStyles.descFour9}>设置</Text>
                     <EntypoIcon
                         name="chevron-small-right"
-                        size={24} 
+                        size={24}
                         color="#CCCCCC"
                     />
                 </View>

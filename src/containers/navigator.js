@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { createStackNavigator } from "react-navigation";
-import { ThemeStyle } from "../utils/PublicStyleModule";
+import { ThemeStyle } from "../utils/publicStyleModule";
 import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
-// public 
+// public
 import IndexView from "../pages/index";
 
 

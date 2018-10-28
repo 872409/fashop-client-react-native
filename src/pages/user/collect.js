@@ -8,11 +8,11 @@ import {
     TouchableOpacity,
     Text
 } from 'react-native';
-import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils/PublicStyleModule';
+import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils/publicStyleModule';
 import {
     SecondHandMarketCollectList,
     RecruitCollectList,
-    ReviewCollectList, 
+    ReviewCollectList,
 } from '../../components/user/collect';
 import FeatherIcon from "react-native-vector-icons/Feather";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         height: 50
     },
     BackButton: {
-        
+
     },
     headerTitle: {
         fontSize: 17,
