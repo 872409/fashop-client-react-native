@@ -5,7 +5,8 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
@@ -120,6 +121,9 @@ export default class Index extends Component {
                     this.detail(data)
                 }
             </ScrollView>
+            <SafeAreaView>
+                
+            </SafeAreaView>
         </View>
     }
     carousel(data){
