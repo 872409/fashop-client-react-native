@@ -1,12 +1,9 @@
 import { Platform } from 'react-native';
-// import DeviceInfo from 'react-native-device-info';
-
 
 /*
  *  项目名称
 */
 const AppName =  `fashop`
-
 
 /*
  *  项目平台
@@ -42,7 +39,6 @@ const AppIcon = require('../images/logo.png')
  *  项目版本
 */
 const AppVersion = `1.0.0`
-// const AppVersion = DeviceInfo.getVersion()
 
 
 /*
@@ -50,22 +46,6 @@ const AppVersion = `1.0.0`
 */
 const AppEnv = __DEV__ ? 'debug' : 'release'
 
-
-/*
- *  项目开发者    (如果你加入了开发这个项目还没有填写个人信息的话，那么请在下面的allDeveloper中加入你的信息，并给自己起一个炫酷的id)
-*/
-const developer =  {
-    main : {                                //主要负责开发者
-        name: '刘金萌',
-        phone: 15133124782,
-    },
-    allDeveloper : {
-        liujinmeng : {
-            name : '刘金萌',
-            phone : 15133124782,
-        },
-    }
-}
 
 
 /*
@@ -91,7 +71,7 @@ const developmentConfig =  {
     dev : __DEV__,
 
     //mock域名
-    mockDomain: 'http://dsn.apizza.cc/mock/97d7f675b749b610052dadfd986f8162',
+    mockDomain: '',
 }
 
 

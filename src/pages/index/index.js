@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 
 import HomeIndex from '../home';
 import CategoryIndex from "../category";
-import ShopCartIndex from "../shopCart";
+import ShopCartIndex from "../cart";
 import UserIndex from '../user';
 
 class TabBarItem extends Component {

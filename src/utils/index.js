@@ -9,7 +9,7 @@ import {
     errorCollectApi,
     env,
     developer,
-} from "./APP_ROOT_CONFIG";
+} from "../config/APP_ROOT_CONFIG";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
 // import { NavigationActions } from "react-navigation";

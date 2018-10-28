@@ -20,7 +20,7 @@ import {
 import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/PublicViewModule";
 import { Button, InputItem } from "antd-mobile-rn";
-import { env, AppPlatform } from "../../utils/APP_ROOT_CONFIG";
+import { env, AppPlatform } from "../../config/APP_ROOT_CONFIG";
 import { ThemeButton } from "../../components/theme";
 import {updateUserInfo} from '../../actions/user';
 

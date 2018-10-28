@@ -16,7 +16,7 @@ import {
 } from '../../utils/PublicStyleModule';
 import { getListHelpList } from '../../actions/user/helpCenter';
 import { Button,List } from 'antd-mobile-rn';
-import { env } from '../../utils/APP_ROOT_CONFIG';
+import { env } from '../../config/APP_ROOT_CONFIG';
 import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
 
 const Item = List.Item;

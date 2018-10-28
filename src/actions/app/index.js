@@ -1,7 +1,7 @@
 import types from "../../constants/ActionTypes";
 import { Fetch, fetchStatus, storageModule } from "../../utils";
 import { Toast } from "../../utils/PublicFuncitonModule";
-import { AppPlatform, AppVersion } from "../../utils/APP_ROOT_CONFIG";
+import { AppPlatform, AppVersion } from "../../config/APP_ROOT_CONFIG";
 
 
 

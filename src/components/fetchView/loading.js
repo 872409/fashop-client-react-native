@@ -9,7 +9,7 @@ import{
 // import LottieView from 'lottie-react-native';
 
 
-export default class LoadingView extends Component{
+export default class Loading extends Component{
     static propTypes = {
         height : PropTypes.number,
         autoLayout : PropTypes.bool,

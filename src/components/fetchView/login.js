@@ -10,7 +10,7 @@ import{
 // import LottieView from 'lottie-react-native';
 import { Button } from 'antd-mobile-rn';
 
-export default class LoginView extends Component{
+export default class Login extends Component{
     static propTypes = {
         height : PropTypes.number,
         autoLayout : PropTypes.bool,
