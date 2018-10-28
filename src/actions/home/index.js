@@ -1,5 +1,6 @@
 import types from '../../constants';
 import { Toast } from "../../utils/PublicFuncitonModule";
+import { PageApi } from "../../config/api/page";
 import {
     Fetch,
     fetchStatus
@@ -9,7 +10,7 @@ export const getHomeView = () => {
     return async dispatch => {
         try {
             const e = await Fetch.fetch({
-                apiName: "PAGEPORTAL",
+                api: PageApi.portal,
             })
             if (e.code === 0) {
                 dispatch(updateHomeView(e.result.info, fetchStatus.s))

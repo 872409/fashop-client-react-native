@@ -3691,6 +3691,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moji-react-native-utils@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/moji-react-native-utils/-/moji-react-native-utils-2.0.2.tgz#a68e8f3613d8603b9cd22582c1b3fe4a3c8685de"
+
 moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
@@ -5627,10 +5631,6 @@ write-file-atomic@^2.1.0:
     graceful-fs "^4.1.11"
     imurmurhash "^0.1.4"
     signal-exit "^3.0.2"
-
-ws-react-native-utils@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ws-react-native-utils/-/ws-react-native-utils-1.2.0.tgz#31e05aca7a0a9abbbc970fb84d2fca304740ab35"
 
 ws@^1.1.0:
   version "1.1.5"

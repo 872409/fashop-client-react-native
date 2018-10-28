@@ -1,14 +1,14 @@
 import {
     fetchData,
-} from "ws-react-native-utils";
+} from "moji-react-native-utils";
 import {
     userSignOut,
 } from "../actions/user";
 
 export default class Fetch {
-    static fetch ({apiName, params={}}) {
+    static fetch ({api, params={}}) {
         return fetchData.fetch({
-            apiName,
+            api,
             params,
         })
         .then((e)=>{

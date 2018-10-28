@@ -1,4 +1,4 @@
-import { stateHoc } from 'ws-react-native-utils';
+import { stateHoc } from 'moji-react-native-utils';
 import {
     Loading,
     FailureView,

@@ -1,7 +1,7 @@
 import Fetch from './fetch';
 import stateHoc from "./stateHoc";
 import { Toast } from './PublicFuncitonModule';
-import { initLibraryConfigFunc, fetchStatus, storageModule } from "ws-react-native-utils";
+import { initLibraryConfig, fetchStatus, storageModule } from "moji-react-native-utils";
 // import { API_URL } from "./APP_ROOT_NETWORK_CONFIG";
 import {
     AppName,
@@ -15,7 +15,7 @@ import store from "../store";
 import { userSignOut } from "../actions/user";
 
 
-initLibraryConfigFunc({
+initLibraryConfig({
     ToastInfo: (content) => {
         Toast.info(content)
     },
@@ -26,7 +26,7 @@ initLibraryConfigFunc({
         Toast.error(content)
     },
     // API_URL,
-    getLoginFunc: () => {
+    getLogin: () => {
         const {
             user
         } = store.getState().app
@@ -35,7 +35,7 @@ initLibraryConfigFunc({
         } = user
         return login
     },
-    pushLoginFunc: () => {
+    pushLogin: () => {
         // const resetAction = NavigationActions.navigate({ routeName: 'UserLogin' })
         // store.dispatch(resetAction)
     },
@@ -45,7 +45,7 @@ initLibraryConfigFunc({
         errorCollectApi,
         env,
     },
-    removeUserInfoFunc: () => {
+    removeUserInfo: () => {
         store.dispatch(userSignOut({ exception: true }))
     },
     showLoading: () => {
@@ -54,7 +54,7 @@ initLibraryConfigFunc({
     hideLoading: () => {
         store.dispatch(setIsShowFetchLoading(false))
     },
-    getHeadersFunc: () => {
+    getHeaders: () => {
         const {
             user,
             // location,

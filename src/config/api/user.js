@@ -1,4 +1,4 @@
-import { env } from '../../root';
+import { env } from '../root';
 
 const ROOT_URL = `${env.domain}/admin/`;
 export const UserApi = {

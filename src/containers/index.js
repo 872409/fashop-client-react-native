@@ -21,7 +21,7 @@ class App extends Component {
         const {
             dispatch
         } = this.props
-        dispatch(initUserInfoStorage())
+        // dispatch(initUserInfoStorage())
     }
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
