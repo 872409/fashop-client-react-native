@@ -1,4 +1,4 @@
-import types from '../../constants/ActionTypes';
+import types from '../../constants';
 import { storageModule, Fetch } from '../../utils';
 // import { NavigationActions } from "react-navigation";
 import { Toast } from "../../utils/PublicFuncitonModule";

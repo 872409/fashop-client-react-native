@@ -1,4 +1,4 @@
-import types from '../../constants/ActionTypes';
+import types from '../../constants';
 
 const initialState = {
     longitude: null,

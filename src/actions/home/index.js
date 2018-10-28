@@ -1,4 +1,4 @@
-import types from '../../constants/ActionTypes';
+import types from '../../constants';
 import { Toast } from "../../utils/PublicFuncitonModule";
 import {
     Fetch,
