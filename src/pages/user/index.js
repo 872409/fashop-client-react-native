@@ -3,12 +3,13 @@ import {
     StyleSheet,
     View,
     Text,
-    Image 
+    Image,
+    TouchableOpacity 
 } from 'react-native';
 import { List } from "antd-mobile-rn";
 import { PublicStyles } from '../../utils/PublicStyleModule';
 import Avatar from "../../components/public/avatar";
-// import EntypoIcon from "react-native-vector-icons/Entypo";
+import EntypoIcon from "react-native-vector-icons/Entypo";
 
 const Item = List.Item
 
@@ -30,9 +31,15 @@ export default class User extends Component {
         const login = true
         const nickname = "188****8223"
         const avatar = ""
-
+        const { navigation } = this.props
         return(
-            <View style={[PublicStyles.rowBetweenCenter,styles.topWarp]}>
+            <TouchableOpacity 
+                style={[PublicStyles.rowBetweenCenter,styles.topWarp]}
+                activeOpacity={.8}
+                onPress={()=>{
+                    navigation.navigate("UserLogin")
+                }}
+            >
                 <View style={PublicStyles.rowCenter}>
                     <Avatar
                         avatar={avatar}
@@ -49,13 +56,13 @@ export default class User extends Component {
                 </View>
                 <View style={PublicStyles.rowCenter}>
                     <Text style={PublicStyles.descFour9}>设置</Text>
-                    {/* <EntypoIcon
+                    <EntypoIcon
                         name="chevron-small-right"
-                        size={20} 
+                        size={24} 
                         color="#CCCCCC"
-                    /> */}
+                    />
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
     mid(){

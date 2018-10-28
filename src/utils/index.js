@@ -68,8 +68,10 @@ initLibraryConfig({
         //     latitude,
         // } = location
         const header = {
-            'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': userInfo ? userInfo.access_token : null,
+            'User-Id': "740",
+            // 'User-Id': userInfo ? userInfo.user_id : null,
+            'Access-Token': "d5f9f915b0559147f30fe2976eeb70a5",
+            // 'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,
             // 'Longitude': longitude,

@@ -69,6 +69,9 @@ export default createStackNavigator(
         // user
         UserLogin: {
             screen: UserLogin,
+            navigationOptions: {
+                title: '登录'
+            }
         },
         UserRegister: {
             screen: UserRegister,
