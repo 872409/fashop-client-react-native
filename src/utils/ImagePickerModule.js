@@ -30,7 +30,7 @@ export const imagePicker = (callback,params={})=>{
     		 	}
     		  	Toast.info('图片上传中，请耐心等待');
     		  	Fetch.fetch({
-                    apiName: 'UPLOADIMAGESBINARY',
+                    api: 'UPLOADIMAGESBINARY',
                     params: fileParams,
                 })
     			.then((e)=>{

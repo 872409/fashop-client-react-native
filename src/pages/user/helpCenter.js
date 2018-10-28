@@ -47,7 +47,7 @@ export default class HelpCenter extends Component{
                         }
                     </Item>
                 )}
-                apiName='USERHELPSEARCH'
+                api='USERHELPSEARCH'
                 fetchParams={{
                     type_id
                 }}

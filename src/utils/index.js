@@ -11,7 +11,7 @@ import {
 } from "../config/root";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
-// import { NavigationActions } from "react-navigation";
+import { NavigationActions } from "react-navigation";
 import { userSignOut } from "../actions/user";
 
 
@@ -36,8 +36,8 @@ initLibraryConfig({
         return login
     },
     pushLogin: () => {
-        // const resetAction = NavigationActions.navigate({ routeName: 'UserLogin' })
-        // store.dispatch(resetAction)
+        const resetAction = NavigationActions.navigate({ routeName: 'UserLogin' })
+        store.dispatch(resetAction)
     },
     APP_ROOT_CONFIG: {
         AppName,

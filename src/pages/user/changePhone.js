@@ -55,7 +55,7 @@ export default class ChangePhone extends Component {
 								value={old_smscode}
 								extra={(
 									<CountdownButton
-										apiName={'SENDOLDPHONESMS'}
+										api={'SENDOLDPHONESMS'}
 										getData={(e) => {
 											if (e.errcode == 0) {
 												Toast.info('验证码已发送')
@@ -89,7 +89,7 @@ export default class ChangePhone extends Component {
 								}}
 								extra={(
 									<CountdownButton
-										apiName={'REPLACNEWPHONE'}
+										api={'REPLACNEWPHONE'}
 										getParamsFunc={() => {
 											return {
 												phone: new_phone

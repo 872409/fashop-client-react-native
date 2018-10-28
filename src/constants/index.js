@@ -2,6 +2,7 @@ import * as user from './user';
 import * as app from './app';
 import * as home from './home';
 import * as category from './category';
+import * as address from './address';
 // import * as collect from './collect';
 import * as location from './app/location';
 // import * as bussiness from './bussiness';
@@ -18,6 +19,7 @@ export default {
     app,
     home,
     category,
+    address,
     // collect,
     location,
     // bussiness,

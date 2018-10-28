@@ -1,8 +1,10 @@
 import types from '../../constants';
-import { storageModule, Fetch } from '../../utils';
+import { Fetch } from "../../utils";
+import { fetchStatus, storageModule } from "moji-react-native-utils";
 // import { NavigationActions } from "react-navigation";
 import { Toast } from "../../utils/PublicFuncitonModule";
 import store from "../../store";
+import { UserApi } from "../../config/api/user";
 // import { initializeSDKWithOptions, logOut } from "ws-im-react-native";
 // import JPushModule from "../../utils/JPushModule";
 // import {getPushSetting} from '../push'
@@ -38,7 +40,7 @@ export const userSignOut = ({func,exception}={})=>{
     return async dispatch => {
         if(!exception){
             const e = await Fetch.fetch({
-                apiName:"SENDLOGOUT"
+                api: UserApi.logout
             })
             if(e.errcode===0){
                 // Toast.info('退出成功');
@@ -108,7 +110,7 @@ export const updateUserInfo = ({callback}={})=>{
         })
 
         Fetch.fetch({
-            apiName: 'USERGETUSERINFO'
+            api: UserApi.self
         })
         .then((e) => {
             if (e.errcode === 0) {
@@ -134,7 +136,7 @@ export const updateUserInfo = ({callback}={})=>{
 export const modifyUserInfo = ({params,func=()=>{}})=>{
     return dispatch => {
         Fetch.fetch({
-            apiName: 'USEREDITPROFILE',
+            api: UserApi.editProfile,
             params
         })
         .then((e)=>{
@@ -200,7 +202,7 @@ const userLoginOutFunc = async({dispatch,userInfo})=>{
         phone:userInfo.phone,
         avatar:userInfo.avatar,
     }))
-    dispatch(getUserPointsSigninfo())
+    // dispatch(getUserPointsSigninfo())
     const {
         index,
         routes
@@ -330,92 +332,92 @@ export const updateUserInfoFunc = (e)=>{
 
 
 // 更新个人中心混合的各种状态数量
-export const getUserMixedStateNum = ()=>{
-    return dispatch => {
-        Fetch.fetch({apiName:'USERMIXEDSTATENUM'})
-        .then((e)=>{
-            if(e.errcode===0){
-                const {data} = e
-                dispatch({
-                    type : types.user.GET_USER_MIXEDSTATENUM_DATA,
-                    couponNum : data.voucher,
-                    orderNum : {
-                        order_nopay : data.order_nopay,
-                        order_nosend : data.order_nosend,
-                        order_noreceiving : data.order_noreceiving,
-                        order_noeval : data.order_noeval,
-                        order_refund : data.order_refund,
-                    }
-                })
-            }else {
-                Message.offline(e.errmsg)
-            }
-        })
-    }
-}
+// export const getUserMixedStateNum = ()=>{
+//     return dispatch => {
+//         Fetch.fetch({apiName:'USERMIXEDSTATENUM'})
+//         .then((e)=>{
+//             if(e.errcode===0){
+//                 const {data} = e
+//                 dispatch({
+//                     type : types.user.GET_USER_MIXEDSTATENUM_DATA,
+//                     couponNum : data.voucher,
+//                     orderNum : {
+//                         order_nopay : data.order_nopay,
+//                         order_nosend : data.order_nosend,
+//                         order_noreceiving : data.order_noreceiving,
+//                         order_noeval : data.order_noeval,
+//                         order_refund : data.order_refund,
+//                     }
+//                 })
+//             }else {
+//                 Message.offline(e.errmsg)
+//             }
+//         })
+//     }
+// }
 
 
 
 // 查询用户是否签到和是否领取可领积分
-export const getUserPointsSigninfo = ()=>{
-    return dispatch => {
-        Fetch.fetch({ apiName:'USERPOINTSSIGNINFO' })
-        .then((e)=>{
-            if(e.errcode===0){
-                dispatch({
-                    type: types.user.GET_USER_POINTS_SIGNINFO,
-                    pointsSigninfo : e.data,
-                })
-            }else {
-                Message.offline(e.errmsg)
-            }
-        })
-    }
-}
+// export const getUserPointsSigninfo = ()=>{
+//     return dispatch => {
+//         Fetch.fetch({ apiName:'USERPOINTSSIGNINFO' })
+//         .then((e)=>{
+//             if(e.errcode===0){
+//                 dispatch({
+//                     type: types.user.GET_USER_POINTS_SIGNINFO,
+//                     pointsSigninfo : e.data,
+//                 })
+//             }else {
+//                 Message.offline(e.errmsg)
+//             }
+//         })
+//     }
+// }
 
 
 // 更新全部未读消息
-export const getUnreadAllCount = ()=>{
-    return dispatch => {
-        Fetch.fetch({apiName:'MESSAGEUNREADALLCOUNT'})
-        .then((e)=>{
-            if(e.errcode===0){
-                dispatch({
-                    type : types.user.GET_UNREAD_ALL_COUNT,
-                    data : e.data.unread_count,
-                })
-            }else {
-                Message.offline(e.errmsg)
-            }
-        })
-    }
-}
+// export const getUnreadAllCount = ()=>{
+//     return dispatch => {
+//         Fetch.fetch({apiName:'MESSAGEUNREADALLCOUNT'})
+//         .then((e)=>{
+//             if(e.errcode===0){
+//                 dispatch({
+//                     type : types.user.GET_UNREAD_ALL_COUNT,
+//                     data : e.data.unread_count,
+//                 })
+//             }else {
+//                 Message.offline(e.errmsg)
+//             }
+//         })
+//     }
+// }
 
 
 //获得用户卡片列表
-export const getUserCardList = () =>{
-    return async dispatch => {
-        const e = await Fetch.fetch({
-            apiName: 'MANAGECARDLIST'
-        })
-        if(e.errcode===0){
-            dispatch({
-                cardList: e.list,
-                type : types.user.GET_USER_CARD_LIST,
-            })
-        }else {
-            Toast.warn(e.errmsg)
-        }
-    }
-}
+// export const getUserCardList = () =>{
+//     return async dispatch => {
+//         const e = await Fetch.fetch({
+//             apiName: 'MANAGECARDLIST'
+//         })
+//         if(e.errcode===0){
+//             dispatch({
+//                 cardList: e.list,
+//                 type : types.user.GET_USER_CARD_LIST,
+//             })
+//         }else {
+//             Toast.warn(e.errmsg)
+//         }
+//     }
+// }
 
 
 //设置未读消息数量
-export const setUnreadMessageNumber = (e) =>{
-    return dispatch => {
-        dispatch({
-            number: e,
-            type : types.user.SET_UNREAD_MESSAGE_NUMBER,
-        })
-    }
-}
+// export const setUnreadMessageNumber = (e) =>{
+//     return dispatch => {
+//         dispatch({
+//             number: e,
+//             type : types.user.SET_UNREAD_MESSAGE_NUMBER,
+//         })
+//     }
+// }

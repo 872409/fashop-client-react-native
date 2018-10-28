@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import {Fetch} from '../../utils';
 import { List, InputItem, Button } from "antd-mobile-rn";
 import { passiveModifyUserInfo } from "../../actions/user";
+import { UserApi } from "../../config/api/user";
 
 @connect(
     ({ app: { user: {
@@ -85,7 +86,7 @@ export default class UserChangePassword extends Component {
                             return Toast.warn('两次密码不一致')
                         }
                         const e = await Fetch.fetch({
-                            apiName: 'USERPASSWORDEDIT',
+                            api: UserApi.editPassword,
                             params: {
                                 oldpassword,
                                 password,

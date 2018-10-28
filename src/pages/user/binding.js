@@ -23,6 +23,7 @@ import { Button, InputItem } from "antd-mobile-rn";
 import { env, AppPlatform } from "../../config/root";
 import { ThemeButton } from "../../components/theme";
 import {updateUserInfo} from '../../actions/user';
+import { UserApi } from "../../config/api/user";
 
 @connect()
 export default class UserbindingView extends Component {
@@ -59,7 +60,7 @@ export default class UserbindingView extends Component {
                         }}
                         extra={
                             <CountdownButton
-                                apiName={"USERVERIFYREGISTERPHONE"}
+                                api={"USERVERIFYREGISTERPHONE"}
                                 getParamsFunc={() => {
                                     return {
                                         phone
@@ -134,7 +135,7 @@ export default class UserbindingView extends Component {
         const { dispatch, navigation } = this.props
         const { phone, smscode, password } = this.state
         const e = await Fetch.fetch({
-            apiName: "BINDPHONEHOME",
+            api: UserApi.bindPhone,
             params: {
                 phone,
                 smscode,

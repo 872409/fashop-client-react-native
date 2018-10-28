@@ -14,6 +14,7 @@ import { Fetch } from '../../utils';
 import { connect } from "react-redux";
 import { sendWechatAuthRequest, wechatBind } from '../../actions/app/wechat';
 import { updateUserInfo } from '../../actions/user';
+import { UserApi } from '../../config/api/user';
 
 
 
@@ -83,7 +84,7 @@ class UserRelation extends Component {
                                             onPress: async () => {
                                                 if (isBindWechat) {
                                                     const e = await Fetch.fetch({
-                                                        apiName: 'NOTBINDWEHONE',
+                                                        api: UserApi.unbindPhone,
                                                     })
                                                     if (e.errcode === 0) {
                                                         Toast.warn('解除关联成功')
@@ -142,7 +143,7 @@ class UserRelation extends Component {
                                             text: '解除关联',
                                             onPress: async () => {
                                                 if (isBindPhone) {
-                                                    const e = await Fetch.fetch({ apiName: 'USERPHONEUNBINDOPENUSER' })
+                                                    const e = await Fetch.fetch({ api: UserApi.unbindWechat })
                                                     if (e.errcode == 0) {
                                                         Toast.info('解除关联成功')
                                                         dispatch(updateUserInfo())

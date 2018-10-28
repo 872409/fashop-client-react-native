@@ -26,7 +26,7 @@ import { stateHoc } from "../../utils";
 @stateHoc()
 export default class Category extends Component {
     state = {
-        current: 709,
+        current: 0,
     }
     hocComponentDidMount() {
         this.props.dispatch(getCategoryList());

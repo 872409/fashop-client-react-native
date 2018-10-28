@@ -4,6 +4,7 @@ import appInitial from "./app";
 // import navigation from "./navigation";
 import home from "./home";
 import category from "./category";
+import address from "./address";
 // import collect from "./collect";
 import location from "./app/location";
 // import aboutus from './aboutus';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     view: combineReducers({
         home,
         category,
+        address,
         // collect,
         // aboutus,
         // message,

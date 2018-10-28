@@ -28,7 +28,7 @@ export default class Index extends Component {
                 dotActiveStyle={styles.dotActive}
                 dotStyle={styles.dot}
                 beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                afterChange={index => console.log('slide to', index)}
+                // afterChange={index => console.log('slide to', index)}
             >
                 {
                     data.map((item, i) => (

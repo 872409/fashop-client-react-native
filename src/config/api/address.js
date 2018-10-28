@@ -1,37 +1,39 @@
 import { env } from '../root';
 
 const ROOT_URL = `${env.domain}/server/`;
+
 export const AddressApi = {
     setDefault: {
         url: `${ROOT_URL}address/setDefault`,
         method: 'POST'
     },
     getDefault: {
-        url: `${host}address/default`,
-        method: 'GET'
+        url: `${ROOT_URL}address/default`,
+        method: 'GET',
+        needLogin: true
     },
     list: {
-        url: `${host}address/list`,
+        url: `${ROOT_URL}address/list`,
         method: 'GET'
     },
     info: {
-        url: `${host}address/info`,
+        url: `${ROOT_URL}address/info`,
         method: 'GET'
     },
     add: {
-        url: `${host}address/add`,
+        url: `${ROOT_URL}address/add`,
         method: 'POST'
     },
     edit: {
-        url: `${host}address/edit`,
+        url: `${ROOT_URL}address/edit`,
         method: 'POST'
     },
     del: {
-        url: `${host}address/del`,
+        url: `${ROOT_URL}address/del`,
         method: 'POST'
     },
     types: {
-        url: `${host}address/types`,
+        url: `${ROOT_URL}address/types`,
         method: 'GET'
     },
 }

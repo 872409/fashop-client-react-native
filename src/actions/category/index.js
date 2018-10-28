@@ -1,5 +1,7 @@
 import types from '../../constants';
 import { Toast } from "../../utils/PublicFuncitonModule";
+import { GoodsCategoryApi } from "../../config/api/goodsCategory";
+import { GoodsApi } from "../../config/api/goods";
 import {
     Fetch,
     fetchStatus
@@ -9,7 +11,7 @@ export const getCategoryList = () => {
     return async dispatch => {
         try {
             const e = await Fetch.fetch({
-                apiName: "GOODSCATEGORYLIST",
+                api: GoodsCategoryApi.list,
             })
             if (e.code === 0) {
                 dispatch(updateCategoryList(e.result.list, fetchStatus.s))
@@ -38,7 +40,7 @@ export const getGoodsDetail = ({ params, fetchStatus: f }) => {
         }
         try {
             const e = await Fetch.fetch({
-                apiName: "GOODSINFO",
+                api: GoodsApi.info,
                 params
             })
             if (e.code === 0) {

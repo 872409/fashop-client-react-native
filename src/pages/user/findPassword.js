@@ -16,6 +16,7 @@ import {CountdownButton} from '../../utils/PublicViewModule';
 import {
 	Button,
 } from 'antd-mobile-rn';
+import { UserApi } from '../../config/api/user';
 
 
 class UserFindPassword extends Component{
@@ -54,7 +55,7 @@ class UserFindPassword extends Component{
 						underlineColorAndroid={'transparent'}
 					/>
 					<CountdownButton
-						apiName = {'USERVERIFYFINDPASSWORDPHONE'}
+						api = {'USERVERIFYFINDPASSWORDPHONE'}
 						getParamsFunc = {()=>{
 							return {
 								phone: this.state.phone
@@ -99,7 +100,7 @@ class UserFindPassword extends Component{
 							return Toast.warn('请输入新密码')
 						}
 						const e = await Fetch.fetch({
-							apiName: 'USERFINDPASSWORD',
+							api: UserApi.findPassword,
 							params: {
 								phone : this.state.phone,
 								smscode : this.state.smscode,

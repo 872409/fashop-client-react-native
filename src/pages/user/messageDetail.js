@@ -24,7 +24,7 @@ export default class messagDtail extends Component{
                         data={data.item}
                     />
                 )}
-                apiName='MESSAGESEARCH'
+                api='MESSAGESEARCH'
                 fetchParams={{type_id}}
                 ListEmptyComponent={()=>(
                     <ListEmptyView

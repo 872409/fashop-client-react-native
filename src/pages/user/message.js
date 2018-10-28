@@ -30,7 +30,7 @@ export default class MessageData extends Component{
                             data={data.item}
                         />
                     )}
-                    apiName='MESSAGESEARCH'
+                    api='MESSAGESEARCH'
                     fetchParams={{
                         type_id: 1
                     }}

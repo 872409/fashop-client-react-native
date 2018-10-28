@@ -84,14 +84,14 @@ export class ListView extends Component{
             fetchParams
         } = this.state
         const {
-            apiName
+            api
         } = this.props
         if(this.state.fetchAllow){
             this.state.fetchAllow = false
             try {
                 const e = await Fetch.fetch({
-                    apiName,
-                    params:fetchParams
+                    api,
+                    params: fetchParams
                 })
                 // console.log(e);
                 if(e.errcode===0){
@@ -383,7 +383,7 @@ export class CountdownButton extends Component{
         getData : PropTypes.func,
         getParamsFunc  : PropTypes.func,
         text : PropTypes.string,
-        apiName : PropTypes.string,
+        api : PropTypes.string,
         style: ViewPropTypes.style,
         textStyle: Text.propTypes.style,
     };
@@ -393,7 +393,7 @@ export class CountdownButton extends Component{
         },
         getParamsFunc : ()=>{return{}},
         text : '获取验证码',
-        apiName : 'NULL',
+        api : 'NULL',
         style:{},
         textStyle:{},
     };
@@ -428,7 +428,7 @@ export class CountdownButton extends Component{
     }
     render(){
         const {
-            apiName,
+            api,
             getParamsFunc,
             style,
             textStyle,
@@ -443,7 +443,7 @@ export class CountdownButton extends Component{
                         ready : false
                     })
                     const e = await Fetch.fetch({
-                        apiName,
+                        api,
                         params,
                     })
                     if(e.errcode===0){
@@ -485,7 +485,7 @@ export class CountdownButton extends Component{
             getData
         } = this.props
         // const sms = await Fetch.fetch({
-        //     apiName: 'USERSMSLIST',
+        //     api: 'USERSMSLIST',
         // })
         // console.log(sms);
         // if (sms.errcode === 0) {

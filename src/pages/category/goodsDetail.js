@@ -13,7 +13,7 @@ import { getGoodsDetail } from "../../actions/category";
 import { stateHoc } from "../../utils";
 // import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/PublicStyleModule';
-import { Carousel } from 'antd-mobile-rn'
+import { Carousel, Modal } from 'antd-mobile-rn'
 import {
     Goods,
     Separator,
@@ -21,6 +21,7 @@ import {
     Video,
     BodyText
 } from '../../components/body'
+import SpecList from '../../components/goods/specList'
 
 @connect(({
     view: {
@@ -37,6 +38,21 @@ import {
     detail: true,
 })
 export default class Index extends Component {
+    state = {
+        specVisible: false,
+        if_cart: -1,
+        currentSpec: {
+            stock: '-',
+            price: '-',
+            selectNum: 1,
+            spec: [{
+                id: 0,
+                name: '-',
+                value_id: 0,
+                value_name: '-',
+            }]
+        },
+    }
     hocComponentDidMount() {
         const {
             navigation,
@@ -56,10 +72,11 @@ export default class Index extends Component {
         return this.props.navigation.state.params.id
     }
     render() {
+        const { specVisible, if_cart, currentSpec } = this.state;
         const { navigation } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
-        console.log(data);
+        // console.log(data);
         // const tabList = [
         //     {
         //         render: () => this.goods(),
@@ -121,10 +138,54 @@ export default class Index extends Component {
                     this.detail(data)
                 }
             </ScrollView>
-            <SafeAreaView>
-                
-            </SafeAreaView>
+            {
+                this.botView()
+            }
+            <Modal
+                // title={(
+                //     <View style={styles.popModalTitleView}>
+                //         <View style={styles.popModalTitleLeft} />
+                //         <View style={styles.popModalTitleTight}>
+                //             <Text style={[styles.popModalTitleTightP]}> ¥{currentSpec.price}</Text>
+                //             <Text style={[PublicStyles.descTwo9]}>
+                //                 已选：
+                //                 {
+                //                     currentSpec.spec.map((item) => {
+                //                         return `${item.value_name} `;
+                //                     })
+                //                 }
+                //             </Text>
+                //         </View>
+                //     </View>
+                // )}
+                closable={true}
+                popup={true}
+                visible={specVisible}
+                onClose={() => {
+                    this.setState({
+                        specVisible: false
+                    })
+                }}
+                animationType="slide-up"
+            >
+                <SpecList
+                    navigation={navigation}
+                    if_cart={if_cart}
+                    data={data}
+                    skuList={data.sku_list ? data.sku_list : []}
+                    specList={data.spec_list ? data.spec_list : []}
+                    changeCurrentSpec={this.changeCurrentSpec}
+                    currentSpec={currentSpec}
+                    closeModal={this.closeModal}
+                />
+            </Modal>
         </View>
+    }
+    changeCurrentSpec = (currentSpec) => {
+        this.setState({ currentSpec });
+    }
+    closeModal = () => {
+        this.setState({ specVisible: false });
     }
     carousel(data){
         return(
@@ -134,7 +195,7 @@ export default class Index extends Component {
                 dotActiveStyle={styles.dotActive}
                 dotStyle={styles.dot}
                 beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                afterChange={index => console.log('slide to', index)}
+                // afterChange={index => console.log('slide to', index)}
             >
                 {
                     data.map((item, i) => (
@@ -204,6 +265,67 @@ export default class Index extends Component {
             </View>
         )
     }
+    botView(){
+        const leftText = [PublicStyles.descTwo9,{fontSize: 10, marginTop: 6}]
+        return(
+            <SafeAreaView style={{backgroundColor: '#fff'}}>
+                <View style={styles.bot}>
+                    <View style={[PublicStyles.rowCenter,styles.botLeft]}>
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            style={styles.botItem}
+                            onPress={() => { }}
+                        >
+                            <Image source={require('../../images/goodsDetail/im.png')}></Image>
+                            <Text style={leftText}>客服</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            style={styles.botItem}
+                            onPress={() => { }}
+                        >
+                            <Image source={require('../../images/goodsDetail/collect.png')}></Image>
+                            <Text style={leftText}>收藏</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            style={styles.botItem}
+                            onPress={() => { }}
+                        >
+                            <Image source={require('../../images/goodsDetail/cart.png')}></Image>
+                            <Text style={leftText}>购物车</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.botRight]}>
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            style={[styles.botItem,{backgroundColor: ThemeStyle.ThemeColor2}]}
+                            onPress={() => {
+                                this.setState({
+                                    specVisible: true,
+                                    if_cart: 1
+                                })
+                            }}
+                        >
+                            <Text style={[PublicStyles.title,{color: '#fff'}]}>加入购物车</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            style={[styles.botItem,{backgroundColor: ThemeStyle.ThemeColor}]}
+                            onPress={() => {
+                                this.setState({
+                                    specVisible: true,
+                                    if_cart: 0
+                                })
+                            }}
+                        >
+                            <Text style={[PublicStyles.title,{color: '#fff'}]}>立即购买</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </SafeAreaView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -243,5 +365,43 @@ const styles = StyleSheet.create({
     },
     detailTitle: {
         padding: 15
-    }
+    },
+    bot: {
+        flexDirection: 'row',
+        height: 50
+    },
+    botLeft: {
+        flexDirection: 'row',
+        width: windowWidth*0.41
+    },
+    botRight: {
+        flexDirection: 'row',
+        flex: 1
+    },
+    botItem:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    popModalTitleView:{
+        height: 45,
+    },
+    popModalTitleLeft:{
+        width: 90,
+        height: 90,
+        borderRadius: 3,
+        // boxShadow: "5 0 10 rgba(0,0,0,0.07)",
+        backgroundColor: '#fff',
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 100
+    },
+    popModalTitleTight:{
+        alignItems: 'flex-start',
+        marginLeft: 105,
+    },
+    popModalTitleTightP:{
+        fontSize: 18,
+        color: ThemeStyle.ThemeColor,
+    },
 });
