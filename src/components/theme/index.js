@@ -1,8 +1,8 @@
-import ThemeButton from './ThemeButton'
-import HeaderButton from './HeaderButton'
-import Image from './Image'
-import ImagePicker from "./ImagePicker";
-import VideoUpload from "./VideoUpload";
+import ThemeButton from './themeButton'
+import HeaderButton from './headerButton'
+import Image from './image'
+import ImagePicker from "./imagePicker";
+import VideoUpload from "./videoUpload";
 
 export {
     ThemeButton,

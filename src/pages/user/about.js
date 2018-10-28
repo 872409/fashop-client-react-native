@@ -7,13 +7,13 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import { env } from '../../config/APP_ROOT_CONFIG';
+import { env } from '../../config/root';
 import { List } from 'antd-mobile-rn';
 import {
     AppName,
     AppIcon,
     AppVersion,
- } from "../../config/APP_ROOT_CONFIG";
+ } from "../../config/root";
  import {
      PublicStyles,
      windowWidth,

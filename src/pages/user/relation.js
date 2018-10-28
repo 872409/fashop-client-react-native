@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
-import { env, AppPlatform } from '../../config/APP_ROOT_CONFIG';
+import { env, AppPlatform } from '../../config/root';
 import { Toast } from '../../utils/PublicFuncitonModule';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';

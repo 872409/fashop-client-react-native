@@ -1,8 +1,8 @@
-import Loading from './LoadingView';
-import FailureView from './FailureView';
-import Error from './ErrorView';
-import NullData from './NullDataView';
-import Login from './LoginView';
+import Loading from './loading';
+import FailureView from './failure';
+import Error from './error';
+import NullData from './nullData';
+import Login from './login';
 
 export{
     Loading,

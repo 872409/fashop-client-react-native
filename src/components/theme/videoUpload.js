@@ -12,7 +12,7 @@ import { Toast } from '../../utils/PublicFuncitonModule';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { getHeaders } from "../../utils";
-import { env } from "../../config/APP_ROOT_CONFIG";
+import { env } from "../../config/root";
 import ImagePicker from "react-native-image-picker";
 // import axios from "axios";
 import * as Progress from "react-native-progress";

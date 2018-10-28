@@ -2,14 +2,13 @@ import Fetch from './fetch';
 import stateHoc from "./stateHoc";
 import { Toast } from './PublicFuncitonModule';
 import { initLibraryConfigFunc, fetchStatus, storageModule } from "ws-react-native-utils";
-import { API_URL } from "./APP_ROOT_NETWORK_CONFIG";
+// import { API_URL } from "./APP_ROOT_NETWORK_CONFIG";
 import {
     AppName,
     AppPlatform,
     errorCollectApi,
     env,
-    developer,
-} from "../config/APP_ROOT_CONFIG";
+} from "../config/root";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
 // import { NavigationActions } from "react-navigation";
@@ -26,7 +25,7 @@ initLibraryConfigFunc({
     ToastWarn: (content) => {
         Toast.error(content)
     },
-    API_URL,
+    // API_URL,
     getLoginFunc: () => {
         const {
             user
@@ -45,7 +44,6 @@ initLibraryConfigFunc({
         AppPlatform,
         errorCollectApi,
         env,
-        developer,
     },
     removeUserInfoFunc: () => {
         store.dispatch(userSignOut({ exception: true }))

@@ -141,6 +141,5 @@ export {
     developmentConfig,
     productionConfig,
     env,
-    developer,
     mobileWebDomain,
 }
