@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import { windowWidth } from "../../utils/publicStyleModule";
+import { StyleSheet, View } from 'react-native';
+import { windowWidth,windowHeight } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
 import CartItem from "../../components/cart/item";
-import { list as list1 } from "../../actions/cart";
 import * as cartModel from "../../actions/cart";
+import { ListView, ListEmptyView } from "../../utils/publicViewModule";
 import { CartApi } from "../../config/api/cart";
-import { Fetch } from '../../utils';
 
 export default class Cart extends Component {
     state = {
@@ -178,7 +177,7 @@ export default class Cart extends Component {
         let totalNum = 0
         let checkedGoodsSkuInfoIds = []
         let checkedCartIds = []
-        const result = await  cartModel.list()
+        const result = await cartModel.list()
         if (result.list) {
 
             const cartList = result.list
@@ -300,26 +299,41 @@ export default class Cart extends Component {
     }
 
     render() {
-        const { cartList} = this.state
+        const { cartList } = this.state
         return <View style={styles.page}>
-            {
-               Array.isArray(cartList) && cartList.length >0 &&  cartList.map((item,index)=> <CartItem
-                   key={index}
-                   title={item.goods_title}
-                   price={item.goods_price}
-                   spec={'0.5kg；长款；红色'}
-                   cover={item.goods_sku_img}
-                   checked={!!item.is_check}
-                   number={item.goods_num}
-                   onCheckboxClick={(e) => {
-                       this.initCartList()
-                       console.warn(e)
-                   }}
-                   onStepperChange={(e) => {
-                       console.warn(e)
-                   }}
-               />)
-            }
+            <ListView
+                // ref={e => this.ListView = e}
+                keyExtractor={e => String(e.id)}
+                renderItem={({ item }) => (
+                    <CartItem
+                        title={item.goods_title}
+                        price={item.goods_price}
+                        spec={'0.5kg；长款；红色'}
+                        cover={item.goods_sku_img}
+                        checked={!!item.is_check}
+                        number={item.goods_num}
+                        onCheckboxClick={(e) => {
+                            this.initCartList()
+                            console.warn(e)
+                        }}
+                        onStepperChange={(e) => {
+                            console.warn(e)
+                        }}
+                    />
+
+                )}
+                api={CartApi.list}
+                ListEmptyComponent={() => (
+                    <ListEmptyView
+                        height={windowHeight - 80}
+                        uri={require('../../images/fetchStatus/nullData.png')}
+                        desc='暂时没有相关信息'
+                    />
+                )}
+                getNativeData={(e) => {
+                    console.log(e);
+                }}
+            />
         </View>
     }
 }
