@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { windowWidth,windowHeight } from "../../utils/publicStyleModule";
+import { windowWidth,windowHeight, PublicStyles } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
 import CartItem from "../../components/cart/item";
 import * as cartModel from "../../actions/cart";
@@ -300,7 +300,7 @@ export default class Cart extends Component {
 
     render() {
         const { cartList } = this.state
-        return <View style={styles.page}>
+        return <View style={PublicStyles.ViewMax}>
             <ListView
                 // ref={e => this.ListView = e}
                 keyExtractor={e => String(e.id)}
