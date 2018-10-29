@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     cartCard: {
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     cartCardTitleSpec: {
+        // flex: 1
         width: windowWidth - 30 - 16 - 15 - 75 - 10,
     },
     cartCardTitle: {
