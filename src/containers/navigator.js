@@ -1,25 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/publicStyleModule";
 import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-
 // public
 import IndexView from "../pages/index";
+// category
+import GoodsDetail from "../pages/category/goodsDetail";
+import OrderAction from "../pages/category/orderAction";
+// user
+import UserLogin from "../pages/user/login";
+import UserRegister from "../pages/user/register";
 
 
 // home
 
-
-// category
-import GoodsDetail from "../pages/category/goodsDetail";
-import OrderAction from "../pages/category/orderAction";
-
 // shopCart
-
-
-// user
-import UserLogin from "../pages/user/login";
-import UserRegister from "../pages/user/register";
 
 
 // CardStackStyleInterpolator.forVertical
@@ -28,7 +23,7 @@ const modalStyleStackNames = [
 ]
 
 
-const indexNavigationOptions = ({ navigation})=>({
+const indexNavigationOptions = ({ navigation }) => ({
     'Home': {
         header: null,
         // title:'首页',
@@ -48,9 +43,8 @@ export default createStackNavigator(
     {
         IndexView: {
             screen: IndexView,
-            navigationOptions:({ navigation }) => {
-                const options = indexNavigationOptions({navigation})[navigation.state.routes[navigation.state.index].routeName]
-                return options
+            navigationOptions: ({ navigation }) => {
+                return indexNavigationOptions({ navigation })[navigation.state.routes[navigation.state.index].routeName]
             }
         },
         // category
@@ -79,16 +73,17 @@ export default createStackNavigator(
                 title: '注册'
             }
         },
-    }, {
-        navigationOptions: ({ navigation })=>({
-            headerTintColor: ThemeStyle.ThemeColor,
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            // headerTintColor: ThemeStyle.ThemeColor,
             headerBackTitle: null,
-            gesturesEnabled : true,
-            headerStyle : {
+            gesturesEnabled: true,
+            headerStyle: {
                 backgroundColor: "#fff",
                 elevation: 0,//去掉安卓阴影
-                borderBottomWidth:0.5,
-                borderBottomColor:'#dcdcdc',
+                borderBottomWidth: 0.5,
+                borderBottomColor: '#dcdcdc',
             },
             headerTintColor: '#000',
         }),
@@ -102,11 +97,11 @@ export default createStackNavigator(
         //         headerMode: 'screen',
         //     },
         // }),
-        transitionConfig:(e) => ({
+        transitionConfig: (e) => ({
             screenInterpolator: (sceneProps) => {
                 const { scene } = sceneProps;
                 const { route } = scene;
-                if(modalStyleStackNames.includes(route.routeName)){
+                if (modalStyleStackNames.includes(route.routeName)) {
                     return CardStackStyleInterpolator.forVertical(sceneProps);
                 }
                 return CardStackStyleInterpolator.forHorizontal(sceneProps);

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { windowWidth,windowHeight, PublicStyles } from "../../utils/publicStyleModule";
+import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native';
+import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
 import CartItem from "../../components/cart/item";
 import * as cartModel from "../../actions/cart";
-import { ListView, ListEmptyView } from "../../utils/publicViewModule";
-import { CartApi } from "../../config/api/cart";
+import CartLogic from "../../logics/cart";
 
 export default class Cart extends Component {
     state = {
+        refreshing: true,
         cartListLoadedState: false,
         onLoaded: false,
         goodsId: null,
@@ -29,6 +29,68 @@ export default class Cart extends Component {
         checkedCartIds: [],
         allChecked: false,
         userInfo: null,
+    }
+
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus',
+            async () => {
+                await this.initCartList()
+            }
+        );
+    }
+
+    renderInit() {
+        return this.renderCartList()
+    }
+
+    renderCartList() {
+        const { cartList } = this.state
+        return <View>
+            {Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
+                <CartItem
+                    key={index}
+                    title={item.goods_title}
+                    price={item.goods_price}
+                    spec={'0.5kg；长款；红色'}
+                    cover={item.goods_sku_img}
+                    checked={item.is_check === 1}
+                    number={item.goods_num}
+                    onCheckboxClick={(value) => {
+                        this.onChecked(item,value,index)
+                    }}
+                    onStepperChange={(value) => {
+                        this.onStepperChange(item,value,index)
+                    }}
+                />
+            )) : null}
+        </View>
+    }
+
+    render() {
+        const { refreshing } = this.state
+        return <View style={PublicStyles.ViewMax}>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        colors={['#fff']}
+                        progressBackgroundColor={ThemeStyle.ThemeColor}
+                        tintColor={ThemeStyle.ThemeColor}
+                        titleColor={ThemeStyle.ThemeColor}
+                        title="加载中..."
+                    />
+                }
+                onScroll={() => {
+
+                }}
+                scrollEventThrottle={50}
+            >
+                {
+                    this.renderInit()
+                }
+            </ScrollView>
+        </View>
     }
 
     async onRemove() {
@@ -60,12 +122,25 @@ export default class Cart extends Component {
         this.initCartList()
     }
 
-    async onChecked(e) {
-        await cartModel.check({
-            goods_sku_ids: [e.currentTarget.dataset.goodsSkuId],
-            is_check: fa.inArray(this.state.cartList[e.currentTarget.dataset.index].goods_sku_id, this.state.checkedGoodsSkuInfoIds) ? 0 : 1,
-        })
+    async onChecked(item,value,index) {
+        await cartModel.check({params:{
+                goods_sku_ids: [item.goods_sku_id],
+                is_check: item.is_check === 1 ? 0 : 1,
+            }})
         this.initCartList()
+    }
+
+    async onStepperChange(item,number,index) {
+        const goods_sku_id = item.goods_sku_id
+        const cartLogic = new CartLogic()
+        const result = await cartLogic.save(goods_sku_id, number)
+        if (result !== false) {
+            this.initCartList()
+        } else {
+            // fa.toast.show({
+            //     title: fa.code.parse(cartLogic.cartModel.getException().getCode())
+            // })
+        }
     }
 
     async onAllChecked() {
@@ -121,55 +196,13 @@ export default class Cart extends Component {
         // })
     }
 
-    async login() {
-        // const self = this
-        // const loginLogic = new LoginLogic({
-        //     success: function (result) {
-        //         if (result.code === 1) {
-        //             self.setState({
-        //                 userInfo: fa.cache.get('user_info')
-        //             })
-        //         }
-        //     }
-        // })
-        // await loginLogic.wechatLogin()
-        // this.init()
+
+
+
+    componentWillUnmount() {
+        console.warn('xxxxxxxx')
     }
 
-    async onPullDownRefresh() {
-        await cartModel.list()
-        // wx.stopPullDownRefresh()
-    }
-
-    async inCartNumberChange(e) {
-        const goods_sku_id = this.state.cartList[e.detail.index].goods_sku_id
-        const number = e.detail.number
-
-        const cartLogic = new CartLogic()
-        const result = await cartLogic.save(goods_sku_id, number)
-        if (result !== false) {
-            this.initCartList()
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(cartLogic.cartModel.getException().getCode())
-            })
-        }
-    }
-
-    componentDidMount() {
-        this.initCartList()
-    }
-
-    async init() {
-        // const user_info = fa.cache.get('user_info')
-        // this.setState({
-        //     userInfo: user_info ? user_info : null,
-        //     onLoaded: true
-        // })
-        // if (fa.cache.get('user_info')) {
-        //     await this.initCartList()
-        // }
-    }
 
     async initCartList() {
         // 计算金额
@@ -179,7 +212,6 @@ export default class Cart extends Component {
         let checkedCartIds = []
         const result = await cartModel.list()
         if (result.list) {
-
             const cartList = result.list
             for (let i = 0; i < cartList.length; i++) {
 
@@ -194,23 +226,19 @@ export default class Cart extends Component {
                     total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num
                     totalNum += cartList[i].goods_num
                 }
-                if (fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds)) {
-                    cartList[i]['remove_checked'] = true
-                } else {
-                    cartList[i]['remove_checked'] = false
-                }
+                cartList[i]['remove_checked'] = fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds);
 
             }
-
             total = total.toFixed(2)
-
+            console.log(cartList)
             this.setState({
                 cartListLoadedState: true,
                 checkedCartIds,
                 checkedGoodsSkuInfoIds,
                 total,
                 totalNum,
-                cartList
+                cartList,
+                refreshing: false
             })
         } else {
             fa.toast.show({
@@ -242,12 +270,6 @@ export default class Cart extends Component {
                 title: fa.code.parse(goodsModel.getException().getCode())
             })
         }
-    }
-
-    onStepperChange(e) {
-        this.setState({
-            stepper: e.detail
-        })
     }
 
     async onGoodsSkuMatchSuccess(e) {
@@ -298,44 +320,6 @@ export default class Cart extends Component {
         }
     }
 
-    render() {
-        const { cartList } = this.state
-        return <View style={PublicStyles.ViewMax}>
-            <ListView
-                // ref={e => this.ListView = e}
-                keyExtractor={e => String(e.id)}
-                renderItem={({ item }) => (
-                    <CartItem
-                        title={item.goods_title}
-                        price={item.goods_price}
-                        spec={'0.5kg；长款；红色'}
-                        cover={item.goods_sku_img}
-                        checked={!!item.is_check}
-                        number={item.goods_num}
-                        onCheckboxClick={(e) => {
-                            this.initCartList()
-                            console.warn(e)
-                        }}
-                        onStepperChange={(e) => {
-                            console.warn(e)
-                        }}
-                    />
-
-                )}
-                api={CartApi.list}
-                ListEmptyComponent={() => (
-                    <ListEmptyView
-                        height={windowHeight - 80}
-                        uri={require('../../images/fetchStatus/nullData.png')}
-                        desc='暂时没有相关信息'
-                    />
-                )}
-                getNativeData={(e) => {
-                    console.log(e);
-                }}
-            />
-        </View>
-    }
 }
 // 占位图，登陆提示
 const styles = StyleSheet.create({

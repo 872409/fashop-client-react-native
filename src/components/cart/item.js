@@ -8,7 +8,7 @@ export default class CartItem extends Component {
         super(props, context);
         this.state = {
             checked: props.checked || props.defaultChecked || false,
-            title: props.checked || '',
+            title: props.title || '',
             spec: props.spec || '',
             price: props.price || 0,
             number: props.number || 1,
@@ -17,7 +17,7 @@ export default class CartItem extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (typeof nextProps.checked === true) {
+        if ( nextProps.checked === true) {
             this.setState({
                 checked: !!nextProps.checked,
             });

@@ -12,13 +12,14 @@ export default class Fetch {
             params,
         })
         .then((e)=>{
-            switch (e.errcode) {
+            switch (e.code) {
                 case -999:
                     store.dispatch(userSignOut())
                     break;
                 default:
                     break;
             }
+            console.log(api,params,e)
             return e
         })
     }
