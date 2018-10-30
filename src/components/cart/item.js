@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, TouchableWithoutFeedback } from 'react-native';
 import { Stepper } from "antd-mobile-rn";
 import { windowWidth } from "../../utils/publicStyleModule";
+import CartCheckbox from "./checkbox"
 
 export default class CartItem extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            checked: props.checked || props.defaultChecked || false,
+            checked: props.checked || false,
             title: props.title || '',
             spec: props.spec || '',
             price: props.price || 0,
             number: props.number || 1,
-            cover:props.cover || '',
+            cover: props.cover || '',
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if ( nextProps.checked === true) {
+        if (nextProps.checked !== this.state.checked) {
             this.setState({
                 checked: !!nextProps.checked,
             });
@@ -46,13 +47,10 @@ export default class CartItem extends Component {
 
     render() {
         const checked = this.state.checked;
-        const {title,price,spec,number,cover} = this.props
+        const { title, price, spec, number, cover } = this.props
         let imgSrc;
-        imgSrc = checked ? require('../../images/cart/checked.png') : require('../../images/cart/check.png');
         return <View style={styles.cartCardItem}>
-            <TouchableWithoutFeedback onPress={this.onCheckboxClick}>
-                <Image style={styles.cartCardCheck} source={imgSrc} />
-            </TouchableWithoutFeedback>
+            <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck}/>
             <View style={styles.cartCard}>
                 <Image style={styles.cartCardImage}
                        source={{ uri: cover }} />

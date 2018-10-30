@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native';
-import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
+import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
+import { windowWidth, PublicStyles, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
+import { Button, SwipeAction } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";
+import CartCheckbox from "../../components/cart/checkbox";
+import CartEmpty from "../../components/cart/empty";
 import CartModel from "../../models/cart";
 import CartLogic from "../../logics/cart";
+
 const cartModel = new CartModel()
+const cartLogic = new CartLogic()
 export default class Cart extends Component {
     state = {
         refreshing: true,
@@ -46,31 +51,46 @@ export default class Cart extends Component {
 
     renderCartList() {
         const { cartList } = this.state
-        return <View>
-            {Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
-                <CartItem
-                    key={index}
-                    title={item.goods_title}
-                    price={item.goods_price}
-                    spec={'0.5kg；长款；红色'}
-                    cover={item.goods_sku_img}
-                    checked={item.is_check === 1}
-                    number={item.goods_num}
-                    onCheckboxClick={(value) => {
-                        this.onChecked(item,value,index)
-                    }}
-                    onStepperChange={(value) => {
-                        this.onStepperChange(item,value,index)
-                    }}
-                />
-            )) : null}
+        return <View style={PublicStyles.ViewMax}>
+            {
+                Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
+                    <SwipeAction
+                        autoClose
+                        style={{ backgroundColor: 'transparent' }}
+                        right={[
+                            {
+                                text: '删除',
+                                onPress: () => this.delete(item.goods_sku_id),
+                                style: { backgroundColor: 'red', color: 'white' },
+                            },
+                        ]}
+                    >
+                        <CartItem
+                            key={index}
+                            title={item.goods_title}
+                            price={item.goods_price}
+                            spec={item.goods_spec_string}
+                            cover={item.goods_sku_img}
+                            checked={item.is_check === 1}
+                            number={item.goods_num}
+                            onCheckboxClick={(value) => {
+                                this.onChecked(item, value, index)
+                            }}
+                            onStepperChange={(value) => {
+                                this.onStepperChange(item, value, index)
+                            }}
+                        />
+                    </SwipeAction>
+                )) : <CartEmpty />
+            }
         </View>
     }
 
     render() {
-        const { refreshing } = this.state
+        const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         return <View style={PublicStyles.ViewMax}>
             <ScrollView
+                contentContainerStyle={{ flex: 1 }}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -79,67 +99,76 @@ export default class Cart extends Component {
                         tintColor={ThemeStyle.ThemeColor}
                         titleColor={ThemeStyle.ThemeColor}
                         title="加载中..."
+                        onRefresh={() => {
+                            this.initCartList()
+                        }}
                     />
                 }
-                onScroll={() => {
-
-                }}
                 scrollEventThrottle={50}
             >
                 {
                     this.renderInit()
                 }
             </ScrollView>
+            {cartList.length > 0 ? <View style={styles.footer}>
+                <View style={styles.footerLeft}>
+                    <View style={styles.footerAllAction}>
+                        <CartCheckbox
+                            checked={checkedGoodsSkuInfoIds.length === cartList.length}
+                            onClick={() => {
+                                this.onAllChecked()
+                            }}
+                        />
+                        <Text style={styles.footerAllActionText}>全选</Text>
+                    </View>
+                    <View
+                        style={styles.footerTotal}>
+                        <Text style={styles.footerTotalText}>合计：</Text>
+                        <Text style={styles.footerTotalPrice}>¥{total}</Text>
+                    </View>
+                </View>
+                <View style={styles.footerRight}>
+                    <Button
+                        style={{ borderRadius: 0 }}
+                        type={'warning'}
+                        size={'large'}
+                        activeStyle={false}
+                        onClick={() => {
+                            this.goOrderFill()
+                        }}><Text>去结算({totalNum}件)</Text>
+                    </Button>
+                </View>
+            </View> : null}
         </View>
     }
 
-    async onRemove() {
+    async delete(goods_sku_id) {
         await cartModel.del({
-            goods_sku_ids: this.state.removeCheckSkuIds
+            goods_sku_ids: [goods_sku_id]
         })
         await this.initCartList()
     }
 
-    onRemoveChecked(e) {
-        const id = e.currentTarget.dataset.goodsSkuId
-        let ids = this.state.removeCheckSkuIds
-        !fa.inArray(id, ids) ? ids.push(id) : ids = fa.remove(ids, id)
-        this.setState({
-            removeCheckSkuIds: ids
+    async onChecked(item, value, index) {
+        const result = await cartModel.check({
+            goods_sku_ids: [item.goods_sku_id],
+            is_check: item.is_check === 1 ? 0 : 1,
         })
+        if (result !== true) {
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        }
         this.initCartList()
     }
 
-    onAllRemoveChecked() {
-        let ids = this.state.removeCheckSkuIds
-        const allIds = this.state.cartList.map(function (item) {
-            return item.goods_sku_id
-        })
-        ids = allIds.length === ids.length ? [] : allIds
-        this.setState({
-            removeCheckSkuIds: ids
-        })
-        this.initCartList()
-    }
-
-    async onChecked(item,value,index) {
-        await cartModel.check({params:{
-                goods_sku_ids: [item.goods_sku_id],
-                is_check: item.is_check === 1 ? 0 : 1,
-            }})
-        this.initCartList()
-    }
-
-    async onStepperChange(item,number,index) {
+    async onStepperChange(item, number, index) {
         const goods_sku_id = item.goods_sku_id
-        const cartLogic = new CartLogic()
         const result = await cartLogic.save(goods_sku_id, number)
         if (result !== false) {
             this.initCartList()
         } else {
-            this.setState({
-
-            })
+            this.setState({})
             fa.toast.show({
                 title: fa.code.parse(cartLogic.cartModel.getException().getCode())
             })
@@ -147,16 +176,22 @@ export default class Cart extends Component {
     }
 
     async onAllChecked() {
-        const cartLength = this.state.cartList.length
-        const checkedLength = this.state.checkedGoodsSkuInfoIds.length
-        const goodsSkuIds = this.state.cartList.map(function (item) {
+        const { cartList, checkedGoodsSkuInfoIds } = this.state
+        const cartLength = cartList.length
+        const checkedLength = checkedGoodsSkuInfoIds.length
+        const goodsSkuIds = cartList.map(function (item) {
             return item.goods_sku_id
         })
 
-        await cartModel.check({
+        const result = await cartModel.check({
             goods_sku_ids: goodsSkuIds,
             is_check: cartLength === checkedLength ? 0 : 1,
         })
+        if (result !== true) {
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        }
         this.initCartList()
     }
 
@@ -184,7 +219,6 @@ export default class Cart extends Component {
             isSaveMode: !this.state.isSaveMode
         })
         this.initCartList()
-
     }
 
     goOrderFill() {
@@ -199,41 +233,40 @@ export default class Cart extends Component {
         // })
     }
 
-
-
-
-    componentWillUnmount() {
-        console.warn('xxxxxxxx')
-    }
-
-
     async initCartList() {
-        // 计算金额
         let total = 0
         let totalNum = 0
         let checkedGoodsSkuInfoIds = []
         let checkedCartIds = []
         const result = await cartModel.list()
-        if (result.list) {
+        if (result === false) {
+            this.setState({
+                cartListLoadedState: false,
+                checkedCartIds: [],
+                checkedGoodsSkuInfoIds: [],
+                total: 0,
+                totalNum: 0,
+                cartList: [],
+                refreshing: false
+            })
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        } else {
             const cartList = result.list
             for (let i = 0; i < cartList.length; i++) {
-
                 cartList[i]['goods_spec_string'] = cartList[i].goods_spec.map(function (item) {
-                    return `${item.name}:${item.value_name}`
-                })
-
-                if (cartList[i].checked === true) {
+                    return item.id > 0 ? `${item.name}:${item.value_name}` : ''
+                }).join(',')
+                if (cartList[i].is_check === 1) {
                     checkedCartIds.push(cartList[i].id)
                     checkedGoodsSkuInfoIds.push(cartList[i].goods_sku_id)
-                    // todo 多个float相加有bug 暂时想不通
                     total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num
                     totalNum += cartList[i].goods_num
                 }
                 cartList[i]['remove_checked'] = fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds);
-
             }
             total = total.toFixed(2)
-            console.log(cartList)
             this.setState({
                 cartListLoadedState: true,
                 checkedCartIds,
@@ -242,10 +275,6 @@ export default class Cart extends Component {
                 totalNum,
                 cartList,
                 refreshing: false
-            })
-        } else {
-            fa.toast.show({
-                title: 'xxx'
             })
         }
 
@@ -326,9 +355,6 @@ export default class Cart extends Component {
 }
 // 占位图，登陆提示
 const styles = StyleSheet.create({
-    page: {
-        // width:windowWidth
-    },
     cartCardItem: {
         flexDirection: 'row',
         padding: 15,
@@ -397,5 +423,43 @@ const styles = StyleSheet.create({
     },
     cartCardStepper: {
         width: 100
-    }
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 48,
+        backgroundColor: '#FFF'
+    },
+    footerLeft: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 15,
+    },
+    footerAllAction: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    footerAllActionText: {
+        marginRight: 20,
+        marginLeft: 5,
+        fontSize: 14,
+        color: '#333',
+    },
+    footerTotal: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    footerTotalText: {
+        fontSize: 12,
+        color: '#999',
+    },
+    footerTotalPrice: {
+        fontSize: 14,
+        color: ThemeStyle.ThemeColor,
+        fontWeight: '800'
+    },
 })

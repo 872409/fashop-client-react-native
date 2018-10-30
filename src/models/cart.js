@@ -47,7 +47,7 @@ export default class Cart extends Model {
     async exist(params) {
         try {
             const { result } = await Fetch.request(CartApi.exist, { params })
-            return result.state
+            return true
         } catch (e) {
             this.setException(e)
             return false
@@ -57,7 +57,7 @@ export default class Cart extends Model {
     async check(params) {
         try {
             const { result } = await Fetch.request(CartApi.check, { params })
-            return result.state
+            return true
         } catch (e) {
             this.setException(e)
             return false

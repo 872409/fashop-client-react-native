@@ -18,9 +18,9 @@ export default class Index extends Component {
         const { background_color } = options
         return <View style={[styles.warp,{backgroundColor: background_color}]}>
             <View style={[styles.inputView,{borderWidth: (background_color==='#fff'||background_color==='#ffffff') ? 0.5 : 0}]}>
-                <Image style={styles.img} source={require('../../images/search.png')}></Image>
-                <TextInput 
-                    placeholder="搜索商品" 
+                <Image style={styles.img} source={require('../../images/search.png')}/>
+                <TextInput
+                    placeholder="搜索商品"
                     style={styles.input}
                     underlineColorAndroid={'transparent'}
                 />
