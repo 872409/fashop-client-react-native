@@ -2,7 +2,6 @@ import { Toast } from "../../utils/publicFuncitonModule";
 import { CartApi } from "../../config/api/cart";
 import { Fetch } from '../../utils';
 
-// todo 抛出异常
 export const list = async ({ params } = {}) => {
     try {
         const e = await Fetch.fetch({

@@ -1,4 +1,10 @@
+import Code from './code'
+import Toast from './toast';
+
 export default class Fa {
+    static code = new Code()
+    static toast = new Toast()
+
     /**
      * 检测数组中是否存在某个字符串
      * @param search

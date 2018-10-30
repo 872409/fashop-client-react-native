@@ -3,9 +3,9 @@ import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native';
 import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
 import CartItem from "../../components/cart/item";
-import * as cartModel from "../../actions/cart";
+import CartModel from "../../models/cart";
 import CartLogic from "../../logics/cart";
-
+const cartModel = new CartModel()
 export default class Cart extends Component {
     state = {
         refreshing: true,
@@ -137,9 +137,12 @@ export default class Cart extends Component {
         if (result !== false) {
             this.initCartList()
         } else {
-            // fa.toast.show({
-            //     title: fa.code.parse(cartLogic.cartModel.getException().getCode())
-            // })
+            this.setState({
+
+            })
+            fa.toast.show({
+                title: fa.code.parse(cartLogic.cartModel.getException().getCode())
+            })
         }
     }
 
