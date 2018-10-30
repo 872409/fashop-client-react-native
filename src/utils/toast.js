@@ -6,12 +6,12 @@ import DropdownAlert from "react-native-dropdownalert";
 export default class Toast {
     durationTime: 1000
 
-    show(options = { title: '', time: 1000, type: 'info' }) {
+    show(options = { title: '', time: 1000, type: 'warn' }) {
         if (typeof options['time'] === "undefined") {
             options['time'] = 1000
         }
         if (typeof options['info'] === "undefined") {
-            options['type'] = 'info'
+            options['type'] = 'warn'
         }
         this.setDurationTime(options.time)
         switch (options.type) {
@@ -50,7 +50,8 @@ export default class Toast {
                     ref={ref => {
                         ref && ref.alertWithType(type, title, textString);
                     }}
-                    infoColor={ThemeStyle.ThemeColor}
+                    infoColor={'#5bc0de'}
+                    warnColor={'#f0ad4e'}
                     closeInterval={durationTime}
                 />
             )

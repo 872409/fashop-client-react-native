@@ -69,7 +69,8 @@ export default class CartItem extends Component {
                                 max={99}
                                 min={1}
                                 readOnly={false}
-                                defaultValue={number}
+                                defaultValue={1}
+                                value={number}
                                 onChange={this.onStepperChange}
                             />
                         </View>
