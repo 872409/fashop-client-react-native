@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { Stepper } from "antd-mobile-rn";
 import { windowWidth } from "../../utils/publicStyleModule";
 import CartCheckbox from "./checkbox"
@@ -44,19 +44,30 @@ export default class CartItem extends Component {
             this.props.onStepperChange(value);
         }
     }
+    onImageClick = () => {
+        if (this.props.onImageClick) {
+            this.props.onImageClick();
+        }
+    }
+    onTitleClick = () => {
+        if (this.props.onTitleClick) {
+            this.props.onTitleClick();
+        }
+    }
 
     render() {
         const checked = this.state.checked;
         const { title, price, spec, number, cover } = this.props
-        let imgSrc;
         return <View style={styles.cartCardItem}>
-            <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck}/>
+            <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
             <View style={styles.cartCard}>
-                <Image style={styles.cartCardImage}
-                       source={{ uri: cover }} />
+                <TouchableOpacity onPress={this.onImageClick} activeOpacity={0.5}>
+                    <Image style={styles.cartCardImage} source={{ uri: cover }} />
+                </TouchableOpacity>
                 <View style={styles.cartCardTitleSpec}>
-                    <Text style={styles.cartCardTitle}
-                          numberOfLines={2}>{title}</Text>
+                    <TouchableOpacity onPress={this.onTitleClick} activeOpacity={0.5}>
+                        <Text style={styles.cartCardTitle} numberOfLines={2}>{title}</Text>
+                    </TouchableOpacity>
                     <Text style={styles.cartCardSpec}>{spec}</Text>
                     <View style={styles.cartCardFooter}>
                         <Text style={styles.cartCardPrice}>¥ {price}</Text>

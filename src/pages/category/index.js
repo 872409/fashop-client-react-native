@@ -74,7 +74,7 @@ export default class Category extends Component {
                 {
                     child.map((item,index)=>(
                         <View key={index} style={styles.rightItem}>
-                            <Image style={styles.rightImg} source={{uri: item.icon}}></Image>
+                            <Image style={styles.rightImg} source={{uri: item.icon}}/>
                             <Text style={PublicStyles.descTwo6}>{item.name}</Text>
                         </View>
                     ))
@@ -85,7 +85,7 @@ export default class Category extends Component {
     empty({content}){
         return(
             <View style={styles.emptyWarp}>
-                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}></Image>
+                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}/>
                 <Text style={PublicStyles.descFour9}>{content}</Text>
             </View>
         )

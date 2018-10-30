@@ -10,7 +10,8 @@ import OrderAction from "../pages/category/orderAction";
 // user
 import UserLogin from "../pages/user/login";
 import UserRegister from "../pages/user/register";
-
+// cart
+import CartOrderFill from "../pages/cart/orderFill";
 
 // home
 
@@ -71,6 +72,13 @@ export default createStackNavigator(
             screen: UserRegister,
             navigationOptions: {
                 title: '注册'
+            }
+        },
+        // cart
+        CartOrderFill: {
+            screen: CartOrderFill,
+            navigationOptions: {
+                title: '提交订单'
             }
         },
     },

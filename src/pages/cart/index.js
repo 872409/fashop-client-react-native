@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
-import { windowWidth, PublicStyles, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
+import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
 import { Button, SwipeAction } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";
@@ -35,7 +35,6 @@ export default class Cart extends Component {
         allChecked: false,
         userInfo: null,
     }
-
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus',
@@ -55,6 +54,7 @@ export default class Cart extends Component {
             {
                 Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
                     <SwipeAction
+                        key={index}
                         autoClose
                         style={{ backgroundColor: 'transparent' }}
                         right={[
@@ -76,8 +76,11 @@ export default class Cart extends Component {
                             onCheckboxClick={(value) => {
                                 this.onChecked(item, value, index)
                             }}
-                            onStepperChange={(value) => {
-                                this.onStepperChange(item, value, index)
+                            onImageClick={() => {
+                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
+                            }}
+                            onTitleClick={() => {
+                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
                             }}
                         />
                     </SwipeAction>
@@ -222,15 +225,8 @@ export default class Cart extends Component {
     }
 
     goOrderFill() {
-        // wx.navigateTo({
-        //     url: '/pages/cart/orderFill/index?cart_ids=' + JSON.stringify(this.state.checkedCartIds)
-        // })
-    }
-
-    goGoodsDetail(e) {
-        // wx.navigateTo({
-        //     url: `/pages/goods/detail/index?id=${e.detail.goodsId}`
-        // })
+        const {checkedCartIds} = this.state
+        this.props.navigation.navigate('CartOrderFill', { cart_ids: checkedCartIds })
     }
 
     async initCartList() {
