@@ -292,7 +292,7 @@ export class SwiperTab extends Component {
                     activeDot={this.state.activeDot ? this.state.activeDot : <View style={styles.activeDot} />}
                     dot={this.state.dot}
                     loop={false}
-                    removeClippedSubviews={false}
+                    removeClippedSubViews={false}
                 >
                     {
                         (() => {
@@ -701,7 +701,7 @@ export class StatusBarComponent extends Component {
 
 
 /**
- * listview_empty_View
+ * listView_empty_View
  */
 export class ListEmptyView extends Component {
     static propTypes = {

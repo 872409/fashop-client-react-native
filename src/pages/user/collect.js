@@ -12,11 +12,11 @@ import { PublicStyles, ThemeStyle, windowHeight, windowWidth } from '../../utils
 import {
     SecondHandMarketCollectList,
     RecruitCollectList,
-    ReviewCollectList,
+    ReViewCollectList,
 } from '../../components/user/collect';
 import FeatherIcon from "react-native-vector-icons/Feather";
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import SafeAreaView from "react-native-safe-area-view";
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
+import SafeAreaView from "react-native-safe-area-View";
 
 export default class UserCollect extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -44,7 +44,7 @@ export default class UserCollect extends Component {
             }, {
                 tabLabel: '点评',
                 // tabLabel: '宠物说说',
-                render: () => <ReviewCollectList navigation={navigation}/>
+                render: () => <ReViewCollectList navigation={navigation}/>
             }
         ]
         return (

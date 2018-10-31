@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/publicStyleModule";
-import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import CardStackStyleInterpolator from 'react-navigation/src/Views/StackView/StackViewStyleInterpolator';
 // public
 import IndexView from "../pages/index";
 // category

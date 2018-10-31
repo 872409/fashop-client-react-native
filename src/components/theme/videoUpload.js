@@ -34,9 +34,9 @@ export default class VideoUpload extends Component {
         const { video, videoLoading, videoUri, images, video_cover, progressNumber } = this.state;
         const { text } = this.props
         return (
-            <View style={styles.view3}>
+            <View style={styles.View3}>
                 {
-                    videoLoading ? <View style={styles.view6}>
+                    videoLoading ? <View style={styles.View6}>
                         <Text style={{ color: '#333', fontSize: 14, marginBottom: 10, }}>上传进度：{progressNumber}%</Text>
                         <Progress.Bar progress={progressNumber / 100} width={300} color={ThemeStyle.ThemeColor} />
                     </View> :
@@ -156,7 +156,7 @@ export default class VideoUpload extends Component {
 }
 
 const styles = StyleSheet.create({
-    view3: {
+    View3: {
         alignItems: 'center',
     },
     button1: {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         borderStyle: 'dashed',
         borderColor: '#EEEEEE',
     },
-    view6: {
+    View6: {
         height: windowWidth/2,
         width: windowWidth,
         justifyContent: 'center',

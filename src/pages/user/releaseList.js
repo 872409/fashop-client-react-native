@@ -14,9 +14,9 @@ import {
     PuppyReleaseList,
     SecondHandMarketReleaseList,
     RecruitReleaseList,
-    ReviewReleaseList
+    ReViewReleaseList
 } from "../../components/user/release";
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
 
 export default class ReleaseList extends Component {
     state = {
@@ -44,7 +44,7 @@ export default class ReleaseList extends Component {
             }, {
                 // tabLabel: '宠物说说',
                 tabLabel: '点评',
-                render: () => <ReviewReleaseList navigation={navigation}/>
+                render: () => <ReViewReleaseList navigation={navigation}/>
             }
         ]
         return (

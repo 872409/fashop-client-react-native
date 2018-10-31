@@ -13,7 +13,7 @@ import { getCategoryList } from "../../actions/category";
 import { stateHoc } from "../../utils";
 
 @connect(({
-    view: {
+    View: {
         category: {
             categoryList,
             categoryListFetchStatus,

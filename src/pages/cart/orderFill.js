@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
 import { Button, List, InputItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
@@ -20,7 +20,7 @@ export default class OrderFill extends Component {
         calculate: null,
         cartList: [],
         cartIds: [],
-        addressId: [],
+        addressId: 0,
         address: {},
         message: null,
         payState: false,
@@ -280,7 +280,6 @@ export default class OrderFill extends Component {
                     return item.id > 0 ? `${item.name}:${item.value_name}` : ''
                 }).join(',')
             }
-            console.log(cartList)
             this.setState({
                 checkedCartIds,
                 checkedGoodsSkuInfoIds,

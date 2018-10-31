@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
-import SafeAreaView from "react-native-safe-area-view";
+import SafeAreaView from "react-native-safe-area-View";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import {
     Goods,
@@ -26,7 +26,7 @@ import {
 } from "../../components/home"
 
 @connect(({
-    view: {
+    View: {
         home: {
             homeView,
             homeViewFetchStatus,

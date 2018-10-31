@@ -34,10 +34,11 @@ export default class Fetch {
      * 请求
      * 注意：当返回code就抛出错误是为了日后完善错误编码国际化
      * @param api
-     * @param params
+     * @param options
      * @returns {*|Promise<*>|PromiseLike<T | never>|Promise<T | never>}
      */
-    static request(api, { params = {} }) {
+    static request(api, options = { params: {} }) {
+        const { params } = options
         return fetchData.fetch({
             api,
             params,

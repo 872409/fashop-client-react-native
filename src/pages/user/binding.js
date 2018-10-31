@@ -48,7 +48,7 @@ export default class UserbindingView extends Component {
                 ]}
                 behavior={"padding"}
             >
-                <View style={styles.viewoutcss}>
+                <View style={styles.Viewoutcss}>
                     <InputItem
                         underlineColorAndroid={'transparent'}
                         placeholderTextColor={'#CCCCCC'}
@@ -122,7 +122,7 @@ export default class UserbindingView extends Component {
                     >
                         <Text style={styles.bindbuttontext}>确认绑定</Text>
                     </ThemeButton>
-                    <View style={styles.belowviewcss}>
+                    <View style={styles.belowViewcss}>
                         <Text style={styles.textbelowcss}>
                             绑定成功后，下次登陆即可使用手机号进行登陆
                         </Text>
@@ -152,12 +152,12 @@ export default class UserbindingView extends Component {
 }
 
 const styles = StyleSheet.create({
-    viewoutcss: {},
+    Viewoutcss: {},
     buttonbelowcss: {
         marginTop: 60,
         marginLeft:15,
     },
-    belowviewcss: {
+    belowViewcss: {
         alignItems: "center"
     },
     bindbuttontext: {

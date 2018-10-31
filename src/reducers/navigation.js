@@ -23,7 +23,7 @@ import store from '../store'
 
 
 const needLoginRouters = [
-    
+
 ]
 
 
@@ -38,7 +38,7 @@ export default (state, action) => {
             //         } = store.getState().app.user
             //         const {
             //             homeRefreshListView
-            //         } = store.getState().view.home
+            //         } = store.getState().View.home
             //         if(login&&homeRefreshListView){
             //             homeRefreshListView()
             //         }

@@ -23,7 +23,7 @@ import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleMo
 const Item = List.Item
 
 @connect(({
-    view: {
+    View: {
         address: {
             defaultAddress,
             defaultAddressFetchStatus,
