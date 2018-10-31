@@ -211,7 +211,7 @@ export default class Index extends Component{
                     uploaderCount="6"
                     uploaderAllowDel={true}
                     bind:success="onUploadFileSuccess"
-                    onChange="handleFieldChange"
+                    onChange={(value)=>{this.handleFieldChange(value)}}
                     bind:delete="onUploadFileDelete"
                 >
                 </Field>
