@@ -6,7 +6,6 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
 
@@ -14,19 +13,22 @@ const Dialog = require('../../../ui/dialog/dialog');
 
 const refundModel = new RefundModel()
 
-export default class Index extends Component{
+export default class Index extends Component {
     state = {
         id: null,
         refundInfo: null,
-    },
-    async componentWillMount({ id  }) {
+    }
+
+    async componentWillMount({ id }) {
         this.setState({
             id
         })
-    },
+    }
+
     async onShow() {
         this.init()
-    },
+    }
+
     async init() {
         const refundInfo = await refundModel.info({ id: this.state.id })
         if (refundInfo) {
@@ -35,17 +37,20 @@ export default class Index extends Component{
                 refundInfo,
             })
         }
-    },
-    onGoods(){
+    }
+
+    onGoods() {
         wx.navigateTo({
             url: `/pages/goods/detail/index?id=${this.state.refundInfo.goods_id}`
         })
-    },
+    }
+
     onTrack() {
         wx.navigateTo({
             url: `/pages/refund/logisticsFill/index?id=${this.state.id}&order_goods_id=${this.state.refundInfo.order_goods_id}`
         })
-    },
+    }
+
     async onUndo() {
         Dialog({
             title: '撤销申请',
@@ -71,7 +76,8 @@ export default class Index extends Component{
                 }
             }
         })
-    },
+    }
+
     updateListRow() {
         const { id } = this.state
         if (id > 0) {
@@ -81,23 +87,23 @@ export default class Index extends Component{
         }
     }
 
-    render(){
+    render() {
         return <View>
-            <View style="background-color:#F8F8F8;display: block;overflow: hidden" wx:if="{{refundInfo}}">
+            <View>
                 <List>
-                    <refund-state-card refundInfo="{{refundInfo}}"></refund-state-card>
-                    <refund-state-reason refundInfo="{{refundInfo}}" bind:undo="onUndo" bind:track="onTrack"></refund-state-reason>
+                    <RefundStateCard refundInfo={refundInfo} />
+                    <RefundStateReason refundInfo={refundInfo} onUndo={() => this.onUndo()}
+                                       onTrack={() => this.onTrack()} />
                 </List>
                 <List>
-                    <refund-goods-info refundInfo="{{refundInfo}}" bind:goods="onGoods"></refund-goods-info>
+                    <RefundGoodsInfo refundInfo={refundInfo} onGoods={() => this.onGoods()} />
                 </List>
                 <List>
-                    <refund-base-info refundInfo="{{refundInfo}}"></refund-base-info>
-                    <order-contact></order-contact>
+                    <RefundBaseInfo refundInfo={refundInfo} />
+                    <OrderContact />
                 </List>
             </View>
-            <fa-dialog id="fa-dialog-receive"></fa-dialog>
-
+            <fa-dialog id="fa-dialog-receive" />
         </View>
     }
 }

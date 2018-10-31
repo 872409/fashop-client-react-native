@@ -48,9 +48,8 @@ export default class Index extends Component {
     }
 
     render() {
-        return <View style={styles.evaluate - detail} wx:if="{{evaluate}}">
-
-            <View style={styles.goods - evaluate - item}>
+        return <View style={styles.evaluateDetail}>
+            <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
                         <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} />
@@ -62,54 +61,65 @@ export default class Index extends Component {
                         </View>
                     </View>
                     <View style={styles.star}>
-                        <FaRater size="12" num="5" value="{{evaluate.score}}" />
+                        <FaRater size={12} num={5} value={evaluate.score} />
                     </View>
                 </View>
 
-                <View style={styles.content} wx:if="{{evaluate.content}}">{{ evaluate.content}}</View>
-                <block wx:if="{{evaluate.images}}">
-                    <View style={styles.photo - list}>
-                        <block wx:for="{{evaluate.images}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                            <Image source="{{item}}" resizeMode={'contain'} data-url="{{item}}" onPress={() => {
-                                this.preViewImage()
-                            }}
-                                   data-images="{{evaluate.images}}" />
-                        </block>
+                {evaluate.content ? <View style={styles.content}>{evaluate.content}</View> : null}
+                {Array.isArray(evaluate.images) && evaluate.images.length > 0 ?
+                    <View style={styles.photoList}>
+                        {
+                            evaluate.images.map((item, index) => {
+                                return <Image
+                                    source={{ uri: item }}
+                                    resizeMode={'contain'}
+                                    onPress={() => {
+                                        this.preViewImage(item, index, evaluate.images)
+                                    }}
+                                />
+                            })
+                        }
                     </View>
-                </block>
-                <View style={styles.reply - content} wx:if="{{evaluate.reply_content}}">
+                    : null}
+                {evaluate.reply_content ? <View style={styles.replyContent}>
                     <Text>客服：</Text>
                     <Text>{evaluate.reply_content}</Text>
                     <TimeFormat value={evaluate.reply_time} />
-                </View>
+                </View> : null}
 
-                <View style={styles.content} wx:if="{{evaluate.additional_content || evaluate.additional_images}}">
-                    <Text>{{ evaluate.additional_interval_day === 0 ? '当天' : evaluate.additional_interval_day + '天后'}}追评</Text>
-                    <Text wx:if="{{evaluate.additional_content}}">{{ evaluate.additional_content}}</Text>
-                </View>
-                <block wx:if="{{evaluate.additional_images}}">
-                    <View style={styles.photo - list}>
-                        <block wx:for="{{evaluate.additional_images}}" wx:key="key" wx:for-index="index"
-                               wx:for-item="item">
-                            <Image source="{{item}}" resizeMode={'contain'} data-url="{{item}}" onPress={() => {
-                                this.preViewImage()
-                            }}
-                                   data-images="{{evaluate.additional_images}}" />
-                        </block>
+                {evaluate.additional_content || evaluate.additional_images ? <View style={styles.content}>
+                    <Text>{evaluate.additional_interval_day === 0 ? '当天' : evaluate.additional_interval_day + '天后'}追评</Text>
+                    {evaluate.additional_content ? <Text>{evaluate.additional_content}</Text> : null}
+                </View> : null}
+
+                {evaluate.additional_images.length > 0 ?
+                    <View style={styles.photoList}>
+                        {
+                            evaluate.additional_images.map((item, index) => {
+                                return <Image
+                                    source={{ uri: item }}
+                                    resizeMode={'contain'}
+                                    onPress={() => {
+                                        this.preViewImage(item, index, evaluate.additional_images)
+                                    }}
+                                />
+                            })
+                        }
                     </View>
-                </block>
-                <View style={styles.reply - content} wx:if="{{evaluate.reply_content2}}">
+                    : null}
+
+                {evaluate.reply_content2 ? <View style={styles.replyContent}>
                     <Text>客服：</Text>
                     <Text>{evaluate.reply_content2}</Text>
                     <TimeFormat value={evaluate.reply_time2} />
-                </View>
+                </View> : null}
 
                 <View style={styles.spec}>
-                    {goodsInfo.goods_spec_string}
+                    <Text>{goodsInfo.goods_spec_string}</Text>
                 </View>
                 <View style={styles.goodsEvaluate}>
                     <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
-                    <Text>{{ goodsInfo.goods_title}}</Text>
+                    <Text>{goodsInfo.goods_title}</Text>
                 </View>
             </View>
 

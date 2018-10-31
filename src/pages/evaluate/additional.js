@@ -103,7 +103,7 @@ export default class Index extends Component{
     }
     render(){
        return  <View>
-            <View style="background-color:#F8F8F8;display: block;overflow: hidden">
+            <View>
                 <List>
                     <View style={styles.refundGoodsCard} >
                         <View style={styles.body} >

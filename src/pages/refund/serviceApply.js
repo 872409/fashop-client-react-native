@@ -13,7 +13,7 @@ import RefundModel from '../../models/refund'
 import OrderModel from '../../models/order'
 import { UploadImageInterface } from '../../interface/uploadImage'
 
-export default class Index extends Component{
+export default class Index extends Component {
     state = {
         delta: 1,
         noMoreThan: 0,
@@ -36,6 +36,7 @@ export default class Index extends Component{
         uploaderButtonText: '上传凭证(最多6张)',
         uploaderHeader: {},
     }
+
     async componentWillMount({ order_goods_id, refund_type, delta = 1 }) {
         // delta 传的话
         const accessToken = fa.cache.get('user_token')
@@ -64,6 +65,7 @@ export default class Index extends Component{
             reasonList
         })
     }
+
     // todo 失败处理
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
@@ -72,31 +74,37 @@ export default class Index extends Component{
             uploaderFiles: files.concat(result.origin.path)
         })
     }
+
     onUploadFileDelete(e) {
         this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
     }
+
     onRefundAmountChange(e) {
         this.setState({
             refundAmount: parseFloat(isNaN(e.detail.detail.value) || !e.detail.detail.value ? 0 : e.detail.detail.value).toFixed(2)
         })
     }
+
     onReceiveStateChange(e) {
         this.setState({
             userReceive: parseInt(e.detail.detail.value)
         })
     }
+
     onResonChange(e) {
         this.setState({
             reason: e.detail.detail.value
         })
     }
+
     onUserExplainChange(e) {
         this.setState({
             userExplain: e.detail.detail.value
         })
     }
+
     async onSubmit() {
         if (!this.state.reason) {
             return fa.toast.show({ title: '请选择退款原因' })
@@ -137,21 +145,22 @@ export default class Index extends Component{
             })
         }
     }
-    render(){
-        return <View style="background-color:#F8F8F8;display: block;overflow: hidden" wx:if="{{goodsInfo}}">
+
+    render() {
+        return <View>
             <List>
-                <View style={styles.refund-goods-card} >
-                    <View style={styles.body} >
-                        <View style={styles.item} >
-                            <View style={styles.content} >
-                                <View style={styles.image} >
+                <View style={styles.refundGoodsCard}>
+                    <View style={styles.body}>
+                        <View style={styles.item}>
+                            <View style={styles.content}>
+                                <View style={styles.image}>
                                     <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                                 </View>
-                                <View style={styles.body} >
-                                    <Text>{{ goodsInfo.goods_title}}</Text>
-                                    <View style={styles.end} >
-                                        <Text style={styles.spec} >{ goodsInfo.goods_spec_string}</Text>
-                                        <Text style={styles.number} >x {{ goodsInfo.goods_num}}</Text>
+                                <View style={styles.body}>
+                                    <Text>{goodsInfo.goods_title}</Text>
+                                    <View style={styles.end}>
+                                        <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
+                                        <Text style={styles.number}>x {goodsInfo.goods_num}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -160,24 +169,27 @@ export default class Index extends Component{
                 </View>
             </List>
             <List>
-                <Field
-                    wx:if="{{refundType === 2}}"
+                {refundType === 2 ? <Field
                     type={'picker'}
                     title="货物状态"
                     placeholder="请选择"
-                    range="{{receiveStateList}}"
-                    value="{{userReceive}}"
-                    onChange="onReceiveStateChange"
+                    range={receiveStateList}
+                    value={userReceive}
+                    onChange={(e) => {
+                        this.onReceiveStateChange(e)
+                    }}
                     right={true}
                 >
-                </Field>
+                </Field> : null}
                 <Field
                     type={'picker'}
                     title="退款原因"
                     placeholder="请选择"
-                    value="{{reason}}"
-                    range="{{reasonList}}"
-                    onChange="onResonChange"
+                    value={reason}
+                    range={reasonList}
+                    onChange={(e) => {
+                        this.onResonChange(e)
+                    }}
                     right={true}
                 >
                 </Field>
@@ -185,40 +197,44 @@ export default class Index extends Component{
                     type={'input'}
                     inputType="digit"
                     title="退款金额"
-                    placeholder="¥{{noMoreThan}}"
-                    value="{{refundAmount ? refundAmount : noMoreThan}}"
-                    bind:blur="onRefundAmountChange"
-                    desc="最多¥{{noMoreThan}}，含发货邮费¥{{goodsInfo.goods_freight_fee}}"
+                    placeholder={`¥${noMoreThan}`}
+                    value={refundAmount ? refundAmount : noMoreThan}
+                    onBlur={(e) => this.onRefundAmountChange(e)}
+                    desc={`最多¥${noMoreThan}，含发货邮费¥${goodsInfo.goods_freight_fee}`}
                     right={true}
                 >
                 </Field>
                 <Field
                     title="退款说明"
                     placeholder="必填"
-                    value="{{userExplain}}"
-                    onChange="onUserExplainChange"
+                    value={userExplain}
+                    onChange={(e) => this.onUserExplainChange(e)}
                     right={true}
                 >
                 </Field>
                 <Field
                     type={'uploader'}
                     title="图片上传"
-                    uploaderButtonText="{{uploaderButtonText}}"
-                    uploaderFormData="{{uploaderFormData}}"
-                    uploaderUrl="{{uploaderUrl}}"
-                    uploaderHeader="{{uploaderHeader}}"
-                    uploaderFiles="{{uploaderFiles}}"
-                    uploaderCount="6"
+                    uploaderButtonText={uploaderButtonText}
+                    uploaderFormData={uploaderFormData}
+                    uploaderUrl={uploaderUrl}
+                    uploaderHeader={uploaderHeader}
+                    uploaderFiles={uploaderFiles}
+                    uploaderCount={6}
                     uploaderAllowDel={true}
-                    bind:success="onUploadFileSuccess"
-                    onChange={(value)=>{this.handleFieldChange(value)}}
-                    bind:delete="onUploadFileDelete"
+                    onSuccess={(e) => this.onUploadFileSuccess(e)}
+                    onDelete={(e) => this.onUploadFileDelete(e)}
+                    onChange={(value) => {
+                        this.handleFieldChange(value)
+                    }}
                 >
                 </Field>
             </List>
             <FixedBottom>
-                <View style={styles.footer} >
-                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
+                <View style={styles.footer}>
+                    <Button type={'danger'} size="large" onClick={() => {
+                        this.onSubmit()
+                    }}>提交</Button>
                 </View>
             </FixedBottom>
         </View>

@@ -120,7 +120,7 @@ export default class Index extends Component{
 
     render() {
         return (
-            <View style="background-color:#F8F8F8;display: block;overflow: hidden">
+            <View>
                 <Tabs
                     list="{{ stateTabs }}"
                     selected-id="{{evaluate_state}}"

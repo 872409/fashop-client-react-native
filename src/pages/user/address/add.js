@@ -125,7 +125,7 @@ export default class Index extends Component{
         }
     }
     render(){
-        return <View style="background-color:#F8F8F8;display: block;overflow: hidden">
+        return <View>
             <List>
                 <Field
                     title="收货人："

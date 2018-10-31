@@ -149,8 +149,8 @@ export default class Index extends Component {
                         type={'textarea'}
                         title=""
                         placeholder="请输入您要评价的内容"
-                        value="{{content}}"
-                        onChange="onContentChange"
+                        value={content}
+                        onChange={(e)=>{this.onContentChange(e)}}
                     >
                     </Field>
                     <Field
@@ -163,8 +163,8 @@ export default class Index extends Component {
                         uploaderFiles={uploaderFiles}
                         uploaderCount={uploaderCount}
                         uploaderAllowDel={true}
-                        bind:success="onUploadFileSuccess"
-                        bind:delete="onUploadFileDelete"
+                        onSuccess={(e)=>{this.onUploadFileSuccess(e)}}
+                        onDelete={(e)=>{this.onUploadFileDelete(e)}}
                     >
                     </Field>
                 </List>

@@ -136,7 +136,7 @@ export default class Index extends Component {
 
     render() {
         return <View>
-            <View style="background-color:#F8F8F8;display: block;overflow: hidden">
+            <View>
                 <List>
                     <RefundGoodsCard
                         goodsTitle={goodsInfo.goods_title}
