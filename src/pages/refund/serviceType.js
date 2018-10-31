@@ -14,7 +14,7 @@ export default class Index extends Component{
     state = {
         goodsInfo: null,
     }
-    async onLoad(options) {
+    async componentWillMount(options) {
         const goodsInfoResult = await orderModel.goodsInfo({
             id: typeof options['order_goods_id'] !== 'undefined' ? options['order_goods_id'] : 414
         })
@@ -35,7 +35,7 @@ export default class Index extends Component{
                         <View style={styles.item} >
                             <View style={styles.content} >
                                 <View style={styles.image} >
-                                    <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
+                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                                 </View>
                                 <View style={styles.body} >
                                     <Text>{{ goodsInfo.goods_title}}</Text>

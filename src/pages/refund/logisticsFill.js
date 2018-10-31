@@ -42,7 +42,7 @@ export default class Index extends Component {
         uploaderHeader: {},
     }
 
-    async onLoad({ id, order_goods_id }) {
+    async componentWillMount({ id, order_goods_id }) {
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id

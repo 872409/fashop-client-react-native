@@ -1,13 +1,10 @@
-import fa from '../../../utils/fa'
-import GoodsEvaluateModel from '../../../models/goodsEvaluate'
-import OrderModel from '../../../models/order'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-import { UploadImageInterface } from '../../../interface/uploadImage'
-import { api } from '../../../api'
+import fa from '../../utils/fa'
+import GoodsEvaluateModel from '../../models/goodsEvaluate'
+import OrderModel from '../../models/order'
+import { UploadImageInterface } from '../../interface/uploadImage'
 
 const goodsEvaluateModel = new GoodsEvaluateModel()
 const orderModel = new OrderModel()
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -16,9 +13,8 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
-export default class Index extends Component{
+export default class Index extends Component {
     state = {
         id: 0,
         delta: 1,
@@ -36,7 +32,8 @@ export default class Index extends Component{
         uploaderButtonText: '上传图片(最多9张)',
         uploaderHeader: {},
     }
-    async onLoad({ order_goods_id = 440, delta = 1 }) {
+
+    async componentWillMount({ order_goods_id = 440, delta = 1 }) {
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
@@ -54,6 +51,7 @@ export default class Index extends Component{
             orderGoodsId: order_goods_id
         })
     }
+
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
         let files = this.state.uploaderFiles
@@ -61,16 +59,19 @@ export default class Index extends Component{
             uploaderFiles: files.concat(result.origin.path)
         })
     }
+
     onUploadFileDelete(e) {
         this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
     }
+
     onContentChange(e) {
         this.setState({
             content: e.detail.detail.value
         })
     }
+
     onScoreChange(e) {
         this.setState({
             score: parseInt(e.detail.value)
@@ -107,6 +108,7 @@ export default class Index extends Component{
             })
         }
     }
+
     updateListRow() {
         const { id } = this.state
         if (id > 0) {
@@ -115,21 +117,27 @@ export default class Index extends Component{
             prevPage.updateListRow(id);
         }
     }
-    render(){
+
+    render() {
         return <View>
-            <View style="background-color:#F8F8F8;display: block;overflow: hidden">
+            <View>
                 <List>
-                    <View style={styles.refund-goods-card} >
-                        <View style={styles.body} >
-                            <View style={styles.item} >
-                                <View style={styles.content} >
-                                    <View style={styles.image} >
-                                        <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
+                    <View style={styles.refundGoodsCard}>
+                        <View style={styles.body}>
+                            <View style={styles.item}>
+                                <View style={styles.content}>
+                                    <View style={styles.image}>
+                                        <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                                     </View>
-                                    <View style={styles.body} >
+                                    <View style={styles.body}>
                                         <Text>商品评价</Text>
-                                        <common-rater num="5" value="{{score}}" size="20"
-                                                      onChange="onScoreChange"></common-rater>
+                                        <FaRater
+                                            num={5}
+                                            value={score}
+                                            size={2}
+                                            onChange={() => {
+                                                this.onScoreChange()
+                                            }} />
                                     </View>
                                 </View>
                             </View>
@@ -148,12 +156,12 @@ export default class Index extends Component{
                     <Field
                         type={'uploader'}
                         title=""
-                        uploaderButtonText="{{uploaderButtonText}}"
-                        uploaderFormData="{{uploaderFormData}}"
-                        uploaderUrl="{{uploaderUrl}}"
-                        uploaderHeader="{{uploaderHeader}}"
-                        uploaderFiles="{{uploaderFiles}}"
-                        uploaderCount="{{uploaderCount}}"
+                        uploaderButtonText={uploaderButtonText}
+                        uploaderFormData={uploaderFormData}
+                        uploaderUrl={uploaderUrl}
+                        uploaderHeader={uploaderHeader}
+                        uploaderFiles={uploaderFiles}
+                        uploaderCount={uploaderCount}
                         uploaderAllowDel={true}
                         bind:success="onUploadFileSuccess"
                         bind:delete="onUploadFileDelete"
@@ -162,8 +170,10 @@ export default class Index extends Component{
                 </List>
             </View>
             <FixedBottom>
-                <View style={styles.footer} >
-                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
+                <View style={styles.footer}>
+                    <Button type={'danger'} size="large" onClick={() => {
+                        this.onSubmit()
+                    }}>提交</Button>
                 </View>
             </FixedBottom>
         </View>

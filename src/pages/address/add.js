@@ -27,7 +27,7 @@ export default class Index extends Component {
         areaList: [],
     }
 
-    async onLoad() {
+    async componentWillMount() {
         const areaCache = fa.cache.get('area_list_level2')
         const result = areaCache ? areaCache : await areaModel.list({ level: 2 })
         this.setState({

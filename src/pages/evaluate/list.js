@@ -32,7 +32,7 @@ export default class Index extends Component{
         ],
         list: [],
     }
-    async onLoad({ order_id = 0, evaluate_state = 'un_evaluate' }) {
+    async componentWillMount({ order_id = 0, evaluate_state = 'un_evaluate' }) {
         if (order_id > 0) {
             this.setState({
                 order_id,
@@ -121,7 +121,7 @@ export default class Index extends Component{
     render() {
         return (
             <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-                <fa-tab
+                <Tabs
                     list="{{ stateTabs }}"
                     selected-id="{{evaluate_state}}"
                     height="40"

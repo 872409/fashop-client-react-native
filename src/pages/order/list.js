@@ -1,9 +1,7 @@
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
@@ -14,7 +12,7 @@ import BuyModel from '../../models/buy'
 const Dialog = require('../../../ui/dialog/dialog');
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
-export default class Index extends Component{
+export default class Index extends Component {
     state = {
         page: 1,
         rows: 10,
@@ -43,18 +41,23 @@ export default class Index extends Component{
         ],
         list: [],
         state_type: 'all',
-    },
-    async onLoad({ state_type = 'all' }) {
+    }
+
+    async componentWillMount({ state_type = 'all' }) {
         this.setState({
             state_type
         })
-    },
+    }
+
+
     onShow() {
         this.setState({
             page: 1
         })
         this.getList()
-    },
+    }
+
+
     async getList() {
         const page = this.state.page
         if (page > 1 && this.state.noMore === true) {
@@ -75,19 +78,24 @@ export default class Index extends Component{
             data['list'] = list.concat(result.list)
             this.setState(data)
         }
-    },
+    }
+
     async onReachBottom() {
         if (this.state.noMore === true) {
             return false
         } else {
             this.getList()
         }
-    },
+    }
+
+
     goDetail(e) {
         wx.navigateTo({
             url: '/pages/order/detail/index?id=' + e.detail.orderId
         })
-    },
+    }
+
+
     onTabChange(e) {
         this.setState({
             state_type: e.detail,
@@ -95,7 +103,9 @@ export default class Index extends Component{
             list: []
         })
         this.getList()
-    },
+    }
+
+
     async onCancel(e) {
         const orderInfo = e.detail.orderInfo
         const result = await orderModel.cancel({
@@ -108,13 +118,16 @@ export default class Index extends Component{
                 title: fa.code.parse(orderModel.getException().getCode())
             })
         }
-    },
+    }
+
+
     onEvaluate(e) {
         const orderInfo = e.detail.orderInfo
         wx.navigateTo({
             url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
         })
-    },
+    }
+
     async onReceive(e) {
         Dialog({
             message: '您确认收货吗？状态修改后不能变更',
@@ -145,7 +158,8 @@ export default class Index extends Component{
                 }
             }
         })
-    },
+    }
+
     async onPay(e) {
         const userInfo = fa.cache.get('user_info')
         const orderInfo = e.detail.orderInfo
@@ -169,7 +183,7 @@ export default class Index extends Component{
                     self.setData({
                         page: 1
                     })
-                    this.updateListRow(orderInfo.id)
+                    self.updateListRow(orderInfo.id)
                 },
                 'fail': function (res) {
                     fa.toast.show({
@@ -182,7 +196,8 @@ export default class Index extends Component{
                 title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
             })
         }
-    },
+    }
+
     // 更新某条
     async updateListRow(id) {
         let { list } = this.state
@@ -201,53 +216,52 @@ export default class Index extends Component{
         }
     }
 
-
     render() {
         return (
             <View>
-                <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-                    <fa-tab
-                        list="{{ orderStateTabs }}"
-                        selected-id="{{state_type}}"
-                        height="40"
-                        fixed={true}
-                        bindtabchange="onTabChange"
+                <View>
+                    <Tabs
+                        tabs={orderStateTabs}
+                        initialPage={1}
+                        onChange={(tab, index) => this.onTabChange(tab, index)}
+                        abBarPosition="top"
                     />
                     <View>
-                        <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                            <List>
-                                <order-card>
-                                    <order-card-header orderId="{{item.id}}" state="{{item.state}}"
-                                                       sn="{{item.sn}}"></order-card-header>
-                                    <order-card-goods orderId="{{item.id}}" goodsList="{{item.extend_order_goods}}"
-                                                      bind:click="goDetail"></order-card-goods>
-                                    <order-card-footer
-                                        orderInfo="{{item}}"
-                                        orderId="{{item.id}}"
-                                        goodsNumber="{{item.goods_num}}"
-                                        totalCost="{{item.amount}}"
-                                        showEvaluateBtn="{{item.if_evaluate}}"
-                                        showPayBtn="{{item.if_pay}}"
-                                        showReceiveBtn="{{item.if_receive}}"
-                                        showLogisticsBtn="{{item.showLogisticsBtn}}"
-                                        bind:pay="onPay"
-                                        bind:receive="onReceive"
-                                        bind:cancel="onCancel"
-                                        bind:evaluate="onEvaluate"
-                                    ></order-card-footer>
-                                </order-card>
-                            </List>
-                        </block>
+                        <List>
+                            {list.length > 0 ? list.map((item) => <Item>
+                                <OrderCard>
+                                    <OrderCardHeader
+                                        orderId={item.id}
+                                        state={item.state}
+                                        sn={item.sn}
+                                    />
+                                    <OrderCardGoods
+                                        orderId={item.id}
+                                        goodsList={item.extend_order_goods}
+                                        onClick={() => this.onClick()} />
+                                    <OrderCardFooter
+                                        orderInfo={item}
+                                        orderId={item.id}
+                                        goodsNumber={item.goods_num}
+                                        totalCost={item.amount}
+                                        showEvaluateBtn={item.if_evaluate}
+                                        showPayBtn={item.if_pay}
+                                        showReceiveBtn={item.if_receive}
+                                        showLogisticsBtn={item.showLogisticsBtn}
+                                        onPay={() => this.onPay()}
+                                        onReceive={() => this.onReceive()}
+                                        onCancel={() => this.onCancel()}
+                                        onEvaluate={() => this.onEvaluate()}
+                                    />
+                                </OrderCard>
+                            </Item>) : <View style={styles.list - empty}>
+                                <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'} />
+                                <Text>暂无相关数据</Text>
+                            </View>}
+                        </List>
                     </View>
-                    <block wx:if="{{list.length===0}}">
-                        <View style={styles.list-empty} >
-                            <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'}></image>
-                            <Text>暂无相关数据</Text>
-                        </View>
-                    </block>
                 </View>
-                <fa-dialog id="fa-dialog-receive"></fa-dialog>
-
+                <fa-dialog id="fa-dialog-receive" />
             </View>
         );
     }

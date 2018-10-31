@@ -115,7 +115,7 @@ export default class Index extends Component{
                         <List>
                             <View style={styles.address-card} >
                                 <View style={styles.info} >
-                                    <View style={styles.user}  data-id="{{item.id}}" bindtap="onChecked">
+                                    <View style={styles.user}  data-id={item.id} onPress="onChecked">
                                         <View style={styles.name-phone} >
                                             <Text style={styles.name} >{{ item.truename}}</Text>
                                             <Text style={styles.phone} >{{ item.phone}}</Text>
@@ -124,21 +124,21 @@ export default class Index extends Component{
                                     </View>
                                 </View>
                                 <View style={styles.action} >
-                                    <View style={styles.checked}  wx:if="{{item.is_default===1}}" data-id="{{item.id}}">
+                                    <View style={styles.checked}  wx:if="{{item.is_default===1}}" data-id={item.id}>
                                         <Icon style={styles.weuiIconRadio}  type={'success'} size="16" color="red"/>
                                         <Text>默认地址</Text>
                                     </View>
-                                    <View style={styles.checked}  wx:if="{{item.is_default===0}}" data-id="{{item.id}}"
-                                          bindtap="onChecked">
+                                    <View style={styles.checked}  wx:if="{{item.is_default===0}}" data-id={item.id}
+                                          onPress="onChecked">
                                         <Icon style={styles.weuiIconRadio}  type={'success'} size="16" color="#ccc"/>
                                         <Text>设为默认</Text>
                                     </View>
                                     <View style={styles.buttonArea} >
-                                        <View style={styles.item}  data-id="{{item.id}}" bindtap="onEdit">
+                                        <View style={styles.item}  data-id={item.id} onPress="onEdit">
                                             <Image source={require('../../images/user/address/edit.png')} resizeMode={'contain'} />
                                             <Text style={styles.edit} >编辑</Text>
                                         </View>
-                                        <View style={styles.item}  data-id="{{item.id}}" bindtap="onDelete">
+                                        <View style={styles.item}  data-id={item.id} onPress="onDelete">
                                             <Image source={require('../../images/user/address/del.png')} resizeMode={'contain'} />
                                             <Text style={styles.edit} >删除</Text>
                                         </View>
@@ -149,7 +149,7 @@ export default class Index extends Component{
                     </block>
                 </View>
                 <FixedBottom>
-                    <Button size="large" type={'danger'} bindtap="onAdd">+ 新建地址</Button>
+                    <Button size="large" type={'danger'} onPress="onAdd">+ 新建地址</Button>
                 </FixedBottom>
             </View>
             <fa-dialog id="fa-dialog-confirm"/>

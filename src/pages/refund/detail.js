@@ -19,7 +19,7 @@ export default class Index extends Component{
         id: null,
         refundInfo: null,
     },
-    async onLoad({ id  }) {
+    async componentWillMount({ id  }) {
         this.setState({
             id
         })

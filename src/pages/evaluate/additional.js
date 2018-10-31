@@ -12,11 +12,9 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class Index extends Component{
     state = {
@@ -35,7 +33,7 @@ export default class Index extends Component{
         uploaderButtonText: '上传图片(最多9张)',
         uploaderHeader: {},
     },
-    async onLoad({ order_goods_id, delta = 1 }) {
+    async componentWillMount({ order_goods_id, delta = 1 }) {
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
@@ -107,16 +105,16 @@ export default class Index extends Component{
        return  <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden">
                 <List>
-                    <View style={styles.refund-goods-card} >
+                    <View style={styles.refundGoodsCard} >
                         <View style={styles.body} >
                             <View style={styles.item} >
                                 <View style={styles.content} >
                                     <View style={styles.image} >
-                                        <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
+                                        <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                                     </View>
                                     <View style={styles.body} >
                                         <Text>已评价</Text>
-                                        <common-rater num="5" value="5" size="20"></common-rater>
+                                        <FaRater num="5" value="5" size="20"/>
                                     </View>
                                 </View>
                             </View>
@@ -131,19 +129,19 @@ export default class Index extends Component{
                         type={'textarea'}
                         title=""
                         placeholder="对评价进行补充，更客观，更全面~"
-                        value="{{content}}"
-                        onChange="onContentChange"
+                        value={content}
+                        onChange={(e)=>this.onContentChange(e)}
                     >
                     </Field>
                     <Field
                         type={'uploader'}
                         title=""
-                        uploaderButtonText="{{uploaderButtonText}}"
-                        uploaderFormData="{{uploaderFormData}}"
-                        uploaderUrl="{{uploaderUrl}}"
-                        uploaderHeader="{{uploaderHeader}}"
-                        uploaderFiles="{{uploaderFiles}}"
-                        uploaderCount="{{uploaderCount}}"
+                        uploaderButtonText={uploaderButtonText}
+                        uploaderFormData={uploaderFormData}
+                        uploaderUrl={uploaderUrl}
+                        uploaderHeader={uploaderHeader}
+                        uploaderFiles={uploaderFiles}
+                        uploaderCount={uploaderCount}
                         uploaderAllowDel={true}
                         bind:success="onUploadFileSuccess"
                         onChange="handleFieldChange"

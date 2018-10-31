@@ -36,7 +36,7 @@ export default class Index extends Component{
         uploaderButtonText: '上传凭证(最多6张)',
         uploaderHeader: {},
     }
-    async onLoad({ order_goods_id, refund_type, delta = 1 }) {
+    async componentWillMount({ order_goods_id, refund_type, delta = 1 }) {
         // delta 传的话
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
@@ -145,7 +145,7 @@ export default class Index extends Component{
                         <View style={styles.item} >
                             <View style={styles.content} >
                                 <View style={styles.image} >
-                                    <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
+                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                                 </View>
                                 <View style={styles.body} >
                                     <Text>{{ goodsInfo.goods_title}}</Text>

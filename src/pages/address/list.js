@@ -75,25 +75,25 @@ export default class Index extends Component {
     }
 
     render() {
-        return <View style="background-color:#F8F8F8;display: block;overflow: hidden;margin-bottom:100px">
+        return <View style={{
+            backgroundColor: '#F8F8F8', marginBottom: 100
+        }}>
             <View>
                 <List>
-                    <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                        <AddressCard
-                            name="{{item.truename}}"
-                            phone="{{item.phone}}"
-                            addressId="{{item.id}}"
-                            address="{{item.combine_detail}}"
-                            checked="{{item.is_default ===1}}"
-                            data-index="{{index}}"
-                            data-id="{{item.id}}"
-                            goEdit="goEdit"
-                            onAddressChecked="onAddressChecked" />
-                    </block>
+                    {list.length > 0 ?
+                        list.map((item) => <AddressCard
+                            name={item.truename}
+                            phone={item.phone}
+                            addressId={item.id}
+                            address={item.combine_detail}
+                            checked={item.is_default === 1}
+                            goEdit={() => this.goEdit()}
+                            onAddressChecked={() => this.onAddressChecked()} />)
+                        : null}
                 </List>
             </View>
             <FixedBottom>
-                <Button size="large" bindtap="goAdd">+ 新建地址</Button>
+                <Button size="large" onClick={() => this.goAdd()}>+ 新建地址</Button>
             </FixedBottom>
         </View>
     }

@@ -30,7 +30,7 @@ export default class Index extends Component {
         areaList: [],
     }
 
-    async onLoad({ id }) {
+    async componentWillMount({ id }) {
         const areaCache = fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
         const info = await addressModel.info({ id })

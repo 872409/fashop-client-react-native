@@ -18,7 +18,7 @@ export default class Index extends Component{
         order_goods_id: null,
         evaluate: null
     }
-    onLoad({ order_goods_id }) {
+    componentWillMount({ order_goods_id }) {
         this.setState({
             order_goods_id
         })
@@ -53,16 +53,16 @@ export default class Index extends Component{
             <View style={styles.goods-evaluate-item} >
                 <View style={styles.header} >
                     <View style={styles.avatar} >
-                        <Image source="{{evaluate.avatar}}" resizeMode={'contain'} />
+                        <Image source={{uri:evaluate.avatar}} resizeMode={'contain'} />
                         <View style={styles.nickname} >
-                            <Text>{{ evaluate.nickname}}</Text>
+                            <Text>{ evaluate.nickname}</Text>
                             <Text>
                                 <time-format value="{{evaluate.create_time}}" />
                             </Text>
                         </View>
                     </View>
                     <View style={styles.star} >
-                        <common-rater size="12" num="5" value="{{evaluate.score}}"></common-rater>
+                        <FaRater size="12" num="5" value="{{evaluate.score}}"/>
                     </View>
                 </View>
 
@@ -103,8 +103,8 @@ export default class Index extends Component{
                 <View style={styles.spec} >
                     {{ goodsInfo.goods_spec_string}}
                 </View>
-                <View style={styles.goods-evaluate} >
-                    <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
+                <View style={styles.goodsEvaluate} >
+                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
                     <Text>{{ goodsInfo.goods_title}}</Text>
                 </View>
             </View>
