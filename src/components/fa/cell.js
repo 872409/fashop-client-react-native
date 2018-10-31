@@ -62,7 +62,7 @@ export default class Index extends Component {
 
     // 用于被 cell-group 更新，标志是否是最后一个 cell
     updateIsLastCell(isLastCell) {
-        this.setData({ isLastCell });
+        this.setState({ isLastCell });
     }
 
     doNavigate() {

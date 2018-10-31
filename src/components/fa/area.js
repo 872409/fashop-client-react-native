@@ -40,7 +40,7 @@ export default class Index extends Component {
                 selected[i] = 0
             }
         }
-        this.setData({
+        this.setState({
             selected: selected
         })
         this.initDisplayList()
@@ -56,7 +56,7 @@ export default class Index extends Component {
         const areaId = areaList[selected[0]]['childs'][selected[1]]['childs'][selected[2]]['id']
         const ids = [provinceId, cityId, areaId]
 
-        this.setData({
+        this.setState({
             areaNames
         })
         this.triggerEvent('change', {
@@ -81,28 +81,25 @@ export default class Index extends Component {
             return item.name;
         })
 
-        this.setData({
+        this.setState({
             displayList: displayList
         })
     }
 
     render() {
         return <View style={styles.section}>
-            <picker
+            <Picker
                 mode="multiSelector"
-                onChange="bindMultiPickerChange"
-                bindcolumnchange="bindMultiPickerColumnChange" value="{{selected}}" range="{{displayList}}"
-                bindcolumnchange="columnChange" onChange="change"
+                onChange={(e) => this.bindMultiPickerChange(e)}
+                value={selected}
+                data={displayList}
+                onPickerChange={(e) => this.columnChange(e)}
             >
-                <View style={styles.picker}>
-                    <block wx:if="{{areaNames}}">
-                        <text style={styles.text}>{{ areaNames }}</text>
-                    </block>
-                    <block wx:else="{{placeholder}}">
-                        <text style={styles.placeholder}>{{ placeholder }}</text>
-                    </block>
+                <View style={styles.Picker}>
+                    {areaNames ? <Text style={styles.text}>{areaNames}</Text> : null}
+                    {placeholder ? <Text style={styles.placeholder}>{placeholder}</Text> : null}
                 </View>
-            </picker>
+            </Picker>
         </View>
     }
 }

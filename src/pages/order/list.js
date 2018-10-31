@@ -180,7 +180,7 @@ export default class Index extends Component {
                 'signType': payResult.signType,
                 'paySign': payResult.paySign,
                 'success': function () {
-                    self.setData({
+                    self.setState({
                         page: 1
                     })
                     self.updateListRow(orderInfo.id)
@@ -254,7 +254,7 @@ export default class Index extends Component {
                                         onEvaluate={() => this.onEvaluate()}
                                     />
                                 </OrderCard>
-                            </Item>) : <View style={styles.list - empty}>
+                            </Item>) : <View style={styles.listEempty}>
                                 <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'} />
                                 <Text>暂无相关数据</Text>
                             </View>}

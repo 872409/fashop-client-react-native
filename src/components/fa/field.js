@@ -74,7 +74,7 @@ export default class Index extends Component {
     handleFieldChange(event) {
         const { detail = {} } = event;
         const { value = '' } = detail;
-        this.setData({ value });
+        this.setState({ value });
 
         if (this.props.onChange) {
             this.props.onChange();

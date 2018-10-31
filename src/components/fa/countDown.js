@@ -72,7 +72,7 @@ export default class Index extends Component {
         }
 
         let timeItems = this.getTimeItems(this.computeTime, this.format);
-        this.setData({
+        this.setState({
             timeItems
         })
     }

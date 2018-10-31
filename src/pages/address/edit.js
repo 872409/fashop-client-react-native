@@ -86,7 +86,7 @@ export default class Index extends Component {
                     name: res.countyName
                 })
                 if (result !== false) {
-                    self.setData({
+                    self.setState({
                         combine_detail: `${result.items[0].name} ${result.items[1].name} ${result.items[2].name}`,
                         area_id: result.items[2].id,
                         truename: res.userName,
@@ -98,7 +98,7 @@ export default class Index extends Component {
                         title: "微信数据未能匹配成功，请使用其他方式"
                     })
                 }
-                self.setData({
+                self.setState({
                     truename: res.userName,
                     mobile_phone: res.telNumber,
                     address: res.detailInfo,
