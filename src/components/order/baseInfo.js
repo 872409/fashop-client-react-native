@@ -41,7 +41,7 @@ export default class Index extends Component {
                 </View>
                 <View style={styles.row}>
                     <Text>下单时间：</Text>
-                    <time-format style={styles.time} value={createTime} />
+                    <TimeFormat style={styles.time} value={createTime} />
                 </View>
             </View>
             {payTime > 0 ? <View style={styles.item}>
@@ -51,7 +51,7 @@ export default class Index extends Component {
                 </View>
                 <View style={styles.row}>
                     <Text>支付时间：</Text>
-                    <time-format style={styles.time} value={payTime} />
+                    <TimeFormat style={styles.time} value={payTime} />
                 </View>
             </View> : null}
         </View>

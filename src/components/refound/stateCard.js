@@ -56,7 +56,7 @@ export default class Index extends Component {
                     </View>
                     <View class="right">
                         <Text>
-                            <time-format value={refundInfo.handle_time} />
+                            <TimeFormat value={refundInfo.handle_time} />
                         </Text>
                     </View>
                 </View> : null}
@@ -66,7 +66,7 @@ export default class Index extends Component {
                     </View>
                     <View class="right">
                         <Text>
-                            <time-format value={refundInfo.handle_time} />
+                            <TimeFormat value={refundInfo.handle_time} />
                         </Text>
                     </View>
                 </View> : null}

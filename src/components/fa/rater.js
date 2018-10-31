@@ -1,42 +1,65 @@
-Component({
-    externalClasses: ['mask-class', 'container-class'],
-    properties: {
-        size: {
-            type: Number,
-            value: 12
-        },
-        num: {
-            type: Number,
-            value: 5
-        },
-        value: {
-            type: Number,
-            value: 3
+import React, { Component } from 'react';
+import {
+    StyleSheet,
+    View,
+    Image
+} from 'react-native';
+import PropTypes from "prop-types";
+
+export default class Index extends Component {
+    static propTypes = {
+        size: PropTypes.number,
+        num: PropTypes.number,
+        value: PropTypes.number,
+    };
+    static defaultProps = {
+        size: 12,
+        num: 5,
+        value: 3,
+    };
+
+    onChange(value) {
+        if (this.props.onChange) {
+            this.props.onChange({ value });
         }
-    },
-    ready: function () {
+    }
+
+    render() {
+        const { value, num, size } = this.props
         let list = []
-        for (let i = 1; i <= this.data.num; i++) {
+        for (let i = 1; i <= num; i++) {
             list = i
         }
-        this.setData({
-            list
-        })
-    },
-    methods: {
-        onChange(e) {
-            console.log(e.currentTarget.dataset.value)
-            this.triggerEvent('change', { value: e.currentTarget.dataset.value });
-        }
-    }
-    render() {
+
         return <View style={styles.raterList}>
-            <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                <Image src="active.png" style="width:{{size}}px;height: {{size}}px" mode="aspectFill"
-                       wx:if="{{index < value}}" data-value="{{index+1}}" onPress="onChange" />
-                <Image src="default.png" style="width:{{size}}px;height: {{size}}px" mode="aspectFill"
-                       wx:if="{{index >= value}}" data-value="{{index+1}}" onPress="onChange" />
-            </block>
+            {
+                list.map((item, index) => {
+                    return <View>
+                        {index < value ?
+                            <Image
+                                source={require('../../images/fa/rater/active.png')} style={{
+                                width: size,
+                                height: size,
+                            }}
+                                resizeMode="stretch"
+                                onPress={() => {
+                                    this.onChange(index + 1)
+                                }}
+                            /> : null}
+                        {index >= value ?
+                            <Image
+                                source={require('../../images/fa/rater/default.png')}
+                                style={{
+                                    width: size,
+                                    height: size,
+                                }}
+                                resizeMode="stretch"
+                                onPress={() => {
+                                    this.onChange(index + 1)
+                                }} /> : null}
+                    </View>
+                })
+            }
         </View>
     }
-});
+}

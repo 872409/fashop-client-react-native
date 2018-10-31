@@ -46,7 +46,7 @@ export default class Index extends Component {
                 </View>
                 <View style={styles.row}>
                     <Text>申请时间：</Text>
-                    <time-format value={createTime} />
+                    <TimeFormat value={createTime} />
                 </View>
                 <View style={styles.row}>
                     <Text>退款编号：</Text>

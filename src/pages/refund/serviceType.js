@@ -40,7 +40,7 @@ export default class Index extends Component{
                                 <View style={styles.body} >
                                     <Text>{{ goodsInfo.goods_title}}</Text>
                                     <View style={styles.end} >
-                                        <Text style={styles.spec} >{{ goodsInfo.goods_spec_string}}</Text>
+                                        <Text style={styles.spec} >{ goodsInfo.goods_spec_string}</Text>
                                         <Text style={styles.number} >x {{ goodsInfo.goods_num}}</Text>
                                     </View>
                                 </View>
