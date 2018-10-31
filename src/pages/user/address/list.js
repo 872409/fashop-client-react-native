@@ -1,10 +1,3 @@
-import fa from '../../../../utils/fa'
-import AddressModel from '../../../../models/address'
-import regeneratorRuntime from '../../../../libs/regenerator-runtime/runtime-module'
-
-const addressModel = new AddressModel()
-const Dialog = require('../../../../ui/dialog/dialog');
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -13,24 +6,28 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import fa from '../../../utils/fa'
+import AddressModel from '../../../models/address'
+
+const addressModel = new AddressModel()
+const Dialog = require('../../../../ui/dialog/dialog');
 
 export default class Index extends Component{
-    data: {
+    state = {
         page: 1,
         rows: 10,
         noMore: false,
         list: [],
-    },
+    }
     async onShow() {
         this.initList()
-    },
+    }
     initList() {
-        this.setData({
+        this.setState({
             page: 1
         })
         this.getList()
-    },
+    }
     async getList() {
         const page = this.state.page
         if (page > 1 && this.state.noMore === true) {
@@ -48,9 +45,9 @@ export default class Index extends Component{
                 data['noMore'] = true
             }
             data['list'] = list.concat(result.list)
-            this.setData(data)
+            this.setState(data)
         }
-    },
+    }
     async onChecked(e) {
         const result = await addressModel.setDefault({ id: e.currentTarget.dataset.id })
         if (result) {
@@ -60,25 +57,25 @@ export default class Index extends Component{
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         }
-    },
+    }
     async onReachBottom() {
         if (this.state.noMore === true) {
             return false
         } else {
             this.getList()
         }
-    },
+    }
     onAddressChecked(e) {
         fa.cache.set('address_checked_id', e.detail.addressId)
         wx.navigateBack({
             delta: 1
         })
-    },
+    }
     onEdit(e) {
         wx.navigateTo({
             url: '/pages/user/address/edit/index?id=' + e.currentTarget.dataset.id
         })
-    },
+    }
     async onDelete(e) {
         Dialog({
             message: '您确认删除吗？一旦删除不可恢复',
@@ -104,7 +101,7 @@ export default class Index extends Component{
             }
         })
 
-    },
+    }
     onAdd() {
         wx.navigateTo({
             url: '/pages/user/address/add/index'
@@ -115,48 +112,47 @@ export default class Index extends Component{
             <View style="background-color:#F8F8F8;display: block;overflow: hidden;margin-bottom:100px">
                 <View>
                     <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                        <fa-panel>
-                            <View className="address-card">
-                                <View className="info">
-                                    <View className="user" data-id="{{item.id}}" bindtap="onChecked">
-                                        <View className="name-phone">
-                                            <text className="name">{{ item.truename}}</text>
-                                            <text className="phone">{{ item.phone}}</text>
+                        <List>
+                            <View style={styles.address-card} >
+                                <View style={styles.info} >
+                                    <View style={styles.user}  data-id="{{item.id}}" bindtap="onChecked">
+                                        <View style={styles.name-phone} >
+                                            <Text style={styles.name} >{{ item.truename}}</Text>
+                                            <Text style={styles.phone} >{{ item.phone}}</Text>
                                         </View>
-                                        <View className="address">{{ item.address}}</View>
+                                        <View style={styles.address} >{{ item.address}}</View>
                                     </View>
                                 </View>
-                                <View className="action">
-                                    <View className="checked" wx:if="{{item.is_default===1}}" data-id="{{item.id}}">
-                                        <icon className="weui-icon-radio" type="success" size="16" color="red"></icon>
-                                        <text>默认地址</text>
+                                <View style={styles.action} >
+                                    <View style={styles.checked}  wx:if="{{item.is_default===1}}" data-id="{{item.id}}">
+                                        <Icon style={styles.weuiIconRadio}  type={'success'} size="16" color="red"/>
+                                        <Text>默认地址</Text>
                                     </View>
-                                    <View className="checked" wx:if="{{item.is_default===0}}" data-id="{{item.id}}"
+                                    <View style={styles.checked}  wx:if="{{item.is_default===0}}" data-id="{{item.id}}"
                                           bindtap="onChecked">
-                                        <icon className="weui-icon-radio" type="success" size="16" color="#ccc"></icon>
-                                        <text>设为默认</text>
+                                        <Icon style={styles.weuiIconRadio}  type={'success'} size="16" color="#ccc"/>
+                                        <Text>设为默认</Text>
                                     </View>
-                                    <View className="button-area">
-                                        <View className="item" data-id="{{item.id}}" bindtap="onEdit">
-                                            <image src="/themes/default/user/address/edit.png" mode="aspectFill" />
-                                            <text className="edit">编辑</text>
+                                    <View style={styles.buttonArea} >
+                                        <View style={styles.item}  data-id="{{item.id}}" bindtap="onEdit">
+                                            <Image source={require('../../images/user/address/edit.png')} resizeMode={'contain'} />
+                                            <Text style={styles.edit} >编辑</Text>
                                         </View>
-                                        <View className="item" data-id="{{item.id}}" bindtap="onDelete">
-                                            <image src="/themes/default/user/address/del.png" mode="aspectFill" />
-                                            <text className="edit">删除</text>
+                                        <View style={styles.item}  data-id="{{item.id}}" bindtap="onDelete">
+                                            <Image source={require('../../images/user/address/del.png')} resizeMode={'contain'} />
+                                            <Text style={styles.edit} >删除</Text>
                                         </View>
                                     </View>
                                 </View>
                             </View>
-                        </fa-panel>
+                        </List>
                     </block>
                 </View>
-                <fixed-bottom>
-                    <fa-button size="large" type="danger" bindtap="onAdd">+ 新建地址</fa-button>
-                </fixed-bottom>
+                <FixedBottom>
+                    <Button size="large" type={'danger'} bindtap="onAdd">+ 新建地址</Button>
+                </FixedBottom>
             </View>
-            <fa-dialog id="fa-dialog-confirm"></fa-dialog>
-
+            <fa-dialog id="fa-dialog-confirm"/>
         </View>
     }
 }

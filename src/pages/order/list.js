@@ -1,11 +1,4 @@
-import fa from '../../../utils/fa'
-import OrderModel from '../../../models/order'
-import BuyModel from '../../../models/buy'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
 
-const Dialog = require('../../../ui/dialog/dialog');
-const orderModel = new OrderModel()
-const buyModel = new BuyModel()
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -14,10 +7,15 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import fa from '../../utils/fa'
+import OrderModel from '../../models/order'
+import BuyModel from '../../models/buy'
 
+const Dialog = require('../../../ui/dialog/dialog');
+const orderModel = new OrderModel()
+const buyModel = new BuyModel()
 export default class Index extends Component{
-    data: {
+    state = {
         page: 1,
         rows: 10,
         noMore: false,
@@ -47,12 +45,12 @@ export default class Index extends Component{
         state_type: 'all',
     },
     async onLoad({ state_type = 'all' }) {
-        this.setData({
+        this.setState({
             state_type
         })
     },
     onShow() {
-        this.setData({
+        this.setState({
             page: 1
         })
         this.getList()
@@ -75,7 +73,7 @@ export default class Index extends Component{
                 data['noMore'] = true
             }
             data['list'] = list.concat(result.list)
-            this.setData(data)
+            this.setState(data)
         }
     },
     async onReachBottom() {
@@ -91,7 +89,7 @@ export default class Index extends Component{
         })
     },
     onTabChange(e) {
-        this.setData({
+        this.setState({
             state_type: e.detail,
             page: 1,
             list: []
@@ -198,7 +196,7 @@ export default class Index extends Component{
                 } else {
                     list[listIndex] = result.list[0]
                 }
-                this.setData({ list })
+                this.setState({ list })
             }
         }
     }
@@ -212,12 +210,12 @@ export default class Index extends Component{
                         list="{{ orderStateTabs }}"
                         selected-id="{{state_type}}"
                         height="40"
-                        fixed="true"
+                        fixed={true}
                         bindtabchange="onTabChange"
                     />
                     <View>
                         <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                            <fa-panel>
+                            <List>
                                 <order-card>
                                     <order-card-header orderId="{{item.id}}" state="{{item.state}}"
                                                        sn="{{item.sn}}"></order-card-header>
@@ -238,13 +236,13 @@ export default class Index extends Component{
                                         bind:evaluate="onEvaluate"
                                     ></order-card-footer>
                                 </order-card>
-                            </fa-panel>
+                            </List>
                         </block>
                     </View>
                     <block wx:if="{{list.length===0}}">
-                        <View className="list-empty">
-                            <image src="/themes/default/order/list-empty.png" mode="aspectFill"></image>
-                            <text>暂无相关数据</text>
+                        <View style={styles.list-empty} >
+                            <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'}></image>
+                            <Text>暂无相关数据</Text>
                         </View>
                     </block>
                 </View>

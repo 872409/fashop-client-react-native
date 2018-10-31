@@ -19,16 +19,19 @@ export default class Index extends Component {
         phone: null,
         address: null,
     };
-    render(){
-        return <View className="order-address">
-            <View className="info">
-                <View className="user">
-                    <image src="/themes/default/order/buyer-address.png" mode="scaleToFill" />
-                    <text className="name">{{ name }}</text>
-                    <text className="phone">{{ phone }}</text>
+
+    render() {
+        const { name ,phone,address} = this.props
+
+        return <View style={styles.orderAddress}>
+            <View style={styles.info}>
+                <View style={styles.user}>
+                    <Image source={require('../../images/order/buyer-address.png')} resizeMode="stretch" />
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.phone}>{phone}</Text>
                 </View>
-                <View className="address">
-                    地址：{{ address }}
+                <View style={styles.address}>
+                    地址：{address}
                 </View>
             </View>
         </View>

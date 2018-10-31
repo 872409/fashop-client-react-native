@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
@@ -22,28 +21,21 @@ export default class Index extends Component {
         }
     };
 
-    onMaskClick() {
-        if (this.state.cancelWithMask) {
-            this.cancelClick();
-        }
-    }
 
-    cancelClick() {
-        this.triggerEvent('cancel');
-    }
-
-    handleBtnClick({ currentTarget = {} }) {
-        const dataset = currentTarget.dataset || {};
-        const { index } = dataset;
-        this.triggerEvent('actionclick', { index });
-    }
-    render(){
-        return <View className="page-column-title">
-            <details
-                style="justify-content:{{justifyContent[dataSource.options.align]}};background-color: {{dataSource.options.background_color}}">
-                <image src="{{dataSource.options.leading_image.url}}" mode="aspectFit" />
-                <text style="color:{{dataSource.options.font_color}}">{{ dataSource.options.title}}</text>
-            </details>
+    render() {
+        const { justifyContent, dataSource } = this.props
+        return <View style={styles.pageColumnTitle}>
+            <View
+                style={{
+                    justifyContent: justifyContent[dataSource.options.align],
+                    backgroundColor: dataSource.options.background_color
+                }}
+            >
+                <Image source={{ uri: dataSource.options.leading_image.url }} resizeMode="aspectFit" />
+                <Text style={
+                    { color: dataSource.options.font_color }
+                }>{dataSource.options.title}</Text>
+            </View>
         </View>
     }
 }

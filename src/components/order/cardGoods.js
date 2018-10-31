@@ -10,48 +10,53 @@ import PropTypes from "prop-types";
 
 export default class Index extends Component {
     static propTypes = {
-        orderId: PropTypes.string,
         goodsList: PropTypes.array,
     };
     static defaultProps = {
-        orderId: null,
         goodsList: [],
     };
 
-    onClick(e) {
-        this.triggerEvent('click', { orderId: this.state.orderId });
+    onClick() {
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
 
     render() {
+        const {
+            goodsList,
+        } = this.props
         return <View>
-            <View wx:if="{{goodsList.length > 1}}" onPress={this.onClick()}>
-                <scroll-View className="order-card-goods" scroll-x="true" scroll-with-animation="true">
+            {goodsList.length > 1 ? <View onPress={this.onClick()}>
+                <ScrollView contentContainerStyle={styles.orderCardGoods}>
                     <View>
-                        <block wx:for="{{goodsList}}" wx:key="item">
-                            <View className="item">
-                                <image src="{{item.goods_img}}" mode="aspectFill" />
-                            </View>
-                        </block>
+                        {
+                            goodsList.length > 0 ? goodsList.map((item) => {
+                                return <View style={styles.item}>
+                                    <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
+                                </View>
+                            }) : null}
                     </View>
-                </scroll-View>
-            </View>
-            <View wx:elif="{{goodsList.length === 1}}" onPress={this.onClick()}>
-                <View className="order-card-goods-one">
-                    <block wx:for="{{goodsList}}" wx:key="item">
-                        <View className="one-item" wx:for="{{goodsList}}" wx:key="item">
-                            <View className="image">
-                                <image src="{{item.goods_img}}" mode="aspectFill" />
+                </ScrollView>
+            </View> : null}
+            {goodsList.length === 1 ? <View onPress={this.onClick()}>
+                <View style={styles.orderCardGoodsOne}>
+                    {goodsList.map((item) => {
+                        return <View style={styles.oneItem}>
+                            <View style={styles.image}>
+                                <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
                             </View>
-                            <View className="body">
-                                <text>{{ item.goods_title}}</text>
-                                <View className="desc">
-                                    <label>{{ item.goods_spec_string}}</label><i>x{{ item.goods_num}}</i></View>
-                                <label>¥{{ item.goods_price}}</label>
+                            <View style={styles.body}>
+                                <Text>{item.goods_title}</Text>
+                                <View style={styles.desc}>
+                                    <Text>{item.goods_spec_string}</Text><i>x{item.goods_num}</i></View>
+                                <Text>¥{item.goods_price}</Text>
                             </View>
                         </View>
-                    </block>
+                    })}
+
                 </View>
-            </View>
+            </View> : null}
         </View>
     }
 }

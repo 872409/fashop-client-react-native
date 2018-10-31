@@ -1,9 +1,15 @@
-import fa from '../../../utils/fa'
-import RefundModel from '../../../models/refund'
-import OrderModel from '../../../models/order'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-import { UploadImageInterface } from '../../../interface/uploadImage'
-import { api } from '../../../api'
+import React, { Component } from 'react';
+import {
+    StyleSheet,
+    View,
+    ScrollView,
+    Text,
+    Image
+} from 'react-native';
+import fa from '../../utils/fa'
+import RefundModel from '../../models/refund'
+import OrderModel from '../../models/order'
+import { UploadImageInterface } from '../../interface/uploadImage'
 
 const refundModel = new RefundModel()
 const orderModel = new OrderModel()
@@ -17,19 +23,8 @@ const orderModel = new OrderModel()
  * @param  string    tracking_explain    说明 非必须
  * @param  string    tracking_images    凭证 最多6张
  */
-
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    ScrollView,
-    Text,
-    Image
-} from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
-
-export default class Index extends Component{
-    data: {
+export default class Index extends Component {
+    state = {
         id: null,
         tracking_company: '',
         tracking_no: '',
@@ -45,13 +40,14 @@ export default class Index extends Component{
         uploaderUrl: null,
         uploaderButtonText: '上传凭证(最多6张)',
         uploaderHeader: {},
-    },
+    }
+
     async onLoad({ id, order_goods_id }) {
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
         })
-        this.setData({
+        this.setState({
             id,
             uploaderUrl: api.upload.addImage.url,
             uploaderHeader: {
@@ -60,39 +56,46 @@ export default class Index extends Component{
             },
             goodsInfo: goodsInfoResult.info
         })
-    },
+    }
+
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
         let files = this.state.uploaderFiles
-        this.setData({
+        this.setState({
             uploaderFiles: files.concat(result.origin.path)
         })
-    },
+    }
+
     onUploadFileDelete(e) {
-        this.setData({
+        this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
-    },
+    }
+
     onTrackingCompanyChange(e) {
-        this.setData({
+        this.setState({
             tracking_company: e.detail.detail.value
         })
-    },
+    }
+
     onTrackingNoChange(e) {
-        this.setData({
+        this.setState({
             tracking_no: parseInt(e.detail.detail.value)
         })
-    },
+    }
+
     onTackingPhoneChange(e) {
-        this.setData({
+        this.setState({
             tracking_phone: e.detail.detail.value
         })
-    },
+    }
+
     onTrackingExplainChange(e) {
-        this.setData({
+        this.setState({
             tracking_explain: e.detail.detail.value
         })
-    },
+    }
+
     async onSubmit() {
         if (!this.state.tracking_company) {
             return fa.toast.show({ title: '请填写物流公司' })
@@ -130,68 +133,69 @@ export default class Index extends Component{
             })
         }
     }
-    render(){
+
+    render() {
         return <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-                <fa-panel>
-                    <refund-goods-card
-                        goodsTitle="{{goodsInfo.goods_title}}"
-                        goodsImg="{{goodsInfo.goods_img}}"
-                        goodsSpec="{{goodsInfo.goods_spec_string}}"
-                        goodsNum="{{goodsInfo.goods_num}}"
-                    ></refund-goods-card>
-                </fa-panel>
-                <fa-panel>
-                    <fa-field
+                <List>
+                    <RefundGoodsCard
+                        goodsTitle={goodsInfo.goods_title}
+                        goodsImg={goodsInfo.goods_img}
+                        goodsSpec={goodsInfo.goods_spec_string}
+                        goodsNum={goodsInfo.goods_num}
+                    />
+                </List>
+                <List>
+                    <Field
                         title="物流公司"
                         placeholder="请填写物流公司，必填"
                         value="{{tracking_company }}"
-                        bind:change="onTrackingCompanyChange"
+                        onChange="onTrackingCompanyChange"
                     >
-                    </fa-field>
-                    <fa-field
+                    </Field>
+                    <Field
                         title="物流单号"
                         placeholder="请输入物流单号，必填"
                         value="{{tracking_no}}"
-                        bind:change="onTrackingNoChange"
+                        onChange="onTrackingNoChange"
                     >
-                    </fa-field>
-                    <fa-field
+                    </Field>
+                    <Field
                         title="联系电话"
                         placeholder="请填写手机号码，必填"
                         value="{{tracking_phone}}"
-                        bind:change="onTackingPhoneChange"
+                        onChange="onTackingPhoneChange"
                     >
-                    </fa-field>
-                    <fa-field
+                    </Field>
+                    <Field
                         title="退款说明"
                         placeholder="退款说明，必填"
                         value="{{tracking_explain}}"
-                        bind:change="onTrackingExplainChange"
+                        onChange="onTrackingExplainChange"
                     >
-                    </fa-field>
-                    <fa-field
-                        type="uploader"
+                    </Field>
+                    <Field
+                        type={'uploader'}
                         title="图片上传"
-                        uploaderButtonText="{{uploaderButtonText}}"
-                        uploaderFormData="{{uploaderFormData}}"
-                        uploaderUrl="{{uploaderUrl}}"
-                        uploaderHeader="{{uploaderHeader}}"
-                        uploaderFiles="{{uploaderFiles}}"
-                        uploaderCount="6"
-                        uploaderAllowDel="true"
+                        uploaderButtonText={uploaderButtonText}
+                        uploaderFormData={uploaderFormData}
+                        uploaderUrl={uploaderUrl}
+                        uploaderHeader={uploaderHeader}
+                        uploaderFiles={uploaderFiles}
+                        uploaderCount={6}
+                        uploaderAllowDel={true}
                         bind:success="onUploadFileSuccess"
-                        bind:change="handleFieldChange"
+                        onChange="handleFieldChange"
                         bind:delete="onUploadFileDelete"
                     >
-                    </fa-field>
-                </fa-panel>
+                    </Field>
+                </List>
             </View>
-            <fixed-bottom>
-                <View className="footer">
-                    <fa-button type="danger" size="large" bind:btnclick="onSubmit">提交</fa-button>
+            <FixedBottom>
+                <View style={styles.footer}>
+                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
                 </View>
-            </fixed-bottom>
+            </FixedBottom>
 
         </View>
     }

@@ -19,7 +19,7 @@ import {
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class Index extends Component{
-    data: {
+    state = {
         id: 0,
         delta: 1,
         score: 5,
@@ -35,14 +35,14 @@ export default class Index extends Component{
         uploaderUrl: null,
         uploaderButtonText: '上传图片(最多9张)',
         uploaderHeader: {},
-    },
+    }
     async onLoad({ order_goods_id = 440, delta = 1 }) {
         const accessToken = fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
         })
 
-        this.setData({
+        this.setState({
             id: goodsInfoResult.info.id,
             delta: typeof delta !== 'undefined' ? delta : 1,
             uploaderUrl: api.upload.addImage.url,
@@ -53,29 +53,29 @@ export default class Index extends Component{
             goodsInfo: goodsInfoResult.info,
             orderGoodsId: order_goods_id
         })
-    },
+    }
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
         let files = this.state.uploaderFiles
-        this.setData({
+        this.setState({
             uploaderFiles: files.concat(result.origin.path)
         })
-    },
+    }
     onUploadFileDelete(e) {
-        this.setData({
+        this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
-    },
+    }
     onContentChange(e) {
-        this.setData({
+        this.setState({
             content: e.detail.detail.value
         })
-    },
+    }
     onScoreChange(e) {
-        this.setData({
+        this.setState({
             score: parseInt(e.detail.value)
         })
-    },
+    }
 
     async onSubmit() {
         if (!this.state.score) {
@@ -106,7 +106,7 @@ export default class Index extends Component{
                 delta: this.state.delta
             })
         }
-    },
+    }
     updateListRow() {
         const { id } = this.state
         if (id > 0) {
@@ -118,35 +118,35 @@ export default class Index extends Component{
     render(){
         return <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-                <fa-panel>
-                    <View className="refund-goods-card">
-                        <View className="body">
-                            <View className="item">
-                                <View className="content">
-                                    <View className="image">
-                                        <image src="{{goodsInfo.goods_img}}" mode="aspectFill" />
+                <List>
+                    <View style={styles.refund-goods-card} >
+                        <View style={styles.body} >
+                            <View style={styles.item} >
+                                <View style={styles.content} >
+                                    <View style={styles.image} >
+                                        <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
                                     </View>
-                                    <View className="body">
-                                        <text>商品评价</text>
+                                    <View style={styles.body} >
+                                        <Text>商品评价</Text>
                                         <common-rater num="5" value="{{score}}" size="20"
-                                                      bind:change="onScoreChange"></common-rater>
+                                                      onChange="onScoreChange"></common-rater>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </View>
-                </fa-panel>
-                <fa-panel>
-                    <fa-field
-                        type="textarea"
+                </List>
+                <List>
+                    <Field
+                        type={'textarea'}
                         title=""
                         placeholder="请输入您要评价的内容"
                         value="{{content}}"
-                        bind:change="onContentChange"
+                        onChange="onContentChange"
                     >
-                    </fa-field>
-                    <fa-field
-                        type="uploader"
+                    </Field>
+                    <Field
+                        type={'uploader'}
                         title=""
                         uploaderButtonText="{{uploaderButtonText}}"
                         uploaderFormData="{{uploaderFormData}}"
@@ -154,18 +154,18 @@ export default class Index extends Component{
                         uploaderHeader="{{uploaderHeader}}"
                         uploaderFiles="{{uploaderFiles}}"
                         uploaderCount="{{uploaderCount}}"
-                        uploaderAllowDel="true"
+                        uploaderAllowDel={true}
                         bind:success="onUploadFileSuccess"
                         bind:delete="onUploadFileDelete"
                     >
-                    </fa-field>
-                </fa-panel>
+                    </Field>
+                </List>
             </View>
-            <fixed-bottom>
-                <View className="footer">
-                    <fa-button type="danger" size="large" bind:btnclick="onSubmit">提交</fa-button>
+            <FixedBottom>
+                <View style={styles.footer} >
+                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
                 </View>
-            </fixed-bottom>
+            </FixedBottom>
         </View>
     }
 }

@@ -22,10 +22,12 @@ export default class Index extends Component {
         active: false,
     }
     onClick(e) {
-        this.triggerEvent('click', e);
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
     render(){
-        return <View className="order-button {{size}} order-button-type-{{type}} {{active === true?'active':''}}"
-                     onPress={this.onClick()}>{{ text }}</View>
+        const { size, text, type, active } = this.props
+        return <View style={[styles.orderButton]} onPress={this.onClick()}>{text}</View>
     }
 }

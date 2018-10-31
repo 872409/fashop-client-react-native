@@ -82,9 +82,9 @@ export default class OrderAction extends Component {
                                 // history.push("/classify/invoice");
                             }}
                             extra={(
-                                <span style={styles.themeExtra}>
+                                <Text style={styles.themeExtra}>
                                     您所购买的商品暂不支持索要发票
-                                </span>
+                                </Text>
                             )}
                         >
                             发票

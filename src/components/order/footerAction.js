@@ -10,8 +10,6 @@ import PropTypes from "prop-types";
 
 export default class Index extends Component {
     static propTypes = {
-        orderInfo: PropTypes.object,
-        orderState: PropTypes.number,
         showReceiveBtn: PropTypes.bool,
         showCancelBtn: PropTypes.bool,
         showDelBtn: PropTypes.bool,
@@ -30,48 +28,61 @@ export default class Index extends Component {
     };
 
     onClick() {
-        this.triggerEvent('click', { orderId: this.state.orderId });
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
 
     onCancel() {
-        this.triggerEvent('cancel', { orderId: this.state.orderId });
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
     }
 
     onReceive() {
-        this.triggerEvent('receive', { orderInfo: this.state.orderInfo });
+        if (this.props.onReceive) {
+            this.props.onReceive();
+        }
     }
 
     onPay() {
-        this.triggerEvent('pay', { orderInfo: this.state.orderInfo });
+        if (this.props.onPay) {
+            this.props.onPay();
+        }
     }
 
     onEvaluate() {
-        this.triggerEvent('evaluate', { orderInfo: this.state.orderInfo });
+        if (this.props.onEvaluate) {
+            this.props.onEvaluate();
+        }
     }
-    render(){
-        return <View className="order-footer-action">
-            <View className="footer">
-                <View className="left">
-                    <!--<block wx:if="{{showDelBtn === true}}">-->
-                    <!--<View class="del-action">删除订单</View>-->
-                    <!--</block>-->
+
+    render() {
+        const {
+            showReceiveBtn,
+            showCancelBtn,
+            showEvaluateBtn,
+            showPayBtn,
+            showLogisticsBtn,
+        } = this.props
+        return <View style={styles.orderFooterAction}>
+            <View style={styles.footer}>
+                <View style={styles.left}>
                 </View>
-                <View className="right">
-                    <block wx:if="{{showCancelBtn === true}}">
-                        <order-button text="取消订单" bind:click="onCancel"></order-button>
-                    </block>
-                    <block wx:if="{{showPayBtn === true}}">
-                        <order-button text="去支付" type="danger" bind:click="onPay"></order-button>
-                    </block>
-                    <block wx:if="{{showReceiveBtn === true}}">
-                        <order-button text="确认收货" type="danger" bind:click="onReceive"></order-button>
-                    </block>
-                    <block wx:if="{{showEvaluateBtn === true}}">
-                        <order-button text="评价" bind:click="onEvaluate"></order-button>
-                    </block>
-                    <!--<block wx:if="{{showLogisticsBtn === true}}">-->
-                    <!--<order-button text="查看物流">查看物流</order-button>-->
-                    <!--</block>-->
+                <View style={styles.right}>
+                    {showCancelBtn === true ? <OrderButton text="取消订单" onClick={() => {
+                        this.onCancel()
+                    }} /> : null}
+                    {showPayBtn === true ? <OrderButton text="去支付" type="danger" onClick={() => {
+                        this.onPay()
+                    }} /> : null}
+                    {showReceiveBtn === true ? <OrderButton text="确认收货" type="danger" onClick={() => {
+                        this.onReceive()
+                    }} /> : null}
+                    {showEvaluateBtn === true ? <OrderButton text="评价" onClick={() => {
+                        this.onEvaluate()
+                    }} /> : null}
+
                 </View>
             </View>
         </View>

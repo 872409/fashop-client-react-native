@@ -1,5 +1,3 @@
-import OrderModel from '../../../models/order'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
 
 const orderModel = new OrderModel()
 import React, { Component } from 'react';
@@ -10,17 +8,17 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import OrderModel from '../../models/order'
 
 export default class Index extends Component{
-    data: {
+    state = {
         goodsInfo: null,
-    },
+    }
     async onLoad(options) {
         const goodsInfoResult = await orderModel.goodsInfo({
             id: typeof options['order_goods_id'] !== 'undefined' ? options['order_goods_id'] : 414
         })
-        this.setData({
+        this.setState({
             goodsInfo: goodsInfoResult.info,
         })
     },
@@ -31,38 +29,38 @@ export default class Index extends Component{
     }
     render(){
         return <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-            <fa-panel>
-                <View className="refund-goods-card">
-                    <View className="body">
-                        <View className="item">
-                            <View className="content">
-                                <View className="image">
-                                    <image src="{{goodsInfo.goods_img}}" mode="aspectFill" />
+            <List>
+                <View style={styles.refund-goods-card} >
+                    <View style={styles.body} >
+                        <View style={styles.item} >
+                            <View style={styles.content} >
+                                <View style={styles.image} >
+                                    <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
                                 </View>
-                                <View className="body">
-                                    <text>{{ goodsInfo.goods_title}}</text>
-                                    <View className="end">
-                                        <text className="spec">{{ goodsInfo.goods_spec_string}}</text>
-                                        <label className="number">x {{ goodsInfo.goods_num}}</label>
+                                <View style={styles.body} >
+                                    <Text>{{ goodsInfo.goods_title}}</Text>
+                                    <View style={styles.end} >
+                                        <Text style={styles.spec} >{{ goodsInfo.goods_spec_string}}</Text>
+                                        <Text style={styles.number} >x {{ goodsInfo.goods_num}}</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
-            </fa-panel>
-            <fa-panel>
+            </List>
+            <List>
                 <fa-cell-group>
-                    <fa-cell is-link="true" title="仅退款"
+                    <fa-cell is-link={true} title="仅退款"
                              label="未收到货（包含未签收），或卖家协商同意前提现" data-refund-type="1" bind:tap="onClick"
-                             icon="/themes/default/refund/refund-type-1.png">
+                             icon="../../images/refund/refund-type-1.png">
                     </fa-cell>
-                    <fa-cell is-link="true" title="退货退款"
+                    <fa-cell is-link={true} title="退货退款"
                              label="已收到货，需要退换已收到的货物" data-refund-type="2" bind:tap="onClick"
-                             icon="/themes/default/refund/refund-type-2.png">
+                             icon="../../images/refund/refund-type-2.png">
                     </fa-cell>
                 </fa-cell-group>
-            </fa-panel>
+            </List>
         </View>
 
     }

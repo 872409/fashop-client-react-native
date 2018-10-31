@@ -10,8 +10,6 @@ import PropTypes from "prop-types";
 
 export default class Index extends Component {
     static propTypes = {
-        orderInfo: PropTypes.object,
-        orderId: PropTypes.string,
         goodsNumber: PropTypes.number,
         totalCost: PropTypes.number,
         showEvaluateBtn: PropTypes.bool,
@@ -20,8 +18,6 @@ export default class Index extends Component {
         showLogisticsBtn: PropTypes.bool,
     };
     static defaultProps = {
-        orderInfo: null,
-        orderId: null,
         goodsNumber: null,
         totalCost: null,
         showEvaluateBtn: false,
@@ -31,49 +27,62 @@ export default class Index extends Component {
     };
 
     onClick() {
-        this.triggerEvent('click', { orderId: this.state.orderId });
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
 
     onCancel() {
-        this.triggerEvent('cancel', { orderId: this.state.orderId });
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
     }
 
     onReceive() {
-        this.triggerEvent('receive', { orderInfo: this.state.orderInfo });
+        if (this.props.onReceive) {
+            this.props.onReceive();
+        }
     }
 
     onPay() {
-        this.triggerEvent('pay', { orderInfo: this.state.orderInfo });
+        if (this.props.onPay) {
+            this.props.onPay();
+        }
     }
 
     onEvaluate() {
-        this.triggerEvent('evaluate', { orderInfo: this.state.orderInfo });
+        if (this.props.onEvaluate) {
+            this.props.onEvaluate();
+        }
     }
-    render(){
-        return <View className="order-card-footer">
-            <View className="header">
-                <text className="number">共{{ goodsNumber }}件商品</text>
-                <text className="price-desc">实付款：</text>
-                <text className="price">¥{{ totalCost }}</text>
-            </View>
-            <View className="footer" wx:if="{{showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn}}">
-                <block wx:if="{{showCancelBtn === true}}">
-                    <View className="btn" onPress={this.onCancel()}>取消</View>
-                </block>
-                <block wx:if="{{showEvaluateBtn === true}}">
-                    <View className="btn btn-danger" onPress={this.onEvaluate()}>评价</View>
-                </block>
-                <block wx:if="{{showPayBtn === true}}">
-                    <View className="btn btn-danger" onPress={this.onPay()}>去支付</View>
-                </block>
-                <block wx:if="{{showReceiveBtn === true}}">
-                    <View className="btn btn-danger" onPress={this.onReceive()}>确认收货</View>
-                </block>
-                <!--<block wx:if="{{showLogisticsBtn === true}}">-->
-                <!--<View class="btn">查看物流</View>-->
-                <!--</block>-->
-            </View>
-        </View>
 
+    render() {
+        const {
+            goodsNumber,
+            totalCost,
+            showEvaluateBtn,
+            showPayBtn,
+            showReceiveBtn,
+            showLogisticsBtn,
+        } = this.props
+
+        return <View style={styles.orderCardFooter}>
+            <View style={styles.header}>
+                <Text style={styles.number}>共{ goodsNumber}件商品</Text>
+                <Text style={styles.priceDesc}>实付款：</Text>
+                <Text style={styles.price}>¥{{ totalCost }}</Text>
+            </View>
+            {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn ?
+                <View style={styles.footer}>
+                    {showCancelBtn === true ?
+                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onCancel()}>取消</View> : null}
+                    {showEvaluateBtn === true ?
+                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onEvaluate()}>评价</View> : null}
+                    {showPayBtn === true ?
+                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onPay()}>去支付</View> : null}
+                    {showReceiveBtn === true ?
+                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onReceive()}>确认收货</View> : null}
+                </View> : null}
+        </View>
     }
 }

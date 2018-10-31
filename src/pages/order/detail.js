@@ -1,12 +1,3 @@
-import fa from '../../../utils/fa'
-import OrderModel from '../../../models/order'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-import BuyModel from "../../../models/buy";
-
-const orderModel = new OrderModel()
-const buyModel = new BuyModel()
-const Dialog = require('../../../ui/dialog/dialog');
-import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
@@ -14,19 +5,25 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import fa from '../../utils/fa'
+import OrderModel from '../../models/order'
+import BuyModel from "../../models/buy";
 
+const orderModel = new OrderModel()
+const buyModel = new BuyModel()
+const Dialog = require('../../../ui/dialog/dialog');
+import React, { Component } from 'react';
 export default class Index extends Component{
-    data: {
+    state = {
         id: null,
         orderInfo: null,
         orderLog: null,
-    },
+    }
     async onLoad({ id }) {
-        this.setData({
+        this.setState({
             id
         })
-    },
+    }
     onRefund(e) {
         const orderInfo = this.state.orderInfo
         const { goodsInfo } = e.detail
@@ -44,31 +41,31 @@ export default class Index extends Component{
                 url: `/pages/refund/serviceType/index?order_goods_id=${goodsInfo.id}`,
             })
         }
-    },
+    }
     onRefundDetail(e) {
         const { goodsInfo } = e.detail
         wx.navigateTo({
             url: `/pages/refund/detail/index?id=${goodsInfo.refund_id}`,
         })
-    },
+    }
     async onShow() {
         this.init()
-    },
+    }
     async init() {
         const result = await orderModel.detail({ id: this.state.id })
         if (result) {
-            this.setData({
+            this.setState({
                 orderInfo: result.info,
                 orderLog: result.order_log
             })
         }
-    },
+    }
     onGoodsDetail(e) {
         const { goodsInfo } = e.detail
         wx.navigateTo({
             url: `/pages/goods/detail/index?id=${goodsInfo.goods_id}`,
         })
-    },
+    }
     async onCancel(e) {
         const orderInfo = e.detail.orderInfo
         const result = await orderModel.cancel({
@@ -82,13 +79,13 @@ export default class Index extends Component{
                 title: fa.code.parse(orderModel.getException().getCode())
             })
         }
-    },
+    }
     onEvaluate(e) {
         const orderInfo = e.detail.orderInfo
         wx.navigateTo({
             url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
         })
-    },
+    }
     async onReceive(e) {
         Dialog({
             message: '您确认收货吗？状态修改后不能变更',
@@ -117,7 +114,7 @@ export default class Index extends Component{
                 }
             }
         })
-    },
+    }
     async onPay() {
         const userInfo = fa.cache.get('user_info')
         const orderInfo = this.state.orderInfo
@@ -152,7 +149,7 @@ export default class Index extends Component{
                 title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
             })
         }
-    },
+    }
     updateListRow() {
         const { id } = this.state
         if (id > 0) {
@@ -165,27 +162,27 @@ export default class Index extends Component{
     render(){
         return <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden" wx:if="{{orderInfo}}">
-                <fa-panel>
+                <List>
                     <order-state-card orderState="{{orderInfo.state}}" expireSeconds="1000" cost="{{orderInfo.amount}}"></order-state-card>
                     <order-address name="{{orderInfo.extend_order_extend.reciver_name}}" phone="{{orderInfo.extend_order_extend.receiver_phone}}"
                                    address="{{orderInfo.extend_order_extend.reciver_name}}"></order-address>
-                </fa-panel>
+                </List>
 
-                <fa-panel>
+                <List>
                     <order-goods-list orderInfo="{{orderInfo}}" goodsList="{{orderInfo.extend_order_goods}}" bind:goods-detail="onGoodsDetail" bind:goods-refund-click="onRefund"  bind:goods-refund-detail="onRefundDetail"></order-goods-list>
                     <order-contact number="{{serviceNumber}}"></order-contact>
-                </fa-panel>
-                <fa-panel>
+                </List>
+                <List>
                     <order-base-info orderInfo="{{orderInfo}}" orderNumber="{{orderInfo.sn}}" createTime="{{orderInfo.create_time}}" payment="微信支付"
                                      payTime="{{orderInfo.payment_time}}"></order-base-info>
-                </fa-panel>
-                <fa-panel>
+                </List>
+                <List>
 
                     <order-cost-list goodsTotal="{{orderInfo.goods_amount}}" freight="{{orderInfo.freight_fee}}" totalCost="{{orderInfo.amount}}"></order-cost-list>
                     <order-footer-action
                         orderInfo="{{orderInfo}}"
                         orderState="{{orderInfo.state}}"
-                        showDelBtn="false"
+                        showDelBtn={false}
                         showEvaluateBtn="{{orderInfo.if_evaluate}}"
                         showPayBtn="{{orderInfo.if_pay}}"
                         showLogisticsBtn="{{orderInfo.showLogisticsBtn}}"
@@ -195,7 +192,7 @@ export default class Index extends Component{
                         bind:cancel="onCancel"
                         bind:evaluate="onEvaluate"
                     ></order-footer-action>
-                </fa-panel>
+                </List>
             </View>
             <fa-dialog id="fa-dialog-receive"></fa-dialog>
 

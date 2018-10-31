@@ -10,60 +10,71 @@ import PropTypes from "prop-types";
 
 export default class Index extends Component {
     static propTypes = {
-        orderInfo: PropTypes.object,
         goodsList: PropTypes.array,
     };
     static defaultProps = {
-        orderInfo: null,
         goodsList: null,
     };
 
-    onRefund(e) {
-        this.triggerEvent('goods-refund-click', { goodsInfo: e.currentTarget.dataset.goodsInfo });
+    onRefund(goodsInfo) {
+        if (this.props.onRefund) {
+            this.props.onRefund({ goodsInfo });
+        }
     }
 
-    onRefundDetail(e) {
-        this.triggerEvent('goods-refund-detail', { goodsInfo: e.currentTarget.dataset.goodsInfo });
+    onRefundDetail(goodsInfo) {
+        if (this.props.onRefundDetail) {
+            this.props.onRefundDetail({ goodsInfo });
+        }
     }
 
-    onGoodsDetail(e) {
-        this.triggerEvent('goods-detail', { goodsInfo: e.currentTarget.dataset.goodsInfo });
+    onGoodsDetail(goodsInfo) {
+        if (this.props.onGoodsDetail) {
+            this.props.onGoodsDetail({ goodsInfo });
+        }
     }
-    render(){
-        return <View className="order-goods-list">
-            <View className="item" wx:for="{{goodsList}}" wx:for-index="{{index}}" wx:key="item">
-                <View className="content" onPress={this.onGoodsDetail" data-goods-info="{{item}}()}>
-                    <View className="image">
-                        <image src="{{item.goods_img}}" mode="aspectFill" />
+
+    render() {
+        const { goodsList } = this.props
+        return <View style={styles.orderGoodsList}>
+            {goodsList.length > 0 ? goodsList.map((item) => <View style={styles.item}>
+                <View style={styles.content} onPress={(item) => this.onGoodsDetail(item)}>
+                    <View style={styles.image}>
+                        <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
                     </View>
-                    <View className="body">
-                        <text>{{ item.goods_title}}</text>
+                    <View style={styles.body}>
+                        <Text>{item.goods_title}</Text>
                     </View>
-                    <View className="end">
-                        <text className="price">¥{{ item.goods_price}}</text>
-                        <label className="number">x {{ item.goods_num}}</label>
+                    <View style={styles.end}>
+                        <Text style={styles.price}>¥{item.goods_price}</Text>
+                        <Text style={styles.number}>x {item.goods_num}</Text>
                     </View>
                 </View>
-                <block wx:if="{{item.refund_state === 1}}">
-                    <View className="footer">
-                        <order-button text="申请退款" size="small" data-goods-info="{{item}}"
-                                      bind:click="onRefund"></order-button>
-                    </View>
-                </block>
-                <block wx:if="{{item.refund_state === 2}}">
-                    <View className="footer">
-                        <order-button text="退款中" size="small" data-goods-info="{{item}}"
-                                      bind:click="onRefundDetail"></order-button>
-                    </View>
-                </block>
-                <block wx:if="{{item.refund_state === 3}}">
-                    <View className="footer">
-                        <order-button text="退款完成" size="small" data-goods-info="{{item}}"
-                                      bind:click="onRefundDetail"></order-button>
-                    </View>
-                </block>
-            </View>
+                {item.refund_state === 1 ? <View style={styles.footer}>
+                    <OrderButton
+                        text="申请退款"
+                        size="small"
+                        onClick={(item) => {
+                            this.onRefund(item)
+                        }} />
+                </View> : null}
+                {item.refund_state === 2 ? <View style={styles.footer}>
+                    <OrderButton
+                        text="退款中"
+                        size="small"
+                        onClick={(item) => {
+                            this.onRefundDetail(item)
+                        }} />
+                </View> : null}
+                {item.refund_state === 3 ? <View style={styles.footer}>
+                    <OrderButton
+                        text="退款完成"
+                        size="small"
+                        onClick={(item) => {
+                            this.onRefundDetail(item)
+                        }} />
+                </View> : null}
+            </View>) : null}
         </View>
-
     }
 }

@@ -1,52 +1,39 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    ScrollView,
-    Text,
-    Image
-} from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import { StyleSheet, View, Text, } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component{
+export default class Index extends Component {
     static propTypes = {
-        height : PropTypes.number,
-        autoLayout : PropTypes.bool,
+        goodsTotal: PropTypes.number,
+        freight: PropTypes.number,
+        totalCost: PropTypes.number,
     };
     static defaultProps = {
-        height : windowWidth*0.4,
-        autoLayout : false,
+        goodsTotal: null,
+        freight: null,
+        totalCost: null,
     };
-    properties: {
-        goodsTotal:{
-            type:Number,
-            value: null
-        },
-        freight: {
-            type: Number,
-            value: null
-        },
-        totalCost: {
-            type: Number,
-            value: null
-        }
-    }
-    render(){
-        return <View className="order-cost-list">
-            <View className="item">
-                <View className="row">
-                    <label>商品总额：</label>
-                    <text>¥{{ goodsTotal }}</text>
+
+    render() {
+        const {
+            goodsTotal,
+            freight,
+            totalCost
+        } = this.props
+        return <View style={styles.orderCostList}>
+            <View style={styles.item}>
+                <View style={styles.row}>
+                    <Text>商品总额：</Text>
+                    <Text>¥{goodsTotal}</Text>
                 </View>
-                <View className="row">
-                    <label>运费：</label>
-                    <text>¥{{ freight }}</text>
+                <View style={styles.row}>
+                    <Text>运费：</Text>
+                    <Text>¥{freight}</Text>
                 </View>
             </View>
-            <View className="footer">
-                <label>实付款：</label>
-                <text>¥{{ totalCost }}</text>
+            <View style={styles.footer}>
+                <Text>实付款：</Text>
+                <Text>¥{totalCost}</Text>
             </View>
         </View>
     }

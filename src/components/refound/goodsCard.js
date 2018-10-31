@@ -14,32 +14,39 @@ export default class Index extends Component {
         goodsImg: PropTypes.string,
         goodsNum: PropTypes.string,
         goodsSpec: PropTypes.string,
-        goodsInfo: PropTypes.object
     };
     static defaultProps = {
         goodsTitle: null,
         goodsImg: null,
         goodsNum: null,
         goodsSpec: null,
-        goodsInfo: null
     };
 
-    onClick(currentTarget) {
-        this.triggerEvent('click', { currentTarget });
+    onClick() {
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
-    render(){
-        return <View className="refund-goods-card">
-            <View className="body">
-                <View className="item">
-                    <View className="content">
-                        <View className="image">
-                            <image src="{{goodsImg}}" mode="aspectFill" />
+
+    render() {
+        const {
+            goodsTitle,
+            goodsImg,
+            goodsNum,
+            goodsSpec,
+        } = this.props
+        return <View style={styles.refundGoodsCard}>
+            <View style={styles.body}>
+                <View style={styles.item}>
+                    <View style={styles.content}>
+                        <View style={styles.image}>
+                            <Image source={{ uri: goodsImg }} resizeMode={'contain'} />
                         </View>
-                        <View className="body">
-                            <text>{{ goodsTitle }}</text>
-                            <View className="end">
-                                <text className="spec">{{ goodsSpec }}</text>
-                                <label className="number">x {{ goodsNum }}</label>
+                        <View style={styles.body}>
+                            <Text>{goodsTitle}</Text>
+                            <View style={styles.end}>
+                                <Text style={styles.spec}>{goodsSpec}</Text>
+                                <Text style={styles.number}>x {goodsNum}</Text>
                             </View>
                         </View>
                     </View>

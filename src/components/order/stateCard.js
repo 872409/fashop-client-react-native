@@ -20,9 +20,10 @@ export default class Index extends Component {
         cost: null,
     };
 
-    ready() {
-        this.setData({
-            timeText: this.toHourMinute(this.state.expireSeconds)
+    componentDidMount() {
+        const { expireSeconds } = this.props
+        this.setState({
+            timeText: this.toHourMinute(expireSeconds)
         })
     }
 
@@ -30,51 +31,51 @@ export default class Index extends Component {
     toHourMinute(seconds) {
         return (Math.floor(seconds / 3600) + "小时" + Math.floor(seconds % 3600 / 60) + "分");
     }
-    render(){
+
+    render() {
+        const {
+            orderState,
+            cost,
+        } = this.props
         return <View>
-            <block wx:if="{{orderState === 40}}">
-                <View className="noticebar">
-                    <image src="/themes/default/order/horn.png" mode="widthFix"></image>
-                    <text>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</text>
+            {orderState === 40 ? <View>
+                <View style={styles.noticebar}>
+                    <Image source={require('../../images/order/horn.png')} resizeMode="widthFix" />
+                    <Text>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
                 </View>
-            </block>
-            <View className="order-state-card">
-                <block wx:if="{{orderState === 10}}">
-                    <View className="left">
-                        <image src="/themes/default/order/order-state-wait.png" mode="scaleToFill" />
-                        <text className="state">待付款</text>
+            </View> : null}
+            <View style={styles.orderStateCard}>
+                {orderState === 10 ? <View>
+                    <View style={styles.left}>
+                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.state}>待付款</Text>
                     </View>
-                    <View className="right">
-                        <!--<text>剩余：{{timeText}}</text>-->
-                        <label>需付款：¥{{ cost }}</label>
+                    <View style={styles.right}>
+                        <Text>需付款：¥{{ cost }}</Text>
                     </View>
-                </block>
-                <block wx:elif="{{orderState === 20}}">
-                    <View className="left">
-                        <image src="/themes/default/order/order-state-wait.png" mode="scaleToFill" />
-                        <text className="state">待发货</text>
+                </View> : null}
+                {orderState === 20 ? <View>
+                    <View style={styles.left}>
+                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.state}>待发货</Text>
                     </View>
-                    <View className="right">
+                    <View style={styles.right}>
                     </View>
-                </block>
-                <block wx:elif="{{orderState === 30}}">
-                    <View className="left">
-                        <image src="/themes/default/order/order-state-wait.png" mode="scaleToFill" />
-                        <text className="state">待收货</text>
+                </View> : null}
+                {orderState === 30 ? <View>
+                    <View style={styles.left}>
+                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.state}>待收货</Text>
                     </View>
-                    <View className="right">
-                        <!--<text>圆通快递</text>-->
-                        <!--<label>预计5月18日送达</label>-->
+                </View> : null}
+                {orderState === 40 ? <View>
+                    <View style={styles.left}>
+                        <Image source={require('../../images/order/order-state-success.png')} resizeMode="stretch" />
+                        <Text style={styles.state}>完成</Text>
                     </View>
-                </block>
-                <block wx:elif="{{orderState === 40}}">
-                    <View className="left">
-                        <image src="/themes/default/order/order-state-success.png" mode="scaleToFill" />
-                        <text className="state">完成</text>
+                    <View style={styles.right}>
                     </View>
-                    <View className="right">
-                    </View>
-                </block>
+                </View> : null}
             </View>
         </View>
     }

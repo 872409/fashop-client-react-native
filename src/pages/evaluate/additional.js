@@ -19,7 +19,7 @@ import {
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class Index extends Component{
-    data: {
+    state = {
         id: 0,
         delta: 1,
         orderGoodsId: 0,
@@ -41,7 +41,7 @@ export default class Index extends Component{
             id: order_goods_id
         })
 
-        this.setData({
+        this.setState({
             id: goodsInfoResult.info.id,
             delta: typeof delta !== 'undefined' ? delta : 1,
             uploaderUrl: api.upload.addImage.url,
@@ -56,17 +56,17 @@ export default class Index extends Component{
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
         let files = this.state.uploaderFiles
-        this.setData({
+        this.setState({
             uploaderFiles: files.concat(result.origin.path)
         })
     },
     onUploadFileDelete(e) {
-        this.setData({
+        this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
     },
     onContentChange(e) {
-        this.setData({
+        this.setState({
             content: e.detail.detail.value
         })
     },
@@ -106,37 +106,37 @@ export default class Index extends Component{
     render(){
        return  <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden">
-                <fa-panel>
-                    <View className="refund-goods-card">
-                        <View className="body">
-                            <View className="item">
-                                <View className="content">
-                                    <View className="image">
-                                        <image src="{{goodsInfo.goods_img}}" mode="aspectFill" />
+                <List>
+                    <View style={styles.refund-goods-card} >
+                        <View style={styles.body} >
+                            <View style={styles.item} >
+                                <View style={styles.content} >
+                                    <View style={styles.image} >
+                                        <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
                                     </View>
-                                    <View className="body">
-                                        <text>已评价</text>
+                                    <View style={styles.body} >
+                                        <Text>已评价</Text>
                                         <common-rater num="5" value="5" size="20"></common-rater>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </View>
-                </fa-panel>
-                <fa-panel>
-                    <View className="add-title">
+                </List>
+                <List>
+                    <View style={styles.add-title} >
                         追加评价
                     </View>
-                    <fa-field
-                        type="textarea"
+                    <Field
+                        type={'textarea'}
                         title=""
                         placeholder="对评价进行补充，更客观，更全面~"
                         value="{{content}}"
-                        bind:change="onContentChange"
+                        onChange="onContentChange"
                     >
-                    </fa-field>
-                    <fa-field
-                        type="uploader"
+                    </Field>
+                    <Field
+                        type={'uploader'}
                         title=""
                         uploaderButtonText="{{uploaderButtonText}}"
                         uploaderFormData="{{uploaderFormData}}"
@@ -144,19 +144,19 @@ export default class Index extends Component{
                         uploaderHeader="{{uploaderHeader}}"
                         uploaderFiles="{{uploaderFiles}}"
                         uploaderCount="{{uploaderCount}}"
-                        uploaderAllowDel="true"
+                        uploaderAllowDel={true}
                         bind:success="onUploadFileSuccess"
-                        bind:change="handleFieldChange"
+                        onChange="handleFieldChange"
                         bind:delete="onUploadFileDelete"
                     >
-                    </fa-field>
-                </fa-panel>
+                    </Field>
+                </List>
             </View>
-            <fixed-bottom>
-                <View className="footer">
-                    <fa-button type="danger" size="large" bind:btnclick="onSubmit">提交</fa-button>
+            <FixedBottom>
+                <View style={styles.footer} >
+                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
                 </View>
-            </fixed-bottom>
+            </FixedBottom>
         </View>
     }
 }

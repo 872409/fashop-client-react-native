@@ -7,6 +7,7 @@ import {
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
+import { OrderButton } from '../../components'
 
 export default class Index extends Component {
     static propTypes = {
@@ -17,37 +18,67 @@ export default class Index extends Component {
     };
 
     onGoods() {
-        this.triggerEvent('goods', { goodsId: this.state.goodsInfo.goods_id });
+        if (this.props.onGoods) {
+            this.props.onGoods();
+        }
     }
 
     onDetail() {
-        this.triggerEvent('detail', { orderGoodsId: this.state.goodsInfo.id });
+        if (this.props.onDetail) {
+            this.props.onDetail();
+        }
     }
 
     onAdd() {
-        this.triggerEvent('add', { orderGoodsId: this.state.goodsInfo.id });
+        if (this.props.onAdd) {
+            this.props.onAdd();
+        }
     }
 
     onAdditional() {
-        this.triggerEvent('additional', { orderGoodsId: this.state.goodsInfo.id });
+        if (this.props.onAdditional) {
+            this.props.onAdditional();
+        }
     }
-    render(){
-        return <View className="evaluate-goods-card">
-            <View className="body">
-                <View className="item">
-                    <View className="content">
-                        <View className="image" onPress={this.onGoods()}>
-                            <image src="{{goodsInfo.goods_img}}" mode="aspectFill" />
+
+    render() {
+        const { goodsInfo } = this.props
+
+        return <View style={styles.evaluateGoodsard}>
+            <View style={styles.body}>
+                <View style={styles.item}>
+                    <View style={styles.content}>
+                        <View style={styles.image} onPress={this.onGoods()}>
+                            <Image source={{
+                                uri: goodsInfo.goods_img
+                            }} resizeMode={'contain'} />
                         </View>
-                        <View className="body">
-                            <text onPress={this.onGoods()}>{{ goodsInfo.goods_title}}</text>
-                            <View className="button-area">
-                                <order-button text="查看评价" size="small" bind:click="onDetail"
-                                              wx:if="{{goodsInfo.evaluate_state > 0}}"></order-button>
-                                <order-button text="去评价" size="small" type="danger" bind:click="onAdd"
-                                              wx:if="{{goodsInfo.evaluate_state === 0}}"></order-button>
-                                <order-button text="追加评价" size="small" type="danger" bind:click="onAdditional"
-                                              wx:if="{{goodsInfo.evaluate_state === 1}}"></order-button>
+                        <View style={styles.body}>
+                            <Text onPress={this.onGoods()}>{goodsInfo.goods_title}</Text>
+                            <View style={styles.buttonArea}>
+                                {goodsInfo.evaluate_state > 0 ? <OrderButton
+                                    text="查看评价"
+                                    size="small"
+                                    onClick={() => {
+                                        this.onDetail()
+                                    }} /> : null}
+                                {goodsInfo.evaluate_state === 0 ?
+                                    <OrderButton
+                                        text="去评价"
+                                        size="small"
+                                        type={'danger'}
+                                        onClick={() => {
+                                            this.onAdd()
+                                        }}
+                                    /> : null}
+                                {goodsInfo.evaluate_state === 1 ? <OrderButton
+                                    text="追加评价"
+                                    size="small"
+                                    type={'danger'}
+                                    onClick={() => {
+                                        this.onAdditional()
+                                    }}
+                                /> : null}
                             </View>
                         </View>
                     </View>

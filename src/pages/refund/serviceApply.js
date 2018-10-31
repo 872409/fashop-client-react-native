@@ -1,10 +1,3 @@
-import fa from '../../../utils/fa'
-import RefundModel from '../../../models/refund'
-import OrderModel from '../../../models/order'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-import { UploadImageInterface } from '../../../interface/uploadImage'
-import { api } from '../../../api'
-
 const refundModel = new RefundModel()
 const orderModel = new OrderModel()
 import React, { Component } from 'react';
@@ -15,10 +8,13 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import fa from '../../utils/fa'
+import RefundModel from '../../models/refund'
+import OrderModel from '../../models/order'
+import { UploadImageInterface } from '../../interface/uploadImage'
 
 export default class Index extends Component{
-    data: {
+    state = {
         delta: 1,
         noMoreThan: 0,
 
@@ -39,7 +35,7 @@ export default class Index extends Component{
         uploaderUrl: null,
         uploaderButtonText: '上传凭证(最多6张)',
         uploaderHeader: {},
-    },
+    }
     async onLoad({ order_goods_id, refund_type, delta = 1 }) {
         // delta 传的话
         const accessToken = fa.cache.get('user_token')
@@ -54,7 +50,7 @@ export default class Index extends Component{
             return item.title
         })
         const noMoreThan = parseFloat(goodsInfoResult.info.goods_pay_price) + parseFloat(goodsInfoResult.info.goods_freight_fee)
-        this.setData({
+        this.setState({
             refundType,
             delta: parseInt(delta),
             uploaderUrl: api.upload.addImage.url,
@@ -67,40 +63,40 @@ export default class Index extends Component{
             goodsInfo: goodsInfoResult.info,
             reasonList
         })
-    },
+    }
     // todo 失败处理
     onUploadFileSuccess(e) {
         const result = new UploadImageInterface(e.detail.result)
         let files = this.state.uploaderFiles
-        this.setData({
+        this.setState({
             uploaderFiles: files.concat(result.origin.path)
         })
-    },
+    }
     onUploadFileDelete(e) {
-        this.setData({
+        this.setState({
             uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
         })
-    },
+    }
     onRefundAmountChange(e) {
-        this.setData({
+        this.setState({
             refundAmount: parseFloat(isNaN(e.detail.detail.value) || !e.detail.detail.value ? 0 : e.detail.detail.value).toFixed(2)
         })
-    },
+    }
     onReceiveStateChange(e) {
-        this.setData({
+        this.setState({
             userReceive: parseInt(e.detail.detail.value)
         })
-    },
+    }
     onResonChange(e) {
-        this.setData({
+        this.setState({
             reason: e.detail.detail.value
         })
-    },
+    }
     onUserExplainChange(e) {
-        this.setData({
+        this.setState({
             userExplain: e.detail.detail.value
         })
-    },
+    }
     async onSubmit() {
         if (!this.state.reason) {
             return fa.toast.show({ title: '请选择退款原因' })
@@ -143,69 +139,69 @@ export default class Index extends Component{
     }
     render(){
         return <View style="background-color:#F8F8F8;display: block;overflow: hidden" wx:if="{{goodsInfo}}">
-            <fa-panel>
-                <View className="refund-goods-card">
-                    <View className="body">
-                        <View className="item">
-                            <View className="content">
-                                <View className="image">
-                                    <image src="{{goodsInfo.goods_img}}" mode="aspectFill" />
+            <List>
+                <View style={styles.refund-goods-card} >
+                    <View style={styles.body} >
+                        <View style={styles.item} >
+                            <View style={styles.content} >
+                                <View style={styles.image} >
+                                    <Image source="{{goodsInfo.goods_img}}" resizeMode={'contain'} />
                                 </View>
-                                <View className="body">
-                                    <text>{{ goodsInfo.goods_title}}</text>
-                                    <View className="end">
-                                        <text className="spec">{{ goodsInfo.goods_spec_string}}</text>
-                                        <label className="number">x {{ goodsInfo.goods_num}}</label>
+                                <View style={styles.body} >
+                                    <Text>{{ goodsInfo.goods_title}}</Text>
+                                    <View style={styles.end} >
+                                        <Text style={styles.spec} >{{ goodsInfo.goods_spec_string}}</Text>
+                                        <Text style={styles.number} >x {{ goodsInfo.goods_num}}</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
-            </fa-panel>
-            <fa-panel>
-                <fa-field
+            </List>
+            <List>
+                <Field
                     wx:if="{{refundType === 2}}"
-                    type="picker"
+                    type={'picker'}
                     title="货物状态"
                     placeholder="请选择"
                     range="{{receiveStateList}}"
                     value="{{userReceive}}"
-                    bind:change="onReceiveStateChange"
-                    right="true"
+                    onChange="onReceiveStateChange"
+                    right={true}
                 >
-                </fa-field>
-                <fa-field
-                    type="picker"
+                </Field>
+                <Field
+                    type={'picker'}
                     title="退款原因"
                     placeholder="请选择"
                     value="{{reason}}"
                     range="{{reasonList}}"
-                    bind:change="onResonChange"
-                    right="true"
+                    onChange="onResonChange"
+                    right={true}
                 >
-                </fa-field>
-                <fa-field
-                    type="input"
+                </Field>
+                <Field
+                    type={'input'}
                     inputType="digit"
                     title="退款金额"
                     placeholder="¥{{noMoreThan}}"
                     value="{{refundAmount ? refundAmount : noMoreThan}}"
                     bind:blur="onRefundAmountChange"
                     desc="最多¥{{noMoreThan}}，含发货邮费¥{{goodsInfo.goods_freight_fee}}"
-                    right="true"
+                    right={true}
                 >
-                </fa-field>
-                <fa-field
+                </Field>
+                <Field
                     title="退款说明"
                     placeholder="必填"
                     value="{{userExplain}}"
-                    bind:change="onUserExplainChange"
-                    right="true"
+                    onChange="onUserExplainChange"
+                    right={true}
                 >
-                </fa-field>
-                <fa-field
-                    type="uploader"
+                </Field>
+                <Field
+                    type={'uploader'}
                     title="图片上传"
                     uploaderButtonText="{{uploaderButtonText}}"
                     uploaderFormData="{{uploaderFormData}}"
@@ -213,18 +209,18 @@ export default class Index extends Component{
                     uploaderHeader="{{uploaderHeader}}"
                     uploaderFiles="{{uploaderFiles}}"
                     uploaderCount="6"
-                    uploaderAllowDel="true"
+                    uploaderAllowDel={true}
                     bind:success="onUploadFileSuccess"
-                    bind:change="handleFieldChange"
+                    onChange="handleFieldChange"
                     bind:delete="onUploadFileDelete"
                 >
-                </fa-field>
-            </fa-panel>
-            <fixed-bottom>
-                <View className="footer">
-                    <fa-button type="danger" size="large" bind:btnclick="onSubmit">提交</fa-button>
+                </Field>
+            </List>
+            <FixedBottom>
+                <View style={styles.footer} >
+                    <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>提交</Button>
                 </View>
-            </fixed-bottom>
+            </FixedBottom>
         </View>
 
     }

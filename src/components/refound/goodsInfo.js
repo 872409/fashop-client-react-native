@@ -15,23 +15,30 @@ export default class Index extends Component {
     static defaultProps = {
         refundInfo: null,
     };
+
     onGoods() {
-        this.triggerEvent('goods', { refundInfo: this.state.refundInfo });
+        if (this.props.onGoods) {
+            this.props.onGoods();
+        }
     }
-    render(){
-        return <View className="refund-goods-info">
-            <View className="header">退款信息</View>
-            <View className="body">
-                <View className="item" onPress={this.onGoods()}>
-                    <View className="content">
-                        <View className="image">
-                            <image src="{{refundInfo.goods_img}}" mode="aspectFill" />
+
+    render() {
+        const {
+            refundInfo,
+        } = this.props
+        return <View style={styles.refundGoodsInfo}>
+            <View style={styles.header}>退款信息</View>
+            <View style={styles.body}>
+                <View style={styles.item} onPress={this.onGoods()}>
+                    <View style={styles.content}>
+                        <View style={styles.image}>
+                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'contain'} />
                         </View>
-                        <View className="body">
-                            <text>{{ refundInfo.goods_title}}</text>
-                            <View className="end">
-                                <text className="spec">{{ refundInfo.goods_spec_string}}</text>
-                                <label className="number">x {{ refundInfo.goods_num}}</label>
+                        <View style={styles.body}>
+                            <Text>{refundInfo.goods_title}</Text>
+                            <View style={styles.end}>
+                                <Text style={styles.spec}>{refundInfo.goods_spec_string}</Text>
+                                <Text style={styles.number}>x {refundInfo.goods_num}</Text>
                             </View>
                         </View>
                     </View>

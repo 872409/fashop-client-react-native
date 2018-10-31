@@ -1,11 +1,3 @@
-import fa from '../../../utils/fa'
-import RefundModel from '../../../models/refund'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-
-const Dialog = require('../../../ui/dialog/dialog');
-
-const refundModel = new RefundModel()
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -15,14 +7,20 @@ import {
     Image
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import fa from '../../utils/fa'
+import RefundModel from '../../models/refund'
+
+const Dialog = require('../../../ui/dialog/dialog');
+
+const refundModel = new RefundModel()
 
 export default class Index extends Component{
-    data: {
+    state = {
         id: null,
         refundInfo: null,
     },
     async onLoad({ id  }) {
-        this.setData({
+        this.setState({
             id
         })
     },
@@ -33,7 +31,7 @@ export default class Index extends Component{
         const refundInfo = await refundModel.info({ id: this.state.id })
         if (refundInfo) {
             console.log(refundInfo)
-            this.setData({
+            this.setState({
                 refundInfo,
             })
         }
@@ -86,17 +84,17 @@ export default class Index extends Component{
     render(){
         return <View>
             <View style="background-color:#F8F8F8;display: block;overflow: hidden" wx:if="{{refundInfo}}">
-                <fa-panel>
+                <List>
                     <refund-state-card refundInfo="{{refundInfo}}"></refund-state-card>
                     <refund-state-reason refundInfo="{{refundInfo}}" bind:undo="onUndo" bind:track="onTrack"></refund-state-reason>
-                </fa-panel>
-                <fa-panel>
+                </List>
+                <List>
                     <refund-goods-info refundInfo="{{refundInfo}}" bind:goods="onGoods"></refund-goods-info>
-                </fa-panel>
-                <fa-panel>
+                </List>
+                <List>
                     <refund-base-info refundInfo="{{refundInfo}}"></refund-base-info>
                     <order-contact></order-contact>
-                </fa-panel>
+                </List>
             </View>
             <fa-dialog id="fa-dialog-receive"></fa-dialog>
 
