@@ -1,13 +1,15 @@
-const orderModel = new OrderModel()
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
 import OrderModel from '../../models/order'
+import { List } from 'antd-mobile-rn';
+import { Field, FixedBottom, Cell } from '../../components'
+
+const orderModel = new OrderModel()
 
 export default class Index extends Component {
     state = {
@@ -24,9 +26,10 @@ export default class Index extends Component {
     }
 
     onClick(e) {
-        wx.navigateTo({
-            url: `/pages/refund/serviceApply/index?order_goods_id=${this.state.goodsInfo.id}&delta=2&refund_type=${e.currentTarget.dataset.refundType}`
-        })
+        // todo
+        // wx.navigateTo({
+        //     url: `/pages/refund/serviceApply/index?order_goods_id=${this.state.goodsInfo.id}&delta=2&refund_type=${e.currentTarget.dataset.refundType}`
+        // })
     }
 
     render() {

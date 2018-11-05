@@ -42,7 +42,7 @@ export const userSignOut = ({func,exception}={})=>{
             const e = await Fetch.fetch({
                 api: UserApi.logout
             })
-            if(e.errcode===0){
+            if(e.code===0){
                 // Toast.info('退出成功');
             }else{
                 Toast.warn(e.errmsg)
@@ -113,7 +113,7 @@ export const updateUserInfo = ({callback}={})=>{
             api: UserApi.self
         })
         .then((e) => {
-            if (e.errcode === 0) {
+            if (e.code === 0) {
                 dispatch(updateUserInfoFunc(e.data))
                 callback&&callback()
             } else {
@@ -140,7 +140,7 @@ export const modifyUserInfo = ({params,func=()=>{}})=>{
             params
         })
         .then((e)=>{
-            if(e.errcode===0){
+            if(e.code===0){
                 Toast.info('保存成功')
                 dispatch(updateUserInfoFunc(e.data))
                 func&&func()
@@ -176,7 +176,7 @@ export const wechatLogin = ({code}) => {
     return dispatch => {
         Fetch.fetch("USERWECHATOAUTH", { code })
         .then(e => {
-            if (e.errcode === 0) {
+            if (e.code === 0) {
                 dispatch(userLogin({
                     userInfoData : e.data,
                     func : ()=>{
@@ -336,7 +336,7 @@ export const updateUserInfoFunc = (e)=>{
 //     return dispatch => {
 //         Fetch.fetch({apiName:'USERMIXEDSTATENUM'})
 //         .then((e)=>{
-//             if(e.errcode===0){
+//             if(e.code===0){
 //                 const {data} = e
 //                 dispatch({
 //                     type : types.user.GET_USER_MIXEDSTATENUM_DATA,
@@ -363,7 +363,7 @@ export const updateUserInfoFunc = (e)=>{
 //     return dispatch => {
 //         Fetch.fetch({ apiName:'USERPOINTSSIGNINFO' })
 //         .then((e)=>{
-//             if(e.errcode===0){
+//             if(e.code===0){
 //                 dispatch({
 //                     type: types.user.GET_USER_POINTS_SIGNINFO,
 //                     pointsSigninfo : e.data,
@@ -381,7 +381,7 @@ export const updateUserInfoFunc = (e)=>{
 //     return dispatch => {
 //         Fetch.fetch({apiName:'MESSAGEUNREADALLCOUNT'})
 //         .then((e)=>{
-//             if(e.errcode===0){
+//             if(e.code===0){
 //                 dispatch({
 //                     type : types.user.GET_UNREAD_ALL_COUNT,
 //                     data : e.data.unread_count,
@@ -400,7 +400,7 @@ export const updateUserInfoFunc = (e)=>{
 //         const e = await Fetch.fetch({
 //             apiName: 'MANAGECARDLIST'
 //         })
-//         if(e.errcode===0){
+//         if(e.code===0){
 //             dispatch({
 //                 cardList: e.list,
 //                 type : types.user.GET_USER_CARD_LIST,

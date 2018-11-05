@@ -20,8 +20,6 @@ import store from '../store'
 //     }
 //     return prevGetStateForActionHomeStack(action, state);
 // };
-
-
 const needLoginRouters = [
 
 ]
@@ -62,9 +60,7 @@ export default (state, action) => {
             }
             break;
         default:
-
             nextState = AppNavigator.router.getStateForAction(action, state);
-
             break;
     }
 

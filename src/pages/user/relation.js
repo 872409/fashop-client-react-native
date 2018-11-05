@@ -86,7 +86,7 @@ class UserRelation extends Component {
                                                     const e = await Fetch.fetch({
                                                         api: UserApi.unbindPhone,
                                                     })
-                                                    if (e.errcode === 0) {
+                                                    if (e.code === 0) {
                                                         Toast.warn('解除关联成功')
                                                         dispatch(updateUserInfo())
                                                     } else {
@@ -144,7 +144,7 @@ class UserRelation extends Component {
                                             onPress: async () => {
                                                 if (isBindPhone) {
                                                     const e = await Fetch.fetch({ api: UserApi.unbindWechat })
-                                                    if (e.errcode == 0) {
+                                                    if (e.code == 0) {
                                                         Toast.info('解除关联成功')
                                                         dispatch(updateUserInfo())
                                                     } else {

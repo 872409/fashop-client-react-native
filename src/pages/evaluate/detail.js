@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import GoodsEvaluate from '../../models/goodsEvaluate'
+import { Field, FixedBottom } from '../../components'
 
 const goodsEvaluateModel = new GoodsEvaluate()
 export default class Index extends Component {
@@ -21,6 +22,7 @@ export default class Index extends Component {
     }
 
     preViewImage(e) {
+        // todo
         wx.preViewImage({
             current: e.currentTarget.dataset.url,
             urls: e.currentTarget.dataset.images
@@ -28,6 +30,7 @@ export default class Index extends Component {
     }
 
     async onShow() {
+        // todo
         const { order_goods_id } = this.state
         const evaluate = await goodsEvaluateModel.info({
             order_goods_id
@@ -39,6 +42,7 @@ export default class Index extends Component {
     }
 
     updateListRow() {
+        // todo
         const { id } = this.state.evaluate
         if (id > 0) {
             const pages = getCurrentPages();
@@ -55,17 +59,15 @@ export default class Index extends Component {
                         <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} />
                         <View style={styles.nickname}>
                             <Text>{evaluate.nickname}</Text>
-                            <Text>
-                                <TimeFormat value="{{evaluate.create_time}}" />
-                            </Text>
+                            <TimeFormat value="{{evaluate.create_time}}" />
                         </View>
                     </View>
                     <View style={styles.star}>
-                        <FaRater size={12} num={5} value={evaluate.score} />
+                        <Rater size={12} num={5} value={evaluate.score} />
                     </View>
                 </View>
 
-                {evaluate.content ? <View style={styles.content}>{evaluate.content}</View> : null}
+                {evaluate.content ? <View style={styles.content}><Text>{evaluate.content}</Text></View> : null}
                 {Array.isArray(evaluate.images) && evaluate.images.length > 0 ?
                     <View style={styles.photoList}>
                         {
@@ -122,9 +124,7 @@ export default class Index extends Component {
                     <Text>{goodsInfo.goods_title}</Text>
                 </View>
             </View>
-
         </View>
-
     }
 
 }

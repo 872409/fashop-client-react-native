@@ -6,8 +6,11 @@ import {
     Text,
     Image
 } from 'react-native';
-import RefundModel from '../../models/refund'
+import { List } from 'antd-mobile-rn';
+import { RefundCard } from '../../components'
 
+import RefundModel from '../../models/refund'
+const Item = List.Item
 const refundModel = new RefundModel()
 export default class Index extends Component {
     state = {
@@ -17,12 +20,14 @@ export default class Index extends Component {
         list: [],
     }
     async onShow() {
+        // todo
         this.setState({
             page: 1
         })
         this.getList()
     }
     async getList() {
+        // todo
         const page = this.state.page
         if (page > 1 && this.state.noMore === true) {
             return
@@ -43,6 +48,7 @@ export default class Index extends Component {
     }
 
     async onReachBottom() {
+        // todo
         if (this.state.noMore === true) {
             return false
         } else {
@@ -50,13 +56,15 @@ export default class Index extends Component {
         }
     }
     onDetail(e) {
-        wx.navigateTo({
-            url: '/pages/refund/detail/index?id=' + e.detail.refundInfo.id
-        })
+        // todo
+        // wx.navigateTo({
+        //     url: '/pages/refund/detail/index?id=' + e.detail.refundInfo.id
+        // })
     }
 
     // 更新某条
     async updateListRow(id) {
+        // todo
         let { list } = this.state
         const listIndex = list.findIndex((row) => row.id === id)
         if (listIndex !== -1) {

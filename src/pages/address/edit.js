@@ -9,10 +9,10 @@ import {
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
 import AreaModel from '../../models/area'
-
+import { List,Modal,Button } from 'antd-mobile-rn';
+import { Field ,FixedBottom} from '../../components'
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
-const Dialog = require('../../../ui/dialog/dialog');
 
 export default class Index extends Component {
     state = {
@@ -31,6 +31,7 @@ export default class Index extends Component {
     }
 
     async componentWillMount({ id }) {
+        // todo
         const areaCache = fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
         const info = await addressModel.info({ id })
@@ -48,93 +49,57 @@ export default class Index extends Component {
         })
     }
 
-    onAreaChange(e) {
+    onAreaChange({ value }) {
         this.setState({
-            area_id: e.detail.detail.ids[2]
+            area_id: value.ids[2]
         })
     }
 
-    onTruenameChange(e) {
+    onTruenameChange({ value }) {
         this.setState({
-            truename: e.detail.detail.value
+            truename: value
         })
     }
 
-    onMobilePhoneChange(e) {
+    onMobilePhoneChange({ value }) {
         this.setState({
-            mobile_phone: e.detail.detail.value
+            mobile_phone: value
         })
     }
 
-    onAddressChange(e) {
+    onAddressChange({ value }) {
         this.setState({
-            address: e.detail.detail.value
+            address: value
         })
     }
 
-    onIsDefaultChange(e) {
+    onIsDefaultChange({ value }) {
         this.setState({
-            is_default: e.detail.detail.checked ? 1 : 0
-        })
-    }
-
-    async onWechatAddressChoose() {
-        const self = this
-        wx.chooseAddress({
-            success: async function (res) {
-                const result = await areaModel.info({
-                    name: res.countyName
-                })
-                if (result !== false) {
-                    self.setState({
-                        combine_detail: `${result.items[0].name} ${result.items[1].name} ${result.items[2].name}`,
-                        area_id: result.items[2].id,
-                        truename: res.userName,
-                        mobile_phone: res.telNumber,
-                        address: res.detailInfo,
-                    })
-                } else {
-                    fa.toast.show({
-                        title: "微信数据未能匹配成功，请使用其他方式"
-                    })
-                }
-                self.setState({
-                    truename: res.userName,
-                    mobile_phone: res.telNumber,
-                    address: res.detailInfo,
-                })
-            }
+            is_default: value.checked ? 1 : 0
         })
     }
 
     async onDelete() {
-        Dialog({
-            message: '您确认删除吗？一旦删除不可恢复',
-            selector: '#fa-dialog-confirm',
-            buttons: [{
-                text: '取消',
-                type: 'cancel'
-            }, {
-                text: '确认',
-                color: 'red',
-                type: 'ok'
-            }]
-        }).then(async ({ type }) => {
-            if (type === 'ok') {
-                const result = await addressModel.del({
-                    id: this.state.id
-                })
-                if (result === false) {
-                    fa.toast.show({
-                        title: fa.code.parse(addressModel.getException().getCode())
+        Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: () => async () => {
+                    const result = await addressModel.del({
+                        id: this.state.id
                     })
-                } else {
-                    wx.navigateBack({
-                        delta: 1
-                    })
+                    if (result === false) {
+                        fa.toast.show({
+                            title: fa.code.parse(addressModel.getException().getCode())
+                        })
+                    } else {
+                        // todo navigation back
+                        // wx.navigateBack({
+                        //     delta: 1
+                        // })
+                    }
                 }
-            }
-        })
+            },
+        ]);
     }
 
     async onSubmit() {
@@ -166,9 +131,10 @@ export default class Index extends Component {
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
-            wx.navigateBack({
-                delta: 1
-            })
+            // todo navigation back
+            // wx.navigateBack({
+            //     delta: 1
+            // })
         }
     }
 
@@ -181,7 +147,9 @@ export default class Index extends Component {
                         placeholder="请输入姓名"
                         focus={true}
                         value={truename}
-                        onChange={(e)=>{ this.onTruenameChange(e) }}
+                        onChange={(e) => {
+                            this.onTruenameChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -189,7 +157,9 @@ export default class Index extends Component {
                         inputType="number"
                         placeholder="请输入手机号"
                         value="{{ mobile_phone }}"
-                        onChange={(e)=>{ this.onMobilePhoneChange(e) }}
+                        onChange={(e) => {
+                            this.onMobilePhoneChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -197,14 +167,18 @@ export default class Index extends Component {
                         type={'area'}
                         areaList="{{areaList}}"
                         areaNames="{{combine_detail}}"
-                        onChange={(e)=>{ this.onAreaChange(e) }}
+                        onChange={(e) => {
+                            this.onAreaChange(e)
+                        }}
                     >
                     </Field>
                     <Field
                         title="详细地址："
                         value="{{address}}"
                         placeholder="填写楼栋楼层或房间号信息"
-                        onChange={(e)=>{ this.onAddressChange(e) }}
+                        onChange={(e) => {
+                            this.onAddressChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -213,24 +187,21 @@ export default class Index extends Component {
                         type={'switch'}
                         right={true}
                         checked="{{ is_default }}"
-                        onChange={(e)=>{ this.onIsDefaultChange(e) }}
+                        onChange={(e) => {
+                            this.onIsDefaultChange(e)
+                        }}
                     >
                     </Field>
                 </List>
-                <View style={styles.choice - wechat - address} onPress={() => {
-                    this.onWechatAddressChoose()
-                }}>
-                    <Image source={require('../../images/user/address/wechat.png')} resizeMode={'contain'}/>
-
-                </View>
                 <FixedBottom>
                     <View style={styles.buttonArea}>
                         <Button size="large" bind:btnclick="onDelete">删除地址</Button>
-                        <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>保存</Button>
+                        <Button type={'danger'} size="large" onClick={() => {
+                            this.onSubmit()
+                        }}>保存</Button>
                     </View>
                 </FixedBottom>
             </View>
-            <fa-dialog id="fa-dialog-confirm"/>
         </View>
     }
 }

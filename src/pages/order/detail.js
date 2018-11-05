@@ -1,18 +1,24 @@
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from "../../models/buy";
+import React, { Component } from 'react';
+import { Modal, List } from "antd-mobile-rn";
+import {
+    OrderStateCard,
+    OrderAddress,
+    OrderGoodsList,
+    OrderContact,
+    OrderBaseInfo,
+    OrderCostList,
+    OrderFooterAction
+} from '../../components'
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
-const Dialog = require('../../../ui/dialog/dialog');
-import React, { Component } from 'react';
 
 export default class Index extends Component {
     state = {
@@ -97,33 +103,25 @@ export default class Index extends Component {
     }
 
     async onReceive(e) {
-        Dialog({
-            message: '您确认收货吗？状态修改后不能变更',
-            selector: '#fa-dialog-receive',
-            buttons: [{
-                text: '取消',
-                type: 'cancel'
-            }, {
-                text: '确认',
-                color: 'red',
-                type: 'ok'
-            }]
-        }).then(async ({ type }) => {
-            if (type === 'ok') {
-                const orderInfo = e.detail.orderInfo
-                const result = await orderModel.confirmReceipt({
-                    'id': orderInfo.id,
-                })
-                if (result) {
-                    this.init()
-                    this.updateListRow(orderInfo.id)
-                } else {
-                    fa.toast.show({
-                        title: fa.code.parse(orderModel.getException().getCode())
+        Modal.alert('您确认收货吗？状态修改后不能变更', null, [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: () => async () => {
+                    const orderInfo = e.detail.orderInfo
+                    const result = await orderModel.confirmReceipt({
+                        'id': orderInfo.id,
                     })
+                    if (result) {
+                        this.init()
+                        this.updateListRow(orderInfo.id)
+                    } else {
+                        fa.toast.show({
+                            title: fa.code.parse(orderModel.getException().getCode())
+                        })
+                    }
                 }
             }
-        })
+        ])
     }
 
     async onPay() {
@@ -173,7 +171,7 @@ export default class Index extends Component {
 
     render() {
         return <View>
-            <View wx:if="{{orderInfo}}">
+            <View>
                 <List>
                     <OrderStateCard
                         orderState="{{orderInfo.state}}"
@@ -226,8 +224,6 @@ export default class Index extends Component {
                     />
                 </List>
             </View>
-            <fa-dialog id="fa-dialog-receive" />
-
         </View>
     }
 }

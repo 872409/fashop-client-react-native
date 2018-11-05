@@ -70,7 +70,7 @@ export default class Index extends Component {
             <View style={styles.header}>
                 <Text style={styles.number}>共{ goodsNumber}件商品</Text>
                 <Text style={styles.priceDesc}>实付款：</Text>
-                <Text style={styles.price}>¥{{ totalCost }}</Text>
+                <Text style={styles.price}>¥{ totalCost }</Text>
             </View>
             {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn ?
                 <View style={styles.footer}>

@@ -58,12 +58,12 @@ export default class Index extends Component {
                 {refundInfo.refund_type === 2 && refundInfo.handle_state === 20 && refundInfo.is_close === 0 && refundInfo.send_expiry_time > 0 ?
                     <View>
                         <Text>待买家发货 还剩</Text>
-                        <common-static-countdown countdown={refundInfo.send_expiry_seconds} format="dd天hh时mm分" />
+                        <StaticCountdown countdown={refundInfo.send_expiry_seconds} format="dd天hh时mm分" />
                     </View> : null}
 
                 {refundInfo.is_close === 0 && refundInfo.handle_state === 0 ? <View>
                     <Text>退款待处理 还剩</Text>
-                    <common-static-countdown countdown={refundInfo.handle_expiry_seconds} format="dd天hh时mm分" />
+                    <StaticCountdown countdown={refundInfo.handle_expiry_seconds} format="dd天hh时mm分" />
                 </View> : null}
             </View>
             <View style={styles.footer}>

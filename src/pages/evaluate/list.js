@@ -1,19 +1,17 @@
-import GoodsEvaluateModel from '../../../models/goodsEvaluate'
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime-module'
-
-const goodsEvaluateModel = new GoodsEvaluateModel()
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import GoodsEvaluateModel from '../../models/goodsEvaluate'
+import { Tabs } from 'antd-mobile-rn';
+import { EvaluateCard } from '../../components'
 
-export default class Index extends Component{
+const goodsEvaluateModel = new GoodsEvaluateModel()
+
+export default class Index extends Component {
     state = {
         page: 1,
         rows: 10,
@@ -32,6 +30,8 @@ export default class Index extends Component{
         ],
         list: [],
     }
+
+    // todo
     async componentWillMount({ order_id = 0, evaluate_state = 'un_evaluate' }) {
         if (order_id > 0) {
             this.setState({
@@ -41,6 +41,7 @@ export default class Index extends Component{
         }
         this.getList()
     }
+
     async getList() {
         const page = this.state.page
         if (page > 1 && this.state.noMore === true) {
@@ -64,6 +65,8 @@ export default class Index extends Component{
             this.setState(data)
         }
     }
+
+    // todo
     async onReachBottom() {
         if (this.state.noMore === true) {
             return false
@@ -71,26 +74,33 @@ export default class Index extends Component{
             this.getList()
         }
     }
+
     onGoods(e) {
+        // todo
         wx.navigateTo({
             url: '/pages/goods/detail/index?id=' + e.detail.goodsId
         })
     }
+
     onDetail(e) {
+        // todo
         wx.navigateTo({
             url: '/pages/evaluate/detail/index?order_goods_id=' + e.detail.orderGoodsId
         })
     }
+
     onAdd(e) {
         wx.navigateTo({
             url: '/pages/evaluate/add/index?order_goods_id=' + e.detail.orderGoodsId
         })
     }
+
     onAdditional(e) {
         wx.navigateTo({
             url: '/pages/evaluate/additional/index?order_goods_id=' + e.detail.orderGoodsId
         })
     }
+
     onTabChange(e) {
         this.setState({
             evaluate_state: e.detail,
@@ -99,6 +109,7 @@ export default class Index extends Component{
         })
         this.getList()
     }
+
     // 更新某条
     async updateListRow(id) {
         let { list } = this.state
@@ -129,22 +140,19 @@ export default class Index extends Component{
                     bindtabchange="onTabChange"
                 />
                 <View>
-                    <block wx:for="{{list}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-                        <evaluate-card
-                            goodsInfo="{{item}}"
-                            bind:goods="onGoods"
-                            bind:add="onAdd"
-                            bind:detail="onDetail"
-                            bind:additional="onAdditional"
-                        ></evaluate-card>
-                    </block>
-                </View>
-                <block wx:if="{{list.length===0}}">
-                    <View style={styles.list-empty} >
-                        <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'}></image>
+                    {list.length > 0 ? list.map(() => {
+                        return <EvaluateCard
+                            goodsInfo={item}
+                            onGoods={() => this.onGoods()}
+                            onAdd={() => this.onAdd()}
+                            onDetail={() => this.onDetail()}
+                            onAdditional={() => this.onAdditional()}
+                        />
+                    }) : <View style={styles.list - empty}>
+                        <Image source={require('../../images/order/list-empty.png')} resizeMode={'contain'} />
                         <Text>暂无相关数据</Text>
-                    </View>
-                </block>
+                    </View>}
+                </View>
             </View>
         );
     }

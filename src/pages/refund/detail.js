@@ -8,9 +8,8 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
-
-const Dialog = require('../../../ui/dialog/dialog');
-
+import { List,Modal } from 'antd-mobile-rn';
+import { RefundStateCard,RefundStateReason,RefundGoodsInfo,RefundBaseInfo,OrderContact } from '../../components'
 const refundModel = new RefundModel()
 
 export default class Index extends Component {
@@ -24,7 +23,7 @@ export default class Index extends Component {
             id
         })
     }
-
+    // todo
     async onShow() {
         this.init()
     }
@@ -40,45 +39,39 @@ export default class Index extends Component {
     }
 
     onGoods() {
-        wx.navigateTo({
-            url: `/pages/goods/detail/index?id=${this.state.refundInfo.goods_id}`
-        })
+        // todo
+        // wx.navigateTo({
+        //     url: `/pages/goods/detail/index?id=${this.state.refundInfo.goods_id}`
+        // })
     }
 
     onTrack() {
-        wx.navigateTo({
-            url: `/pages/refund/logisticsFill/index?id=${this.state.id}&order_goods_id=${this.state.refundInfo.order_goods_id}`
-        })
+        // todo
+        // wx.navigateTo({
+        //     url: `/pages/refund/logisticsFill/index?id=${this.state.id}&order_goods_id=${this.state.refundInfo.order_goods_id}`
+        // })
     }
 
     async onUndo() {
-        Dialog({
-            title: '撤销申请',
-            message: '您将撤销本次申请，如果问题未解决，您还可以再次发起。确定继续吗？',
-            selector: '#fa-dialog-receive',
-            buttons: [{
-                text: '取消',
-                type: 'cancel'
-            }, {
-                text: '确认',
-                color: 'red',
-                type: 'ok'
-            }]
-        }).then(async ({ type }) => {
-            if (type === 'ok') {
-                const result = await refundModel.revoke({ id: this.state.id })
-                if (result) {
-                    this.init()
-                } else {
-                    fa.cache.toast({
-                        title: fa.code.parse(refundModel.getException().getCode())
-                    })
+        Modal.alert('撤销申请', '您将撤销本次申请，如果问题未解决，您还可以再次发起。确定继续吗？', [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: () => async () => {
+                    const result = await refundModel.revoke({ id: this.state.id })
+                    if (result) {
+                        this.init()
+                    } else {
+                        fa.cache.toast({
+                            title: fa.code.parse(refundModel.getException().getCode())
+                        })
+                    }
                 }
             }
-        })
+        ])
     }
 
     updateListRow() {
+        // todo
         const { id } = this.state
         if (id > 0) {
             const pages = getCurrentPages();
@@ -103,7 +96,6 @@ export default class Index extends Component {
                     <OrderContact />
                 </List>
             </View>
-            <fa-dialog id="fa-dialog-receive" />
         </View>
     }
 }

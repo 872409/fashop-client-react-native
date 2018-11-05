@@ -31,7 +31,7 @@ export default class Index extends Component {
                     <Text style={styles.phone}>{phone}</Text>
                 </View>
                 <View style={styles.address}>
-                    地址：{address}
+                    <Text>地址：{address}</Text>
                 </View>
             </View>
         </View>

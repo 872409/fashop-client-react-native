@@ -12,6 +12,8 @@ import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
 import OrderModel from '../../models/order'
 import { UploadImageInterface } from '../../interface/uploadImage'
+import { List,Button } from 'antd-mobile-rn';
+import { Field ,FixedBottom} from '../../components'
 
 export default class Index extends Component {
     state = {
@@ -140,9 +142,10 @@ export default class Index extends Component {
                 title: fa.code.parse(refundModel.getException().getCode())
             })
         } else {
-            wx.navigateBack({
-                delta: this.state.delta
-            })
+            // todo
+            // wx.navigateBack({
+            //     delta: this.state.delta
+            // })
         }
     }
 

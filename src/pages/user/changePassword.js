@@ -93,7 +93,7 @@ export default class UserChangePassword extends Component {
                                 repassword,
                             }
                         })
-                        if(e.errcode===0){
+                        if(e.code===0){
                             Toast.info('修改成功')
                             dispatch(passiveModifyUserInfo({
                                 data: e.data

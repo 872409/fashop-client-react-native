@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
-
+import { List,Button } from 'antd-mobile-rn';
+import { Field ,FixedBottom} from '../../components'
 const addressModel = new AddressModel()
 
 export default class Index extends Component {
@@ -20,6 +21,7 @@ export default class Index extends Component {
     }
 
     async onShow() {
+        // todo
         this.setState({
             page: 1
         })
@@ -48,6 +50,7 @@ export default class Index extends Component {
     }
 
     async onReachBottom() {
+        // todo
         if (this.state.noMore === true) {
             return false
         } else {
@@ -55,20 +58,23 @@ export default class Index extends Component {
         }
     }
 
-    onAddressChecked(e) {
-        fa.cache.set('address_checked_id', e.detail.addressId)
+    onAddressChecked(id) {
+        fa.cache.set('address_checked_id', id)
+        // todo nav
         wx.navigateBack({
             delta: 1
         })
     }
 
     goEdit(e) {
+        // todo nav
         wx.navigateTo({
             url: '/pages/address/edit/index?id=' + e.currentTarget.dataset.id
         })
     }
 
     goAdd() {
+        // todo nav
         wx.navigateTo({
             url: '/pages/address/add/index'
         })
@@ -76,7 +82,7 @@ export default class Index extends Component {
 
     render() {
         return <View style={{
-            backgroundColor: '#F8F8F8', marginBottom: 100
+            backgroundColor: '#F8F8F8'
         }}>
             <View>
                 <List>
@@ -88,7 +94,7 @@ export default class Index extends Component {
                             address={item.combine_detail}
                             checked={item.is_default === 1}
                             goEdit={() => this.goEdit()}
-                            onAddressChecked={() => this.onAddressChecked()} />)
+                            onAddressChecked={() => this.onAddressChecked(item.id)} />)
                         : null}
                 </List>
             </View>

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
     Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
 import AreaModel from '../../models/area'
+import { Field,FixedBottom } from '../../components'
+import { List,Button } from 'antd-mobile-rn'
 
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
@@ -28,6 +28,7 @@ export default class Index extends Component {
     }
 
     async componentWillMount() {
+        // todo storge
         const areaCache = fa.cache.get('area_list_level2')
         const result = areaCache ? areaCache : await areaModel.list({ level: 2 })
         this.setState({
@@ -36,62 +37,33 @@ export default class Index extends Component {
         })
     }
 
-    onAreaChange(e) {
+    onAreaChange({ value }) {
         this.setState({
-            area_id: e.detail.detail.ids[2]
+            area_id: value.ids[2]
         })
     }
 
-    onTruenameChange(e) {
+    onTruenameChange({ value }) {
         this.setState({
-            truename: e.detail.detail.value
+            truename: value
         })
     }
 
-    onMobilePhoneChange(e) {
+    onMobilePhoneChange({ value }) {
         this.setState({
-            mobile_phone: e.detail.detail.value
+            mobile_phone: value
         })
     }
 
-    onAddressChange(e) {
+    onAddressChange({ value }) {
         this.setState({
-            address: e.detail.detail.value
+            address: value
         })
     }
 
-    onIsDefaultChange(e) {
+    onIsDefaultChange({ value }) {
         this.setState({
-            is_default: e.detail.detail.checked ? 1 : 0
-        })
-    }
-
-    async onWechatAddressChoose() {
-        const self = this
-        wx.chooseAddress({
-            success: async function (res) {
-                const result = await areaModel.info({
-                    name: res.countyName
-                })
-                if (result !== false) {
-                    self.setState({
-                        combine_detail: `${result.items[0].name} ${result.items[1].name} ${result.items[2].name}`,
-                        area_id: result.items[2].id,
-                        truename: res.userName,
-                        mobile_phone: res.telNumber,
-                        address: res.detailInfo,
-                    })
-                } else {
-                    fa.toast.show({
-                        title: "微信数据未能匹配成功，请使用其他方式"
-                    })
-                }
-                self.setState({
-                    truename: res.userName,
-                    mobile_phone: res.telNumber,
-                    address: res.detailInfo,
-                })
-            }
+            is_default: value.checked ? 1 : 0
         })
     }
 
@@ -123,6 +95,7 @@ export default class Index extends Component {
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
+            // todo
             wx.navigateBack({
                 delta: 1
             })
@@ -184,11 +157,6 @@ export default class Index extends Component {
                 >
                 </Field>
             </List>
-            <View style={styles.choiceWechatAddress} onPress={() => {
-                this.onWechatAddressChoose()
-            }}>
-                <Image source={require('../../images/user/address/wechat.png')} resizeMode={'contain'} />
-            </View>
             <FixedBottom>
                 <Button type={'danger'} size="large" onClick={() => {
                     this.onSubmit()

@@ -67,7 +67,7 @@ export default class UserbindingView extends Component {
                                     }
                                 }}
                                 getData={e => {
-                                    if (e.errcode == 0) {
+                                    if (e.code === 0) {
                                         Toast.info("验证码已发送");
                                     } else {
                                         Toast.warn(e.errmsg);
@@ -142,7 +142,7 @@ export default class UserbindingView extends Component {
                 password
             }
         })
-        if (e.errcode === 0) {
+        if (e.code === 0) {
             dispatch(updateUserInfo())
             navigation.goBack()
         } else {

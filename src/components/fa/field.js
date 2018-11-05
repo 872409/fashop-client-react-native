@@ -71,25 +71,21 @@ export default class Index extends Component {
         uploaderAllowDel: false
     };
 
-    handleFieldChange(event) {
-        const { detail = {} } = event;
-        const { value = '' } = detail;
-        this.setState({ value });
-
+    handleFieldChange(value) {
         if (this.props.onChange) {
-            this.props.onChange();
+            this.props.onChange({value});
         }
     }
 
-    handleFieldFocus(event) {
+    handleFieldFocus(value) {
         if (this.props.onFocus) {
-            this.props.onFocus(event);
+            this.props.onFocus({value});
         }
     }
 
-    handleFieldBlur(event) {
+    handleFieldBlur(value) {
         if (this.props.onBlur) {
-            this.props.onBlur(event);
+            this.props.onBlur({value});
         }
     }
 

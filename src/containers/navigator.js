@@ -2,21 +2,32 @@ import React from "react";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/publicStyleModule";
 import CardStackStyleInterpolator from 'react-navigation/src/Views/StackView/StackViewStyleInterpolator';
-// public
+
 import IndexView from "../pages/index";
-// category
+
 import GoodsDetail from "../pages/category/goodsDetail";
 import OrderAction from "../pages/category/orderAction";
-// user
+
 import UserLogin from "../pages/user/login";
 import UserRegister from "../pages/user/register";
-// cart
+import UserAddressAdd from "../pages/user/address/add";
+import UserAddressEdit from "../pages/user/address/edit";
+import UserAddressList from "../pages/user/address/list";
+
 import CartOrderFill from "../pages/cart/orderFill";
 
-// home
+import OrderList from "../pages/order/list";
+import OrderDetail from "../pages/order/detail";
 
-// shopCart
+import RefundDetail from "../pages/refund/detail";
+import RefundList from "../pages/refund/detail";
+import RefundLogisticsFill from "../pages/refund/logisticsFill";
+import RefundServiceApply from "../pages/refund/serviceApply";
+import RefundServiceType from "../pages/refund/serviceType";
 
+import AddressAdd from "../pages/address/add";
+import AddressEdit from "../pages/address/edit";
+import AddressList from "../pages/address/list";
 
 // CardStackStyleInterpolator.forVertical
 const modalStyleStackNames = [
@@ -74,11 +85,92 @@ export default createStackNavigator(
                 title: '注册'
             }
         },
+        UserAddressAdd: {
+            screen: UserAddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        UserAddressEdit: {
+            screen: UserAddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        UserAddressList: {
+            screen: UserAddressList,
+            navigationOptions: {
+                title: '收货地址列表'
+            }
+        },
         // cart
         CartOrderFill: {
             screen: CartOrderFill,
             navigationOptions: {
                 title: '提交订单'
+            }
+        },
+        // order
+        OrderList: {
+            screen: OrderList,
+            navigationOptions: {
+                title: '订单列表'
+            }
+        },
+        OrderDetail: {
+            screen: OrderDetail,
+            navigationOptions: {
+                title: '订单详情'
+            }
+        },
+        // refund
+        RefundDetail: {
+            screen: RefundDetail,
+            navigationOptions: {
+                title: '退款详情'
+            }
+        },
+        RefundList: {
+            screen: RefundList,
+            navigationOptions: {
+                title: '退款列表'
+            }
+        },
+        RefundLogisticsFill: {
+            screen: RefundLogisticsFill,
+            navigationOptions: {
+                title: '填写退款物流信息'
+            }
+        },
+        RefundServiceApply: {
+            screen: RefundServiceApply,
+            navigationOptions: {
+                title: '退款申请'
+            }
+        },
+        RefundServiceType: {
+            screen: RefundServiceType,
+            navigationOptions: {
+                title: '选择售后服务类型'
+            }
+        },
+        // address
+        AddressAdd: {
+            screen: AddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        AddressEdit: {
+            screen: AddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        AddressList: {
+            screen: AddressList,
+            navigationOptions: {
+                title: '收货地址列表'
             }
         },
     },

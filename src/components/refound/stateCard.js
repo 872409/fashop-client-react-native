@@ -27,7 +27,7 @@ export default class Index extends Component {
                     </View>
                     <View class="right">
                         <Text>还剩</Text>
-                        <common-static-countdown countdown={refundInfo.handle_expiry_seconds} format="dd天hh时mm分" />
+                        <StaticCountdown countdown={refundInfo.handle_expiry_seconds} format="dd天hh时mm分" />
                     </View>
                 </View> : null}
                 {refundInfo.refund_type === 2 && refundInfo.handle_state === 20 && refundInfo.is_close === 0 && refundInfo.send_expiry_time > 0 ?
@@ -38,7 +38,7 @@ export default class Index extends Component {
                             </View>
                             <View class="right">
                                 <Text>还剩</Text>
-                                <common-static-countdown countdown={refundInfo.send_expiry_seconds} format="dd天hh时mm分" />
+                                <StaticCountdown countdown={refundInfo.send_expiry_seconds} format="dd天hh时mm分" />
                             </View>
                         </View> : null}
                         {refundInfo.tracking_time > 0 ? <View>

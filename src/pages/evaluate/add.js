@@ -1,19 +1,20 @@
-import fa from '../../utils/fa'
-import GoodsEvaluateModel from '../../models/goodsEvaluate'
-import OrderModel from '../../models/order'
-import { UploadImageInterface } from '../../interface/uploadImage'
-
-const goodsEvaluateModel = new GoodsEvaluateModel()
-const orderModel = new OrderModel()
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
+import fa from '../../utils/fa'
+import GoodsEvaluateModel from '../../models/goodsEvaluate'
+import OrderModel from '../../models/order'
+import { UploadImageInterface } from '../../interface/uploadImage'
+import { List,Button } from 'antd-mobile-rn';
+import { Rater, Field, FixedBottom } from '../../components'
 
+const goodsEvaluateModel = new GoodsEvaluateModel()
+const orderModel = new OrderModel()
+// todo
 export default class Index extends Component {
     state = {
         id: 0,
@@ -102,7 +103,9 @@ export default class Index extends Component {
                 title: fa.code.parse(goodsEvaluateModel.getException().getCode())
             })
         } else {
+            // todo
             this.updateListRow()
+            // todo
             wx.navigateBack({
                 delta: this.state.delta
             })
@@ -131,7 +134,7 @@ export default class Index extends Component {
                                     </View>
                                     <View style={styles.body}>
                                         <Text>商品评价</Text>
-                                        <FaRater
+                                        <Rater
                                             num={5}
                                             value={score}
                                             size={2}
@@ -150,7 +153,9 @@ export default class Index extends Component {
                         title=""
                         placeholder="请输入您要评价的内容"
                         value={content}
-                        onChange={(e)=>{this.onContentChange(e)}}
+                        onChange={(e) => {
+                            this.onContentChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -163,8 +168,12 @@ export default class Index extends Component {
                         uploaderFiles={uploaderFiles}
                         uploaderCount={uploaderCount}
                         uploaderAllowDel={true}
-                        onSuccess={(e)=>{this.onUploadFileSuccess(e)}}
-                        onDelete={(e)=>{this.onUploadFileDelete(e)}}
+                        onSuccess={(e) => {
+                            this.onUploadFileSuccess(e)
+                        }}
+                        onDelete={(e) => {
+                            this.onUploadFileDelete(e)
+                        }}
                     >
                     </Field>
                 </List>

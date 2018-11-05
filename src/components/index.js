@@ -19,7 +19,14 @@ import RefundCard from './refound/card';
 import RefundGoodsCard from './refound/goodsCard';
 import RefundStateCard from './refound/stateCard';
 import RefundStateReason from './refound/stateReason';
-import RefundStateSteps from './refound/stateSteps';
+import Cell from './fa/cell';
+import Area from './fa/area';
+import CountDown from './fa/countDown';
+import Field from './fa/field';
+import FixedBottom from './fa/fixedBottom';
+import Rater from './fa/rater';
+import StaticCountdown from './fa/staticCountdown';
+import TimeFormat from './fa/timeFormat';
 
 
 export default {
@@ -45,4 +52,12 @@ export default {
     RefundStateCard,
     RefundStateReason,
     RefundStateSteps,
+    Cell,
+    Area,
+    CountDown,
+    Field,
+    FixedBottom,
+    Rater,
+    StaticCountdown,
+    TimeFormat,
 }

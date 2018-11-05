@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
 import OrderModel from '../../models/order'
 import { UploadImageInterface } from '../../interface/uploadImage'
+import { List } from 'antd-mobile-rn';
+import { RefundGoodsCard,Field ,FixedBottom} from '../../components'
 
 const refundModel = new RefundModel()
 const orderModel = new OrderModel()
@@ -128,9 +127,10 @@ export default class Index extends Component {
                 title: fa.code.parse(refundModel.getException().getCode())
             })
         } else {
-            wx.navigateBack({
-                delta: this.state.delta
-            })
+            // todo
+            // wx.navigateBack({
+            //     delta: this.state.delta
+            // })
         }
     }
 

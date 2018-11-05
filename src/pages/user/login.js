@@ -180,7 +180,7 @@ export default class UserLogin extends Component {
 			api: UserApi.login,
 			params
 		})
-		if (e.errcode === 0) {
+		if (e.code === 0) {
 			const {
 				dispatch
 			} = this.props;

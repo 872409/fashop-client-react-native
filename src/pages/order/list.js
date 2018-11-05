@@ -8,8 +8,10 @@ import {
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from '../../models/buy'
+import { Modal, List, Tabs } from "antd-mobile-rn";
 
-const Dialog = require('../../../ui/dialog/dialog');
+import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
+
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 export default class Index extends Component {
@@ -90,9 +92,10 @@ export default class Index extends Component {
 
 
     goDetail(e) {
-        wx.navigateTo({
-            url: '/pages/order/detail/index?id=' + e.detail.orderId
-        })
+        // todo
+        // wx.navigateTo({
+        //     url: '/pages/order/detail/index?id=' + e.detail.orderId
+        // })
     }
 
 
@@ -122,42 +125,32 @@ export default class Index extends Component {
 
 
     onEvaluate(e) {
+        // todo
         const orderInfo = e.detail.orderInfo
-        wx.navigateTo({
-            url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
-        })
+        // wx.navigateTo({
+        //     url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
+        // })
     }
 
     async onReceive(e) {
-        Dialog({
-            message: '您确认收货吗？状态修改后不能变更',
-            selector: '#fa-dialog-receive',
-            buttons: [{
-                text: '取消',
-                type: 'cancel'
-            }, {
-                // 按钮文案
-                text: '确认',
-                // 按钮文字颜色
-                color: 'red',
-                // 按钮类型，用于在 then 中接受点击事件时，判断是哪一个按钮被点击
-                type: 'ok'
-            }]
-        }).then(async ({ type }) => {
-            if (type === 'ok') {
-                const orderInfo = e.detail.orderInfo
-                const result = await orderModel.confirmReceipt({
-                    'id': orderInfo.id,
-                })
-                if (result) {
-                    this.updateListRow(orderInfo.id)
-                } else {
-                    fa.toast.show({
-                        title: fa.code.parse(orderModel.getException().getCode())
+        Modal.alert('您确认收货吗？状态修改后不能变更', null, [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: () => async () => {
+                    const orderInfo = e.detail.orderInfo
+                    const result = await orderModel.confirmReceipt({
+                        'id': orderInfo.id,
                     })
+                    if (result) {
+                        this.updateListRow(orderInfo.id)
+                    } else {
+                        fa.toast.show({
+                            title: fa.code.parse(orderModel.getException().getCode())
+                        })
+                    }
                 }
             }
-        })
+        ])
     }
 
     async onPay(e) {
@@ -173,24 +166,25 @@ export default class Index extends Component {
             'openid': userInfo.wechat_mini_openid
         })
         if (payResult) {
-            wx.requestPayment({
-                'timeStamp': payResult.timeStamp,
-                'nonceStr': payResult.nonceStr,
-                'package': payResult.package,
-                'signType': payResult.signType,
-                'paySign': payResult.paySign,
-                'success': function () {
-                    self.setState({
-                        page: 1
-                    })
-                    self.updateListRow(orderInfo.id)
-                },
-                'fail': function (res) {
-                    fa.toast.show({
-                        title: res
-                    })
-                }
-            })
+            // todo
+            // wx.requestPayment({
+            //     'timeStamp': payResult.timeStamp,
+            //     'nonceStr': payResult.nonceStr,
+            //     'package': payResult.package,
+            //     'signType': payResult.signType,
+            //     'paySign': payResult.paySign,
+            //     'success': function () {
+            //         self.setState({
+            //             page: 1
+            //         })
+            //         self.updateListRow(orderInfo.id)
+            //     },
+            //     'fail': function (res) {
+            //         fa.toast.show({
+            //             title: res
+            //         })
+            //     }
+            // })
         } else {
             fa.toast.show({
                 title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
@@ -200,6 +194,7 @@ export default class Index extends Component {
 
     // 更新某条
     async updateListRow(id) {
+        // todo
         let { list } = this.state
         const listIndex = list.findIndex((row) => row.id === id)
         if (listIndex !== -1) {
@@ -261,7 +256,6 @@ export default class Index extends Component {
                         </List>
                     </View>
                 </View>
-                <fa-dialog id="fa-dialog-receive" />
             </View>
         );
     }

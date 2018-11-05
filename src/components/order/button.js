@@ -28,6 +28,6 @@ export default class Index extends Component {
     }
     render(){
         const { size, text, type, active } = this.props
-        return <View style={[styles.orderButton]} onPress={this.onClick()}>{text}</View>
+        return <View style={[styles.orderButton]} onPress={this.onClick()}><Text>{text}</Text></View>
     }
 }

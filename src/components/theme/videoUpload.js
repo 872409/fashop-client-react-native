@@ -137,7 +137,7 @@ export default class VideoUpload extends Component {
             //     },
             // })
             // console.log(e);
-            // if(e.errcode===0){
+            // if(e.code===0){
             //     this.props.onChange(e.data.url)
             //     this.setState({
             //         video: e.data.url,

@@ -62,7 +62,7 @@ class UserFindPassword extends Component{
 							}
 						}}
 						getData = {(e)=>{
-							if(e.errcode==0){
+							if(e.code==0){
 								Toast.info('验证码已发送')
 							}else {
 								Toast.warn(e.errmsg)
@@ -107,7 +107,7 @@ class UserFindPassword extends Component{
 								password : this.state.password,
 							}
 						})
-						if(e.errcode===0){
+						if(e.code===0){
 							Toast.info('找回密码成功，请重新登录')
 							navigation.goBack()
 						}else {

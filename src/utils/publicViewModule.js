@@ -477,7 +477,7 @@ export class CountdownButton extends Component {
                         api,
                         params,
                     })
-                    if (e.errcode === 0) {
+                    if (e.code === 0) {
                         this.intervalFunc()
                     } else {
                         Toast.warn(e.errmsg)

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import PropTypes from "prop-types";
-import { List } from 'antd-mobile-rn';
 
-const Item = List.Item;
-const Brief = Item.Brief;
 const warn = (msg, getValue) => {
     console.warn(msg);
 
@@ -69,7 +66,6 @@ export default class Index extends Component {
 
         if (['navigateTo', 'redirectTo', 'switchTab', 'reLaunch'].indexOf(this.props.linkType) === -1) {
             warn('linkType 属性可选值为 navigateTo，redirectTo，switchTab，reLaunch', this.props.linkType);
-            return;
         }
         // wx[this.props.linkType].call(wx, { url });
     }

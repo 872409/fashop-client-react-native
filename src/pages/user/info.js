@@ -58,7 +58,7 @@ export default class UserInfo extends Component {
                             onClick={() => {
                                 imagePicker(
                                     (e) => {
-                                        if (e.errcode == 0) {
+                                        if (e.code == 0) {
                                             this.setState({
                                                 avatar: e.data.url
                                             })
