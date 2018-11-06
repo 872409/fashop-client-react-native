@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class FaTimeFormat extends Component {
+export default class TimeFormat extends Component {
     static propTypes = {
         value: PropTypes.number,
         format: PropTypes.string,

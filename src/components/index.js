@@ -30,7 +30,7 @@ import StaticCountdown from './fa/staticCountdown';
 import TimeFormat from './fa/timeFormat';
 
 
-export default {
+export {
     AddressCard,
     EvaluateCard,
     OrderAddress,

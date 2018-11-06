@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
-import {  Modal, Button } from 'antd-mobile-rn';
-import { Field, FixedBottom } from '../../../components'
+import { Modal, Button } from 'antd-mobile-rn';
+import {  FixedBottom, AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
-import {  ListView } from "../../../utils/publicViewModule";
+import { ListView } from "../../../utils/publicViewModule";
 
 const addressModel = new AddressModel()
 
@@ -34,7 +34,7 @@ export default class UserAddressList extends Component {
 
     onEdit(id) {
         // todo id
-        this.props.navigation.navigate('UserAddressEdit',{id})
+        this.props.navigation.navigate('UserAddressEdit', { id })
     }
 
     async onDelete(id) {
@@ -63,7 +63,7 @@ export default class UserAddressList extends Component {
         return <View>
             <View>
                 <ListView
-                    renderItem={ item => (
+                    renderItem={item => (
                         <AddressCard
                             name={item.truename}
                             phone={item.phone}

@@ -7,7 +7,7 @@ import {
     Image
 } from 'react-native';
 
-export default class FaFixedBottom extends Component {
+export default class FixedBottom extends Component {
     static propTypes = {
 
     };
@@ -15,9 +15,6 @@ export default class FaFixedBottom extends Component {
 
     };
     render() {
-        const { children } = this.props
-        return <View style={styles.fixedBottom}>
-            {children}
-        </View>
+        return <View/>
     }
 }

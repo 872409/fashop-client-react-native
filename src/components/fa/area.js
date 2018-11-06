@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class FaArea extends Component {
+export default class Area extends Component {
     static propTypes = {
         placeholder: PropTypes.string,
         areaNames: PropTypes.string,

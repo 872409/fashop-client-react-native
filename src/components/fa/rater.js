@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class FaRater extends Component {
+export default class Rater extends Component {
     static propTypes = {
         size: PropTypes.number,
         num: PropTypes.number,

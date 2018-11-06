@@ -11,7 +11,7 @@ import { List, TextareaItem } from 'antd-mobile-rn';
 const Item = List.Item;
 const Brief = Item.Brief;
 
-export default class FaField extends Component {
+export default class Field extends Component {
     static propTypes = {
         title: PropTypes.string,
         desc: PropTypes.string,

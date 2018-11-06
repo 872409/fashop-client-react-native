@@ -1,4 +1,4 @@
-import Button from './themeButton'
+import Button from './button'
 import HeaderButton from './headerButton'
 import Image from './image'
 import ImagePicker from "./imagePicker";

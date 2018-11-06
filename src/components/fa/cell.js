@@ -7,7 +7,7 @@ const warn = (msg, getValue) => {
 
 };
 
-export default class FaCell extends Component {
+export default class Cell extends Component {
     static propTypes = {
         type: PropTypes.string,
         title: PropTypes.string,
