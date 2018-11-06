@@ -13,7 +13,7 @@ import { Field, FixedBottom } from '../../components'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
 import { windowHeight } from "../../utils/publicStyleModule";
 import {AddressApi} from "../../config/api/address";
-
+import { PublicStyles } from '../../utils/publicStyleModule';
 const addressModel = new AddressModel()
 
 export default class AddressList extends Component {

@@ -6,10 +6,11 @@ import {
     Text,
     Image
 } from 'react-native';
+import { PublicStyles } from '../../../utils/publicStyleModule';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import { Modal, Button } from 'antd-mobile-rn';
-import {  FixedBottom, AddressCard } from '../../../components'
+import { FixedBottom, AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
 import { ListView } from "../../../utils/publicViewModule";
 
@@ -60,22 +61,20 @@ export default class UserAddressList extends Component {
     }
 
     render() {
-        return <View>
-            <View>
-                <ListView
-                    renderItem={item => (
-                        <AddressCard
-                            name={item.truename}
-                            phone={item.phone}
-                            addressId={item.id}
-                            address={item.combine_detail}
-                            checked={item.is_default === 1}
-                            goEdit={() => this.goEdit()}
-                            onAddressChecked={() => this.onAddressChecked(item.id)} />
-                    )}
-                    api={AddressApi.list}
-                />
-            </View>
+        return <View style={[PublicStyles.ViewMax]}>
+            <ListView
+                api={AddressApi.list}
+                keyExtractor={e => String(e.id)}
+                renderItem={({item})=><AddressCard
+                    name={item.truename}
+                    phone={item.phone}
+                    addressId={item.id}
+                    address={item.combine_detail}
+                    checked={item.is_default === 1}
+                    goEdit={() => this.goEdit()}
+                    onAddressChecked={() => this.onAddressChecked(item.id)} />
+                }
+            />
             <FixedBottom>
                 <Button size="large" onClick={() => this.goAdd()}>+ 新建地址</Button>
             </FixedBottom>
