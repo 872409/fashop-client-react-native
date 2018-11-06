@@ -26,12 +26,11 @@ export default class Index extends Component {
     }
 
     onClick(refundType) {
-        // todo delta refundType
         this.props.navigation.navigate('RefundServiceApply')
-        this.props.navigation.navigate('RefundServiceApply',{
-            order_goods_id:this.state.goodsInfo.id,
-            refund_type,
-            delta:2
+        this.props.navigation.navigate('RefundServiceApply', {
+            order_goods_id: this.state.goodsInfo.id,
+            refund_type: refundType,
+            delta: 2
         })
     }
 
@@ -63,16 +62,14 @@ export default class Index extends Component {
                     isLink={true}
                     title="仅退款"
                     label="未收到货（包含未签收），或卖家协商同意前提现"
-                    data-refund-type="1"
-                    onClick={(e) => this.onClick(e)}
+                    onClick={(e) => this.onClick(1)}
                     icon="../../images/refund/refund-type-1.png"
                 >
                 </Cell>
                 <Cell isLink={true}
                       title="退货退款"
                       label="已收到货，需要退换已收到的货物"
-                      data-refund-type="2"
-                      onClick={(e) => this.onClick(e)}
+                      onClick={(e) => this.onClick(2)}
                       icon="../../images/refund/refund-type-2.png">
                 </Cell>
             </List>

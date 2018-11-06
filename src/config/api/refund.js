@@ -1,7 +1,7 @@
 import { env } from '../root';
 
 const ROOT_URL = `${env.domain}/server/`;
-export const RefoundApi = {
+export const RefundApi = {
     reasonList: {
         url: `${ROOT_URL}orderrefund/reasonList`,
         method: 'GET'

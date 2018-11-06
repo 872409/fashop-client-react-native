@@ -31,8 +31,7 @@ export default class Index extends Component{
 
     }
     async componentWillMount({ id }) {
-        // todo
-        const areaCache = fa.cache.get('area_list_level2')
+        const areaCache = await fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
         const info = await addressModel.info({ id })
         this.setState({
@@ -131,6 +130,7 @@ export default class Index extends Component{
     }
     render(){
         const {
+            id,
             truename,
             mobile_phone,
             address,
@@ -184,7 +184,7 @@ export default class Index extends Component{
                 </List>
                 <FixedBottom>
                     <View style={styles.buttonArea} >
-                        <Button size="large" bind:btnclick="onDelete">删除地址</Button>
+                        <Button size="large" onClick={()=>{this.onDelete(id)}}>删除地址</Button>
                         <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>保存</Button>
                     </View>
                 </FixedBottom>

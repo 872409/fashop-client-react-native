@@ -8,55 +8,15 @@ import {
 } from 'react-native';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
-import { List, Modal, Button } from 'antd-mobile-rn';
+import {  Modal, Button } from 'antd-mobile-rn';
 import { Field, FixedBottom } from '../../../components'
+import { AddressApi } from "../../../config/api/address";
+import { ListEmptyView, ListView } from "../../../utils/publicViewModule";
+import { windowHeight } from "../../../utils/publicStyleModule";
 
 const addressModel = new AddressModel()
 
 export default class Index extends Component {
-    state = {
-        page: 1,
-        rows: 10,
-        noMore: false,
-        list: [],
-    }
-
-    componentDidMount() {
-        this.props.navigation.addListener(
-            'didFocus', async () => {
-                this.initList()
-            }
-        );
-    }
-
-    initList() {
-        this.setState({
-            page: 1
-        })
-        this.getList()
-    }
-
-    async getList() {
-        const page = this.state.page
-        if (page > 1 && this.state.noMore === true) {
-            return
-        }
-        const rows = this.state.rows
-        const list = page === 1 ? [] : this.state.list
-        const result = await addressModel.list({
-            page,
-            rows
-        })
-        if (result) {
-            let data = { page: page + 1 }
-            if (result.list.length === 0) {
-                data['noMore'] = true
-            }
-            data['list'] = list.concat(result.list)
-            this.setState(data)
-        }
-    }
-
     async onChecked(e) {
         const result = await addressModel.setDefault({ id: e.currentTarget.dataset.id })
         if (result) {
@@ -65,14 +25,6 @@ export default class Index extends Component {
             fa.toast.show({
                 title: fa.code.parse(addressModel.getException().getCode())
             })
-        }
-    }
-
-    async onReachBottom() {
-        if (this.state.noMore === true) {
-            return false
-        } else {
-            this.getList()
         }
     }
 
@@ -109,23 +61,29 @@ export default class Index extends Component {
     }
 
     render() {
-        const {
-            list,
-        } = this.state
         return <View>
             <View>
-                <List>
-                    {list.length > 0 ?
-                        list.map((item) => <AddressCard
+                <ListView
+                    renderItem={ item => (
+                        <AddressCard
                             name={item.truename}
                             phone={item.phone}
                             addressId={item.id}
                             address={item.combine_detail}
                             checked={item.is_default === 1}
                             goEdit={() => this.goEdit()}
-                            onAddressChecked={() => this.onAddressChecked()} />)
-                        : null}
-                </List>
+                            onAddressChecked={() => this.onAddressChecked(item.id)} />
+                    )}
+                    api={AddressApi.list}
+                    fetchParams={{type_id}}
+                    ListEmptyComponent={()=>(
+                        <ListEmptyView
+                            height={windowHeight-80}
+                            uri={require('../../images/fetchStatus/messageEmpty.png')}
+                            desc='暂时没有相关消息'
+                        />
+                    )}
+                />
             </View>
             <FixedBottom>
                 <Button size="large" onClick={() => this.goAdd()}>+ 新建地址</Button>

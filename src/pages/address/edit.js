@@ -31,8 +31,7 @@ export default class Index extends Component {
     }
 
     async componentWillMount({ id }) {
-        // todo
-        const areaCache = fa.cache.get('area_list_level2')
+        const areaCache = await fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
         const info = await addressModel.info({ id })
         this.setState({
@@ -92,10 +91,7 @@ export default class Index extends Component {
                             title: fa.code.parse(addressModel.getException().getCode())
                         })
                     } else {
-                        // todo navigation back
-                        // wx.navigateBack({
-                        //     delta: 1
-                        // })
+                        this.props.navigation.goBack()
                     }
                 }
             },
