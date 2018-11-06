@@ -95,9 +95,7 @@ export default class Index extends Component{
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
-            wx.navigateBack({
-                delta: 1
-            })
+            this.props.navigation.goBack()
         }
     }
     render(){

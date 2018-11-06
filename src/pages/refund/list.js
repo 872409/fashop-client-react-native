@@ -58,11 +58,9 @@ export default class Index extends Component {
             this.getList()
         }
     }
-    onDetail(e) {
-        // todo
-        // wx.navigateTo({
-        //     url: '/pages/refund/detail/index?id=' + e.detail.refundInfo.id
-        // })
+    onDetail(id) {
+        // todo id
+        this.props.navigation.navigate('RefundDetail',{id})
     }
 
     // 更新某条

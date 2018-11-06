@@ -34,31 +34,29 @@ export default class Index extends Component {
     }
 
     onRefund(e) {
-        // todo
-
         const orderInfo = this.state.orderInfo
         const { goodsInfo } = e.detail
         // 根据类型跳转到是退款还是退款退货  订单状态：0(已取消)10(默认):未付款;20:已付款;30:已发货;40:已收货;    多少天后不可退的业务逻辑
         if (orderInfo.state === 20) {
             // 直接跳转到申请发货
-            wx.navigateTo({
-                url: `/pages/refund/serviceApply/index?order_goods_id=${goodsInfo.id}&refund_type=1`,
-                delta: 1
+            this.props.navigation.navigate('RefundServiceApply',{
+                order_goods_id:goodsInfo.id,
+                refund_type:1
             })
 
         } else if (orderInfo.state === 30 || orderInfo.state === 40) {
             // 选择是退款还是退款并退货
-            wx.navigateTo({
-                url: `/pages/refund/serviceType/index?order_goods_id=${goodsInfo.id}`,
+            this.props.navigation.navigate('RefundServiceType',{
+                order_goods_id:goodsInfo.id,
             })
         }
     }
 
     onRefundDetail(e) {
-        // todo
+        // todo e
         const { goodsInfo } = e.detail
-        wx.navigateTo({
-            url: `/pages/refund/detail/index?id=${goodsInfo.refund_id}`,
+        this.props.navigation.navigate('RefundDetail',{
+            id:goodsInfo.refund_id,
         })
     }
 
@@ -82,9 +80,10 @@ export default class Index extends Component {
     }
 
     onGoodsDetail(e) {
+        // todo e
         const { goodsInfo } = e.detail
-        wx.navigateTo({
-            url: `/pages/goods/detail/index?id=${goodsInfo.goods_id}`,
+        this.props.navigation.navigate('GoodsDetail',{
+            id:goodsInfo.goods_id,
         })
     }
 
@@ -104,9 +103,10 @@ export default class Index extends Component {
     }
 
     onEvaluate(e) {
+        // todo e
         const orderInfo = e.detail.orderInfo
-        wx.navigateTo({
-            url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
+        this.props.navigation.navigate('EvaluateList',{
+            order_id:orderInfo.id,
         })
     }
 
@@ -145,6 +145,7 @@ export default class Index extends Component {
             'openid': userInfo.wechat_mini_openid
         })
         if (payResult) {
+            // todo 支付
             wx.requestPayment({
                 'timeStamp': payResult.timeStamp,
                 'nonceStr': payResult.nonceStr,
@@ -178,7 +179,7 @@ export default class Index extends Component {
     }
 
     render() {
-        // todo                         address={orderInfo.extend_order_extend.reciver_name}
+        // todo    address={orderInfo.extend_order_extend.reciver_name}
         const {orderInfo} = this.state
         return <View>
             <View>

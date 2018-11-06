@@ -78,17 +78,12 @@ export default class Index extends Component {
 
     onAddressChecked(e) {
         fa.cache.set('address_checked_id', e.detail.addressId)
-        // todo
-        wx.navigateBack({
-            delta: 1
-        })
+        this.props.navigation.goBack()
     }
 
     onEdit(id) {
-        // todo
-        wx.navigateTo({
-            url: '/pages/user/address/edit/index?id=' + e.currentTarget.dataset.id
-        })
+        // todo id
+        this.props.navigation.navigate('UserAddressEdit',{id})
     }
 
     async onDelete(id) {
@@ -110,10 +105,7 @@ export default class Index extends Component {
     }
 
     onAdd() {
-        // todo nav
-        wx.navigateTo({
-            url: '/pages/user/address/add/index'
-        })
+        this.props.navigation.navigate('UserAddressAdd')
     }
 
     render() {

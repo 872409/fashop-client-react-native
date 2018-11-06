@@ -91,10 +91,7 @@ export default class Index extends Component{
                             title: fa.code.parse(addressModel.getException().getCode())
                         })
                     } else {
-                        // todo navigation back
-                        // wx.navigateBack({
-                        //     delta: 1
-                        // })
+                        this.props.navigation.goBack()
                     }
                 }
             },
@@ -129,9 +126,7 @@ export default class Index extends Component{
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
-            wx.navigateBack({
-                delta: 1
-            })
+            this.props.navigation.goBack()
         }
     }
     render(){

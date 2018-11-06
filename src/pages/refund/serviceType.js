@@ -25,11 +25,14 @@ export default class Index extends Component {
         })
     }
 
-    onClick(e) {
-        // todo
-        // wx.navigateTo({
-        //     url: `/pages/refund/serviceApply/index?order_goods_id=${this.state.goodsInfo.id}&delta=2&refund_type=${e.currentTarget.dataset.refundType}`
-        // })
+    onClick(refundType) {
+        // todo delta refundType
+        this.props.navigation.navigate('RefundServiceApply')
+        this.props.navigation.navigate('RefundServiceApply',{
+            order_goods_id:this.state.goodsInfo.id,
+            refund_type,
+            delta:2
+        })
     }
 
     render() {

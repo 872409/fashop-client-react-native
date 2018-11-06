@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
-import { List,Modal } from 'antd-mobile-rn';
-import { RefundStateCard,RefundStateReason,RefundGoodsInfo,RefundBaseInfo,OrderContact } from '../../components'
+import { List, Modal } from 'antd-mobile-rn';
+import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo, OrderContact } from '../../components'
+
 const refundModel = new RefundModel()
 
 export default class Index extends Component {
@@ -44,16 +45,16 @@ export default class Index extends Component {
 
     onGoods() {
         // todo
-        // wx.navigateTo({
-        //     url: `/pages/goods/detail/index?id=${this.state.refundInfo.goods_id}`
-        // })
+        this.props.navigation.navigate('GoodsDetail', { id: this.state.refundInfo.goods_id })
     }
 
     onTrack() {
-        // todo
-        // wx.navigateTo({
-        //     url: `/pages/refund/logisticsFill/index?id=${this.state.id}&order_goods_id=${this.state.refundInfo.order_goods_id}`
-        // })
+
+        this.props.navigation.navigate('RefundLogisticsFill', {
+            id: this.state.id,
+            order_goods_id: this.state.refundInfo.order_goods_id
+        })
+
     }
 
     async onUndo() {
@@ -85,7 +86,7 @@ export default class Index extends Component {
     }
 
     render() {
-        const {refundInfo} = this.state
+        const { refundInfo } = this.state
         return <View>
             <View>
                 <List>

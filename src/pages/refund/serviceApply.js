@@ -142,10 +142,8 @@ export default class Index extends Component {
                 title: fa.code.parse(refundModel.getException().getCode())
             })
         } else {
-            // todo
-            // wx.navigateBack({
-            //     delta: this.state.delta
-            // })
+            // todo delta
+            this.props.navigation.goBack()
         }
     }
 

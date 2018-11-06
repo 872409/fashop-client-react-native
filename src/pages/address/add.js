@@ -28,7 +28,6 @@ export default class Index extends Component {
     }
 
     async componentWillMount() {
-        // todo storge
         const areaCache = await fa.cache.get('area_list_level2')
         const result = areaCache ? areaCache : await areaModel.list({ level: 2 })
         this.setState({

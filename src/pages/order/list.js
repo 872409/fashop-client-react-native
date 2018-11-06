@@ -91,11 +91,12 @@ export default class Index extends Component {
     }
 
 
-    goDetail(e) {
-        // todo
+    goDetail(id) {
+        // todo id
         // wx.navigateTo({
         //     url: '/pages/order/detail/index?id=' + e.detail.orderId
         // })
+        this.props.navigation.navigate('OrderDetail',{id})
     }
 
 
@@ -125,11 +126,10 @@ export default class Index extends Component {
 
 
     onEvaluate(e) {
-        // todo
+        // todo e
         const orderInfo = e.detail.orderInfo
-        // wx.navigateTo({
-        //     url: '/pages/evaluate/list/index?order_id=' + orderInfo.id
-        // })
+        this.props.navigation.navigate('OrderDetail',{order_id:orderInfo.id})
+
     }
 
     async onReceive(e) {
