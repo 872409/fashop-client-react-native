@@ -65,24 +65,15 @@ export default class Index extends Component {
 
     onAddressChecked(id) {
         fa.cache.set('address_checked_id', id)
-        // todo nav
-        wx.navigateBack({
-            delta: 1
-        })
+        this.props.navigation.goBack()
     }
 
-    goEdit(e) {
-        // todo nav
-        wx.navigateTo({
-            url: '/pages/address/edit/index?id=' + e.currentTarget.dataset.id
-        })
+    goEdit(id) {
+        this.props.navigation.navigate('AddressEdit',{id})
     }
 
     goAdd() {
-        // todo nav
-        wx.navigateTo({
-            url: '/pages/address/add/index'
-        })
+        this.props.navigation.navigate('AddressAdd')
     }
 
     render() {

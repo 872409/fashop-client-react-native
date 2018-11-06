@@ -93,10 +93,8 @@ export default class Index extends Component {
             })
         } else {
             this.updateListRow()
-            // todo
-            wx.navigateBack({
-                delta: this.state.delta
-            })
+            // todo  2页
+            this.props.navigation.goBack()
         }
     }
 

@@ -78,6 +78,7 @@ export default class Index extends Component {
 
     onAddressChecked(e) {
         fa.cache.set('address_checked_id', e.detail.addressId)
+        // todo
         wx.navigateBack({
             delta: 1
         })

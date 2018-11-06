@@ -105,10 +105,8 @@ export default class Index extends Component {
         } else {
             // todo
             this.updateListRow()
-            // todo
-            wx.navigateBack({
-                delta: this.state.delta
-            })
+            // 可能存在跳回两页
+            this.props.navigation.goBack()
         }
     }
 

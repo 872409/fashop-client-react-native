@@ -75,30 +75,21 @@ export default class Index extends Component {
         }
     }
 
-    onGoods(e) {
-        // todo
-        wx.navigateTo({
-            url: '/pages/goods/detail/index?id=' + e.detail.goodsId
-        })
+    onGoods(id) {
+        this.props.navigation.navigate('GoodsDetail', { id })
     }
 
-    onDetail(e) {
-        // todo
-        wx.navigateTo({
-            url: '/pages/evaluate/detail/index?order_goods_id=' + e.detail.orderGoodsId
-        })
+    onDetail(order_goods_id) {
+        this.props.navigation.navigate('EvaluateDetail', { order_goods_id })
+
     }
 
-    onAdd(e) {
-        wx.navigateTo({
-            url: '/pages/evaluate/add/index?order_goods_id=' + e.detail.orderGoodsId
-        })
+    onAdd(order_goods_id) {
+        this.props.navigation.navigate('EvaluateAdd', { order_goods_id })
     }
 
-    onAdditional(e) {
-        wx.navigateTo({
-            url: '/pages/evaluate/additional/index?order_goods_id=' + e.detail.orderGoodsId
-        })
+    onAdditional(order_goods_id) {
+        this.props.navigation.navigate('EvaluateAdditional', { order_goods_id })
     }
 
     onTabChange(e) {
@@ -131,7 +122,7 @@ export default class Index extends Component {
 
     render() {
         const {
-            evaluate_state ,
+            evaluate_state,
             stateTabs,
             list,
         } = this.state
