@@ -6,7 +6,7 @@ import {
     Text
 } from 'react-native';
 
-export default class Index extends Component {
+export default class BodySeparator extends Component {
     render() {
         const { options } = this.props.data;
         const { color, style } = options

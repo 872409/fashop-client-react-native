@@ -15,7 +15,7 @@ import { Rater, Field, FixedBottom } from '../../components'
 const goodsEvaluateModel = new GoodsEvaluateModel()
 const orderModel = new OrderModel()
 // todo
-export default class Index extends Component {
+export default class EvaluateAdd extends Component {
     state = {
         id: 0,
         delta: 1,

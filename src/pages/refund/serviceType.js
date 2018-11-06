@@ -11,7 +11,7 @@ import { Field, FixedBottom, Cell } from '../../components'
 
 const orderModel = new OrderModel()
 
-export default class Index extends Component {
+export default class ServiceType extends Component {
     state = {
         goodsInfo: null,
     }

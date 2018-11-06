@@ -14,7 +14,7 @@ import { Field ,FixedBottom} from '../../components'
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
 
-export default class Index extends Component {
+export default class AddressEdit extends Component {
     state = {
         id: null,
         truename: '',

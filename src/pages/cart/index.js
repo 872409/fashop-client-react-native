@@ -11,7 +11,7 @@ import CartLogic from "../../logics/cart";
 
 const cartModel = new CartModel()
 const cartLogic = new CartLogic()
-export default class Cart extends Component {
+export default class CartIndex extends Component {
     state = {
         refreshing: true,
         cartListLoadedState: false,

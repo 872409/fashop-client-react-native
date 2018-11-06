@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SearchBar } from "antd-mobile-rn";
 
-export default class Index extends Component {
+export default class PageGoodsSearch extends Component {
     componentDidMount() {
         // this.autoFocusInst.focus();
     }

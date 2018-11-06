@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class FaCountDown extends Component {
     static propTypes = {
         countdown: PropTypes.number,
         format: PropTypes.string,

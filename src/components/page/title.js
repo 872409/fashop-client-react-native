@@ -9,7 +9,7 @@ import { List } from "antd-mobile-rn";
 
 const Item = List.Item
 
-export default class Index extends Component {
+export default class PageTitle extends Component {
     render() {
         const { options } = this.props.data
         const { title, align, background_color, font_color, leading_image } = options
@@ -20,7 +20,7 @@ export default class Index extends Component {
         // 前导图片：选择图片
         return <List>
             <Item arrow="horizontal" thumb={leading_image.url ? leading_image.url : null} style={{backgroundColor: background_color}}>
-                <Text 
+                <Text
                     style={[styles.title,{
                         // textAlign: align,
                         color: font_color

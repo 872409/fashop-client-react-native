@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { windowWidth } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class PageShopWindow extends Component {
     render() {
         const { data, options } = this.props.data
         const { layout_style } = options
@@ -23,10 +23,10 @@ export default class Index extends Component {
     oneBigTwoSmall(data){
         return(
             <View style={styles.bigList}>
-                <Image style={styles.bigImg} source={{ uri: data[0].img.url }}></Image>
+                <Image style={styles.bigImg} source={{ uri: data[0].img.url }}/>
                 <View>
-                    <Image style={styles.smallImg1} source={{ uri: data[1].img.url }}></Image>
-                    <Image style={styles.smallImg1} source={{ uri: data[2].img.url }}></Image>
+                    <Image style={styles.smallImg1} source={{ uri: data[1].img.url }}/>
+                    <Image style={styles.smallImg1} source={{ uri: data[2].img.url }}/>
                 </View>
             </View>
         )
@@ -36,7 +36,7 @@ export default class Index extends Component {
             <View style={styles.smallList}>
                 {
                     data.map((item, index) => (
-                        <Image style={styles.smallImg2} key={index} source={{uri: item.img.url}}></Image>
+                        <Image style={styles.smallImg2} key={index} source={{uri: item.img.url}}/>
                     ))
                 }
             </View>

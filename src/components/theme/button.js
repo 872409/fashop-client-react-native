@@ -6,7 +6,7 @@ import{
 } from 'react-native';
 import { Button } from 'antd-mobile-rn';
 
-export default class ThemeButton extends Component{
+export default class Button extends Component{
     static propTypes = {
         style : ViewPropTypes.style,
         type : PropTypes.string,

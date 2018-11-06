@@ -15,7 +15,7 @@ import { UploadImageInterface } from '../../interface/uploadImage'
 import { List,Button } from 'antd-mobile-rn';
 import { Field ,FixedBottom} from '../../components'
 
-export default class Index extends Component {
+export default class ServiceApply extends Component {
     state = {
         delta: 1,
         noMoreThan: 0,

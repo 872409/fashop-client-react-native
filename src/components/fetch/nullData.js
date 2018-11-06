@@ -1,27 +1,24 @@
 import React,{ Component } from 'react';
-import { windowWidth } from '../../utils/publicStyleModule';
+import {windowWidth} from '../../utils/publicStyleModule';
 import PropTypes from 'prop-types';
 import{
     StyleSheet,
     View,
     Image,
-    ImageBackground,
-    TouchableOpacity,
-    Text,
 } from 'react-native';
 
 
-export default class FailureView extends Component{
+export default class FetchNullData extends Component{
     static propTypes = {
         height : PropTypes.number,
         autoLayout : PropTypes.bool,
     };
     static defaultProps = {
-        height : windowWidth*0.8,
+        height : windowWidth*0.4,
         autoLayout : false,
     };
     render() {
-        const {autoLayout,height,refresh} = this.props
+        const {autoLayout,height} = this.props
         return (
             <View
                 style={
@@ -36,8 +33,8 @@ export default class FailureView extends Component{
                     )
                 }
             >
-                <ImageBackground
-                    source={require('../../images/fetchStatus/failure.png')}
+                <Image
+                    source={require('../../images/fetchStatus/nullData.png')}
                     resizeMode = {'contain'}
                     style={
                         Object.assign({},styles.loaddingImage,
@@ -51,17 +48,7 @@ export default class FailureView extends Component{
                                 }
                         )
                     }
-                >
-                    <TouchableOpacity
-                        style={{flex:1}}
-                        onPress={()=>{
-                            refresh()
-                        }}
-                    />
-                </ImageBackground>
-                <Text style={{color: '#999'}}>
-                    网络走丢了，刷新试试
-                </Text>
+                />
             </View>
         )
     }

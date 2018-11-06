@@ -16,7 +16,7 @@ import {AddressApi} from "../../config/api/address";
 
 const addressModel = new AddressModel()
 
-export default class Index extends Component {
+export default class AddressList extends Component {
     onAddressChecked(id) {
         fa.cache.set('address_checked_id', id)
         this.props.navigation.goBack()

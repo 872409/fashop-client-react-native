@@ -19,7 +19,7 @@ import ScrollableTabView from "react-native-scrollable-tab-view";
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
-export default class Index extends Component {
+export default class OrderList extends Component {
     state = {
         state_type: '',
     }

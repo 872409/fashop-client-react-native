@@ -18,7 +18,7 @@ import {
 } from "../../components/user/release";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
 
-export default class ReleaseList extends Component {
+export default class UserReleaseList extends Component {
     state = {
         tabIndex: 0
     }

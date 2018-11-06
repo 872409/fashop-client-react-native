@@ -5,11 +5,10 @@ import{
     StyleSheet,
     View,
     Image,
+    AppState,
 } from 'react-native';
-// import LottieView from 'lottie-react-native';
 
-
-export default class Loading extends Component{
+export default class FetchLogin extends Component{
     static propTypes = {
         height : PropTypes.number,
         autoLayout : PropTypes.bool,
@@ -19,10 +18,18 @@ export default class Loading extends Component{
         autoLayout : false,
     };
     // componentDidMount() {
-    //     this.animation.play();
+    //     this.animation&&this.animation.play();
+    //     AppState.addEventListener('change', (e)=>{
+    //         if(e==='active'){
+    //             this.animation&&this.animation.play();
+    //         }
+    //     })
+    // }
+    // componentWillUnmount() {
+    //     AppState.removeEventListener('change', (e)=>{});
     // }
     render() {
-        const {autoLayout,height} = this.props
+        const {autoLayout,height,pushLoginFunc} = this.props
         return (
             <View
                 style={
@@ -59,12 +66,12 @@ export default class Loading extends Component{
                     style={
                         autoLayout
                         ?   {
-                                height:windowWidth*0.9,
+                                height:windowWidth*1.4,
                                 width: windowWidth*0.9,
                             }
                         :   {
-                                height:height*1.6,
-                                width:height*1.2,
+                                height:height*0.7,
+                                width:height*0.8,
                                 marginTop:height*0.4
                             }
                     }
@@ -73,22 +80,30 @@ export default class Loading extends Component{
                         ref={animation => {
                           this.animation = animation;
                         }}
-                        source={require('../../images/fetchStatus/loading.json')}
+                        source={require('../../images/fetchStatus/login.json')}
                         style={
                             Object.assign({},styles.loaddingImage,
                                 autoLayout
                                 ?   {
-                                        height:windowWidth*0.9,
+                                        height:windowWidth*1.4,
                                         width: windowWidth*0.9,
                                     }
                                 :   {
-                                        height:height*1.2,
-                                        width:height*1.2,
+                                        height:height*0.7,
+                                        width:height*0.8,
                                     }
                             )
                         }
                         loop={true}
                     />
+                    <Button
+                        type={'primary'}
+                        onClick={()=>{
+                            pushLoginFunc()
+                        }}
+                    >
+                        登陆后查看
+                    </Button>
                 </View> */}
             </View>
         )

@@ -13,7 +13,7 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 
 const Item = List.Item
 
-export default class User extends Component {
+export default class UserIndex extends Component {
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
@@ -109,11 +109,14 @@ export default class User extends Component {
             {
                 img: require('../../images/user/address.png'),
                 title: '地址管理',
-                // path: ''
+                path: ()=>{
+                    this.props.navigation.navigate('UserAddressList')
+                }
             }, {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
-                // path: ''
+                path: ()=>{
+                }
             }
         ]
         return(
@@ -124,7 +127,7 @@ export default class User extends Component {
                             key={index}
                             // thumb={item.img}
                             arrow="horizontal"
-                            onClick={() => { }}
+                            onClick={() => {item.path() }}
                         >
                             <View style={PublicStyles.rowCenter}>
                                 <Image style={styles.botImg} source={item.img}/>

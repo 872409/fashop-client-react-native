@@ -21,12 +21,12 @@ import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/PublicViewModule";
 import { Button, InputItem } from "antd-mobile-rn";
 import { env, AppPlatform } from "../../config/root";
-import { ThemeButton } from "../../components/theme";
+import { Button } from "../../components/theme";
 import {updateUserInfo} from '../../actions/user';
 import { UserApi } from "../../config/api/user";
 
 @connect()
-export default class UserbindingView extends Component {
+export default class UserBinding extends Component {
     state = {
         phone: null,
         smscode: null,
@@ -113,7 +113,7 @@ export default class UserbindingView extends Component {
                             />
                         }
                     />
-                    <ThemeButton
+                    <Button
                         style={styles.buttonbelowcss}
                         type={'primary'}
                         onClick={() => {
@@ -121,7 +121,7 @@ export default class UserbindingView extends Component {
                         }}
                     >
                         <Text style={styles.bindbuttontext}>确认绑定</Text>
-                    </ThemeButton>
+                    </Button>
                     <View style={styles.belowViewcss}>
                         <Text style={styles.textbelowcss}>
                             绑定成功后，下次登陆即可使用手机号进行登陆

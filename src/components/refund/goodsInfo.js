@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class RefundGoodsInfo extends Component {
     static propTypes = {
         refundInfo: PropTypes.object,
     };

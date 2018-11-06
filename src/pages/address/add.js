@@ -12,7 +12,7 @@ import { List, Button } from 'antd-mobile-rn'
 
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
-export default class Index extends Component {
+export default class AddressAdd extends Component {
     state = {
         truename: '',
         mobile_phone: '',

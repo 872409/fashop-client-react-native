@@ -16,7 +16,7 @@ import MessageItem from "../../components/public/messageItem";
 
 const Item = List.Item;
 
-export default class MessageData extends Component{
+export default class UserMessage extends Component{
     render(){
         const { navigation } = this.props
         return(

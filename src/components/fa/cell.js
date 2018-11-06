@@ -7,7 +7,7 @@ const warn = (msg, getValue) => {
 
 };
 
-export default class Index extends Component {
+export default class FaCell extends Component {
     static propTypes = {
         type: PropTypes.string,
         title: PropTypes.string,

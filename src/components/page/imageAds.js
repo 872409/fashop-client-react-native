@@ -10,7 +10,7 @@ import {
 import { Carousel } from "antd-mobile-rn";
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class PageImageAds extends Component {
     render() {
         const { data, options } = this.props.data
         const { layout_style } = options

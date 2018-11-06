@@ -24,7 +24,7 @@ import { stateHoc } from "../../utils";
     fetchStatus: categoryListFetchStatus,
 }))
 @stateHoc()
-export default class Category extends Component {
+export default class CategoryIndex extends Component {
     state = {
         current: 0,
     }

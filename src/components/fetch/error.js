@@ -8,7 +8,8 @@ import{
 } from 'react-native';
 
 
-export default class NullData extends Component{
+
+export default class FetchError extends Component{
     static propTypes = {
         height : PropTypes.number,
         autoLayout : PropTypes.bool,
@@ -34,7 +35,7 @@ export default class NullData extends Component{
                 }
             >
                 <Image
-                    source={require('../../images/fetchStatus/nullData.png')}
+                    source={require('../../images/fetchStatus/error.png')}
                     resizeMode = {'contain'}
                     style={
                         Object.assign({},styles.loaddingImage,

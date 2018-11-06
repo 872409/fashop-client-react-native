@@ -9,7 +9,7 @@ import { List } from "antd-mobile-rn";
 
 const Item = List.Item
 
-export default class Index extends Component {
+export default class PageTextNav extends Component {
     render() {
         const { data } = this.props.data
         return <List>

@@ -17,7 +17,7 @@ import ImagePicker from "react-native-image-picker";
 // import axios from "axios";
 import * as Progress from "react-native-progress";
 
-export default class VideoUpload extends Component {
+export default class ThemeVideoUpload extends Component {
     static defaultProps = {
         text: '上传视频',
     }

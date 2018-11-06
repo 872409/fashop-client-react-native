@@ -20,7 +20,7 @@ import {
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 
-export default class Index extends Component {
+export default class OrderDetail extends Component {
     state = {
         id: null,
         orderInfo: null,

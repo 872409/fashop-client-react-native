@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class AddressCard extends Component {
     static propTypes = {
         name: PropTypes.string,
         phone: PropTypes.string,

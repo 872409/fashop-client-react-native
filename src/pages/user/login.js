@@ -25,7 +25,7 @@ import Fetch from "../../utils/fetch";
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ThemeButton } from '../../components/theme'
+import { Button } from '../../components/theme'
 
 // @connect(({ app: { wechat: {
 // 	isWXAppInstalled,
@@ -94,7 +94,7 @@ export default class UserLogin extends Component {
 								账号注册
 							</Text>
 						</View>
-						<ThemeButton
+						<Button
 							onClick={() => {
 								Keyboard.dismiss()
 								this.login()
@@ -102,7 +102,7 @@ export default class UserLogin extends Component {
 							type='primary'
 						>
 							登 录
-						</ThemeButton>
+						</Button>
 						{/* {
 							isWXAppInstalled && (
 								<View>

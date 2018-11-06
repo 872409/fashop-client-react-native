@@ -9,7 +9,7 @@ import {
 import PropTypes from "prop-types";
 import { RefoundGoodsCard } from '../../components'
 
-export default class Index extends Component {
+export default class RefundCard extends Component {
     static propTypes = {
         refundInfo: PropTypes.object,
     };

@@ -14,7 +14,7 @@ const addressModel = new AddressModel()
 const areaModel = new AreaModel()
 import { List,Modal,Button } from 'antd-mobile-rn';
 import { Field ,FixedBottom} from '../../../components'
-export default class Index extends Component{
+export default class UserAddressEdit extends Component{
     state = {
         id: null,
         truename: '',

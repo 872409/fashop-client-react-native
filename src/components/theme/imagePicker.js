@@ -11,7 +11,7 @@ import { ThemeStyle } from '../../utils/publicStyleModule';
 import { Toast } from '../../utils/publicFuncitonModule';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default class ImagePickers extends Component {
+export default class ThemeImagePickers extends Component {
     static defaultProps = {
         type: 'user_avatar',
         onChange: ()=>{},

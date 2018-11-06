@@ -29,7 +29,7 @@ const Item = List.Item;
         userInfo,
     })
 )
-class UserRelation extends Component {
+export default class UserRelation extends Component {
     render() {
         const { navigation } = this.props;
         const {

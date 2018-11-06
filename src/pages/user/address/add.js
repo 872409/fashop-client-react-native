@@ -9,12 +9,12 @@ import {
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import AreaModel from '../../../models/area'
-import { List,Modal,Button } from 'antd-mobile-rn';
+import { List,Button } from 'antd-mobile-rn';
 import { Field ,FixedBottom} from '../../../components'
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
 
-export default class Index extends Component{
+export default class UserAddressAdd extends Component{
     state = {
         truename: '',
         mobile_phone: '',

@@ -22,7 +22,7 @@ const orderModel = new OrderModel()
  * @param  string    tracking_explain    说明 非必须
  * @param  string    tracking_images    凭证 最多6张
  */
-export default class Index extends Component {
+export default class RefundLogisticsFill extends Component {
     state = {
         id: null,
         tracking_company: '',

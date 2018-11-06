@@ -8,7 +8,7 @@ import {
     Image
 } from 'react-native';
 
-export default class Index extends Component {
+export default class PageTopMenu extends Component {
     render() {
         const { data, options } = this.props.data;
         const { menu_format, menu_space } = options
@@ -17,16 +17,16 @@ export default class Index extends Component {
         return <View style={styles.list}>
             {
                 data.map((item,index)=>(
-                    <TouchableOpacity 
-                        key={index} 
+                    <TouchableOpacity
+                        key={index}
                         style={[styles.item,{
                             backgroundColor: item.background_color,
                             marginRight: (index!==(data.length-1))&&menu_space===2 ? 4 : 0
                         }]}
                     >
                         {
-                            menu_format===2 ? 
-                            <Image style={styles.img} source={{uri:item.img.url}}></Image> : null
+                            menu_format===2 ?
+                            <Image style={styles.img} source={{uri:item.img.url}}/> : null
                         }
                         <Text style={[styles.title,{color: item.font_color}]}>{item.title}</Text>
                     </TouchableOpacity>

@@ -9,7 +9,7 @@ import GoodsEvaluate from '../../models/goodsEvaluate'
 import { Field, FixedBottom } from '../../components'
 
 const goodsEvaluateModel = new GoodsEvaluate()
-export default class Index extends Component {
+export default class EvaluateDetail extends Component {
     state = {
         order_goods_id: null,
         evaluate: null

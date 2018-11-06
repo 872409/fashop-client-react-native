@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
-export default class Empty extends Component {
+export default class CartEmpty extends Component {
     render() {
         let imgSrc = require('../../images/cart/empty.png')
         return <View style={styles.empty}>

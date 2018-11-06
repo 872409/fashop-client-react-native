@@ -15,7 +15,7 @@ import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-vi
 
 const goodsEvaluateModel = new GoodsEvaluateModel()
 
-export default class Index extends Component {
+export default class EvaluateList extends Component {
     state = {
         order_id: 0,
     }

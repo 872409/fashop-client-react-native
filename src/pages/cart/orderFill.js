@@ -13,7 +13,7 @@ const addressModel = new AddressModel()
 
 const Item = List.Item;
 
-export default class OrderFill extends Component {
+export default class CartOrderFill extends Component {
     state = {
         delta: 1,
         way: 'cart', // way	否	购买途径，cart 购物车（默认）、buy_now 立即购买

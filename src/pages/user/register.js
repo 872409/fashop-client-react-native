@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from "antd-mobile-rn";
 
-export default class User extends Component {
+export default class UserRegister extends Component {
 	render() {
 		return <Button style={styles.btn} type="primary">User</Button>;
 	}

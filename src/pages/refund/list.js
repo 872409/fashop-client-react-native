@@ -16,7 +16,7 @@ import { RefundApi } from "../../config/api/refund";
 
 const Item = List.Item
 const refundModel = new RefundModel()
-export default class Index extends Component {
+export default class RefundList extends Component {
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus', async () => {

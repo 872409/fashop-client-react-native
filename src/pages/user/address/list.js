@@ -11,12 +11,11 @@ import AddressModel from '../../../models/address'
 import {  Modal, Button } from 'antd-mobile-rn';
 import { Field, FixedBottom } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
-import { ListEmptyView, ListView } from "../../../utils/publicViewModule";
-import { windowHeight } from "../../../utils/publicStyleModule";
+import {  ListView } from "../../../utils/publicViewModule";
 
 const addressModel = new AddressModel()
 
-export default class Index extends Component {
+export default class UserAddressList extends Component {
     async onChecked(e) {
         const result = await addressModel.setDefault({ id: e.currentTarget.dataset.id })
         if (result) {
@@ -75,7 +74,6 @@ export default class Index extends Component {
                             onAddressChecked={() => this.onAddressChecked(item.id)} />
                     )}
                     api={AddressApi.list}
-                    fetchParams={{type_id}}
                 />
             </View>
             <FixedBottom>

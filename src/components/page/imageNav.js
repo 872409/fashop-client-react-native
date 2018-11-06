@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { windowWidth } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class PageImageNav extends Component {
     render() {
         const { data, options } = this.props.data
         const { rows, each_row_display } = options;

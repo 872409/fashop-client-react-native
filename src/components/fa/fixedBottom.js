@@ -7,7 +7,7 @@ import {
     Image
 } from 'react-native';
 
-export default class Index extends Component {
+export default class FaFixedBottom extends Component {
     static propTypes = {
 
     };

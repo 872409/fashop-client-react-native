@@ -6,7 +6,7 @@ import {
     Text
 } from 'react-native';
 
-export default class Index extends Component {
+export default class PageVideo extends Component {
     render() {
         const { data } = this.props
         return <View>

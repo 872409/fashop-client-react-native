@@ -37,7 +37,7 @@ import SpecList from '../../components/goods/specList'
 @stateHoc({
     detail: true,
 })
-export default class Index extends Component {
+export default class CategoryDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,

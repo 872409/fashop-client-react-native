@@ -13,7 +13,7 @@ import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo, Or
 
 const refundModel = new RefundModel()
 
-export default class Index extends Component {
+export default class RefundDetail extends Component {
     state = {
         id: null,
         refundInfo: null,

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class BodyGoods extends Component {
     render() {
         const { data, options } = this.props.data
         const { layout_style } = options
