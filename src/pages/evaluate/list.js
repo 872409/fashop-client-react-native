@@ -130,11 +130,17 @@ export default class Index extends Component {
 
 
     render() {
+        const {
+            evaluate_state ,
+            stateTabs,
+            list,
+        } = this.state
+        // todo tab错误
         return (
             <View>
                 <Tabs
-                    list="{{ stateTabs }}"
-                    selected-id="{{evaluate_state}}"
+                    list={stateTabs}
+                    selected-id={evaluate_state}
                     height="40"
                     fixed={true}
                     bindtabchange="onTabChange"

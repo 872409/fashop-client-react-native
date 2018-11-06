@@ -60,6 +60,7 @@ initLibraryConfig({
         const {
             userInfo
         } = user
+        // todo
         // const {
         //     cityId,
         //     longitude,

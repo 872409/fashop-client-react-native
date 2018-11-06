@@ -28,17 +28,20 @@ export default class Index extends Component {
             urls: e.currentTarget.dataset.images
         })
     }
-
-    async onShow() {
-        // todo
-        const { order_goods_id } = this.state
-        const evaluate = await goodsEvaluateModel.info({
-            order_goods_id
-        })
-        this.setState({
-            evaluate
-        })
-        this.updateListRow()
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                // todo
+                const { order_goods_id } = this.state
+                const evaluate = await goodsEvaluateModel.info({
+                    order_goods_id
+                })
+                this.setState({
+                    evaluate
+                })
+                this.updateListRow()
+            }
+        );
     }
 
     updateListRow() {
@@ -52,6 +55,9 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            evaluate
+        } = this.state
         return <View style={styles.evaluateDetail}>
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
@@ -59,7 +65,7 @@ export default class Index extends Component {
                         <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} />
                         <View style={styles.nickname}>
                             <Text>{evaluate.nickname}</Text>
-                            <TimeFormat value="{{evaluate.create_time}}" />
+                            <TimeFormat value={evaluate.create_time} />
                         </View>
                     </View>
                     <View style={styles.star}>

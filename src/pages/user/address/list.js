@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
-import { List,Modal,Button } from 'antd-mobile-rn';
-import { Field ,FixedBottom} from '../../../components'
+import { List, Modal, Button } from 'antd-mobile-rn';
+import { Field, FixedBottom } from '../../../components'
+
 const addressModel = new AddressModel()
 
 export default class Index extends Component {
@@ -20,9 +21,12 @@ export default class Index extends Component {
         list: [],
     }
 
-    // todo
-    async onShow() {
-        this.initList()
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                this.initList()
+            }
+        );
     }
 
     initList() {
@@ -112,6 +116,9 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            list,
+        } = this.state
         return <View>
             <View>
                 <List>

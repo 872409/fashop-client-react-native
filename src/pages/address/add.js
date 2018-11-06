@@ -7,8 +7,8 @@ import {
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
 import AreaModel from '../../models/area'
-import { Field,FixedBottom } from '../../components'
-import { List,Button } from 'antd-mobile-rn'
+import { Field, FixedBottom } from '../../components'
+import { List, Button } from 'antd-mobile-rn'
 
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
@@ -29,7 +29,7 @@ export default class Index extends Component {
 
     async componentWillMount() {
         // todo storge
-        const areaCache = fa.cache.get('area_list_level2')
+        const areaCache = await fa.cache.get('area_list_level2')
         const result = areaCache ? areaCache : await areaModel.list({ level: 2 })
         this.setState({
             areaList: result.list,
@@ -103,6 +103,14 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            truename,
+            mobile_phone,
+            address,
+            is_default,
+            combine_detail,
+            areaList,
+        } = this.state
         return <View>
             <List>
                 <Field
@@ -119,7 +127,7 @@ export default class Index extends Component {
                     title="联系方式："
                     inputType="number"
                     placeholder="请输入手机号"
-                    value="{{ mobile_phone }}"
+                    value={mobile_phone}
                     onChange={(e) => {
                         this.onMobilePhoneChange(e)
                     }}
@@ -128,8 +136,8 @@ export default class Index extends Component {
                 <Field
                     title="所在地区："
                     type={'area'}
-                    areaList="{{areaList}}"
-                    areaNames="{{combine_detail}}"
+                    areaList={areaList}
+                    areaNames={combine_detail}
                     placeholder="-- 请选择 --"
                     onChange={(e) => {
                         this.onAreaChange(e)
@@ -138,7 +146,7 @@ export default class Index extends Component {
                 </Field>
                 <Field
                     title="详细地址："
-                    value="{{address}}"
+                    value={address}
                     placeholder="填写楼栋楼层或房间号信息"
                     onChange={(e) => {
                         this.onAddressChange(e)
@@ -150,7 +158,7 @@ export default class Index extends Component {
                     desc="注：每次下单时会使用该地址"
                     type={'switch'}
                     right={true}
-                    checked="{{ is_default }}"
+                    checked={is_default}
                     onChange={(e) => {
                         this.onIsDefaultChange(e)
                     }}

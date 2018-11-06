@@ -212,6 +212,7 @@ export default class Index extends Component {
     }
 
     render() {
+        const {orderStateTabs,list} = this.state
         return (
             <View>
                 <View>

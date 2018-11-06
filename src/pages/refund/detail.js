@@ -23,9 +23,13 @@ export default class Index extends Component {
             id
         })
     }
-    // todo
-    async onShow() {
-        this.init()
+
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                this.init()
+            }
+        );
     }
 
     async init() {
@@ -81,6 +85,7 @@ export default class Index extends Component {
     }
 
     render() {
+        const {refundInfo} = this.state
         return <View>
             <View>
                 <List>

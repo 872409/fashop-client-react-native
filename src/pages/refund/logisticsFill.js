@@ -57,41 +57,41 @@ export default class Index extends Component {
         })
     }
 
-    onUploadFileSuccess(e) {
-        const result = new UploadImageInterface(e.detail.result)
+    onUploadFileSuccess({result}) {
+        const result = new UploadImageInterface(result)
         let files = this.state.uploaderFiles
         this.setState({
             uploaderFiles: files.concat(result.origin.path)
         })
     }
 
-    onUploadFileDelete(e) {
+    onUploadFileDelete({url}) {
         this.setState({
-            uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
+            uploaderFiles: fa.remove(this.state.uploaderFiles, url)
         })
     }
 
-    onTrackingCompanyChange(e) {
+    onTrackingCompanyChange({value}) {
         this.setState({
-            tracking_company: e.detail.detail.value
+            tracking_company: value
         })
     }
 
-    onTrackingNoChange(e) {
+    onTrackingNoChange({value}) {
         this.setState({
-            tracking_no: parseInt(e.detail.detail.value)
+            tracking_no: parseInt(value)
         })
     }
 
-    onTackingPhoneChange(e) {
+    onTackingPhoneChange({value}) {
         this.setState({
-            tracking_phone: e.detail.detail.value
+            tracking_phone: value
         })
     }
 
-    onTrackingExplainChange(e) {
+    onTrackingExplainChange({value}) {
         this.setState({
-            tracking_explain: e.detail.detail.value
+            tracking_explain: value
         })
     }
 
@@ -135,6 +135,13 @@ export default class Index extends Component {
     }
 
     render() {
+        const {goodsInfo,tracking_company,tracking_no,tracking_phone,tracking_explain,
+            uploaderFiles,
+            uploaderFormData,
+            uploaderUrl,
+            uploaderButtonText,
+            uploaderHeader,
+        } = this.state
         return <View>
             <View>
                 <List>
@@ -149,28 +156,28 @@ export default class Index extends Component {
                     <Field
                         title="物流公司"
                         placeholder="请填写物流公司，必填"
-                        value="{{tracking_company }}"
+                        value={tracking_company}
                         onChange="onTrackingCompanyChange"
                     >
                     </Field>
                     <Field
                         title="物流单号"
                         placeholder="请输入物流单号，必填"
-                        value="{{tracking_no}}"
+                        value={tracking_no}
                         onChange="onTrackingNoChange"
                     >
                     </Field>
                     <Field
                         title="联系电话"
                         placeholder="请填写手机号码，必填"
-                        value="{{tracking_phone}}"
+                        value={tracking_phone}
                         onChange="onTackingPhoneChange"
                     >
                     </Field>
                     <Field
                         title="退款说明"
                         placeholder="退款说明，必填"
-                        value="{{tracking_explain}}"
+                        value={tracking_explain}
                         onChange="onTrackingExplainChange"
                     >
                     </Field>

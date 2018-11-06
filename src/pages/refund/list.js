@@ -19,12 +19,15 @@ export default class Index extends Component {
         noMore: false,
         list: [],
     }
-    async onShow() {
-        // todo
-        this.setState({
-            page: 1
-        })
-        this.getList()
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                this.setState({
+                    page: 1
+                })
+                this.getList()
+            }
+        );
     }
     async getList() {
         // todo
@@ -81,6 +84,7 @@ export default class Index extends Component {
         }
     }
     render() {
+        const {list} = this.state
         return <View>
             {
                 list.length > 0 ? <List>

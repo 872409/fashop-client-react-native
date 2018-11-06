@@ -33,6 +33,7 @@ export default class Index extends Component {
     }
 
     render() {
+        const { goodsInfo } = this.state
         return <View>
             <List>
                 <View style={styles.refundGoodsCard}>

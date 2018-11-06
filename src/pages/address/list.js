@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
-import { List,Button } from 'antd-mobile-rn';
-import { Field ,FixedBottom} from '../../components'
+import { List, Button } from 'antd-mobile-rn';
+import { Field, FixedBottom } from '../../components'
+
 const addressModel = new AddressModel()
 
 export default class Index extends Component {
@@ -20,13 +21,17 @@ export default class Index extends Component {
         list: [],
     }
 
-    async onShow() {
-        // todo
-        this.setState({
-            page: 1
-        })
-        this.getList()
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', () => {
+                this.setState({
+                    page: 1
+                })
+                this.getList()
+            }
+        );
     }
+
 
     async getList() {
         const page = this.state.page
@@ -81,6 +86,9 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            list,
+        } = this.state
         return <View style={{
             backgroundColor: '#F8F8F8'
         }}>

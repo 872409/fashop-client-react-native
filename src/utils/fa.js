@@ -1,9 +1,11 @@
 import Code from './code'
 import Toast from './toast';
+import Cache from './cache';
 
 export default class Fa {
     static code = new Code()
     static toast = new Toast()
+    static cache = new Cache()
 
     /**
      * 检测数组中是否存在某个字符串

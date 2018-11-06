@@ -122,6 +122,17 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            score,
+            content,
+            goodsInfo,
+            uploaderFiles,
+            uploaderFormData,
+            uploaderCount,
+            uploaderUrl,
+            uploaderButtonText,
+            uploaderHeader,
+        } = this.state
         return <View>
             <View>
                 <List>

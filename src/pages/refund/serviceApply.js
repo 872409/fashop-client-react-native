@@ -150,6 +150,22 @@ export default class Index extends Component {
     }
 
     render() {
+        const {
+            noMoreThan,
+            refundType,
+            reasonList,
+            receiveStateList,
+            reason,
+            userReceive,
+            refundAmount,
+            userExplain,
+            goodsInfo,
+            uploaderFiles,
+            uploaderFormData,
+            uploaderUrl,
+            uploaderButtonText,
+            uploaderHeader,
+        } = this.state
         return <View>
             <List>
                 <View style={styles.refundGoodsCard}>

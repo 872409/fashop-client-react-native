@@ -34,6 +34,8 @@ export default class Index extends Component {
     }
 
     onRefund(e) {
+        // todo
+
         const orderInfo = this.state.orderInfo
         const { goodsInfo } = e.detail
         // 根据类型跳转到是退款还是退款退货  订单状态：0(已取消)10(默认):未付款;20:已付款;30:已发货;40:已收货;    多少天后不可退的业务逻辑
@@ -53,14 +55,20 @@ export default class Index extends Component {
     }
 
     onRefundDetail(e) {
+        // todo
         const { goodsInfo } = e.detail
         wx.navigateTo({
             url: `/pages/refund/detail/index?id=${goodsInfo.refund_id}`,
         })
     }
 
-    async onShow() {
-        this.init()
+
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                this.init()
+            }
+        );
     }
 
     async init() {
@@ -170,53 +178,56 @@ export default class Index extends Component {
     }
 
     render() {
+        // todo                         address={orderInfo.extend_order_extend.reciver_name}
+        const {orderInfo} = this.state
         return <View>
             <View>
                 <List>
                     <OrderStateCard
-                        orderState="{{orderInfo.state}}"
+                        orderState={orderInfo.state}
                         expireSeconds="1000"
-                        cost="{{orderInfo.amount}}"
+                        cost={orderInfo.amount}
                     />
+
                     <OrderAddress
-                        name="{{orderInfo.extend_order_extend.reciver_name}}"
-                        phone="{{orderInfo.extend_order_extend.receiver_phone}}"
-                        address="{{orderInfo.extend_order_extend.reciver_name}}"
+                        name={orderInfo.extend_order_extend.reciver_name}
+                        phone={orderInfo.extend_order_extend.receiver_phone}
+                        address={orderInfo.extend_order_extend.reciver_name}
                     />
                 </List>
 
                 <List>
                     <OrderGoodsList
-                        orderInfo="{{orderInfo}}"
-                        goodsList="{{orderInfo.extend_order_goods}}"
+                        orderInfo={orderInfo}
+                        goodsList={orderInfo.extend_order_goods}
                         bind:goods-detail="onGoodsDetail"
                         bind:goods-refund-click="onRefund"
                         bind:goods-refund-detail="onRefundDetail"
                     />
-                    <OrderContact number="{{serviceNumber}}" />
+                    <OrderContact number={serviceNumber} />
                 </List>
                 <List>
                     <OrderBaseInfo
-                        orderInfo="{{orderInfo}}"
-                        orderNumber="{{orderInfo.sn}}"
-                        createTime="{{orderInfo.create_time}}"
+                        orderInfo={orderInfo}
+                        orderNumber={orderInfo.sn}
+                        createTime={orderInfo.create_time}
                         payment="微信支付"
-                        payTime="{{orderInfo.payment_time}}"
+                        payTime={orderInfo.payment_time}
                     />
                 </List>
                 <List>
                     <OrderCostList
-                        goodsTotal="{{orderInfo.goods_amount}}"
-                        freight="{{orderInfo.freight_fee}}"
-                        totalCost="{{orderInfo.amount}}" />
+                        goodsTotal={orderInfo.goods_amount}
+                        freight={orderInfo.freight_fee}
+                        totalCost={orderInfo.amount} />
                     <OrderFooterAction
-                        orderInfo="{{orderInfo}}"
-                        orderState="{{orderInfo.state}}"
+                        orderInfo={orderInfo}
+                        orderState={orderInfo.state}
                         showDelBtn={false}
-                        showEvaluateBtn="{{orderInfo.if_evaluate}}"
-                        showPayBtn="{{orderInfo.if_pay}}"
-                        showLogisticsBtn="{{orderInfo.showLogisticsBtn}}"
-                        showReceiveBtn="{{orderInfo.if_receive}}"
+                        showEvaluateBtn{orderInfo.if_evaluate}
+                        showPayBtn={orderInfo.if_pay}
+                        showLogisticsBtn={orderInfo.showLogisticsBtn}
+                        showReceiveBtn={orderInfo.if_receive}
                         onPay="onPay"
                         onReceive="onReceive"
                         onCancel="onCancel"
