@@ -18,8 +18,8 @@ export default class Index extends Component {
         const {
             refundInfo,
         } = this.props
+        // <!--平台处理状态 默认0处理中(未处理) 10拒绝(驳回) 20同意 30成功(已完成) 50取消(用户主动撤销) 51取消(用户主动收货)-->
         return <View>
-            <!--平台处理状态 默认0处理中(未处理) 10拒绝(驳回) 20同意 30成功(已完成) 50取消(用户主动撤销) 51取消(用户主动收货)-->
             <View class="order-state-card">
                 {refundInfo.is_close === 0 && refundInfo.handle_state === 0 ? <View>
                     <View class="left">

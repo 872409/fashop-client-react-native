@@ -48,7 +48,7 @@ export default class Index extends Component {
                 'Content-Type': 'multipart/form-data',
                 'Access-Token': accessToken.access_token
             },
-            goodsInfo: goodsInfoResult.info,
+            goodsInfo: goodsInCardStackStyleInterpolatorfoResult.info,
             orderGoodsId: order_goods_id
         })
     }

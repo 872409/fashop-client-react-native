@@ -188,7 +188,6 @@ export default class Index extends Component{
                         <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>保存</Button>
                     </View>
                 </FixedBottom>
-                <!--<View>在个人中心设置的时候语言要变，或者是把这俩封装成组件 完全分离</View>-->
             </View>
         </View>
     }

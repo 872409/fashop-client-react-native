@@ -16,7 +16,7 @@ import {
 } from '../../components/user/collect';
 import FeatherIcon from "react-native-vector-icons/Feather";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
-import SafeAreaView from "react-native-safe-area-View";
+import SafeAreaView from "react-native-safe-area-view";
 
 export default class UserCollect extends Component {
     static navigationOptions = ({ navigation }) => {

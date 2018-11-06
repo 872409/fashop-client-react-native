@@ -24,6 +24,8 @@ export default class Index extends Component {
     }
 
     render() {
+        // 平台处理状态 默认0处理中(未处理) 10拒绝(驳回) 20同意 30成功(已完成) 50取消(用户主动撤销) 51取消(用户主动收货)
+        // 申请类型:1为仅退款,2为退货退款,默认为1
         const { refundInfo } = this.props
         return <View style={styles.refundCard}>
             <View style={styles.header} onClick={() => {
@@ -39,8 +41,7 @@ export default class Index extends Component {
             <View style={styles.body} onClick={() => {
                 this.onClick()
             }}>
-                <!--平台处理状态 默认0处理中(未处理) 10拒绝(驳回) 20同意 30成功(已完成) 50取消(用户主动撤销) 51取消(用户主动收货)-->
-                <!--申请类型:1为仅退款,2为退货退款,默认为1-->
+
                 <View style={styles.icon}>
                     {
                         refundInfo.handle_state === 30 || refundInfo.handle_state === 51 ?

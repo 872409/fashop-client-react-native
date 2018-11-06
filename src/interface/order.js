@@ -1,6 +1,5 @@
 import Interface from "../utils/interface";
 import Exception from "../utils/exception";
-import Time from '../utils/time';
 
 export class OrderStateNumInterface extends Interface {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/publicStyleModule";
-import CardStackStyleInterpolator from 'react-navigation/src/Views/StackView/StackViewStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
 import IndexView from "../pages/index";
 
@@ -33,7 +33,7 @@ import EvaluateAdd from "../pages/evaluate/add"
 import EvaluateAdditional from "../pages/evaluate/additional"
 import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
-// CardStackStyleInterpolator.forVertical
+// StackViewStyleInterpolator.forVertical
 const modalStyleStackNames = [
     // 'UserLogin',
 ]
@@ -231,9 +231,9 @@ export default createStackNavigator(
                 const { scene } = sceneProps;
                 const { route } = scene;
                 if (modalStyleStackNames.includes(route.routeName)) {
-                    return CardStackStyleInterpolator.forVertical(sceneProps);
+                    return StackViewStyleInterpolator.forVertical(sceneProps);
                 }
-                return CardStackStyleInterpolator.forHorizontal(sceneProps);
+                return StackViewStyleInterpolator.forHorizontal(sceneProps);
             }
         })
     }

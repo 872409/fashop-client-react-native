@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
-import SafeAreaView from "react-native-safe-area-View";
+import SafeAreaView from "react-native-safe-area-view";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import {
     Goods,

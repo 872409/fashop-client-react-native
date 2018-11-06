@@ -78,13 +78,13 @@ export default class Index extends Component {
         })
     }
 
-    async onDelete() {
+    async onDelete(id) {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: () => async () => {
                     const result = await addressModel.del({
-                        id: this.state.id
+                        id
                     })
                     if (result === false) {
                         fa.toast.show({
@@ -196,7 +196,7 @@ export default class Index extends Component {
                 </List>
                 <FixedBottom>
                     <View style={styles.buttonArea}>
-                        <Button size="large" bind:btnclick="onDelete">删除地址</Button>
+                        <Button size="large" onClick={()=>{this.onDelete(id)}}>删除地址</Button>
                         <Button type={'danger'} size="large" onClick={() => {
                             this.onSubmit()
                         }}>保存</Button>

@@ -19,6 +19,7 @@ import RefundCard from './refound/card';
 import RefundGoodsCard from './refound/goodsCard';
 import RefundStateCard from './refound/stateCard';
 import RefundStateReason from './refound/stateReason';
+import RefundStateSteps from './refound/stateSteps';
 import Cell from './fa/cell';
 import Area from './fa/area';
 import CountDown from './fa/countDown';

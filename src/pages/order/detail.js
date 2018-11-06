@@ -201,9 +201,9 @@ export default class Index extends Component {
                     <OrderGoodsList
                         orderInfo={orderInfo}
                         goodsList={orderInfo.extend_order_goods}
-                        bind:goods-detail="onGoodsDetail"
-                        bind:goods-refund-click="onRefund"
-                        bind:goods-refund-detail="onRefundDetail"
+                        goodsDetail="onGoodsDetail"
+                        goodsRefundClick="onRefund"
+                        goodsRefundDetail="onRefundDetail"
                     />
                     <OrderContact number={serviceNumber} />
                 </List>
@@ -225,7 +225,7 @@ export default class Index extends Component {
                         orderInfo={orderInfo}
                         orderState={orderInfo.state}
                         showDelBtn={false}
-                        showEvaluateBtn{orderInfo.if_evaluate}
+                        showEvaluateBtn={orderInfo.if_evaluate}
                         showPayBtn={orderInfo.if_pay}
                         showLogisticsBtn={orderInfo.showLogisticsBtn}
                         showReceiveBtn={orderInfo.if_receive}

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
-import SafeAreaView from "react-native-safe-area-View";
+import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "../../components/goods/stepper";
 
 const specInit = [];

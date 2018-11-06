@@ -24,7 +24,7 @@ import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-View'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { ThemeButton } from '../../components/theme'
 
 // @connect(({ app: { wechat: {

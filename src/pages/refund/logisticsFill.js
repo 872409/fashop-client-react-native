@@ -58,11 +58,11 @@ export default class Index extends Component {
     }
 
     onUploadFileSuccess({result}) {
-        const result = new UploadImageInterface(result)
-        let files = this.state.uploaderFiles
-        this.setState({
-            uploaderFiles: files.concat(result.origin.path)
-        })
+        // const result = new UploadImageInterface(result)
+        // let files = this.state.uploaderFiles
+        // this.setState({
+        //     uploaderFiles: files.concat(result.origin.path)
+        // })
     }
 
     onUploadFileDelete({url}) {
@@ -189,9 +189,9 @@ export default class Index extends Component {
                         uploaderFiles={uploaderFiles}
                         uploaderCount={6}
                         uploaderAllowDel={true}
-                        bind:success="onUploadFileSuccess"
+                        success="onUploadFileSuccess"
                         onChange={(value)=>{this.handleFieldChange(value)}}
-                        bind:delete="onUploadFileDelete"
+                        delete="onUploadFileDelete"
                     >
                     </Field>
                 </List>
