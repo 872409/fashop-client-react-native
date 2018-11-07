@@ -134,3 +134,117 @@ export default class EvaluateDetail extends Component {
     }
 
 }
+const styles = StyleSheet.create({
+    "evaluate_detail": {
+        "padding": "15px",
+        "display": "block",
+        "boxSizing": "border-box",
+        "backgroundColor": "#FFFFFF"
+    },
+    "goods_evaluate_item__header": {
+        "marginTop": "15px",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "marginBottom": "15px"
+    },
+    "goods_evaluate_item__header__avatar": {
+        "display": "flex",
+        "justifyContent": "start"
+    },
+    "goods_evaluate_item__header__avatar_image": {
+        "width": "32px",
+        "height": "32px",
+        "marginRight": "10px"
+    },
+    "goods_evaluate_item__header__avatar__nickname": {
+        "display": "flex",
+        "flexDirection": "column"
+    },
+    "goods_evaluate_item__header__avatar__nickname_text": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "marginBottom": "6px",
+        "fontWeight": "bold",
+        "flex": "1"
+    },
+    "goods_evaluate_item__header__avatar__nickname_label": {
+        "fontSize": "12px",
+        "lineHeight": "12px",
+        "flex": "1",
+        "color": "#999999"
+    },
+    "goods_evaluate_item__header__star": {},
+    "goods_evaluate_item__content": {
+        "fontSize": "14px",
+        "color": "#333"
+    },
+    "goods_evaluate_item__content_label": {
+        "borderLeft": "3px solid #FF635C",
+        "paddingLeft": "5px",
+        "height": "12px",
+        "lineHeight": "14px",
+        "margin": "10px 0",
+        "display": "block",
+        "fontWeight": "bold",
+        "fontSize": "12px"
+    },
+    "goods_evaluate_item__content_text": {
+        "fontSize": "12px",
+        "lineHeight": "22px",
+        "color": "#333",
+        "display": "block",
+        "width": "100%",
+        "marginBottom": "10px"
+    },
+    "goods_evaluate_item__reply_content": {
+        "backgroundColor": "#f8f8f8",
+        "padding": "5px",
+        "fontSize": "12px",
+        "lineHeight": "22px",
+        "color": "#666",
+        "borderRadius": "3px"
+    },
+    "goods_evaluate_item__reply_content_time_format": {
+        "marginLeft": "5px",
+        "color": "#999999"
+    },
+    "goods_evaluate_item__conte_goods_evaluate_item__header": {
+        "marginTop": "15px",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "marginBottom": "15px"
+    },
+    "goods_evaluate_item__reply_content_label": {},
+    "goods_evaluate_item__reply_content_text": {
+        "marginBottom": "10px"
+    },
+    "goods_evaluate_item__photo_list": {
+        "marginTop": "10px",
+        "display": "flex",
+        "flexDirection": "row",
+        "flexWrap": "wrap"
+    },
+    "goods_evaluate_item__photo_list_last_child": {
+        "marginBottom": "10px"
+    },
+    "goods_evaluate_item__photo_list_image": {
+        "width": "80px",
+        "height": "80px",
+        "marginBottom": "5px",
+        "marginRight": "5px"
+    },
+    "goods_evaluate_item__spec": {
+        "fontSize": "12px",
+        "lineHeight": "12px",
+        "color": "#999",
+        "margin": "10px 0 15px 0"
+    },
+    "goods_evaluate_item__footer": {
+        "borderTop": "1px solid #F8F8F8",
+        "textAlign": "center",
+        "color": "#999999",
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "padding": "15px 0"
+    }
+})

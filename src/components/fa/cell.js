@@ -97,3 +97,6 @@ export default class Cell extends Component {
 
 }
 
+const styles = StyleSheet.create({
+
+})

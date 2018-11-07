@@ -86,3 +86,54 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_card_footer": {
+        "padding": "0 15px"
+    },
+    "order_card_footer__header": {
+        "textAlign": "right",
+        "padding": "10px 0",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "flex-end"
+    },
+    "order_card_footer__header__number": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "color": "#333333",
+        "display": "block"
+    },
+    "order_card_footer__header__price_desc": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "color": "#333333",
+        "display": "block",
+        "marginLeft": "10px"
+    },
+    "order_card_footer__header__price": {
+        "fontSize": "16px",
+        "lineHeight": "16px",
+        "color": "#333333",
+        "fontWeight": "bold",
+        "display": "block"
+    },
+    "order_card_footer__footer": {
+        "borderTop": "1px solid #F8F8F8",
+        "display": "flex",
+        "justifyContent": "flex-end",
+        "padding": "10px 0"
+    },
+    "order_card_footer__footer__btn": {
+        "border": "1px solid #cccccc",
+        "display": "flex",
+        "textAlign": "center",
+        "fontSize": "14px",
+        "borderRadius": "100px",
+        "padding": "5px 15px",
+        "marginLeft": "10px"
+    },
+    "order_card_footer__footer__btn_btn_danger": {
+        "border": "1px solid #ff4400",
+        "color": "#ff4400"
+    }
+})

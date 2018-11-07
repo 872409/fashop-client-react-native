@@ -39,3 +39,24 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "page_column_title": {
+        "display": "block",
+        "overflow": "hidden"
+    },
+    "page_column_title_details": {
+        "display": "flex",
+        "height": "50px",
+        "padding": "0 20px",
+        "alignItems": "center"
+    },
+    "page_column_title_details_text": {
+        "fontSize": "14px",
+        "fontWeight": "bold"
+    },
+    "page_column_title_details_image": {
+        "width": "25px",
+        "height": "25px",
+        "marginRight": "10px"
+    }
+})

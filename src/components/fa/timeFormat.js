@@ -48,3 +48,6 @@ export default class TimeFormat extends Component {
         return <Text>{time}</Text>
     }
 }
+const styles = StyleSheet.create({
+
+})

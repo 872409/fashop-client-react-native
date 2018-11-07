@@ -76,3 +76,38 @@ export default class RefundCard extends Component {
 
     }
 }
+const styles = StyleSheet.create({
+    "refund_card": {
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "refund_card__body": {
+        "padding": "15px",
+        "display": "flex",
+        "fontSize": "14px",
+        "color": "#333333",
+        "lineHeight": "14px",
+        "height": "14px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "refund_card__body__icon": {
+        "backgroundColor": "#ff8855",
+        "color": "#FFFFFF",
+        "marginRight": "5px"
+    },
+    "refund_card__body__icon_image": {
+        "width": "14px",
+        "height": "14px",
+        "display": "block"
+    },
+    "refund_card__body_text": {
+        "marginRight": "10px"
+    },
+    "refund_card__body_label": {
+        "display": "flex"
+    },
+    "refund_card__footer": {
+        "padding": "10px 15px",
+        "display": "flex",
+        "justifyContent": "flex-end"
+    }
+})

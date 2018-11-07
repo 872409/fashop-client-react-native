@@ -37,3 +37,41 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_address": {
+        "padding": "15px",
+        "display": "flex"
+    },
+    "order_address_image": {
+        "width": "20px",
+        "height": "20px",
+        "marginRight": "10px"
+    },
+    "order_address__info": {},
+    "order_address__info__user": {
+        "display": "flex",
+        "alignItems": "center",
+        "marginBottom": "10px"
+    },
+    "order_address__info__user__name": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "marginRight": "15px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "order_address__info__user__phone": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "marginRight": "15px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "order_address__info__address": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "display": "block",
+        "color": "#999999",
+        "marginLeft": "30px"
+    }
+})

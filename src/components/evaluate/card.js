@@ -87,3 +87,44 @@ export default class EvaluateCard extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "evaluate_goods_card": {
+        "position": "relative",
+        "borderBottom": "1px solid #F8F8F8",
+        "backgroundColor": "#FFFFFF"
+    },
+    "evaluate_goods_card__item": {
+        "padding": "15px"
+    },
+    "evaluate_goods_card__content": {
+        "display": "flex",
+        "justifyContent": "flex-start"
+    },
+    "evaluate_goods_card__item_image": {
+        "width": "80px",
+        "height": "80px",
+        "display": "block",
+        "marginRight": "10px"
+    },
+    "evaluate_goods_card__item__body": {},
+    "evaluate_goods_card__item__body_text": {
+        "fontSize": "14px",
+        "color": "#333",
+        "lineHeight": "18px",
+        "display": "block",
+        "overflow": "hidden"
+    },
+    "evaluate_goods_card__item__end": {
+        "textAlign": "right",
+        "marginLeft": "20px"
+    },
+    "evaluate_goods_card__item__footer": {
+        "display": "flex",
+        "justifyContent": "flex-end"
+    },
+    "evaluate_goods_card__button_area": {
+        "position": "absolute",
+        "bottom": "15px",
+        "right": "15px"
+    }
+})

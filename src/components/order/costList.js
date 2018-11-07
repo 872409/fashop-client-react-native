@@ -38,3 +38,37 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_cost_list": {
+        "backgroundColor": "#fff",
+        "padding": "15px 0px"
+    },
+    "order_cost_list__item": {},
+    "order_cost_list__item__row": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "marginBottom": "10px",
+        "padding": "0 15px"
+    },
+    "order_cost_list__item__row_label": {
+        "fontSize": "14px",
+        "fontWeight": "bold"
+    },
+    "order_cost_list__item__row_text": {
+        "fontSize": "12px",
+        "fontWeight": "bold"
+    },
+    "order_cost_list__footer": {
+        "textAlign": "right",
+        "padding": "10px 15px 0 15px",
+        "borderTop": "1px solid #F8F8F8"
+    },
+    "order_cost_list__footer_label": {
+        "fontSize": "12px"
+    },
+    "order_cost_list__footer_text": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "color": "#ff4400"
+    }
+})

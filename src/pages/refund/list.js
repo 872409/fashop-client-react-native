@@ -67,3 +67,30 @@ export default class RefundList extends Component {
         </List>
     }
 }
+const styles = StyleSheet.create({
+    "fa_panel": {
+        "marginBottom": "10px",
+        "display": "block"
+    },
+    "list_empty": {
+        "width": "100vw",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "flexDirection": "column",
+        "marginTop": "50%"
+    },
+    "list_empty_image": {
+        "display": "block",
+        "overflow": "hidden",
+        "width": "122px",
+        "height": "122px"
+    },
+    "list_empty_text": {
+        "display": "block",
+        "overflow": "hidden",
+        "textAlign": "center",
+        "fontSize": "14px",
+        "color": "#999999"
+    }
+})

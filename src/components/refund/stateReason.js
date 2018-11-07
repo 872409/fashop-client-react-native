@@ -94,3 +94,56 @@ export default class RefundStateReason extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_state_reason": {},
+    "order_state_reason__header": {
+        "borderBottom": "1px solid #F8F8F8",
+        "padding": "5px 15px"
+    },
+    "order_state_reason__header__state": {
+        "fontSize": "14px",
+        "color": "#333333"
+    },
+    "order_state_reason__body": {
+        "fontSize": "12px",
+        "color": "#999999",
+        "padding": "15px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "order_state_reason__body_span": {
+        "display": "block"
+    },
+    "order_state_reason__footer": {
+        "borderBottom": "1px solid #F8F8F8",
+        "padding": "15px",
+        "display": "flex",
+        "justifyContent": "flex-end"
+    },
+    "order_address": {
+        "fontSize": "14px",
+        "color": "#333333",
+        "fontWeight": "bold"
+    },
+    "refund_success": {
+        "padding": "15px"
+    },
+    "refund_success__refund_info": {
+        "paddingBottom": "15px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "refund_success__state_steps": {
+        "backgroundColor": "#FFFFFF",
+        "padding": "15px",
+        "display": "block",
+        "overflow": "hidden"
+    },
+    "refund_success__refund_info__item": {
+        "color": "#333333",
+        "fontSize": "14px"
+    },
+    "refund_success__refund_info__item_label": {
+        "fontWeight": "bold",
+        "marginRight": "10px"
+    },
+    "refund_success__refund_info__item_text": {}
+})

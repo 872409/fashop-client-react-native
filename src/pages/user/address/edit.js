@@ -12,9 +12,11 @@ import AreaModel from '../../../models/area'
 
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
-import { List,Modal,Button } from 'antd-mobile-rn';
-import { Field ,FixedBottom} from '../../../components'
-export default class UserAddressEdit extends Component{
+import { List, Modal, Button } from 'antd-mobile-rn';
+import { Field, FixedBottom } from '../../../components'
+import { windowWidth } from "../../../utils/publicStyleModule";
+
+export default class UserAddressEdit extends Component {
     state = {
         id: null,
         truename: '',
@@ -30,6 +32,7 @@ export default class UserAddressEdit extends Component{
         areaList: [],
 
     }
+
     async componentWillMount({ id }) {
         const areaCache = await fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
@@ -47,6 +50,7 @@ export default class UserAddressEdit extends Component{
             onLoaded: true
         })
     }
+
     onAreaChange({ value }) {
         this.setState({
             area_id: value.ids[2]
@@ -96,6 +100,7 @@ export default class UserAddressEdit extends Component{
             },
         ]);
     }
+
     async onSubmit() {
         if (!this.state.truename) {
             return fa.toast.show({ title: '请输入姓名' })
@@ -128,7 +133,8 @@ export default class UserAddressEdit extends Component{
             this.props.navigation.goBack()
         }
     }
-    render(){
+
+    render() {
         const {
             id,
             truename,
@@ -146,7 +152,9 @@ export default class UserAddressEdit extends Component{
                         placeholder="请输入姓名"
                         focus={true}
                         value={truename}
-                        onChange={(e)=>{ this.onTruenameChange(e) }}
+                        onChange={(e) => {
+                            this.onTruenameChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -154,7 +162,9 @@ export default class UserAddressEdit extends Component{
                         inputType="number"
                         placeholder="请输入手机号"
                         value={mobile_phone}
-                        onChange={(e)=>{ this.onMobilePhoneChange(e) }}
+                        onChange={(e) => {
+                            this.onMobilePhoneChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -162,14 +172,18 @@ export default class UserAddressEdit extends Component{
                         type={'area'}
                         areaList={areaList}
                         areaNames={combine_detail}
-                        onChange={(e)=>{ this.onAreaChange(e) }}
+                        onChange={(e) => {
+                            this.onAreaChange(e)
+                        }}
                     >
                     </Field>
                     <Field
                         title="详细地址："
                         value={address}
                         placeholder="填写楼栋楼层或房间号信息"
-                        onChange={(e)=>{ this.onAddressChange(e) }}
+                        onChange={(e) => {
+                            this.onAddressChange(e)
+                        }}
                     >
                     </Field>
                     <Field
@@ -178,17 +192,47 @@ export default class UserAddressEdit extends Component{
                         type={'switch'}
                         right={true}
                         checked={is_default}
-                        onChange={(e)=>{ this.onIsDefaultChange(e) }}
+                        onChange={(e) => {
+                            this.onIsDefaultChange(e)
+                        }}
                     >
                     </Field>
                 </List>
                 <FixedBottom>
-                    <View style={styles.buttonArea} >
-                        <Button size="large" onClick={()=>{this.onDelete(id)}}>删除地址</Button>
-                        <Button type={'danger'} size="large" onClick={()=>{this.onSubmit()}}>保存</Button>
+                    <View style={styles.buttonArea}>
+                        <Button size="large" onClick={() => {
+                            this.onDelete(id)
+                        }}>删除地址</Button>
+                        <Button type={'danger'} size="large" onClick={() => {
+                            this.onSubmit()
+                        }}>保存</Button>
                     </View>
                 </FixedBottom>
             </View>
         </View>
     }
 }
+const styles = StyleSheet.create({
+    button_area: {
+        display: "flex",
+        justifyContent: "space-between"
+    },
+    button_area_fa_button: {
+        width: windowWidth/2
+    },
+    choice_wechat_address: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15
+    },
+    choice_wechat_address_text: {
+        fontSize: 14,
+        color: "#527fc9"
+    },
+    choice_wechat_address_image: {
+        width: 20,
+        height: 20,
+        marginRight: 5
+    }
+});

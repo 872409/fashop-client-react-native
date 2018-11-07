@@ -30,3 +30,6 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+
+})

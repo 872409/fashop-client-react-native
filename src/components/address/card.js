@@ -8,7 +8,6 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { Icon } from 'antd-mobile-rn';
 
 export default class AddressCard extends Component {
     static propTypes = {
@@ -24,42 +23,30 @@ export default class AddressCard extends Component {
         checked: false,
     };
 
-    onEdit() {
-        if (this.props.onEdit) {
-            this.props.onEdit();
+    onEdit(id) {
+        console.log(this.props.onEdit)
+        if ( this.props.onEdit) {
+            console.log('--------')
+            this.props.onEdit(id);
         }
     }
-
-    onChecked() {
-        if (this.props.onChecked) {
-            this.props.onChecked();
-        }
-    }
-
     render() {
-        const { name, phone, address, checked } = this.props
+        const { id,name, phone, address } = this.props
         return <View style={styles.addressCard}>
             <View style={styles.info}>
-                {checked === true ? <TouchableOpacity style={styles.checked} onPress={() => {
-                    this.onChecked()
-                }}>
-                    <Icon style={styles.weuiIconRadio} type={'success'} size={16} color={'red'} />
-                </TouchableOpacity> : null}
-                <TouchableOpacity style={styles.user} onPress={() => {
-                    this.onChecked()
-                }}>
+                <View style={styles.user}>
                     <View style={styles.namePhone}>
                         <Text style={styles.name}>{name}</Text>
                         <Text style={styles.phone}>{phone}</Text>
                     </View>
                     <View style={styles.address}><Text>{address}</Text></View>
-                </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.action}>
-                <Text style={styles.edit} onPress={() => {
-                    this.onEdit()
-                }}>编辑</Text>
-            </View>
+            <TouchableOpacity style={styles.action} onPress={()=>{
+                this.onEdit(id)
+            }}>
+                <Text style={styles.edit}>编辑</Text>
+            </TouchableOpacity>
         </View>
     }
 };
@@ -68,13 +55,15 @@ const styles = StyleSheet.create({
         padding: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor:'#fff'
     },
     checked: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 15,
-    }, info: {
+    },
+    info: {
         flexDirection: 'row',
     },
     namePhone: {

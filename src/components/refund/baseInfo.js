@@ -57,3 +57,35 @@ export default class RefundBaseInfo extends Component {
     }
 
 }
+const styles = StyleSheet.create({
+    "refund_base_info": {},
+    "refund_base_info__item": {
+        "borderBottom": "1px solid #F8F8F8",
+        "padding": "10px 0"
+    },
+    "refund_base_info__item__row": {
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "padding": "7.5px 15px"
+    },
+    "refund_base_info__item__row_label": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "lineHeight": "14px",
+        "display": "block",
+        "color": "#333"
+    },
+    "refund_base_info__item__row_text": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "display": "block",
+        "color": "#666"
+    },
+    "time_format": {
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "display": "block",
+        "color": "#666"
+    }
+})

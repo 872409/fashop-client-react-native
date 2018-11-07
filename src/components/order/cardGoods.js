@@ -60,3 +60,67 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_card_goods": {
+        "padding": "15px 15px 0 15px",
+        "width": "100%",
+        "overflow": "hidden",
+        "whiteSpace": "nowrap",
+        "boxSizing": "border-box"
+    },
+    "order_card_goods__item": {
+        "marginRight": "10px",
+        "display": "inline-block",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "order_card_goods__item_image": {
+        "width": "75px",
+        "height": "75px"
+    },
+    "order_card_goods_one": {
+        "padding": "15px 15px 0 15px"
+    },
+    "order_card_goods_one__one_item": {
+        "display": "flex",
+        "justifyContent": "flex-start",
+        "height": "75px"
+    },
+    "order_card_goods_one__one_item_image": {
+        "width": "75px",
+        "height": "75px",
+        "display": "block",
+        "marginRight": "10px"
+    },
+    "order_card_goods_one__one_item__body": {
+        "overflow": "hidden",
+        "flex": "1",
+        "color": "#333",
+        "position": "relative"
+    },
+    "order_card_goods_one__one_item__body_text": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "lineHeight": "18px",
+        "display": "block",
+        "overflow": "hidden"
+    },
+    "order_card_goods_one__one_item__body_label": {
+        "fontSize": "12px",
+        "position": "absolute",
+        "bottom": "0",
+        "left": "0",
+        "color": "#666"
+    },
+    "order_card_goods_one__one_item__body__desc": {
+        "fontSize": "12px",
+        "color": "#999",
+        "lineHeight": "12px",
+        "marginBottom": "10px",
+        "height": "12px",
+        "marginTop": "5px",
+        "display": "flex",
+        "justifyContent": "space-between"
+    },
+    "order_card_goods_one__one_item__body__desc_label": {},
+    "order_card_goods_one__one_item__body__desc_i": {}
+})

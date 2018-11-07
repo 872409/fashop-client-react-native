@@ -239,3 +239,12 @@ export default class OrderDetail extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "fa_panel": {
+        "marginBottom": "10px",
+        "display": "block"
+    },
+    "fa_panel_last_child": {
+        "marginBottom": "160px"
+    }
+})

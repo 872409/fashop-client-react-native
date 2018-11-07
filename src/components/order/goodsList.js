@@ -78,3 +78,52 @@ export default class Index extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "order_goods_list": {},
+    "order_goods_list__item": {
+        "padding": "15px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "order_goods_list__content": {
+        "display": "flex",
+        "justifyContent": "flex-start"
+    },
+    "order_goods_list__item_image": {
+        "width": "60px",
+        "height": "60px",
+        "display": "block",
+        "marginRight": "10px"
+    },
+    "order_goods_list__item__body": {
+        "flex": "1"
+    },
+    "order_goods_list__item__body_text": {
+        "fontSize": "14px",
+        "color": "#333",
+        "lineHeight": "20px",
+        "display": "block",
+        "overflow": "hidden",
+        "fontWeight": "bold"
+    },
+    "order_goods_list__item__end": {
+        "textAlign": "right",
+        "marginLeft": "20px"
+    },
+    "order_goods_list__item__end__price": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "marginBottom": "10px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "order_goods_list__item__end__number": {
+        "fontSize": "14px",
+        "marginBottom": "10px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "order_goods_list__item__footer": {
+        "display": "flex",
+        "justifyContent": "flex-end"
+    }
+})

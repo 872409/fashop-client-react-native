@@ -6,7 +6,8 @@ import {
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
-import { List, TextareaItem } from 'antd-mobile-rn';
+import { List, TextareaItem, InputItem } from 'antd-mobile-rn';
+import { Area } from '../../components'
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -16,6 +17,7 @@ export default class Field extends Component {
         title: PropTypes.string,
         desc: PropTypes.string,
         type: PropTypes.string,
+        value: PropTypes.node,
         disabled: PropTypes.bool,
         loading: PropTypes.bool,
         checked: PropTypes.bool,
@@ -73,19 +75,19 @@ export default class Field extends Component {
 
     handleFieldChange(value) {
         if (this.props.onChange) {
-            this.props.onChange({value});
+            this.props.onChange({ value });
         }
     }
 
     handleFieldFocus(value) {
         if (this.props.onFocus) {
-            this.props.onFocus({value});
+            this.props.onFocus({ value });
         }
     }
 
     handleFieldBlur(value) {
         if (this.props.onBlur) {
-            this.props.onBlur({value});
+            this.props.onBlur({ value });
         }
     }
 
@@ -133,6 +135,36 @@ export default class Field extends Component {
     }
 
     render() {
+        const {
+            title,
+            desc,
+            type,
+            disabled,
+            loading,
+            checked,
+            inputType,
+            pickerMode,
+            placeholder,
+            value,
+            focus,
+            mode,
+            data,
+            dataKey,
+            right,
+            error,
+            maxlength,
+            rows,
+            areaNames,
+            areaList,
+            uploaderCount,
+            uploaderFiles,
+            uploaderName,
+            uploaderUrl,
+            uploaderButtonText,
+            uploaderHeader,
+            uploaderFormData,
+            uploaderAllowDel
+        } = this.props
         return <View>
             {type === 'textarea' ?
                 <Item

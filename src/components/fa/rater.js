@@ -63,3 +63,14 @@ export default class Rater extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "rater_list": {
+        "display": "flex"
+    },
+    "rater_list_image": {
+        "marginRight": "5px"
+    },
+    "rater_list_image_last_child": {
+        "marginRight": "0"
+    }
+})

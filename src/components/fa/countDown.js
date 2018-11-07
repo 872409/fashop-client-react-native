@@ -186,3 +186,14 @@ export default class CountDown extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "countdown": {
+        "display": "flex",
+        "flexFlow": "row nowrap"
+    },
+    "countdown__item": {
+        "display": "flex",
+        "flexFlow": "row nowrap",
+        "alignItems": "center"
+    }
+})

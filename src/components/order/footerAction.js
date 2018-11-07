@@ -89,3 +89,30 @@ export default class Index extends Component {
 
     }
 }
+const styles = StyleSheet.create({
+    "order_footer_action": {
+        "position": "fixed",
+        "bottom": "0",
+        "left": "0",
+        "backgroundColor": "#ffffff",
+        "width": "100vw",
+        "zIndex": "6",
+        "borderTop": "1px solid #F8F8F8"
+    },
+    "order_footer_action__footer": {
+        "padding": "15px",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "fontSize": "14px",
+        "lineHeight": "14px",
+        "alignItems": "center"
+    },
+    "order_footer_action__footer__left": {
+        "display": "flex",
+        "justifyContent": "space-between"
+    },
+    "order_footer_action__footer__right": {
+        "display": "flex",
+        "justifyContent": "space-between"
+    }
+})

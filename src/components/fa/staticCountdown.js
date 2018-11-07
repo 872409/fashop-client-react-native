@@ -184,3 +184,11 @@ export default class StaticCountdown extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "countdown": {
+        "display": "flex"
+    },
+    "countdown__countdown__item": {
+        "display": "flex"
+    }
+})

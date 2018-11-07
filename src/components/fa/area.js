@@ -101,3 +101,6 @@ export default class Area extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    
+})

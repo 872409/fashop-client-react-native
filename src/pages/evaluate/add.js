@@ -197,3 +197,60 @@ export default class EvaluateAdd extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "fa_panel": {
+        "marginBottom": "10px",
+        "display": "block"
+    },
+    "refund_goods_card": {},
+    "refund_goods_card__item": {
+        "padding": "15px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "refund_goods_card__content": {
+        "display": "flex"
+    },
+    "refund_goods_card__item__image": {
+        "marginRight": "15px"
+    },
+    "refund_goods_card__item_image": {
+        "width": "80px",
+        "height": "80px",
+        "display": "block"
+    },
+    "refund_goods_card__item__body": {
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "center"
+    },
+    "refund_goods_card__item__body_text": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "color": "#333",
+        "lineHeight": "18px",
+        "display": "block",
+        "overflow": "hidden",
+        "marginBottom": "10px"
+    },
+    "refund_goods_card__item__end": {
+        "textAlign": "right",
+        "marginLeft": "20px"
+    },
+    "refund_goods_card__item__end__price": {
+        "fontSize": "14px",
+        "fontWeight": "bold",
+        "marginBottom": "10px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "refund_goods_card__item__end__number": {
+        "fontSize": "14px",
+        "marginBottom": "10px",
+        "lineHeight": "14px",
+        "display": "block"
+    },
+    "refund_goods_card__item__footer": {
+        "display": "flex",
+        "justifyContent": "flex-end"
+    }
+})

@@ -16,6 +16,7 @@ export default class RefundStateSteps extends Component {
         steps: [],
     };
 
+
     render() {
         const { refundInfo } = this.props
         const steps = [
@@ -43,3 +44,8 @@ export default class RefundStateSteps extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+    "refund_steps": {
+        "backgroundColor": "#F8F8F8"
+    }
+})

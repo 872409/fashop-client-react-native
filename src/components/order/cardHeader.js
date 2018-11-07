@@ -37,3 +37,51 @@ export default class Index extends Component {
 
     }
 }
+const styles = StyleSheet.create({
+    "order_card_header": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "padding": "10px 15px",
+        "borderBottom": "1px solid #F8F8F8"
+    },
+    "order_card_header__left": {
+        "display": "flex",
+        "alignItems": "center"
+    },
+    "order_card_header__left_text": {
+        "fontSize": "14px",
+        "color": "#999999",
+        "lineHeight": "14px",
+        "height": "14px",
+        "display": "block"
+    },
+    "order_card_header__right": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "alignItems": "center"
+    },
+    "order_card_header__right__state": {
+        "fontSize": "14px",
+        "color": "#333"
+    },
+    "order_card_header__right__del_icon": {
+        "width": "20px",
+        "height": "20px",
+        "marginLeft": "10px"
+    },
+    "order_card_header__right__state_0": {
+        "color": "red"
+    },
+    "order_card_header__right__state_10": {
+        "color": "red"
+    },
+    "order_card_header__right__state_20": {
+        "color": "red"
+    },
+    "order_card_header__right__state_30": {
+        "color": "red"
+    },
+    "order_card_header__right__state_40": {
+        "color": "red"
+    }
+})
