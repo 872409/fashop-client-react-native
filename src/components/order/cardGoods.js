@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderCardGoods extends Component {
     static propTypes = {
         goodsList: PropTypes.array,
     };
@@ -43,13 +43,12 @@ export default class Index extends Component {
                 <View style={styles.orderCardGoodsOne}>
                     {goodsList.map((item) => {
                         return <View style={styles.oneItem}>
-                            <View style={styles.image}>
-                                <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
-                            </View>
-                            <View style={styles.body}>
-                                <Text>{item.goods_title}</Text>
-                                <View style={styles.desc}>
-                                    <Text>{item.goods_spec_string}</Text><i>x{item.goods_num}</i></View>
+                            <Image style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'contain'} />
+                            <View style={styles.oneBody}>
+                                <Text style={styles.oneText}>{item.goods_title}</Text>
+                                <View style={styles.oneDesc}>
+                                    <Text style={styles.oneDescLabel}>{item.goods_spec_string}</Text><Text
+                                    style={styles.oneDescText}>x{item.goods_num}</Text></View>
                                 <Text>¥{item.goods_price}</Text>
                             </View>
                         </View>
@@ -61,66 +60,62 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_card_goods": {
-        "padding": "15px 15px 0 15px",
-        "width": "100%",
-        "overflow": "hidden",
-        "whiteSpace": "nowrap",
-        "boxSizing": "border-box"
+    orderCardGoods: {
+        marginTop: 15,
+        marginRight: 15,
+        marginLeft: 15,
     },
-    "order_card_goods__item": {
-        "marginRight": "10px",
-        "display": "inline-block",
-        "borderBottom": "1px solid #F8F8F8"
+    item: {
+        marginRight: 10,
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
-    "order_card_goods__item_image": {
-        "width": "75px",
-        "height": "75px"
+    image: {
+        width: 75,
+        height: 75
     },
-    "order_card_goods_one": {
-        "padding": "15px 15px 0 15px"
+    orderCardGoodsOne: {
+        marginTop: 15,
+        marginRight: 15,
+        marginLeft: 15,
     },
-    "order_card_goods_one__one_item": {
-        "display": "flex",
-        "justifyContent": "flex-start",
-        "height": "75px"
+    oneItem: {
+        justifyContent: "flex-start",
+        height: 75
     },
-    "order_card_goods_one__one_item_image": {
-        "width": "75px",
-        "height": "75px",
-        "display": "block",
-        "marginRight": "10px"
+    oneImage: {
+        width: 75,
+        height: 75,
+
+        marginRight: 10
     },
-    "order_card_goods_one__one_item__body": {
-        "overflow": "hidden",
-        "flex": "1",
-        "color": "#333",
-        "position": "relative"
+    oneBody: {
+        flex: 1,
+        color: "#333",
+        position: "relative"
     },
-    "order_card_goods_one__one_item__body_text": {
-        "fontSize": "14px",
-        "fontWeight": "bold",
-        "lineHeight": "18px",
-        "display": "block",
-        "overflow": "hidden"
+    oneText: {
+        fontSize: 14,
+        fontWeight: 800,
+        lineHeight: 18,
     },
-    "order_card_goods_one__one_item__body_label": {
-        "fontSize": "12px",
-        "position": "absolute",
-        "bottom": "0",
-        "left": "0",
-        "color": "#666"
+    oneLabel: {
+        fontSize: 12,
+        position: "absolute",
+        bottom: "0",
+        left: 0,
+        color: "#666"
     },
-    "order_card_goods_one__one_item__body__desc": {
-        "fontSize": "12px",
-        "color": "#999",
-        "lineHeight": "12px",
-        "marginBottom": "10px",
-        "height": "12px",
-        "marginTop": "5px",
-        "display": "flex",
-        "justifyContent": "space-between"
+    oneDesc: {
+        fontSize: 12,
+        color: "#999",
+        lineHeight: 12,
+        marginBottom: 10,
+        height: 12,
+        marginTop: 5,
+        justifyContent: "space-between"
     },
-    "order_card_goods_one__one_item__body__desc_label": {},
-    "order_card_goods_one__one_item__body__desc_i": {}
+    oneDescLabel: {},
+    oneDescText: {}
 })

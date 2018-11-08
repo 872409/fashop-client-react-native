@@ -213,26 +213,7 @@ export default class UserAddressEdit extends Component {
     }
 }
 const styles = StyleSheet.create({
-    button_area: {
-        display: "flex",
+    buttonArea: {
         justifyContent: "space-between"
     },
-    button_area_fa_button: {
-        width: windowWidth/2
-    },
-    choice_wechat_address: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 15
-    },
-    choice_wechat_address_text: {
-        fontSize: 14,
-        color: "#527fc9"
-    },
-    choice_wechat_address_image: {
-        width: 20,
-        height: 20,
-        marginRight: 5
-    }
 });

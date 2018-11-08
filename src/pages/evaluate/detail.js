@@ -28,6 +28,7 @@ export default class EvaluateDetail extends Component {
             urls: e.currentTarget.dataset.images
         })
     }
+
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus', async () => {
@@ -62,9 +63,9 @@ export default class EvaluateDetail extends Component {
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
-                        <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} />
+                        <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} style={styles.avatarImage} />
                         <View style={styles.nickname}>
-                            <Text>{evaluate.nickname}</Text>
+                            <Text style={styles.nicknameText}>{evaluate.nickname}</Text>
                             <TimeFormat value={evaluate.create_time} />
                         </View>
                     </View>
@@ -73,7 +74,8 @@ export default class EvaluateDetail extends Component {
                     </View>
                 </View>
 
-                {evaluate.content ? <View style={styles.content}><Text>{evaluate.content}</Text></View> : null}
+                {evaluate.content ? <View style={styles.content}><Text
+                    style={styles.contentText}>{evaluate.content}</Text></View> : null}
                 {Array.isArray(evaluate.images) && evaluate.images.length > 0 ?
                     <View style={styles.photoList}>
                         {
@@ -110,6 +112,7 @@ export default class EvaluateDetail extends Component {
                                     onPress={() => {
                                         this.preViewImage(item, index, evaluate.additional_images)
                                     }}
+                                    style={styles.photoListImage}
                                 />
                             })
                         }
@@ -135,116 +138,84 @@ export default class EvaluateDetail extends Component {
 
 }
 const styles = StyleSheet.create({
-    "evaluate_detail": {
-        "padding": "15px",
-        "display": "block",
-        "boxSizing": "border-box",
-        "backgroundColor": "#FFFFFF"
+    evaluateDetail: {
+        padding: 15,
+        backgroundColor: "#FFFFFF"
     },
-    "goods_evaluate_item__header": {
-        "marginTop": "15px",
-        "display": "flex",
-        "justifyContent": "space-between",
-        "marginBottom": "15px"
+    goodsEvaluateItem: {},
+    header: {
+        marginTop: 15,
+        justifyContent: "space-between",
+        marginBottom: 15
     },
-    "goods_evaluate_item__header__avatar": {
-        "display": "flex",
-        "justifyContent": "start"
+    avatar: {
+
+        justifyContent: "start"
     },
-    "goods_evaluate_item__header__avatar_image": {
-        "width": "32px",
-        "height": "32px",
-        "marginRight": "10px"
+    avatarImage: {
+        width: 32,
+        height: 32,
+        marginRight: 10
     },
-    "goods_evaluate_item__header__avatar__nickname": {
-        "display": "flex",
-        "flexDirection": "column"
+    nickname: {
+
+        flexDirection: "column"
     },
-    "goods_evaluate_item__header__avatar__nickname_text": {
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "marginBottom": "6px",
-        "fontWeight": "bold",
-        "flex": "1"
+    nicknameText: {
+        fontSize: 14,
+        lineHeight: 14,
+        marginBottom: 6,
+        fontWeight: 800,
+        flex: 1
     },
-    "goods_evaluate_item__header__avatar__nickname_label": {
-        "fontSize": "12px",
-        "lineHeight": "12px",
-        "flex": "1",
-        "color": "#999999"
+
+    content: {
+        fontSize: 14,
+        color: "#333"
     },
-    "goods_evaluate_item__header__star": {},
-    "goods_evaluate_item__content": {
-        "fontSize": "14px",
-        "color": "#333"
+
+    contentText: {
+        fontSize: 12,
+        lineHeight: 22,
+        color: "#333",
+        width: "100%",
+        marginBottom: 10
     },
-    "goods_evaluate_item__content_label": {
-        "borderLeft": "3px solid #FF635C",
-        "paddingLeft": "5px",
-        "height": "12px",
-        "lineHeight": "14px",
-        "margin": "10px 0",
-        "display": "block",
-        "fontWeight": "bold",
-        "fontSize": "12px"
+    replyContent: {
+        backgroundColor: "#f8f8f8",
+        padding: 5,
+        fontSize: 12,
+        lineHeight: 22,
+        color: "#666",
+        borderRadius: 3
     },
-    "goods_evaluate_item__content_text": {
-        "fontSize": "12px",
-        "lineHeight": "22px",
-        "color": "#333",
-        "display": "block",
-        "width": "100%",
-        "marginBottom": "10px"
+
+    photoList: {
+        marginTop: 10,
+        flexDirection: "row",
+        flexWrap: "wrap"
     },
-    "goods_evaluate_item__reply_content": {
-        "backgroundColor": "#f8f8f8",
-        "padding": "5px",
-        "fontSize": "12px",
-        "lineHeight": "22px",
-        "color": "#666",
-        "borderRadius": "3px"
+    photoListImage: {
+        width: 80,
+        height: 80,
+        marginBottom: 5,
+        marginRight: 5
     },
-    "goods_evaluate_item__reply_content_time_format": {
-        "marginLeft": "5px",
-        "color": "#999999"
+    spec: {
+        fontSize: 12,
+        lineHeight: 12,
+        color: "#999",
+        marginTop: 10,
+        marginBottom: 15
     },
-    "goods_evaluate_item__conte_goods_evaluate_item__header": {
-        "marginTop": "15px",
-        "display": "flex",
-        "justifyContent": "space-between",
-        "marginBottom": "15px"
-    },
-    "goods_evaluate_item__reply_content_label": {},
-    "goods_evaluate_item__reply_content_text": {
-        "marginBottom": "10px"
-    },
-    "goods_evaluate_item__photo_list": {
-        "marginTop": "10px",
-        "display": "flex",
-        "flexDirection": "row",
-        "flexWrap": "wrap"
-    },
-    "goods_evaluate_item__photo_list_last_child": {
-        "marginBottom": "10px"
-    },
-    "goods_evaluate_item__photo_list_image": {
-        "width": "80px",
-        "height": "80px",
-        "marginBottom": "5px",
-        "marginRight": "5px"
-    },
-    "goods_evaluate_item__spec": {
-        "fontSize": "12px",
-        "lineHeight": "12px",
-        "color": "#999",
-        "margin": "10px 0 15px 0"
-    },
-    "goods_evaluate_item__footer": {
-        "borderTop": "1px solid #F8F8F8",
-        "textAlign": "center",
-        "color": "#999999",
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "padding": "15px 0"
+    footer: {
+        borderTopWidth: 1,
+        borderTopStyle: "solid",
+        borderTopColor: "#F8F8F8",
+        textAlign: "center",
+        color: "#999999",
+        fontSize: 14,
+        lineHeight: 14,
+        padding: "15px 0"
     }
 })

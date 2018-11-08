@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 import { RefundStateSteps } from '../../components'
@@ -39,9 +37,9 @@ export default class RefundStateReason extends Component {
                     <Text style={styles.state}>您已经成功发起退款申请，请耐心等待商家处理。</Text>
                 </View>
                 <View style={styles.body}>
-                    <Text>- 商家同意后，请按照给出的退货地址退货，并请记录退货运单号。</Text>
-                    <Text>- 如商家拒绝，您可以修改申请后再次发起，商家会重新处理。</Text>
-                    <Text>- 如商家超时未处理，退货申请将达成，请按系统给出的退货地址退货</Text>
+                    <Text style={styles.span}>- 商家同意后，请按照给出的退货地址退货，并请记录退货运单号。</Text>
+                    <Text style={styles.span}>- 如商家拒绝，您可以修改申请后再次发起，商家会重新处理。</Text>
+                    <Text style={styles.span}>- 如商家超时未处理，退货申请将达成，请按系统给出的退货地址退货</Text>
                 </View>
                 <View style={styles.footer}>
                     <OrderButton text="撤销申请" onClick={() => {
@@ -52,13 +50,13 @@ export default class RefundStateReason extends Component {
             {refundInfo.refund_type === 2 && refundInfo.handle_state === 20 && refundInfo.is_close === 0 && refundInfo.send_expiry_time > 0 ?
                 <View>
                     {refundInfo.tracking_time > 0 ? <View style={styles.body}>
-                        <View style={styles.orderAddress}>
+                        <View style={styles.address}>
                             <View style={styles.info}>
                                 <View style={styles.user}>
-                                    <Text style={styles.name}>物流公司：{ refundInfo.tracking_company}</Text>
+                                    <Text style={styles.name}>物流公司：{refundInfo.tracking_company}</Text>
                                 </View>
                                 <View style={styles.address}>
-                                    <Text style={styles.phone}>联系电话：{ refundInfo.tracking_phone}</Text>
+                                    <Text style={styles.phone}>联系电话：{refundInfo.tracking_phone}</Text>
                                 </View>
                             </View>
                         </View>
@@ -70,15 +68,15 @@ export default class RefundStateReason extends Component {
                     </View> : null}
                 </View> : null}
             {refundInfo.handle_state === 30 ? <View>
-                <View style={styles.refundSuccess}>
-                    <View style={styles.refundInfo}>
+                <View style={styles.success}>
+                    <View style={styles.info}>
                         <View style={styles.item}>
-                            <Text>退款总金额</Text>
-                            <Text>¥{ refundInfo.refund_amount}</Text>
+                            <Text style={styles.label}>退款总金额</Text>
+                            <Text style={styles.text}>¥{refundInfo.refund_amount}</Text>
                         </View>
                         <View style={styles.item}>
-                            <Text>返回支付方</Text>
-                            <Text>¥{refundInfo.refund_amount}</Text>
+                            <Text style={styles.label}>返回支付方</Text>
+                            <Text style={styles.text}>¥{refundInfo.refund_amount}</Text>
                         </View>
                     </View>
                     <View style={styles.stateSteps}>
@@ -95,55 +93,64 @@ export default class RefundStateReason extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_state_reason": {},
-    "order_state_reason__header": {
-        "borderBottom": "1px solid #F8F8F8",
-        "padding": "5px 15px"
+    orderStateReason: {},
+    header: {
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
+        paddingVertical: 5,
+        paddingHorizontal: 15
     },
-    "order_state_reason__header__state": {
-        "fontSize": "14px",
-        "color": "#333333"
+    state: {
+        fontSize: 14,
+        color: "#333333"
     },
-    "order_state_reason__body": {
-        "fontSize": "12px",
-        "color": "#999999",
-        "padding": "15px",
-        "borderBottom": "1px solid #F8F8F8"
+    body: {
+        fontSize: 12,
+        color: "#999999",
+        padding: 15,
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
-    "order_state_reason__body_span": {
-        "display": "block"
+    span: {},
+    footer: {
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
+        padding: 15,
+
+        justifyContent: "flex-end"
     },
-    "order_state_reason__footer": {
-        "borderBottom": "1px solid #F8F8F8",
-        "padding": "15px",
-        "display": "flex",
-        "justifyContent": "flex-end"
+    address: {
+        fontSize: 14,
+        color: "#333333",
+        fontWeight: 800
     },
-    "order_address": {
-        "fontSize": "14px",
-        "color": "#333333",
-        "fontWeight": "bold"
+    success: {
+        padding: 15
     },
-    "refund_success": {
-        "padding": "15px"
+    info: {
+        paddingBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
-    "refund_success__refund_info": {
-        "paddingBottom": "15px",
-        "borderBottom": "1px solid #F8F8F8"
+    user: {},
+    name: {},
+    stateSteps: {
+        backgroundColor: "#FFFFFF",
+        padding: 15,
+
+
     },
-    "refund_success__state_steps": {
-        "backgroundColor": "#FFFFFF",
-        "padding": "15px",
-        "display": "block",
-        "overflow": "hidden"
+    item: {
+        color: "#333333",
+        fontSize: 14
     },
-    "refund_success__refund_info__item": {
-        "color": "#333333",
-        "fontSize": "14px"
+    label: {
+        fontWeight: 800,
+        marginRight: 10
     },
-    "refund_success__refund_info__item_label": {
-        "fontWeight": "bold",
-        "marginRight": "10px"
-    },
-    "refund_success__refund_info__item_text": {}
+    text: {}
 })

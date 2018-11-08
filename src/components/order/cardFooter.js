@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderCardFooter extends Component {
     static propTypes = {
         goodsNumber: PropTypes.number,
         totalCost: PropTypes.number,
@@ -68,9 +66,9 @@ export default class Index extends Component {
 
         return <View style={styles.orderCardFooter}>
             <View style={styles.header}>
-                <Text style={styles.number}>共{ goodsNumber}件商品</Text>
+                <Text style={styles.number}>共{goodsNumber}件商品</Text>
                 <Text style={styles.priceDesc}>实付款：</Text>
-                <Text style={styles.price}>¥{ totalCost }</Text>
+                <Text style={styles.price}>¥{totalCost}</Text>
             </View>
             {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn ?
                 <View style={styles.footer}>
@@ -87,53 +85,60 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_card_footer": {
-        "padding": "0 15px"
+    orderCardFooter: {
+        paddingVertical: 0,
+        paddingHorizontal: 15,
     },
-    "order_card_footer__header": {
-        "textAlign": "right",
-        "padding": "10px 0",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "flex-end"
+    header: {
+        textAlign: "right",
+        padding: "10px 0",
+
+        alignItems: "center",
+        justifyContent: "flex-end"
     },
-    "order_card_footer__header__number": {
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "color": "#333333",
-        "display": "block"
+    number: {
+        fontSize: 14,
+        lineHeight: 14,
+        color: "#333333",
+
     },
-    "order_card_footer__header__price_desc": {
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "color": "#333333",
-        "display": "block",
-        "marginLeft": "10px"
+    priceDesc: {
+        fontSize: 14,
+        lineHeight: 14,
+        color: "#333333",
+        marginLeft: 10
     },
-    "order_card_footer__header__price": {
-        "fontSize": "16px",
-        "lineHeight": "16px",
-        "color": "#333333",
-        "fontWeight": "bold",
-        "display": "block"
+    price: {
+        fontSize: 16,
+        lineHeight: 16,
+        color: "#333333",
+        fontWeight: 800,
+
     },
-    "order_card_footer__footer": {
-        "borderTop": "1px solid #F8F8F8",
-        "display": "flex",
-        "justifyContent": "flex-end",
-        "padding": "10px 0"
+    footer: {
+        borderTopWidth: 1,
+        borderTopStyle: "solid",
+        borderTopColor: "#cccccc",
+        justifyContent: "flex-end",
+        paddingVertical: 10,
+        paddingHorizontal: 0,
+
     },
-    "order_card_footer__footer__btn": {
-        "border": "1px solid #cccccc",
-        "display": "flex",
-        "textAlign": "center",
-        "fontSize": "14px",
-        "borderRadius": "100px",
-        "padding": "5px 15px",
-        "marginLeft": "10px"
+    btn: {
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#cccccc",
+        textAlign: "center",
+        fontSize: 14,
+        borderRadius: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+        marginLeft: 10
     },
-    "order_card_footer__footer__btn_btn_danger": {
-        "border": "1px solid #ff4400",
-        "color": "#ff4400"
+    btnDanger: {
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#ff4400",
+        color: "#ff4400"
     }
 })

@@ -3,7 +3,6 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 import { List, TextareaItem, InputItem } from 'antd-mobile-rn';
@@ -285,3 +284,6 @@ export default class Field extends Component {
         </View>
     }
 }
+const styles = StyleSheet.create({
+
+})

@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderCardHeader extends Component {
     static propTypes = {
         state: PropTypes.number,
         sn: PropTypes.string,
@@ -23,7 +23,7 @@ export default class Index extends Component {
         } = this.props
         return <View style={styles.orderCardHeader}>
             <View style={styles.left}>
-                <Text>单号：{sn}</Text>
+                <Text style={styles.leftText}>单号：{sn}</Text>
             </View>
             <View style={styles.right}>
                 {state === 0 ? <Text style={styles.state0}>已取消</Text> : null}
@@ -38,50 +38,49 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_card_header": {
-        "display": "flex",
-        "justifyContent": "space-between",
-        "padding": "10px 15px",
-        "borderBottom": "1px solid #F8F8F8"
+    orderCardHeader: {
+        justifyContent: "space-between",
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#F8F8F8",
     },
-    "order_card_header__left": {
-        "display": "flex",
-        "alignItems": "center"
+    left: {
+        alignItems: "center"
     },
-    "order_card_header__left_text": {
-        "fontSize": "14px",
-        "color": "#999999",
-        "lineHeight": "14px",
-        "height": "14px",
-        "display": "block"
+    leftText: {
+        fontSize: 14,
+        color: "#999999",
+        lineHeight: 14,
+        height: 14,
     },
-    "order_card_header__right": {
-        "display": "flex",
-        "justifyContent": "space-between",
-        "alignItems": "center"
+    right: {
+        justifyContent: "space-between",
+        alignItems: "center"
     },
-    "order_card_header__right__state": {
-        "fontSize": "14px",
-        "color": "#333"
+    state: {
+        fontSize: 14,
+        color: "#333"
     },
-    "order_card_header__right__del_icon": {
-        "width": "20px",
-        "height": "20px",
-        "marginLeft": "10px"
+    delIcon: {
+        width: 20,
+        height: 20,
+        marginLeft: 10
     },
-    "order_card_header__right__state_0": {
-        "color": "red"
+    state0: {
+        color: "red"
     },
-    "order_card_header__right__state_10": {
-        "color": "red"
+    state10: {
+        color: "red"
     },
-    "order_card_header__right__state_20": {
-        "color": "red"
+    state20: {
+        color: "red"
     },
-    "order_card_header__right__state_30": {
-        "color": "red"
+    state30: {
+        color: "red"
     },
-    "order_card_header__right__state_40": {
-        "color": "red"
+    state40: {
+        color: "red"
     }
 })

@@ -6,57 +6,32 @@ import {
     Image
 } from 'react-native';
 
-export default class Index extends Component {
+export default class OrderContact extends Component {
     static propTypes = {};
     static defaultProps = {};
 
     render() {
         return <View style={styles.orderContact}>
-            <Image source={require('../../images/order/customer-service.png')} resizeMode="stretch" />
-            <Text>联系客服</Text>
+            <Image style={styles.image} source={require('../../images/order/customer-service.png')}
+                   resizeMode="stretch" />
+            <Text style={styles.text}>联系客服</Text>
         </View>
     }
-
 }
 const styles = StyleSheet.create({
-    "order_contact": {
-        "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "padding": "15px 0"
+    orderContact: {
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: 15,
+        paddingHorizontal: 0,
     },
-    "order_contact_image": {
-        "width": "20px",
-        "height": "20px",
-        "marginRight": "10px"
+    image: {
+        width: 20,
+        height: 20,
+        marginRight: 10
     },
-    "order_contact_text": {
-        "fontSize": "14px",
-        "color": "#666"
-    },
-    "kf_button": {
-        "position": "relative",
-        "marginLeft": "initial",
-        "marginRight": "initial",
-        "paddingLeft": "initial",
-        "paddingRight": "initial",
-        "boxSizing": "initial",
-        "fontSize": "initial",
-        "textAlign": "initial",
-        "textDecoration": "initial",
-        "lineHeight": "initial",
-        "WebkitTapHighlightColor": "initial",
-        "overflow": "initial",
-        "color": "initial",
-        "backgroundColor": "initial",
-        "borderRadius": "0",
-        "border": "none"
-    },
-    "kf_button_after": {
-        "border": "none"
-    },
-    "kf_button_prev": {
-        "backgroundColor": "initial",
-        "color": "initial"
+    text: {
+        fontSize: 14,
+        color: "#666"
     }
 })

@@ -19,6 +19,7 @@ export default class TimeFormat extends Component {
         n = n.toString()
         return n[1] ? n : '0' + n
     }
+
     /**
      * 时间戳转化为年 月 日 时 分 秒
      * number: 传入时间戳
@@ -45,9 +46,9 @@ export default class TimeFormat extends Component {
     render() {
         const { value, format } = this.props
         const time = this.format(value, format)
-        return <Text>{time}</Text>
+        return <Text styles={styles.time}>{time}</Text>
     }
 }
 const styles = StyleSheet.create({
-
+    time: {}
 })

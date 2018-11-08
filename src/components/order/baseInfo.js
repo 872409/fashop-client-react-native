@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderBaseInfo extends Component {
     static propTypes = {
         orderNumber: PropTypes.number,
         createTime: PropTypes.number,
@@ -23,6 +21,7 @@ export default class Index extends Component {
     };
 
     setClipboardData() {
+        // todo
         wx.setClipboardData({
             data: `${this.state.orderNumber}`
         })
@@ -33,24 +32,24 @@ export default class Index extends Component {
         return <View style={styles.orderBaseInfo}>
             <View style={styles.item}>
                 <View style={styles.row}>
-                    <Text>订单编号：</Text>
-                    <Text>{{ orderNumber }}</Text>
+                    <Text style={styles.label}>订单编号：</Text>
+                    <Text style={styles.text}>{{ orderNumber }}</Text>
                     <OrderButton text="复制" size="small" onClick={() => {
                         this.setClipboardData()
                     }} />
                 </View>
                 <View style={styles.row}>
-                    <Text>下单时间：</Text>
+                    <Text style={styles.label}>下单时间：</Text>
                     <TimeFormat style={styles.time} value={createTime} />
                 </View>
             </View>
             {payTime > 0 ? <View style={styles.item}>
                 <View style={styles.row}>
-                    <Text>支付方式：</Text>
-                    <Text>{{ payment }}</Text>
+                    <Text style={styles.label}>支付方式：</Text>
+                    <Text style={styles.text}>{payment}</Text>
                 </View>
                 <View style={styles.row}>
-                    <Text>支付时间：</Text>
+                    <Text style={styles.label}>支付时间：</Text>
                     <TimeFormat style={styles.time} value={payTime} />
                 </View>
             </View> : null}
@@ -58,34 +57,33 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_base_info": {},
-    "order_base_info__item": {
-        "borderBottom": "1px solid #F8F8F8",
-        "padding": "10px 0"
+    orderBaseInfo: {},
+    item: {
+        borderBottomStyle: "solid",
+        borderBottomWidth: 1,
+        borderBottomColor: '#F8F8F8',
+        paddingVertical: 10
     },
-    "order_base_info__item__row": {
-        "display": "flex",
-        "justifyContent": "flex-start",
-        "alignItems": "center",
-        "padding": "7.5px 15px"
+    row: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        paddingVertical: 7.5,
+        paddingHorizontal: 15
     },
-    "order_base_info__item__row_label": {
-        "fontSize": "14px",
-        "fontWeight": "bold",
-        "lineHeight": "14px",
-        "display": "block",
-        "color": "#333"
+    label: {
+        fontSize: 14,
+        fontWeight: 800,
+        lineHeight: 14,
+        color: "#333"
     },
-    "order_base_info__item__row_text": {
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "display": "block",
-        "color": "#666"
+    text: {
+        fontSize: 14,
+        lineHeight: 14,
+        color: "#666"
     },
-    "order_base_info__item__row_time_format": {
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "display": "block",
-        "color": "#666"
+    time: {
+        fontSize: 14,
+        lineHeight: 14,
+        color: "#666"
     }
 })

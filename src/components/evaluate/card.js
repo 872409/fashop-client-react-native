@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
@@ -44,8 +43,8 @@ export default class EvaluateCard extends Component {
     render() {
         const { goodsInfo } = this.props
 
-        return <View style={styles.evaluateGoodsard}>
-            <View style={styles.body}>
+        return <View style={styles.evaluateGoodsCard}>
+            <View>
                 <View style={styles.item}>
                     <View style={styles.content}>
                         <View style={styles.image} onPress={this.onGoods()}>
@@ -54,7 +53,7 @@ export default class EvaluateCard extends Component {
                             }} resizeMode={'contain'} />
                         </View>
                         <View style={styles.body}>
-                            <Text onPress={this.onGoods()}>{goodsInfo.goods_title}</Text>
+                            <Text onPress={this.onGoods()} style={styles.text}>{goodsInfo.goods_title}</Text>
                             <View style={styles.buttonArea}>
                                 {goodsInfo.evaluate_state > 0 ? <OrderButton
                                     text="查看评价"
@@ -88,43 +87,35 @@ export default class EvaluateCard extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "evaluate_goods_card": {
-        "position": "relative",
-        "borderBottom": "1px solid #F8F8F8",
-        "backgroundColor": "#FFFFFF"
+    evaluateGoodsCard: {
+        position: "relative",
+        borderBottom: "1px solid #F8F8F8",
+        backgroundColor: "#FFFFFF",
     },
-    "evaluate_goods_card__item": {
-        "padding": "15px"
+    item: {
+        padding: 15
     },
-    "evaluate_goods_card__content": {
-        "display": "flex",
-        "justifyContent": "flex-start"
+    content: {
+        justifyContent: "flex-start"
     },
-    "evaluate_goods_card__item_image": {
-        "width": "80px",
-        "height": "80px",
-        "display": "block",
-        "marginRight": "10px"
+    image: {
+        width: 80,
+        height: 80,
+        marginRight: 10
     },
-    "evaluate_goods_card__item__body": {},
-    "evaluate_goods_card__item__body_text": {
-        "fontSize": "14px",
-        "color": "#333",
-        "lineHeight": "18px",
-        "display": "block",
-        "overflow": "hidden"
+    body: {},
+    text: {
+        fontSize: 14,
+        color: "#333",
+        lineHeight: 18,
+
     },
-    "evaluate_goods_card__item__end": {
-        "textAlign": "right",
-        "marginLeft": "20px"
+    footer: {
+        justifyContent: "flex-end"
     },
-    "evaluate_goods_card__item__footer": {
-        "display": "flex",
-        "justifyContent": "flex-end"
-    },
-    "evaluate_goods_card__button_area": {
-        "position": "absolute",
-        "bottom": "15px",
-        "right": "15px"
+    buttonArea: {
+        position: "absolute",
+        bottom: 15,
+        right: 15
     }
 })

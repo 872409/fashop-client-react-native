@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-export default class Index extends Component {
+export default class OrderCard extends Component {
     static propTypes = {};
     static defaultProps = {};
 
@@ -12,7 +12,7 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_card": {
-        "backgroundColor": "#ffffff"
+    orderCard: {
+        backgroundColor: "#ffffff"
     }
 })

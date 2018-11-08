@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderCardButton extends Component {
     static propTypes = {
         text: PropTypes.string,
         active: PropTypes.bool,
@@ -31,5 +28,5 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-
+    cartBotton:{}
 })

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
@@ -45,16 +44,18 @@ export default class RefundCard extends Component {
                 <View style={styles.icon}>
                     {
                         refundInfo.handle_state === 30 || refundInfo.handle_state === 51 ?
-                            <Image source={require('../../images/refund/refund-success.png')} resizeMode={'contain'}
+                            <Image style={styles.iconImage} source={require('../../images/refund/refund-success.png')}
+                                   resizeMode={'contain'}
                             />
-                            : <Image source={require('../../images/refund/refund-ing.png')} resizeMode={'contain'} />
+                            : <Image style={styles.iconImage} source={require('../../images/refund/refund-ing.png')}
+                                     resizeMode={'contain'} />
                     }
                 </View>
-                <Text>{refundInfo.refund_type === 1 ? '仅退款' : '退货退款'}</Text>
-                {refundInfo.handle_state === 30 ? <Text>退款完成</Text> : null}
-                {refundInfo.handle_state === 50 ? <Text>已撤销退款申请</Text> : null}
-                {refundInfo.handle_state === 51 ? <Text>确认收货，自动关闭退款申请</Text> : null}
-                {refundInfo.is_close === 1 ? <Text>退款关闭</Text> : null}
+                <Text style={styles.bodyText}>{refundInfo.refund_type === 1 ? '仅退款' : '退货退款'}</Text>
+                {refundInfo.handle_state === 30 ? <Text style={styles.bodyText}>退款完成</Text> : null}
+                {refundInfo.handle_state === 50 ? <Text style={styles.bodyText}>已撤销退款申请</Text> : null}
+                {refundInfo.handle_state === 51 ? <Text style={styles.bodyText}>确认收货，自动关闭退款申请</Text> : null}
+                {refundInfo.is_close === 1 ? <Text style={styles.bodyText}>退款关闭</Text> : null}
 
                 {refundInfo.refund_type === 2 && refundInfo.handle_state === 20 && refundInfo.is_close === 0 && refundInfo.send_expiry_time > 0 ?
                     <View>
@@ -77,37 +78,37 @@ export default class RefundCard extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "refund_card": {
-        "borderBottom": "1px solid #F8F8F8"
+    refundCard: {
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
-    "refund_card__body": {
-        "padding": "15px",
-        "display": "flex",
-        "fontSize": "14px",
-        "color": "#333333",
-        "lineHeight": "14px",
-        "height": "14px",
-        "borderBottom": "1px solid #F8F8F8"
+    body: {
+        padding: 15,
+        fontSize: 14,
+        color: "#333333",
+        lineHeight: 14,
+        height: 14,
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
-    "refund_card__body__icon": {
-        "backgroundColor": "#ff8855",
-        "color": "#FFFFFF",
-        "marginRight": "5px"
+    icon: {
+        backgroundColor: "#ff8855",
+        color: "#FFFFFF",
+        marginRight: 5
     },
-    "refund_card__body__icon_image": {
-        "width": "14px",
-        "height": "14px",
-        "display": "block"
+    iconImage: {
+        width: 14,
+        height: 14,
     },
-    "refund_card__body_text": {
-        "marginRight": "10px"
+    bodyText: {
+        marginRight: 10
     },
-    "refund_card__body_label": {
-        "display": "flex"
-    },
-    "refund_card__footer": {
-        "padding": "10px 15px",
-        "display": "flex",
-        "justifyContent": "flex-end"
+    bodyLabel: {},
+    footer: {
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        justifyContent: "flex-end"
     }
 })

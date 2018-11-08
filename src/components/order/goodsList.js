@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderGoodsList extends Component {
     static propTypes = {
         goodsList: PropTypes.array,
     };
@@ -43,7 +42,7 @@ export default class Index extends Component {
                         <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
                     </View>
                     <View style={styles.body}>
-                        <Text>{item.goods_title}</Text>
+                        <Text style={styles.bodyText}>{item.goods_title}</Text>
                     </View>
                     <View style={styles.end}>
                         <Text style={styles.price}>¥{item.goods_price}</Text>
@@ -79,51 +78,46 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_goods_list": {},
-    "order_goods_list__item": {
-        "padding": "15px",
-        "borderBottom": "1px solid #F8F8F8"
+    orderGoodsList: {},
+    item: {
+        padding: 15,
+        borderBottomWidth:1,
+        borderBottomStyle:"solid",
+        borderBottomColor:"#F8F8F8",
     },
-    "order_goods_list__content": {
-        "display": "flex",
-        "justifyContent": "flex-start"
+    content: {
+        justifyContent: "flex-start"
     },
-    "order_goods_list__item_image": {
-        "width": "60px",
-        "height": "60px",
-        "display": "block",
-        "marginRight": "10px"
+    image: {
+        width: 60,
+        height: 60,
+        marginRight: 10
     },
-    "order_goods_list__item__body": {
-        "flex": "1"
+    body: {
+        flex:1
     },
-    "order_goods_list__item__body_text": {
-        "fontSize": "14px",
-        "color": "#333",
-        "lineHeight": "20px",
-        "display": "block",
-        "overflow": "hidden",
-        "fontWeight": "bold"
+    bodyText: {
+        fontSize: 14,
+        color: "#333",
+        lineHeight: 20,
+        fontWeight: 800
     },
-    "order_goods_list__item__end": {
-        "textAlign": "right",
-        "marginLeft": "20px"
+    end: {
+        textAlign: "right",
+        marginLeft: 20
     },
-    "order_goods_list__item__end__price": {
-        "fontSize": "14px",
-        "fontWeight": "bold",
-        "marginBottom": "10px",
-        "lineHeight": "14px",
-        "display": "block"
+    price: {
+        fontSize: 14,
+        fontWeight: 800,
+        marginBottom: 10,
+        lineHeight: 14,
     },
-    "order_goods_list__item__end__number": {
-        "fontSize": "14px",
-        "marginBottom": "10px",
-        "lineHeight": "14px",
-        "display": "block"
+    number: {
+        fontSize: 14,
+        marginBottom: 10,
+        lineHeight: 14,
     },
-    "order_goods_list__item__footer": {
-        "display": "flex",
-        "justifyContent": "flex-end"
+    footer: {
+        justifyContent: "flex-end"
     }
 })

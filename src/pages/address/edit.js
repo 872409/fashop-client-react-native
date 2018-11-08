@@ -207,30 +207,5 @@ export default class AddressEdit extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "fa_panel": {
-        "marginBottom": "10px",
-        "display": "block"
-    },
-    "button_area": {
-        "display": "flex",
-        "justifyContent": "space-between"
-    },
-    "button_area_fa_button": {
-        "width": "50%"
-    },
-    "choice_wechat_address": {
-        "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "padding": "15px"
-    },
-    "choice_wechat_address_text": {
-        "fontSize": "14px",
-        "color": "#527fc9"
-    },
-    "choice_wechat_address_image": {
-        "width": "20px",
-        "height": "20px",
-        "marginRight": "5px"
-    }
+
 })

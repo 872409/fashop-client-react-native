@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderFooterAction extends Component {
     static propTypes = {
         showReceiveBtn: PropTypes.bool,
         showCancelBtn: PropTypes.bool,
@@ -90,29 +87,24 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_footer_action": {
-        "position": "fixed",
-        "bottom": "0",
-        "left": "0",
-        "backgroundColor": "#ffffff",
-        "width": "100vw",
-        "zIndex": "6",
-        "borderTop": "1px solid #F8F8F8"
+    orderFooterAction: {
+        backgroundColor: "#ffffff",
+        zIndex: 6,
+        borderTopWidth: 1,
+        borderTopStyle: 'solid',
+        borderTopColor: '#F8F8F8'
     },
-    "order_footer_action__footer": {
-        "padding": "15px",
-        "display": "flex",
-        "justifyContent": "space-between",
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "alignItems": "center"
+    footer: {
+        padding: 15,
+        justifyContent: "space-between",
+        fontSize: 14,
+        lineHeight: 14,
+        alignItems: "center"
     },
-    "order_footer_action__footer__left": {
-        "display": "flex",
-        "justifyContent": "space-between"
+    left: {
+        justifyContent: "space-between"
     },
-    "order_footer_action__footer__right": {
-        "display": "flex",
-        "justifyContent": "space-between"
+    right: {
+        justifyContent: "space-between"
     }
 })

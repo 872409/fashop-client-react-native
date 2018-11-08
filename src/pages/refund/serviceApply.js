@@ -171,10 +171,13 @@ export default class ServiceApply extends Component {
                         <View style={styles.item}>
                             <View style={styles.content}>
                                 <View style={styles.image}>
-                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
+                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} style={{
+                                        width: 60,
+                                        height: 60,
+                                    }}/>
                                 </View>
                                 <View style={styles.body}>
-                                    <Text>{goodsInfo.goods_title}</Text>
+                                    <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
                                     <View style={styles.end}>
                                         <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
                                         <Text style={styles.number}>x {goodsInfo.goods_num}</Text>
@@ -259,62 +262,43 @@ export default class ServiceApply extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "fa_panel": {
-        "marginBottom": "10px",
-        "display": "block"
+    refundGoodsCard: {},
+    item: {
+        padding: 15,
+        borderBottomWidth: 1,
+        borderBottomStyle: "solid",
+        borderBottomColor: "#ff4400",
     },
-    "fa_panel_last_child": {
-        "marginBottom": "160px"
+    content: {
+
+        justifyContent: "flex-start"
     },
-    "refund_goods_card": {},
-    "refund_goods_card__item": {
-        "padding": "15px",
-        "borderBottom": "1px solid #F8F8F8"
+    image: {
+        width: 60,
+        height: 60,
+        marginRight: 10
     },
-    "refund_goods_card__content": {
-        "display": "flex",
-        "justifyContent": "flex-start"
+    body: {
+        flex: 1
     },
-    "refund_goods_card__item__image": {
-        "width": "60px",
-        "height": "60px",
-        "display": "block",
-        "overflow": "hidden",
-        "marginRight": "10px"
+    bodyText: {
+        fontSize: 12,
+        color: "#333",
+        lineHeight: 18,
     },
-    "refund_goods_card__item_image": {
-        "width": "60px",
-        "height": "60px",
-        "display": "block"
+    end: {
+        justifyContent: "space-between",
+        marginTop: 5,
+        fontSize: 12,
+        color: "#999999",
+        lineHeight: 12,
+        alignItems: "center"
     },
-    "refund_goods_card__item__body": {
-        "flex": "1"
+    spec: {
+        color: "#999999",
     },
-    "refund_goods_card__item__body_text": {
-        "fontSize": "12px",
-        "color": "#333",
-        "lineHeight": "18px",
-        "display": "block",
-        "overflow": "hidden"
-    },
-    "refund_goods_card__item__end": {
-        "display": "flex",
-        "justifyContent": "space-between",
-        "marginTop": "5px",
-        "fontSize": "12px",
-        "color": "#999999",
-        "lineHeight": "12px",
-        "alignItems": "center"
-    },
-    "refund_goods_card__item__end__spec": {
-        "color": "#999999",
-        "display": "block"
-    },
-    "refund_goods_card__item__end__number": {
-        "display": "block"
-    },
-    "refund_goods_card__item__footer": {
-        "display": "flex",
-        "justifyContent": "flex-end"
+    number: {},
+    footer: {
+        justifyContent: "flex-end"
     }
 })

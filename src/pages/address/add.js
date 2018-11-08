@@ -171,23 +171,5 @@ export default class AddressAdd extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "fa_panel": {
-        "marginBottom": "10px",
-        "display": "block"
-    },
-    "choice_wechat_address": {
-        "display": "flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "padding": "15px"
-    },
-    "choice_wechat_address_text": {
-        "fontSize": "14px",
-        "color": "#527fc9"
-    },
-    "choice_wechat_address_image": {
-        "width": "20px",
-        "height": "20px",
-        "marginRight": "5px"
-    }
+
 })

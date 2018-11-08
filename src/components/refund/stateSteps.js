@@ -39,13 +39,15 @@ export default class RefundStateSteps extends Component {
                 desc: Time.format('M/D h:m', refundInfo.create_time)
             }
         ]
+            // <fa-steps type="horizon" steps={steps} hasDesc={true} />
+
         return <View style={styles.refundSteps}>
-            <fa-steps type="horizon" steps={steps} hasDesc={true} />
+            <Text>从ant里引入</Text>
         </View>
     }
 }
 const styles = StyleSheet.create({
-    "refund_steps": {
-        "backgroundColor": "#F8F8F8"
+    refundSteps: {
+        backgroundColor: "#F8F8F8"
     }
 })

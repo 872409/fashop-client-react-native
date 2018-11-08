@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
@@ -40,7 +39,12 @@ export default class RefundGoodsCard extends Component {
                 <View style={styles.item}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: goodsImg }} resizeMode={'contain'} />
+                            <Image source={{ uri: goodsImg }} resizeMode={'contain'} style={
+                                {
+                                    width: 60,
+                                    height: 60,
+                                }
+                            } />
                         </View>
                         <View style={styles.body}>
                             <Text>{goodsTitle}</Text>
@@ -57,56 +61,44 @@ export default class RefundGoodsCard extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "refund_goods_card": {},
-    "refund_goods_card__item": {
-        "padding": "15px",
-        "borderBottom": "1px solid #F8F8F8"
+    refundGoodsCard: {},
+    item: {
+        padding: 15,
+        borderBottomWidth:1,
+        borderBottomStyle:"solid",
+        borderBottomColor:"#F8F8F8",
     },
-    "refund_goods_card__content": {
-        "display": "flex",
-        "justifyContent": "flex-start"
+    content: {
+        justifyContent: "flex-start"
     },
-    "refund_goods_card__item__image": {
-        "width": "60px",
-        "height": "60px",
-        "display": "block",
-        "overflow": "hidden",
-        "marginRight": "10px"
+    image: {
+        width: 60,
+        height: 60,
+        marginRight: 10
     },
-    "refund_goods_card__item_image": {
-        "width": "60px",
-        "height": "60px",
-        "display": "block"
+    body: {
+        flex:1
     },
-    "refund_goods_card__item__body": {
-        "flex": "1"
+    text: {
+        fontSize: 14,
+        color: "#333",
+        lineHeight: 20,
     },
-    "refund_goods_card__item__body_text": {
-        "fontSize": "14px",
-        "color": "#333",
-        "lineHeight": "20px",
-        "display": "block",
-        "overflow": "hidden"
+    end: {
+        justifyContent: "space-between",
+        marginTop: 5,
+        fontSize: 12,
+        color: "#999999",
+        lineHeight: 12,
+        alignItems: "center"
     },
-    "refund_goods_card__item__end": {
-        "display": "flex",
-        "justifyContent": "space-between",
-        "marginTop": "5px",
-        "fontSize": "12px",
-        "color": "#999999",
-        "lineHeight": "12px",
-        "alignItems": "center"
+    spec: {
+        fontSize: 12,
+        color: "#999999",
     },
-    "refund_goods_card__item__end__spec": {
-        "fontSize": "12px",
-        "color": "#999999",
-        "display": "block"
+    number: {
     },
-    "refund_goods_card__item__end__number": {
-        "display": "block"
-    },
-    "refund_goods_card__item__footer": {
-        "display": "flex",
-        "justifyContent": "flex-end"
+    footer: {
+        justifyContent: "flex-end"
     }
 })

@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
     Text,
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
 
-export default class Index extends Component {
+export default class OrderStateCard extends Component {
     static propTypes = {
         orderState: PropTypes.number,
         expireSeconds: PropTypes.number,
@@ -40,38 +39,38 @@ export default class Index extends Component {
         return <View>
             {orderState === 40 ? <View>
                 <View style={styles.noticebar}>
-                    <Image source={require('../../images/order/horn.png')} resizeMode="widthFix" />
-                    <Text>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
+                    <Image style={styles.noticebarImage} source={require('../../images/order/horn.png')} resizeMode="widthFix" />
+                    <Text style={styles.noticebarText}>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
                 </View>
             </View> : null}
             <View style={styles.orderStateCard}>
                 {orderState === 10 ? <View>
                     <View style={styles.left}>
-                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
-                        <Text style={styles.state}>待付款</Text>
+                        <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.leftText}>待付款</Text>
                     </View>
                     <View style={styles.right}>
-                        <Text>需付款：¥{{ cost }}</Text>
+                        <Text style={styles.rightText}>需付款：¥{{ cost }}</Text>
                     </View>
                 </View> : null}
                 {orderState === 20 ? <View>
                     <View style={styles.left}>
-                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
-                        <Text style={styles.state}>待发货</Text>
+                        <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.leftText}>待发货</Text>
                     </View>
                     <View style={styles.right}>
                     </View>
                 </View> : null}
                 {orderState === 30 ? <View>
                     <View style={styles.left}>
-                        <Image source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
-                        <Text style={styles.state}>待收货</Text>
+                        <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')} resizeMode="stretch" />
+                        <Text style={styles.leftText}>待收货</Text>
                     </View>
                 </View> : null}
                 {orderState === 40 ? <View>
                     <View style={styles.left}>
-                        <Image source={require('../../images/order/order-state-success.png')} resizeMode="stretch" />
-                        <Text style={styles.state}>完成</Text>
+                        <Image style={styles.leftImage} source={require('../../images/order/order-state-success.png')} resizeMode="stretch" />
+                        <Text style={styles.leftText}>完成</Text>
                     </View>
                     <View style={styles.right}>
                     </View>
@@ -81,64 +80,57 @@ export default class Index extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "order_state_card": {
-        "padding": "15px",
-        "height": "50px",
-        "display": "flex",
-        "justifyContent": "space-between",
-        "alignItems": "center",
-        "backgroundColor": "#FF635C",
-        "color": "#FFFFFF"
+    orderStateCard: {
+        padding: 15,
+        height: 50,
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#FF635C",
+        color: "#FFFFFF"
     },
-    "order_state_card__left": {
-        "display": "flex",
-        "justifyContent": "flex-start",
-        "alignItems": "center"
+    left: {
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
-    "order_state_card__left_image": {
-        "width": "20px",
-        "height": "20px",
-        "marginRight": "10px"
+    leftImage: {
+        width: 20,
+        height: 20,
+        marginRight: 10
     },
-    "order_state_card__left_text": {
-        "fontSize": "18px",
-        "fontWeight": "bold",
-        "color": "#FFFFFF"
+    laftText: {
+        fontSize: 18,
+        fontWeight: 800,
+        color: "#FFFFFF"
     },
-    "order_state_card__right": {
-        "display": "flex",
-        "textAlign": "right",
-        "flexDirection": "column"
+    right: {
+        textAlign: "right",
+        flexDirection: "column"
     },
-    "order_state_card__right_text": {
-        "color": "#FFFFFF",
-        "fontSize": "14px",
-        "lineHeight": "14px",
-        "display": "block"
+    rightText: {
+        color: "#FFFFFF",
+        fontSize: 14,
+        lineHeight: 14,
     },
-    "order_state_card__right_label": {
-        "color": "#FFFFFF",
-        "fontSize": "12px",
-        "lineHeight": "12px",
-        "display": "block",
-        "marginTop": "6px"
+    rightLabel: {
+        color: "#FFFFFF",
+        fontSize: 12,
+        lineHeight: 12,
+        marginTop: 6
     },
-    "noticebar": {
-        "display": "flex",
-        "justifyContent": "flex-start",
-        "alignItems": "center",
-        "backgroundColor": "#FFFFCC",
-        "padding": "10px"
+    noticebar: {
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: "#FFFFCC",
+        padding: 10
     },
-    "noticebar_image": {
-        "width": "20px",
-        "height": "20px",
-        "marginRight": "10px"
+    noticebarImage: {
+        width: 20,
+        height: 20,
+        marginRight: 10
     },
-    "noticebar_text": {
-        "fontSize": "12px",
-        "lineHeight": "16px",
-        "display": "block",
-        "color": "#F07B3F"
+    noticebarText: {
+        fontSize: 12,
+        lineHeight: 16,
+        color: "#F07B3F"
     }
 })

@@ -37,10 +37,11 @@ export default class Rater extends Component {
                     return <View>
                         {index < value ?
                             <Image
-                                source={require('../../images/fa/rater/active.png')} style={{
+                                source={require('../../images/fa/rater/active.png')} style={[styles.image,{
                                 width: size,
                                 height: size,
-                            }}
+                                marginRight:index === length ? 0 :5
+                            }]}
                                 resizeMode="stretch"
                                 onPress={() => {
                                     this.onChange(index + 1)
@@ -49,10 +50,11 @@ export default class Rater extends Component {
                         {index >= value ?
                             <Image
                                 source={require('../../images/fa/rater/default.png')}
-                                style={{
+                                style={[styles.image,{
                                     width: size,
                                     height: size,
-                                }}
+                                    marginRight:index === length ? 0 :5
+                                }]}
                                 resizeMode="stretch"
                                 onPress={() => {
                                     this.onChange(index + 1)
@@ -64,13 +66,8 @@ export default class Rater extends Component {
     }
 }
 const styles = StyleSheet.create({
-    "rater_list": {
-        "display": "flex"
+    raterList: {
     },
-    "rater_list_image": {
-        "marginRight": "5px"
-    },
-    "rater_list_image_last_child": {
-        "marginRight": "0"
+    image: {
     }
 })

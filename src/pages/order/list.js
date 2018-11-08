@@ -269,34 +269,5 @@ export default class OrderList extends Component {
 
 }
 const styles = StyleSheet.create({
-    "page_container": {
-        "backgroundColor": "#F8F8F8",
-        "display": "block",
-        "overflow": "hidden"
-    },
-    "fa_panel": {
-        "display": "block",
-        "marginBottom": "10px"
-    },
-    "list_empty": {
-        "width": "100vw",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "flexDirection": "column",
-        "marginTop": "50%"
-    },
-    "list_empty_image": {
-        "display": "block",
-        "overflow": "hidden",
-        "width": "122px",
-        "height": "122px"
-    },
-    "list_empty_text": {
-        "display": "block",
-        "overflow": "hidden",
-        "textAlign": "center",
-        "fontSize": "14px",
-        "color": "#999999"
-    }
+
 })
