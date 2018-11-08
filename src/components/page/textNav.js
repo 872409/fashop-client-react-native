@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
-    ScrollView,
-    Text
 } from 'react-native';
 import { List } from "antd-mobile-rn";
 

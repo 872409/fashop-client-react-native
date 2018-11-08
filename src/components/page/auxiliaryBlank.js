@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     View,
-    ScrollView,
-    Text
 } from 'react-native';
 
 export default class PageAuxiliaryBlank extends Component {
@@ -13,7 +10,3 @@ export default class PageAuxiliaryBlank extends Component {
         return <View style={{height}}/>
     }
 }
-
-const styles = StyleSheet.create({
-
-});

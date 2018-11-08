@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
-    Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from '../../models/buy'
-import { Modal, List, Tabs } from "antd-mobile-rn";
-
+import { Modal, List } from "antd-mobile-rn";
+import { PublicStyles,ThemeStyle,windowWidth } from '../../utils/publicStyleModule';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
 import { windowHeight } from "../../utils/publicStyleModule";
@@ -21,14 +19,16 @@ const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 export default class OrderList extends Component {
     state = {
-        state_type: '',
+        state_type: 'all',
     }
 
     async componentWillMount() {
-        const state_type = this.props.navigation.getParam('state_type')
-        this.setState({
-            state_type
-        })
+        // const state_type = this.props.navigation.getParam('state_type')
+        // if(state_type){
+        //     this.setState({
+        //         state_type
+        //     })
+        // }
     }
 
     goDetail(id) {
@@ -160,6 +160,7 @@ export default class OrderList extends Component {
                 tabLabel: '已完成'
             }
         ]
+        const {state_type} = this.state
         // todo initialPage
         return (
             <View style={[PublicStyles.ViewMax]}>

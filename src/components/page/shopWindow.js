@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
     Image
 } from 'react-native';
 import { windowWidth } from '../../utils/publicStyleModule';

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text
 } from 'react-native';
 
 export default class PageSeparator extends Component {
@@ -11,10 +9,10 @@ export default class PageSeparator extends Component {
         const { options } = this.props.data;
         const { color, style } = options
         return <View
-            style={[styles.line,{
+            style={[styles.line, {
                 borderBottomWidth: 1,
                 borderBottomColor: color,
-                borderStyle: style,
+                borderStyle: style ? style : 'solid',
             }]}
         />
     }

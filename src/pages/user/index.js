@@ -14,6 +14,9 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 const Item = List.Item
 
 export default class UserIndex extends Component {
+    goOrderList(){
+        this.props.navigation.navigate('OrderList')
+    }
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
@@ -27,16 +30,17 @@ export default class UserIndex extends Component {
             }
         </View>;
     }
-    top(){
+
+    top() {
         const login = true
         const nickname = "188****8223"
         const avatar = ""
         const { navigation } = this.props
-        return(
+        return (
             <TouchableOpacity
-                style={[PublicStyles.rowBetweenCenter,styles.topWarp]}
+                style={[PublicStyles.rowBetweenCenter, styles.topWarp]}
                 activeOpacity={.8}
-                onPress={()=>{
+                onPress={() => {
                     navigation.navigate("UserLogin")
                 }}
             >
@@ -48,7 +52,7 @@ export default class UserIndex extends Component {
                             marginRight: 15,
                         }}
                     />
-                    <Text style={[PublicStyles.boldTitle,{fontSize: 20}]}>
+                    <Text style={[PublicStyles.boldTitle, { fontSize: 20 }]}>
                         {
                             login ? nickname : "点击登录"
                         }
@@ -65,61 +69,71 @@ export default class UserIndex extends Component {
             </TouchableOpacity>
         )
     }
-    mid(){
+
+    mid() {
         const orderList = [
             {
                 img: require('../../images/user/state_new.png'),
                 title: '待付款',
-            },{
+            }, {
                 img: require('../../images/user/state_pay.png'),
                 title: '待发货',
-            },{
+            }, {
                 img: require('../../images/user/state_send.png'),
                 title: '已完成',
-            },{
+            }, {
                 img: require('../../images/user/state_unevaluate.png'),
                 title: '待评价',
-            },{
+            }, {
                 img: require('../../images/user/state_refund.png'),
                 title: '退款售后',
             }
         ]
-        return(
-            <View style={{marginVertical: 10}}>
+        return (
+            <View style={{ marginVertical: 10 }}>
                 <List>
-                    <Item extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)} arrow="horizontal" onClick={() => {}}>
+                    <Item extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)} arrow="horizontal" onClick={() => {
+                        this.goOrderList()
+                    }}>
                         <Text style={PublicStyles.boldTitle}>我的订单</Text>
                     </Item>
                 </List>
                 <View style={styles.midList}>
                     {
-                        orderList.map((item,index)=>(
-                            <View key={index} style={styles.midItem}>
-                                <Image style={styles.midImg} source={item.img}/>
+                        orderList.map((item, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={styles.midItem}
+                                onPress={() => {
+                                    this.goOrderList()
+                                }}
+                            >
+                                <Image style={styles.midImg} source={item.img} />
                                 <Text style={PublicStyles.descTwo6}>{item.title}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))
                     }
                 </View>
             </View>
         )
     }
-    bot(){
+
+    bot() {
         const botList = [
             {
                 img: require('../../images/user/address.png'),
                 title: '地址管理',
-                path: ()=>{
+                path: () => {
                     this.props.navigation.navigate('UserAddressList')
                 }
             }, {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
-                path: ()=>{
+                path: () => {
                 }
             }
         ]
-        return(
+        return (
             <List>
                 {
                     botList.map((item, index) => (
@@ -127,10 +141,12 @@ export default class UserIndex extends Component {
                             key={index}
                             // thumb={item.img}
                             arrow="horizontal"
-                            onClick={() => {item.path() }}
+                            onClick={() => {
+                                item.path()
+                            }}
                         >
                             <View style={PublicStyles.rowCenter}>
-                                <Image style={styles.botImg} source={item.img}/>
+                                <Image style={styles.botImg} source={item.img} />
                                 <Text style={PublicStyles.title}>{item.title}</Text>
                             </View>
                         </Item>
@@ -142,27 +158,27 @@ export default class UserIndex extends Component {
 }
 
 const styles = StyleSheet.create({
-    topWarp:{
+    topWarp: {
         height: 100,
         paddingHorizontal: 15,
         backgroundColor: '#fff'
     },
-    midList:{
+    midList: {
         flexDirection: 'row',
         alignItems: "center",
         height: 75,
         backgroundColor: '#fff'
     },
-    midItem:{
+    midItem: {
         flex: 1,
         alignItems: "center"
     },
-    midImg:{
+    midImg: {
         width: 22,
         height: 22,
         marginBottom: 9
     },
-    botImg:{
+    botImg: {
         width: 22,
         height: 22,
         marginRight: 10

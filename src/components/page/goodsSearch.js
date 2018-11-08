@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
     TextInput,
     Image
 } from 'react-native';
-import { SearchBar } from "antd-mobile-rn";
 
 export default class PageGoodsSearch extends Component {
     componentDidMount() {
