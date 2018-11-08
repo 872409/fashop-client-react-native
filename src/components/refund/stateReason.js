@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     orderStateReason: {},
     header: {
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
         paddingVertical: 5,
         paddingHorizontal: 15
@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
         color: "#999999",
         padding: 15,
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
     span: {},
     footer: {
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
         padding: 15,
 
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     address: {
         fontSize: 14,
         color: "#333333",
-        fontWeight: 800
+        fontWeight: "800"
     },
     success: {
         padding: 15
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     info: {
         paddingBottom: 15,
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
     user: {},
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     label: {
-        fontWeight: 800,
+        fontWeight: "800",
         marginRight: 10
     },
     text: {}

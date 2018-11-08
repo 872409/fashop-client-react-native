@@ -88,8 +88,9 @@ export default class EvaluateCard extends Component {
 }
 const styles = StyleSheet.create({
     evaluateGoodsCard: {
-        position: "relative",
-        borderBottom: "1px solid #F8F8F8",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        borderBottomColor: "#F8F8F8",
         backgroundColor: "#FFFFFF",
     },
     item: {

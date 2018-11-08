@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     refundGoodsInfo: {},
     header: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         padding: "15px 15px 0 15px"
     },
     item: {
         padding: 15,
         borderBottomWidth:1,
-        borderBottomStyle:"solid",
+        borderStyle:"solid",
         borderBottomColor:"#F8F8F8",
     },
     content: {

@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
     laftText: {
         fontSize: 18,
-        fontWeight: 800,
+        fontWeight: "800",
         color: "#FFFFFF"
     },
     right: {

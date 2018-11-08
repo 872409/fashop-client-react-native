@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     item: {
         padding: 15,
         borderBottomWidth:1,
-        borderBottomStyle:"solid",
+        borderStyle:"solid",
         borderBottomColor:"#F8F8F8",
     },
     content: {
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
     bodyText: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         color: "#333",
         lineHeight: 18,
         marginBottom: 10
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         marginBottom: 10,
         lineHeight: 14,
     },

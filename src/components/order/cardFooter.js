@@ -112,12 +112,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 16,
         color: "#333333",
-        fontWeight: 800,
+        fontWeight: "800",
 
     },
     footer: {
         borderTopWidth: 1,
-        borderTopStyle: "solid",
+        borderStyle: "solid",
         borderTopColor: "#cccccc",
         justifyContent: "flex-end",
         paddingVertical: 10,

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     item: {
         padding: 15,
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#ff4400",
     },
     content: {

@@ -188,10 +188,8 @@ export default class CountDown extends Component {
 }
 const styles = StyleSheet.create({
     countdown: {
-        flexFlow: "row nowrap"
     },
     item: {
-        flexFlow: "row nowrap",
         alignItems: "center"
     },
     itemNum: {},

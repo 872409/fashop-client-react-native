@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        fontWeight: 800
+        fontWeight: "800"
     },
     text: {
         fontSize: 12,
-        fontWeight: 800
+        fontWeight: "800"
     },
     footer: {
         textAlign: "right",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         paddingLeft: 15,
         borderTopWidth: 1,
-        borderTopStyle: "solid",
+        borderStyle: "solid",
         borderTopColor: "#F8F8F8",
     },
     footerLabel: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     footerText: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         color: "#ff4400"
     }
 })

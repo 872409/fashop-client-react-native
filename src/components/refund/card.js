@@ -80,7 +80,7 @@ export default class RefundCard extends Component {
 const styles = StyleSheet.create({
     refundCard: {
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
     body: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         lineHeight: 14,
         height: 14,
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
     icon: {

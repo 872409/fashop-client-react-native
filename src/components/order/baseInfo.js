@@ -59,7 +59,7 @@ export default class OrderBaseInfo extends Component {
 const styles = StyleSheet.create({
     orderBaseInfo: {},
     item: {
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomWidth: 1,
         borderBottomColor: '#F8F8F8',
         paddingVertical: 10
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         lineHeight: 14,
         color: "#333"
     },

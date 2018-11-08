@@ -14,7 +14,7 @@ export default class BodySeparator extends Component {
             style={[styles.line,{
                 borderBottomWidth: 1,
                 borderBottomColor: color,
-                borderBottomStyle: style,
+                borderStyle: style,
             }]}
         />
     }

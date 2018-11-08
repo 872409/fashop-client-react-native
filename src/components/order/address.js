@@ -52,14 +52,14 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         marginRight: 15,
         lineHeight: 14,
 
     },
     phone: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         marginRight: 15,
         lineHeight: 14,
     },

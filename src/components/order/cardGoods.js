@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     item: {
         marginRight: 10,
         borderBottomWidth: 1,
-        borderBottomStyle: "solid",
+        borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
     image: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     },
     oneText: {
         fontSize: 14,
-        fontWeight: 800,
+        fontWeight: "800",
         lineHeight: 18,
     },
     oneLabel: {

@@ -149,8 +149,7 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     avatar: {
-
-        justifyContent: "start"
+        justifyContent: "flex-start"
     },
     avatarImage: {
         width: 32,
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 14,
         marginBottom: 6,
-        fontWeight: 800,
+        fontWeight: "800",
         flex: 1
     },
 
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         borderTopWidth: 1,
-        borderTopStyle: "solid",
+        borderStyle: "solid",
         borderTopColor: "#F8F8F8",
         textAlign: "center",
         color: "#999999",

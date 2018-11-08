@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
         zIndex: 6,
         borderTopWidth: 1,
-        borderTopStyle: 'solid',
+        borderStyle: 'solid',
         borderTopColor: '#F8F8F8'
     },
     footer: {

@@ -14,7 +14,7 @@ export default class PageSeparator extends Component {
             style={[styles.line,{
                 borderBottomWidth: 1,
                 borderBottomColor: color,
-                borderBottomStyle: style,
+                borderStyle: style,
             }]}
         />
     }
