@@ -43,10 +43,30 @@ export const sendWechatAuthRequest=async()=>{
 }
 
 
+// 'tokenData', {
+// 	access_token: '15_3lW4u7VtB5NfnmfZv8bFlFUV-Mg7JDjEOSwDP1Yx7xHsRsAV6EHdv5r1GBjeUrWwr_6APXIPfPNAp71YCAr1X8RhLEFIUtb1bOqHexbVs7I',
+// 	expires_in: 7200,
+// 	refresh_token: '15_iYU3OKboXSGDa3C_EMsZVg66JYJGMgxBVBVi8QitusqwQYNDIYur5Ee2OkR3FvA1o5Q4JWmN0PyV8awQZ-cJKwiLBGCRpIeMkxs0hjnK4fk',
+// 	openid: 'oy0Ue1N9xdbCCdSByzCNj8VjLBNM',
+// 	scope: 'snsapi_userinfo',
+// 	unionid: 'oUv1d1TqN7Yzwx8Cc-g6YrhhxCts' 
+// }
+// 'userData', { 
+// 	openid: 'oy0Ue1N9xdbCCdSByzCNj8VjLBNM',
+// 	nickname: '王小鱼',
+// 	sex: 0,
+// 	language: 'zh_CN',
+// 	city: '',
+// 	province: '',
+// 	country: '',
+// 	headimgurl: 'http://thirdwx.qlogo.cn/mmopen/vi_32 /UEdewS3j9rVstwdw0dkFTcTX3IyMIkQxb4XF4AjwCzxC80iaAX4wWVicJVHUcRwvVgtSngNU8qXraWfxWUibiaQ0xg/132',
+// 	privilege: [],
+// 	unionid: 'oUv1d1TqN7Yzwx8Cc-g6YrhhxCts' 
+// }
 export const wechatLogin = ({tokenData,userData, func})=>{
     return async dispatch=>{
         const e = await Fetch.fetch({
-            apiName: UserApi.login,
+            api: UserApi.login,
             params: {
                 login_type: 'wechat_openid',
                 wechat_openid: userData.openid
@@ -64,13 +84,50 @@ export const wechatLogin = ({tokenData,userData, func})=>{
                 // scope : tokenData.scope,
             }
         })
-        if(e.errcode===0){
+        if(e){
+            if(e.code===0){
+                dispatch(userLogin({
+                    userInfoData: e.data,
+                    func
+                }))
+            }else {
+                Toast.warn(e.msg)
+            }
+        }else{
+            dispatch(wechatRegister({ tokenData, userData, func }))
+        }
+    }
+}
+
+export const wechatRegister = ({tokenData,userData, func})=>{
+    return async dispatch=>{
+        const e = await Fetch.fetch({
+            api: UserApi.register,
+            params: {
+                register_type: 'wechat_openid',
+                wechat_openid: userData.openid,
+                wechat: userData
+                // platform : 'wechat',
+                // openid : userData.openid,
+                // avatar : userData.headimgurl,
+                // nickname : userData.nickname,
+                // sex : userData.sex,
+                // unionid : userData.unionid,
+                // city : userData.city,
+                // province : userData.province,
+                // access_token : tokenData.access_token,
+                // expires_in : tokenData.expires_in,
+                // refresh_token : tokenData.refresh_token,
+                // scope : tokenData.scope,
+            }
+        })
+        if(e.code===0){
             dispatch(userLogin({
                 userInfoData: e.data,
                 func
             }))
         }else {
-            Toast.warn(e.errmsg)
+            Toast.warn(e.msg)
         }
     }
 }
@@ -92,7 +149,6 @@ export const wechatShare = async ({ type, params }) => {
     }
     if (func) {
         const e = await func(params)
-        // console.log(e);
         if (parseInt(e.errCode) === 0) {
             Toast.info('分享成功');
         } else {
@@ -105,20 +161,22 @@ export const wechatShare = async ({ type, params }) => {
 export const wechatBind=({tokenData,userData})=>{
     return async dispatch=>{
         const e = await Fetch.fetch({
-            apiName: 'USERACCOUNTBINDOPENUSER',
+            api: UserApi.bindWechat,
             params: {
-                platform : 'wechat',
-                openid : userData.openid,
-                avatar : userData.headimgurl,
-                nickname : userData.nickname,
-                sex : userData.sex,
-                unionid : userData.unionid,
-                city : userData.city,
-                province : userData.province,
-                access_token : tokenData.access_token,
-                expires_in : tokenData.expires_in,
-                refresh_token : tokenData.refresh_token,
-                scope : tokenData.scope,
+                wechat_openid: userData.openid,
+                wechat: userData
+                // platform : 'wechat',
+                // openid : userData.openid,
+                // avatar : userData.headimgurl,
+                // nickname : userData.nickname,
+                // sex : userData.sex,
+                // unionid : userData.unionid,
+                // city : userData.city,
+                // province : userData.province,
+                // access_token : tokenData.access_token,
+                // expires_in : tokenData.expires_in,
+                // refresh_token : tokenData.refresh_token,
+                // scope : tokenData.scope,
             }
         })
         if(e.errcode===0){

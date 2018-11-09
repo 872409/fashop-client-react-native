@@ -203,18 +203,18 @@ const userLoginOutFunc = async({dispatch,userInfo})=>{
         avatar:userInfo.avatar,
     }))
     // dispatch(getUserPointsSigninfo())
-    const {
-        index,
-        routes
-    } = store.getState().navigation
-    const goBackAction = (()=>{
-        if(routes[index].routeName==='UserRegistered'){
-            // return NavigationActions.back({key:routes[1].key})
-        }else {
-            // return NavigationActions.back()
-        }
-    })()
-    dispatch(goBackAction)
+    // const {
+    //     index,
+    //     routes
+    // } = store.getState().navigation
+    // const goBackAction = (()=>{
+    //     if(routes[index].routeName==='UserRegistered'){
+    //         return NavigationActions.back({key:routes[1].key})
+    //     }else {
+    //         return NavigationActions.back()
+    //     }
+    // })()
+    // dispatch(goBackAction)
     // const imData = await Fetch.fetch({
     //     apiName: 'IMTOKEN'
     // })

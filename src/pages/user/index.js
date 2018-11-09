@@ -10,9 +10,19 @@ import { List } from "antd-mobile-rn";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
+import { connect } from "react-redux";
 
 const Item = List.Item
 
+@connect(
+    ({ app: { user: {
+        login,
+        userInfo,
+    }}}) => ({
+        login,
+        userInfo,
+    }),
+)
 export default class UserIndex extends Component {
     goOrderList(){
         this.props.navigation.navigate('OrderList')
@@ -32,16 +42,14 @@ export default class UserIndex extends Component {
     }
 
     top() {
-        const login = true
-        const nickname = "188****8223"
-        const avatar = ""
-        const { navigation } = this.props
+        const { login, userInfo, navigation } = this.props;
+        const { nickname, avatar } = userInfo || {}
         return (
             <TouchableOpacity
                 style={[PublicStyles.rowBetweenCenter, styles.topWarp]}
                 activeOpacity={.8}
                 onPress={() => {
-                    navigation.navigate("UserLogin")
+                    navigation.navigate(login ? "UserInfo" : "UserLogin")
                 }}
             >
                 <View style={PublicStyles.rowCenter}>
