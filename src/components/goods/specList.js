@@ -5,7 +5,6 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';

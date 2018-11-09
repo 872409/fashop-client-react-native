@@ -14,7 +14,7 @@ import { List, InputItem } from "antd-mobile-rn";
 import { modifyUserInfo, updateUserInfo } from "../../actions/user";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import { imagePicker } from '../../utils/imagePickerModule';
-import { ThemeButton } from "../../components/theme";
+import { Button } from "../../components/theme";
 import Avatar from "../../components/public/avatar";
 import { Fetch } from '../../utils';
 import { Toast } from '../../utils/publicFuncitonModule';
@@ -58,7 +58,7 @@ export default class UserInfo extends Component {
                             onClick={() => {
                                 imagePicker(
                                     (e) => {
-                                        if (e.errcode == 0) {
+                                        if (e.code == 0) {
                                             this.setState({
                                                 avatar: e.data.url
                                             })
@@ -130,7 +130,7 @@ export default class UserInfo extends Component {
                     </List>
                 </ScrollView>
                 <SafeAreaView>
-                    <ThemeButton
+                    <Button
                         type='primary'
                         disabled={
                             (avatar === userInfo.avatar) && (nickname === userInfo.nickname) && (name === userInfo.name) && (wechat_account === userInfo.wechat_account)
@@ -141,7 +141,7 @@ export default class UserInfo extends Component {
                         }}
                     >
                         保 存
-                    </ThemeButton>
+                    </Button>
                 </SafeAreaView>
             </View>
         )

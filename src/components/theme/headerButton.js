@@ -8,7 +8,7 @@ import{
 
 
 
-export default class HeaderButton extends Component{
+export default class ThemeHeaderButton extends Component{
     static propTypes = {
         buttonStyle : ViewPropTypes.style,
         onPress : PropTypes.func,

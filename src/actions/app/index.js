@@ -31,7 +31,7 @@ export const getAppBasisData = (e)=>{
         Fetch.fetch({apiName:'CONFIGLISTS'})
         .then(
             (e) => {
-                if(e.errcode===0){
+                if(e.code===0){
                     dispatch({
                         type : types.app.APP_BASIS_DATA,
                         data : e.data,
@@ -64,7 +64,7 @@ export const checkVersionUpdate = (e)=>{
                 version: AppVersion,
             }
         })
-        if(e.errcode===0){
+        if(e.code===0){
         	const showVersionUpdate = (()=>{
                 switch(e.data.update_state){
             		case 'required' :

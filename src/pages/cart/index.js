@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { windowWidth,windowHeight, PublicStyles } from "../../utils/publicStyleModule";
+import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
+import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
 import fa from "../../utils/fa"
+import { Button, SwipeAction } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";
-import * as cartModel from "../../actions/cart";
-import { ListView, ListEmptyView } from "../../utils/publicViewModule";
-import { CartApi } from "../../config/api/cart";
+import CartCheckbox from "../../components/cart/checkbox";
+import CartEmpty from "../../components/cart/empty";
+import CartModel from "../../models/cart";
+import CartLogic from "../../logics/cart";
 
-export default class Cart extends Component {
+const cartModel = new CartModel()
+const cartLogic = new CartLogic()
+export default class CartIndex extends Component {
     state = {
+        refreshing: true,
         cartListLoadedState: false,
         onLoaded: false,
         goodsId: null,
@@ -30,55 +35,166 @@ export default class Cart extends Component {
         allChecked: false,
         userInfo: null,
     }
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus',
+            async () => {
+                await this.initCartList()
+            }
+        );
+    }
 
-    async onRemove() {
+    renderInit() {
+        return this.renderCartList()
+    }
+
+    renderCartList() {
+        const { cartList } = this.state
+        return <View style={PublicStyles.ViewMax}>
+            {
+                Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
+                    <SwipeAction
+                        key={index}
+                        autoClose
+                        style={{ backgroundColor: 'transparent' }}
+                        right={[
+                            {
+                                text: '删除',
+                                onPress: () => this.delete(item.goods_sku_id),
+                                style: { backgroundColor: 'red', color: 'white' },
+                            },
+                        ]}
+                    >
+                        <CartItem
+                            key={index}
+                            title={item.goods_title}
+                            price={item.goods_price}
+                            spec={item.goods_spec_string}
+                            cover={item.goods_sku_img}
+                            checked={item.is_check === 1}
+                            number={item.goods_num}
+                            onCheckboxClick={(value) => {
+                                this.onChecked(item, value, index)
+                            }}
+                            onImageClick={() => {
+                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
+                            }}
+                            onTitleClick={() => {
+                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
+                            }}
+                        />
+                    </SwipeAction>
+                )) : <CartEmpty />
+            }
+        </View>
+    }
+
+    render() {
+        const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
+        return <View style={PublicStyles.ViewMax}>
+            <ScrollView
+                contentContainerStyle={{ flex: 1 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        colors={['#fff']}
+                        progressBackgroundColor={ThemeStyle.ThemeColor}
+                        tintColor={ThemeStyle.ThemeColor}
+                        titleColor={ThemeStyle.ThemeColor}
+                        title="加载中..."
+                        onRefresh={() => {
+                            this.initCartList()
+                        }}
+                    />
+                }
+                scrollEventThrottle={50}
+            >
+                {
+                    this.renderInit()
+                }
+            </ScrollView>
+            {cartList.length > 0 ? <View style={styles.footer}>
+                <View style={styles.footerLeft}>
+                    <View style={styles.footerAllAction}>
+                        <CartCheckbox
+                            checked={checkedGoodsSkuInfoIds.length === cartList.length}
+                            onClick={() => {
+                                this.onAllChecked()
+                            }}
+                        />
+                        <Text style={styles.footerAllActionText}>全选</Text>
+                    </View>
+                    <View
+                        style={styles.footerTotal}>
+                        <Text style={styles.footerTotalText}>合计：</Text>
+                        <Text style={styles.footerTotalPrice}>¥{total}</Text>
+                    </View>
+                </View>
+                <View style={styles.footerRight}>
+                    <Button
+                        style={{ borderRadius: 0 }}
+                        type={'warning'}
+                        size={'large'}
+                        activeStyle={false}
+                        onClick={() => {
+                            this.goOrderFill()
+                        }}><Text>去结算({totalNum}件)</Text>
+                    </Button>
+                </View>
+            </View> : null}
+        </View>
+    }
+
+    async delete(goods_sku_id) {
         await cartModel.del({
-            goods_sku_ids: this.state.removeCheckSkuIds
+            goods_sku_ids: [goods_sku_id]
         })
         await this.initCartList()
     }
 
-    onRemoveChecked(e) {
-        const id = e.currentTarget.dataset.goodsSkuId
-        let ids = this.state.removeCheckSkuIds
-        !fa.inArray(id, ids) ? ids.push(id) : ids = fa.remove(ids, id)
-        this.setState({
-            removeCheckSkuIds: ids
+    async onChecked(item, value, index) {
+        const result = await cartModel.check({
+            goods_sku_ids: [item.goods_sku_id],
+            is_check: item.is_check === 1 ? 0 : 1,
         })
+        if (result !== true) {
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        }
         this.initCartList()
     }
 
-    onAllRemoveChecked() {
-        let ids = this.state.removeCheckSkuIds
-        const allIds = this.state.cartList.map(function (item) {
-            return item.goods_sku_id
-        })
-        ids = allIds.length === ids.length ? [] : allIds
-        this.setState({
-            removeCheckSkuIds: ids
-        })
-        this.initCartList()
-    }
-
-    async onChecked(e) {
-        await cartModel.check({
-            goods_sku_ids: [e.currentTarget.dataset.goodsSkuId],
-            is_check: fa.inArray(this.state.cartList[e.currentTarget.dataset.index].goods_sku_id, this.state.checkedGoodsSkuInfoIds) ? 0 : 1,
-        })
-        this.initCartList()
+    async onStepperChange(item, number, index) {
+        const goods_sku_id = item.goods_sku_id
+        const result = await cartLogic.save(goods_sku_id, number)
+        if (result !== false) {
+            this.initCartList()
+        } else {
+            this.setState({})
+            fa.toast.show({
+                title: fa.code.parse(cartLogic.cartModel.getException().getCode())
+            })
+        }
     }
 
     async onAllChecked() {
-        const cartLength = this.state.cartList.length
-        const checkedLength = this.state.checkedGoodsSkuInfoIds.length
-        const goodsSkuIds = this.state.cartList.map(function (item) {
+        const { cartList, checkedGoodsSkuInfoIds } = this.state
+        const cartLength = cartList.length
+        const checkedLength = checkedGoodsSkuInfoIds.length
+        const goodsSkuIds = cartList.map(function (item) {
             return item.goods_sku_id
         })
 
-        await cartModel.check({
+        const result = await cartModel.check({
             goods_sku_ids: goodsSkuIds,
             is_check: cartLength === checkedLength ? 0 : 1,
         })
+        if (result !== true) {
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        }
         this.initCartList()
     }
 
@@ -106,115 +222,55 @@ export default class Cart extends Component {
             isSaveMode: !this.state.isSaveMode
         })
         this.initCartList()
-
     }
 
     goOrderFill() {
-        // wx.navigateTo({
-        //     url: '/pages/cart/orderFill/index?cart_ids=' + JSON.stringify(this.state.checkedCartIds)
-        // })
-    }
-
-    goGoodsDetail(e) {
-        // wx.navigateTo({
-        //     url: `/pages/goods/detail/index?id=${e.detail.goodsId}`
-        // })
-    }
-
-    async login() {
-        // const self = this
-        // const loginLogic = new LoginLogic({
-        //     success: function (result) {
-        //         if (result.code === 1) {
-        //             self.setState({
-        //                 userInfo: fa.cache.get('user_info')
-        //             })
-        //         }
-        //     }
-        // })
-        // await loginLogic.wechatLogin()
-        // this.init()
-    }
-
-    async onPullDownRefresh() {
-        await cartModel.list()
-        // wx.stopPullDownRefresh()
-    }
-
-    async inCartNumberChange(e) {
-        const goods_sku_id = this.state.cartList[e.detail.index].goods_sku_id
-        const number = e.detail.number
-
-        const cartLogic = new CartLogic()
-        const result = await cartLogic.save(goods_sku_id, number)
-        if (result !== false) {
-            this.initCartList()
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(cartLogic.cartModel.getException().getCode())
-            })
-        }
-    }
-
-    componentDidMount() {
-        this.initCartList()
-    }
-
-    async init() {
-        // const user_info = fa.cache.get('user_info')
-        // this.setState({
-        //     userInfo: user_info ? user_info : null,
-        //     onLoaded: true
-        // })
-        // if (fa.cache.get('user_info')) {
-        //     await this.initCartList()
-        // }
+        const {checkedCartIds} = this.state
+        this.props.navigation.navigate('CartOrderFill', { cart_ids: checkedCartIds })
     }
 
     async initCartList() {
-        // 计算金额
         let total = 0
         let totalNum = 0
         let checkedGoodsSkuInfoIds = []
         let checkedCartIds = []
         const result = await cartModel.list()
-        if (result.list) {
-
+        if (result === false) {
+            this.setState({
+                cartListLoadedState: false,
+                checkedCartIds: [],
+                checkedGoodsSkuInfoIds: [],
+                total: 0,
+                totalNum: 0,
+                cartList: [],
+                refreshing: false
+            })
+            fa.toast.show({
+                title: fa.code.parse(cartModel.getException().getCode())
+            })
+        } else {
             const cartList = result.list
             for (let i = 0; i < cartList.length; i++) {
-
                 cartList[i]['goods_spec_string'] = cartList[i].goods_spec.map(function (item) {
-                    return `${item.name}:${item.value_name}`
-                })
-
-                if (cartList[i].checked === true) {
+                    return item.id > 0 ? `${item.name}:${item.value_name}` : ''
+                }).join(',')
+                if (cartList[i].is_check === 1) {
                     checkedCartIds.push(cartList[i].id)
                     checkedGoodsSkuInfoIds.push(cartList[i].goods_sku_id)
-                    // todo 多个float相加有bug 暂时想不通
                     total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num
                     totalNum += cartList[i].goods_num
                 }
-                if (fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds)) {
-                    cartList[i]['remove_checked'] = true
-                } else {
-                    cartList[i]['remove_checked'] = false
-                }
-
+                cartList[i]['remove_checked'] = fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds);
             }
-
             total = total.toFixed(2)
-
             this.setState({
                 cartListLoadedState: true,
                 checkedCartIds,
                 checkedGoodsSkuInfoIds,
                 total,
                 totalNum,
-                cartList
-            })
-        } else {
-            fa.toast.show({
-                title: 'xxx'
+                cartList,
+                refreshing: false
             })
         }
 
@@ -242,12 +298,6 @@ export default class Cart extends Component {
                 title: fa.code.parse(goodsModel.getException().getCode())
             })
         }
-    }
-
-    onStepperChange(e) {
-        this.setState({
-            stepper: e.detail
-        })
     }
 
     async onGoodsSkuMatchSuccess(e) {
@@ -298,50 +348,9 @@ export default class Cart extends Component {
         }
     }
 
-    render() {
-        const { cartList } = this.state
-        return <View style={PublicStyles.ViewMax}>
-            <ListView
-                // ref={e => this.ListView = e}
-                keyExtractor={e => String(e.id)}
-                renderItem={({ item }) => (
-                    <CartItem
-                        title={item.goods_title}
-                        price={item.goods_price}
-                        spec={'0.5kg；长款；红色'}
-                        cover={item.goods_sku_img}
-                        checked={!!item.is_check}
-                        number={item.goods_num}
-                        onCheckboxClick={(e) => {
-                            this.initCartList()
-                            console.warn(e)
-                        }}
-                        onStepperChange={(e) => {
-                            console.warn(e)
-                        }}
-                    />
-
-                )}
-                api={CartApi.list}
-                ListEmptyComponent={() => (
-                    <ListEmptyView
-                        height={windowHeight - 80}
-                        uri={require('../../images/fetchStatus/nullData.png')}
-                        desc='暂时没有相关信息'
-                    />
-                )}
-                getNativeData={(e) => {
-                    console.log(e);
-                }}
-            />
-        </View>
-    }
 }
 // 占位图，登陆提示
 const styles = StyleSheet.create({
-    page: {
-        // width:windowWidth
-    },
     cartCardItem: {
         flexDirection: 'row',
         padding: 15,
@@ -410,5 +419,43 @@ const styles = StyleSheet.create({
     },
     cartCardStepper: {
         width: 100
-    }
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 48,
+        backgroundColor: '#FFF'
+    },
+    footerLeft: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 15,
+    },
+    footerAllAction: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    footerAllActionText: {
+        marginRight: 20,
+        marginLeft: 5,
+        fontSize: 14,
+        color: '#333',
+    },
+    footerTotal: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    footerTotalText: {
+        fontSize: 12,
+        color: '#999',
+    },
+    footerTotalPrice: {
+        fontSize: 14,
+        color: ThemeStyle.ThemeColor,
+        fontWeight: '800'
+    },
 })

@@ -31,7 +31,7 @@ class UserFindPassword extends Component{
 		} = this.props;
 		return(
 			<KeyboardAvoidingView style={[PublicStyles.ViewMax,{backgroundColor:'#fff'}]} behavior={'padding'}>
-				<View style={styles.view1}>
+				<View style={styles.View1}>
 					<Image
 						source = {require('../../images/user7.png')}
 						style = {styles.image1}
@@ -43,7 +43,7 @@ class UserFindPassword extends Component{
 						underlineColorAndroid={'transparent'}
 					/>
 				</View>
-				<View style={styles.view1}>
+				<View style={styles.View1}>
 					<Image
 						source = {require('../../images/user8.png')}
 						style = {styles.image1}
@@ -62,7 +62,7 @@ class UserFindPassword extends Component{
 							}
 						}}
 						getData = {(e)=>{
-							if(e.errcode==0){
+							if(e.code==0){
 								Toast.info('验证码已发送')
 							}else {
 								Toast.warn(e.errmsg)
@@ -70,7 +70,7 @@ class UserFindPassword extends Component{
 						}}
 					/>
 				</View>
-				<View style={styles.view1}>
+				<View style={styles.View1}>
 					<Image
 						source = {require('../../images/user5.png')}
 						style = {styles.image1}
@@ -107,7 +107,7 @@ class UserFindPassword extends Component{
 								password : this.state.password,
 							}
 						})
-						if(e.errcode===0){
+						if(e.code===0){
 							Toast.info('找回密码成功，请重新登录')
 							navigation.goBack()
 						}else {
@@ -125,13 +125,13 @@ class UserFindPassword extends Component{
 }
 
 const styles = StyleSheet.create({
-	topviewcss:{
+	topViewcss:{
 		marginTop:40,
 		marginLeft:15,
 		marginRight:15,
 		marginBottom: 60,
 	},
-	topviewtext:{
+	topViewtext:{
 		fontSize:20,
 		fontWeight: 'bold',
 	},
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
 		color : '#333',
 		height:45,
 	},
-	view1:{
+	View1:{
 		marginHorizontal:15,
 		paddingLeft:15,
 		borderBottomWidth:1,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 		width:15,
 		marginRight:15,
 	},
-	view2:{
+	View2:{
 		flexDirection:'row',
 		alignItems:'center',
 		justifyContent:'center',

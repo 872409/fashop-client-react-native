@@ -1,34 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
 import { createStackNavigator } from "react-navigation";
 import { ThemeStyle } from "../utils/publicStyleModule";
-import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
-// public
 import IndexView from "../pages/index";
 
-
-// home
-
-
-// category
 import GoodsDetail from "../pages/category/goodsDetail";
 import OrderAction from "../pages/category/orderAction";
 
-// shopCart
-
-
-// user
 import UserLogin from "../pages/user/login";
 import UserRegister from "../pages/user/register";
+import UserAddressAdd from "../pages/user/address/add";
+import UserAddressEdit from "../pages/user/address/edit";
+import UserAddressList from "../pages/user/address/list";
 
+import CartOrderFill from "../pages/cart/orderFill";
 
-// CardStackStyleInterpolator.forVertical
+import OrderList from "../pages/order/list";
+import OrderDetail from "../pages/order/detail";
+
+import RefundDetail from "../pages/refund/detail";
+import RefundList from "../pages/refund/detail";
+import RefundLogisticsFill from "../pages/refund/logisticsFill";
+import RefundServiceApply from "../pages/refund/serviceApply";
+import RefundServiceType from "../pages/refund/serviceType";
+
+import AddressAdd from "../pages/address/add";
+import AddressEdit from "../pages/address/edit";
+import AddressList from "../pages/address/list";
+
+import EvaluateAdd from "../pages/evaluate/add"
+import EvaluateAdditional from "../pages/evaluate/additional"
+import EvaluateDetail from "../pages/evaluate/detail"
+import EvaluateList from "../pages/evaluate/list"
+// StackViewStyleInterpolator.forVertical
 const modalStyleStackNames = [
     // 'UserLogin',
 ]
 
 
-const indexNavigationOptions = ({ navigation})=>({
+const indexNavigationOptions = ({ navigation }) => ({
     'Home': {
         header: null,
         // title:'首页',
@@ -48,9 +59,8 @@ export default createStackNavigator(
     {
         IndexView: {
             screen: IndexView,
-            navigationOptions:({ navigation }) => {
-                const options = indexNavigationOptions({navigation})[navigation.state.routes[navigation.state.index].routeName]
-                return options
+            navigationOptions: ({ navigation }) => {
+                return indexNavigationOptions({ navigation })[navigation.state.routes[navigation.state.index].routeName]
             }
         },
         // category
@@ -79,16 +89,130 @@ export default createStackNavigator(
                 title: '注册'
             }
         },
-    }, {
-        navigationOptions: ({ navigation })=>({
-            headerTintColor: ThemeStyle.ThemeColor,
+        UserAddressAdd: {
+            screen: UserAddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        UserAddressEdit: {
+            screen: UserAddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        UserAddressList: {
+            screen: UserAddressList,
+            navigationOptions: {
+                title: '收货地址列表'
+            }
+        },
+        // cart
+        CartOrderFill: {
+            screen: CartOrderFill,
+            navigationOptions: {
+                title: '提交订单'
+            }
+        },
+        // order
+        OrderList: {
+            screen: OrderList,
+            navigationOptions: {
+                title: '订单列表'
+            }
+        },
+        OrderDetail: {
+            screen: OrderDetail,
+            navigationOptions: {
+                title: '订单详情'
+            }
+        },
+        // refund
+        RefundDetail: {
+            screen: RefundDetail,
+            navigationOptions: {
+                title: '退款详情'
+            }
+        },
+        RefundList: {
+            screen: RefundList,
+            navigationOptions: {
+                title: '退款列表'
+            }
+        },
+        RefundLogisticsFill: {
+            screen: RefundLogisticsFill,
+            navigationOptions: {
+                title: '填写退款物流信息'
+            }
+        },
+        RefundServiceApply: {
+            screen: RefundServiceApply,
+            navigationOptions: {
+                title: '退款申请'
+            }
+        },
+        RefundServiceType: {
+            screen: RefundServiceType,
+            navigationOptions: {
+                title: '选择售后服务类型'
+            }
+        },
+        // address
+        AddressAdd: {
+            screen: AddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        AddressEdit: {
+            screen: AddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        AddressList: {
+            screen: AddressList,
+            navigationOptions: {
+                title: '收货地址列表'
+            }
+        },
+        // evaluate
+        EvaluateAdd: {
+            screen: EvaluateAdd,
+            navigationOptions: {
+                title: '评价'
+            }
+        },
+        EvaluateAdditional: {
+            screen: EvaluateAdditional,
+            navigationOptions: {
+                title: '追加评价'
+            }
+        },
+        EvaluateDetail: {
+            screen: EvaluateDetail,
+            navigationOptions: {
+                title: '评价详情'
+            }
+        },
+        EvaluateList: {
+            screen: EvaluateList,
+            navigationOptions: {
+                title: '评价列表'
+            }
+        },
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            // headerTintColor: ThemeStyle.ThemeColor,
             headerBackTitle: null,
-            gesturesEnabled : true,
-            headerStyle : {
+            gesturesEnabled: true,
+            headerStyle: {
                 backgroundColor: "#fff",
                 elevation: 0,//去掉安卓阴影
-                borderBottomWidth:0.5,
-                borderBottomColor:'#dcdcdc',
+                borderBottomWidth: 0.5,
+                borderBottomColor: '#dcdcdc',
             },
             headerTintColor: '#000',
         }),
@@ -102,14 +226,14 @@ export default createStackNavigator(
         //         headerMode: 'screen',
         //     },
         // }),
-        transitionConfig:(e) => ({
+        transitionConfig: (e) => ({
             screenInterpolator: (sceneProps) => {
                 const { scene } = sceneProps;
                 const { route } = scene;
-                if(modalStyleStackNames.includes(route.routeName)){
-                    return CardStackStyleInterpolator.forVertical(sceneProps);
+                if (modalStyleStackNames.includes(route.routeName)) {
+                    return StackViewStyleInterpolator.forVertical(sceneProps);
                 }
-                return CardStackStyleInterpolator.forHorizontal(sceneProps);
+                return StackViewStyleInterpolator.forHorizontal(sceneProps);
             }
         })
     }

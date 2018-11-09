@@ -11,7 +11,7 @@ import {
 import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
 import { stateHoc } from "../../utils";
-// import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+// import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
 import { Carousel, Modal } from 'antd-mobile-rn'
 import {
@@ -24,7 +24,7 @@ import {
 import SpecList from '../../components/goods/specList'
 
 @connect(({
-    view: {
+    View: {
         category: {
             goodsDetailData,
             goodsDetailFetchStatus,
@@ -37,7 +37,7 @@ import SpecList from '../../components/goods/specList'
 @stateHoc({
     detail: true,
 })
-export default class Index extends Component {
+export default class CategoryDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,

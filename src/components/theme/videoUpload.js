@@ -17,7 +17,7 @@ import ImagePicker from "react-native-image-picker";
 // import axios from "axios";
 import * as Progress from "react-native-progress";
 
-export default class VideoUpload extends Component {
+export default class ThemeVideoUpload extends Component {
     static defaultProps = {
         text: '上传视频',
     }
@@ -34,9 +34,9 @@ export default class VideoUpload extends Component {
         const { video, videoLoading, videoUri, images, video_cover, progressNumber } = this.state;
         const { text } = this.props
         return (
-            <View style={styles.view3}>
+            <View style={styles.View3}>
                 {
-                    videoLoading ? <View style={styles.view6}>
+                    videoLoading ? <View style={styles.View6}>
                         <Text style={{ color: '#333', fontSize: 14, marginBottom: 10, }}>上传进度：{progressNumber}%</Text>
                         <Progress.Bar progress={progressNumber / 100} width={300} color={ThemeStyle.ThemeColor} />
                     </View> :
@@ -137,7 +137,7 @@ export default class VideoUpload extends Component {
             //     },
             // })
             // console.log(e);
-            // if(e.errcode===0){
+            // if(e.code===0){
             //     this.props.onChange(e.data.url)
             //     this.setState({
             //         video: e.data.url,
@@ -156,7 +156,7 @@ export default class VideoUpload extends Component {
 }
 
 const styles = StyleSheet.create({
-    view3: {
+    View3: {
         alignItems: 'center',
     },
     button1: {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         borderStyle: 'dashed',
         borderColor: '#EEEEEE',
     },
-    view6: {
+    View6: {
         height: windowWidth/2,
         width: windowWidth,
         justifyContent: 'center',

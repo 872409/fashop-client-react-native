@@ -12,7 +12,7 @@ import {
 	PublicStyles, ThemeStyle,
 } from '../../utils/publicStyleModule';
 import { InputItem } from 'antd-mobile-rn';
-import { ThemeButton } from "../../components/theme";
+import { Button } from "../../components/theme";
 import { Toast } from "../../utils/publicFuncitonModule";
 import { CountdownButton } from "../../utils/PublicViewModule";
 import { changePhone } from '../../actions/user/helpCenter'
@@ -28,7 +28,7 @@ import { changePhone } from '../../actions/user/helpCenter'
 	}
 )
 
-export default class ChangePhone extends Component {
+export default class UserChangePhone extends Component {
 	state = {
 		stepOne: true,
 		old_smscode: null,
@@ -57,7 +57,7 @@ export default class ChangePhone extends Component {
 									<CountdownButton
 										api={'SENDOLDPHONESMS'}
 										getData={(e) => {
-											if (e.errcode == 0) {
+											if (e.code == 0) {
 												Toast.info('验证码已发送')
 											} else {
 												Toast.warn(e.errmsg)
@@ -96,7 +96,7 @@ export default class ChangePhone extends Component {
 											}
 										}}
 										getData={(e) => {
-											if (e.errcode == 0) {
+											if (e.code == 0) {
 												Toast.info('验证码已发送')
 											} else {
 												Toast.warn(e.errmsg)
@@ -124,7 +124,7 @@ export default class ChangePhone extends Component {
                         </InputItem>
 						</View>
 				}
-				<ThemeButton
+				<Button
 					type='primary'
 					style={{
 						marginBottom: 15,
@@ -145,7 +145,7 @@ export default class ChangePhone extends Component {
 					{
 						stepOne ? "下一步" : "确认更换"
 					}
-				</ThemeButton>
+				</Button>
 			</SafeAreaView>
 		)
 	}
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 	},
 	nowPhone: {
-		color: 14,
 		color: "#333333",
 		marginVertical: 10,
 	},

@@ -21,7 +21,7 @@ import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
 
 const Item = List.Item;
 
-export default class HelpCenter extends Component{
+export default class UserHelpCenter extends Component{
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.title,
     });

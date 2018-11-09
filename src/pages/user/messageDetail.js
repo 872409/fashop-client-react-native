@@ -10,7 +10,7 @@ import MessageItem from '../../components/public/messageItem';
 import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
 import { PublicStyles, windowWidth, windowHeight } from '../../utils/publicStyleModule'
 
-export default class messagDtail extends Component{
+export default class UserMessageDetail extends Component{
     render(){
         const { navigation } = this.props;
         const { type_id } = navigation.state.params

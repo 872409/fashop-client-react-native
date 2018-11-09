@@ -25,7 +25,7 @@ import Fetch from "../../utils/fetch";
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ThemeButton } from '../../components/theme'
+import { Button } from '../../components/theme'
 
 // @connect(({ app: { wechat: {
 // 	isWXAppInstalled,
@@ -57,7 +57,7 @@ export default class UserLogin extends Component {
 								style={styles.logo}
 							/>
 						</View>
-						<View style={styles.view1}>
+						<View style={styles.View1}>
 							<TextInput
 								style={styles.textInput1}
 								placeholder={'手机号或账号'}
@@ -68,7 +68,7 @@ export default class UserLogin extends Component {
 								placeholderTextColor={'#CCCCCC'}
 							/>
 						</View>
-						<View style={styles.view1}>
+						<View style={styles.View1}>
 							<TextInput
 								style={styles.textInput1}
 								placeholder={'密码'}
@@ -94,7 +94,7 @@ export default class UserLogin extends Component {
 								账号注册
 							</Text>
 						</View>
-						<ThemeButton
+						<Button
 							onClick={() => {
 								Keyboard.dismiss()
 								this.login()
@@ -102,11 +102,11 @@ export default class UserLogin extends Component {
 							type='primary'
 						>
 							登 录
-						</ThemeButton>
+						</Button>
 						{/* {
 							isWXAppInstalled && (
 								<View>
-									<View style={styles.view3}>
+									<View style={styles.View3}>
 										<Text style={styles.text3}>快捷登录</Text>
 									</View>
 									<View style={styles.View4}>
@@ -180,7 +180,7 @@ export default class UserLogin extends Component {
 			api: UserApi.login,
 			params
 		})
-		if (e.errcode === 0) {
+		if (e.code === 0) {
 			const {
 				dispatch
 			} = this.props;
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 		height: 45,
 		paddingLeft: 15,
 	},
-	view1: {
+	View1: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 15,
@@ -214,11 +214,11 @@ const styles = StyleSheet.create({
 		color: '#000000',
 		fontWeight: 'bold',
 	},
-	view2: {
+	View2: {
 		justifyContent: 'center',
 		marginTop: 40,
 	},
-	view3: {
+	View3: {
 		alignItems: 'center',
 		marginTop: 30,
 	},

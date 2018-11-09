@@ -292,7 +292,7 @@ export class SwiperTab extends Component {
                     activeDot={this.state.activeDot ? this.state.activeDot : <View style={styles.activeDot} />}
                     dot={this.state.dot}
                     loop={false}
-                    removeClippedSubviews={false}
+                    removeClippedSubViews={false}
                 >
                     {
                         (() => {
@@ -477,7 +477,7 @@ export class CountdownButton extends Component {
                         api,
                         params,
                     })
-                    if (e.errcode === 0) {
+                    if (e.code === 0) {
                         this.intervalFunc()
                     } else {
                         Toast.warn(e.errmsg)
@@ -701,7 +701,7 @@ export class StatusBarComponent extends Component {
 
 
 /**
- * listview_empty_View
+ * listView_empty_View
  */
 export class ListEmptyView extends Component {
     static propTypes = {

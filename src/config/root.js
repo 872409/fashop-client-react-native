@@ -96,6 +96,7 @@ const productionConfig =  {
     defaultUploadNetWorkErrorInfo : true,
 
     dev : __DEV__,
+// todo
 
     //mock域名
     mockDomain: 'http://dsn.apizza.cc/mock/97d7f675b749b610052dadfd986f8162',
@@ -125,7 +126,7 @@ const closeLogger = ()=>{
 const closeShowLogger = ()=>{
     console.disableYellowBox = true;
 }
-
+// todo
 env.showLog ? undefined : closeShowLogger()
 env.log ? undefined : closeLogger()
 

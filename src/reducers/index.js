@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
         wechat,
     }),
     // navigation,
-    view: combineReducers({
+    View: combineReducers({
         home,
         category,
         address,

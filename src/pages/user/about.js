@@ -23,7 +23,7 @@ import {
 
 const Item = List.Item;
 
-class AboutUs extends Component{
+class UserAbout extends Component{
     render(){
         const { data, navigation } = this.props
         const aboutList = [

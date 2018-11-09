@@ -5,9 +5,8 @@ import {
     ScrollView,
     Text
 } from 'react-native';
-import { windowWidth } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class BodySeparator extends Component {
     render() {
         const { options } = this.props.data;
         const { color, style } = options
@@ -15,7 +14,7 @@ export default class Index extends Component {
             style={[styles.line,{
                 borderBottomWidth: 1,
                 borderBottomColor: color,
-                borderBottomStyle: style,
+                borderStyle: style,
             }]}
         />
     }

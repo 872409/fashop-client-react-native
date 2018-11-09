@@ -6,7 +6,7 @@ import {
     Text
 } from 'react-native';
 
-export default class Index extends Component {
+export default class BodyText extends Component {
     render() {
         const { content } = this.props
         return <Text style={styles.content}>{content}</Text>;

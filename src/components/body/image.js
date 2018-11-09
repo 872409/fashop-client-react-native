@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
-export default class Index extends Component {
+export default class BodyImage extends Component {
     render() {
         const { url } = this.props
         return <Image

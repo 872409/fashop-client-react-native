@@ -60,6 +60,7 @@ initLibraryConfig({
         const {
             userInfo
         } = user
+        // todo
         // const {
         //     cityId,
         //     longitude,
@@ -68,7 +69,7 @@ initLibraryConfig({
         const header = {
             'User-Id': "563",
             // 'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNTMwIiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDA3NDE5MTIsImV4cCI6MTU0MTM0NjcxMn0.3VyGsPU3U-TZDsC7xBQzVbyK6n5I1tsE9BqKaEmpCJM",
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNjc4IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDE1MTY4OTEsImV4cCI6MTU0MjEyMTY5MX0.K7dXfExAaYevmlBuSjnkkTdqxSL54yLWTvRaQTBh_fI",
             // 'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,

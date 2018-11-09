@@ -7,7 +7,7 @@ import{
 } from 'react-native';
 import { Image as NewworkImage } from '../theme'
 
-export default class Avatar extends Component{
+export default class PublicAvatar extends Component{
     static propTypes = {
         avatar : PropTypes.string,
         size : PropTypes.number,
@@ -33,7 +33,7 @@ export default class Avatar extends Component{
             otherStyle
         } = this.props
         return (
-            <View 
+            <View
                 style={[
                     size ? {
                         width: size,

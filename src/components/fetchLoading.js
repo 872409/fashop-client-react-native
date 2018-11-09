@@ -28,7 +28,7 @@ class FetchLoading extends Component{
         }
         return (
             <View
-                style={styles.viewMax}
+                style={styles.ViewMax}
             >
                 <View style={styles.WaitingViewMax}>
                     <View style={styles.WaitingViewMain}>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         color:'#fff',
         marginTop:5,
     },
-    viewMax:{
+    ViewMax:{
         position:'absolute',
         top:0,
         bottom:0,

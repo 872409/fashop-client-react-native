@@ -1,11 +1,11 @@
-import ThemeButton from './themeButton'
+import Button from './button'
 import HeaderButton from './headerButton'
 import Image from './image'
 import ImagePicker from "./imagePicker";
 import VideoUpload from "./videoUpload";
 
 export {
-    ThemeButton,
+    Button,
     HeaderButton,
     Image,
     ImagePicker,

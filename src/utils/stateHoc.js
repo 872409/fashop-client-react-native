@@ -5,7 +5,7 @@ import {
     Error,
     NullData,
     Login,
-} from '../components/fetchView';
+} from '../components/fetch';
 
 const ThisModule = (params = {})=>{
     return stateHoc(Object.assign({},{

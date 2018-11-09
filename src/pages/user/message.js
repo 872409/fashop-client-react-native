@@ -11,12 +11,12 @@ import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
 import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule'
 import { Fetch } from '../../utils'
 import { Toast } from "../../utils/publicFuncitonModule";
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
 import MessageItem from "../../components/public/messageItem";
 
 const Item = List.Item;
 
-export default class MessageData extends Component{
+export default class UserMessage extends Component{
     render(){
         const { navigation } = this.props
         return(

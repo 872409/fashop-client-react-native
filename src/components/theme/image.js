@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Image } from 'react-native';
 import ProgressImage from 'react-native-image-progress';
 
-export default class LocaImage extends PureComponent {
+export default class ThemeImage extends PureComponent {
     render() {
         const {
             source,

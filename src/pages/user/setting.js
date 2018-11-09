@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Button, List } from 'antd-mobile-rn';
 import { userSignOut } from '../../actions/user';
-import { ThemeButton } from "../../components/theme";
+import { Button } from "../../components/theme";
 import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule'
 
 const Item = List.Item;
@@ -58,7 +58,7 @@ export default class UserSetting extends Component{
                         }
                     </List>
                 </View>
-                <ThemeButton
+                <Button
                     style={{
                         marginBottom: 15,
                         marginHorizontal: 15,
@@ -71,7 +71,7 @@ export default class UserSetting extends Component{
                     <Text style={{ color: '#FB3030' }}>
                         退出账号
                     </Text>
-                </ThemeButton>
+                </Button>
             </SafeAreaView>
         )
     }

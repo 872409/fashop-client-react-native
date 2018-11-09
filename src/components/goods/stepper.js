@@ -10,7 +10,7 @@ import {
 import { Toast } from "antd-mobile-rn";
 import { PublicStyles } from '../../utils/publicStyleModule';
 
-export default class Stepper extends Component{
+export default class GoodsStepper extends Component{
     state = {
         value: this.props.defaultValue ? this.props.defaultValue : 1,
     }

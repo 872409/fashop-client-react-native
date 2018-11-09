@@ -11,7 +11,7 @@ import { ThemeStyle } from '../../utils/publicStyleModule';
 import { Toast } from '../../utils/publicFuncitonModule';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default class ImagePickers extends Component {
+export default class ThemeImagePickers extends Component {
     static defaultProps = {
         type: 'user_avatar',
         onChange: ()=>{},
@@ -71,7 +71,7 @@ export default class ImagePickers extends Component {
                         style={styles.pickerView}
                         onPress={() => {
                             imagePicker((e) => {
-                                if (e.errcode == 0) {
+                                if (e.code == 0) {
                                     onChange({ images: [...images, e.data.url] })
                                     this.setState({
                                         images: [...images,e.data.url]

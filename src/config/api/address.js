@@ -10,7 +10,6 @@ export const AddressApi = {
     getDefault: {
         url: `${ROOT_URL}address/default`,
         method: 'GET',
-        needLogin: true
     },
     list: {
         url: `${ROOT_URL}address/list`,

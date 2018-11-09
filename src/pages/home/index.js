@@ -23,10 +23,10 @@ import {
     TopMenu,
     Title,
     TextNav,
-} from "../../components/home"
+} from "../../components/page"
 
 @connect(({
-    view: {
+    View: {
         home: {
             homeView,
             homeViewFetchStatus,
@@ -37,7 +37,7 @@ import {
     fetchStatus: homeViewFetchStatus,
 }))
 @stateHoc()
-export default class Home extends Component {
+export default class HomeIndex extends Component {
     hocComponentDidMount() {
         this.props.dispatch(getHomeView())
     }
