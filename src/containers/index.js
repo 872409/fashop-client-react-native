@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Navigator from './navigator';
 import { initUserInfoStorage } from "../actions/user";
+import { initWechat } from '../actions/app/wechat';
 import { NavigationActions } from 'react-navigation';
 // import { createNavigationPropConstructor } from 'react-navigation-redux-helpers';
 // import FetchLoading from '../components/FetchLoading';
@@ -22,6 +23,7 @@ class App extends Component {
             dispatch
         } = this.props
         // dispatch(initUserInfoStorage())
+        dispatch(initWechat())
     }
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);

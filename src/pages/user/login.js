@@ -23,15 +23,15 @@ import { env } from "../../config/root";
 import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-// import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
+import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
 
-// @connect(({ app: { wechat: {
-// 	isWXAppInstalled,
-// } } }) => ({
-// 	isWXAppInstalled,
-// }))
+@connect(({ app: { wechat: {
+	isWXAppInstalled,
+} } }) => ({
+	isWXAppInstalled,
+}))
 export default class UserLogin extends Component {
 	state = {
 		username: null,
@@ -44,20 +44,20 @@ export default class UserLogin extends Component {
 			dispatch,
 		} = this.props
 		return (
-			<View style={PublicStyles.ViewMax}>
+			<View style={PublicStyles.ViewOut}>
 				<KeyboardAwareScrollView>
 					<View
 						style={{
-							paddingHorizontal: 15,
+							paddingHorizontal: 30,
 						}}
 					>
 						<View style={styles.logoView}>
 							<Image
-								source={require('../../images/logo.png')}
+								source={require('../../images/logo2.png')}
 								style={styles.logo}
 							/>
 						</View>
-						<View style={styles.View1}>
+						<View style={styles.view1}>
 							<TextInput
 								style={styles.textInput1}
 								placeholder={'手机号或账号'}
@@ -68,7 +68,7 @@ export default class UserLogin extends Component {
 								placeholderTextColor={'#CCCCCC'}
 							/>
 						</View>
-						<View style={styles.View1}>
+						<View style={styles.view1}>
 							<TextInput
 								style={styles.textInput1}
 								placeholder={'密码'}
@@ -103,10 +103,10 @@ export default class UserLogin extends Component {
 						>
 							登 录
 						</Button>
-						{/* {
+						{
 							isWXAppInstalled && (
 								<View>
-									<View style={styles.View3}>
+									<View style={styles.view3}>
 										<Text style={styles.text3}>快捷登录</Text>
 									</View>
 									<View style={styles.View4}>
@@ -128,12 +128,15 @@ export default class UserLogin extends Component {
 												}
 											}}
 										>
-											<Image resizeMode ='contain' source={require('../../images/wei.png')} style={{width:20,height:20}}/>
+											<Image 
+												source={require('../../images/weixin.png')} 
+												style={{ width:25, height:25 }}
+											/>
 										</TouchableOpacity>
 									</View>
 								</View>
 							)
-						} */}
+						}
 					</View>
 				</KeyboardAwareScrollView>
 				<SafeAreaView>
@@ -201,24 +204,26 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#333',
 		height: 45,
-		paddingLeft: 15,
+		// paddingLeft: 15,
+		borderBottomWidth: 0.5,
+		borderBottomColor: '#eaeaea'
 	},
-	View1: {
+	view1: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 15,
-		backgroundColor: '#fff',
+		// backgroundColor: '#fff',
 	},
 	text1: {
 		fontSize: 20,
 		color: '#000000',
 		fontWeight: 'bold',
 	},
-	View2: {
+	view2: {
 		justifyContent: 'center',
 		marginTop: 40,
 	},
-	View3: {
+	view3: {
 		alignItems: 'center',
 		marginTop: 30,
 	},
@@ -229,11 +234,12 @@ const styles = StyleSheet.create({
 	logoView: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginVertical: 55,
+		marginBottom: 20,
+		marginTop: 46
 	},
 	logo: {
-		width: 100,
-		height: 100,
+		width: 129,
+		height: 43,
 	},
 	criclecss: {
 		width: 60, height: 60, backgroundColor: '#F4F4F4', borderRadius: 30,
