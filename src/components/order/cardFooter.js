@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 export default class OrderCardFooter extends Component {
     static propTypes = {
         goodsNumber: PropTypes.number,
-        totalCost: PropTypes.number,
+        totalCost: PropTypes.string,
         showEvaluateBtn: PropTypes.bool,
         showPayBtn: PropTypes.bool,
         showReceiveBtn: PropTypes.bool,

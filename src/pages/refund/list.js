@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
-    ScrollView,
-    Text,
-    Image
+    View
 } from 'react-native';
-import { List } from 'antd-mobile-rn';
 import { RefundCard } from '../../components'
 
 import RefundModel from '../../models/refund'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
-import { windowHeight } from "../../utils/publicStyleModule";
+import { PublicStyles, windowHeight } from "../../utils/publicStyleModule";
 import { RefundApi } from "../../config/api/refund";
 
-const Item = List.Item
 const refundModel = new RefundModel()
 export default class RefundList extends Component {
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus', async () => {
-
             }
         );
     }
@@ -49,11 +43,21 @@ export default class RefundList extends Component {
     }
 
     render() {
-        return <List>
+        return <View style={[PublicStyles.ViewMax]}>
             <ListView
+                ref={e => this.ListView = e}
+                keyExtractor={e => String(e.id)}
                 api={RefundApi.list}
-                renderItem={item => (
-                    <Item><RefundCard refundInfo={item} onClick={() => this.onDetail(item.id)} /></Item>
+                renderItem={({ item }) => (
+                    <View style={{marginBottom: 8}}>
+                        <RefundCard
+                            refundInfo={item}
+                            onClick={
+                                () => {
+                                    this.onDetail(item.id)
+                                }}
+                        />
+                    </View>
                 )}
                 ListEmptyComponent={() => (
                     <ListEmptyView
@@ -64,8 +68,7 @@ export default class RefundList extends Component {
                 )}
             >
             </ListView>
-        </List>
+        </View>
     }
 }
-const styles = StyleSheet.create({
-})
+const styles = StyleSheet.create({})

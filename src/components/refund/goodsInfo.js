@@ -26,16 +26,20 @@ export default class RefundGoodsInfo extends Component {
             refundInfo,
         } = this.props
         return <View style={styles.refundGoodsInfo}>
-            <View style={styles.header}>退款信息</View>
+            <View style={styles.header}><Text>退款信息</Text></View>
             <View style={styles.body}>
-                <View style={styles.item} onPress={this.onGoods()}>
+                <View style={styles.item} onPress={()=>{
+                    this.onGoods()
+                }}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'contain'} style={{width: 60,
-                                height: 60}} />
+                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'contain'} style={{
+                                width: 60,
+                                height: 60
+                            }} />
                         </View>
-                        <View style={styles.body}>
-                            <Text>{refundInfo.goods_title}</Text>
+                        <View style={styles.bbody}>
+                            <Text style={styles.bbodyText}>{refundInfo.goods_title}</Text>
                             <View style={styles.end}>
                                 <Text style={styles.spec}>{refundInfo.goods_spec_string}</Text>
                                 <Text style={styles.number}>x {refundInfo.goods_num}</Text>
@@ -48,48 +52,55 @@ export default class RefundGoodsInfo extends Component {
     }
 }
 const styles = StyleSheet.create({
-    refundGoodsInfo: {},
+    refundGoodsInfo: {
+        backgroundColor:'#ffffff'
+    },
     header: {
         fontSize: 14,
         fontWeight: "800",
-        padding: "15px 15px 0 15px"
+        paddingTop: 15,
+        paddingLeft:15,
+        paddingRight:15
     },
     item: {
         padding: 15,
-        borderBottomWidth:1,
-        borderStyle:"solid",
-        borderBottomColor:"#F8F8F8",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
     content: {
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        flexDirection: 'row'
     },
     image: {
         width: 60,
         height: 60,
         marginRight: 10
     },
+    body:{
 
-    body: {
+    },
+    bbody: {
         flex:1
     },
-    text: {
-        fontSize: 12,
+    bbodyText:{
+        fontSize:12,
         color: "#333",
-        lineHeight: 18,
     },
     end: {
         justifyContent: "space-between",
         marginTop: 5,
         fontSize: 12,
         color: "#999999",
-        lineHeight: 12,
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: 'row'
     },
     spec: {
         color: "#999999",
+        fontSize:12,
     },
     number: {
-
+        fontSize:12,
     },
     footer: {
         justifyContent: "flex-end"

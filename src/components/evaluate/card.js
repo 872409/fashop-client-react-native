@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 import { OrderButton } from '../../components'
@@ -44,16 +45,25 @@ export default class EvaluateCard extends Component {
         const { goodsInfo } = this.props
 
         return <View style={styles.evaluateGoodsCard}>
-            <View>
                 <View style={styles.item}>
                     <View style={styles.content}>
-                        <View style={styles.image} onPress={this.onGoods()}>
+                        <TouchableOpacity style={styles.image} onPress={()=>{
+                            this.onGoods()
+                        }}>
                             <Image source={{
                                 uri: goodsInfo.goods_img
-                            }} resizeMode={'contain'} />
-                        </View>
+                            }} resizeMode={'contain'}
+                                   style={{
+                                       width:80,
+                                       height:80
+                                   }}
+                            />
+                        </TouchableOpacity>
                         <View style={styles.body}>
-                            <Text onPress={this.onGoods()} style={styles.text}>{goodsInfo.goods_title}</Text>
+                           <TouchableOpacity onPress={()=>{
+                               this.onGoods()
+                           }}><Text style={styles.text}>{goodsInfo.goods_title}</Text>
+                           </TouchableOpacity>
                             <View style={styles.buttonArea}>
                                 {goodsInfo.evaluate_state > 0 ? <OrderButton
                                     text="查看评价"
@@ -82,7 +92,6 @@ export default class EvaluateCard extends Component {
                         </View>
                     </View>
                 </View>
-            </View>
         </View>
     }
 }
@@ -97,14 +106,17 @@ const styles = StyleSheet.create({
         padding: 15
     },
     content: {
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        flexDirection: 'row'
     },
     image: {
         width: 80,
         height: 80,
         marginRight: 10
     },
-    body: {},
+    body: {
+        flex:1
+    },
     text: {
         fontSize: 14,
         color: "#333",
@@ -112,11 +124,12 @@ const styles = StyleSheet.create({
 
     },
     footer: {
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     },
     buttonArea: {
-        position: "absolute",
-        bottom: 15,
-        right: 15
+        justifyContent: "flex-end",
+        flexDirection: 'row',
+        marginTop: 15
     }
 })

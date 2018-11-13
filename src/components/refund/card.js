@@ -3,10 +3,11 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { RefoundGoodsCard } from '../../components'
+import { RefundGoodsCard,OrderButton,StaticCountdown } from '../../components'
 
 export default class RefundCard extends Component {
     static propTypes = {
@@ -27,20 +28,19 @@ export default class RefundCard extends Component {
         // 申请类型:1为仅退款,2为退货退款,默认为1
         const { refundInfo } = this.props
         return <View style={styles.refundCard}>
-            <View style={styles.header} onClick={() => {
+            <TouchableOpacity style={styles.header} onPress={() => {
                 this.onClick()
             }}>
-                <RefoundGoodsCard
+                <RefundGoodsCard
                     goodsTitle={refundInfo.goods_title}
                     goodsImg={refundInfo.goods_img}
                     goodsSpec={refundInfo.goods_spec_string}
                     goodsNum={refundInfo.goods_num}
                 />
-            </View>
-            <View style={styles.body} onClick={() => {
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.body} onPress={() => {
                 this.onClick()
             }}>
-
                 <View style={styles.icon}>
                     {
                         refundInfo.handle_state === 30 || refundInfo.handle_state === 51 ?
@@ -67,7 +67,7 @@ export default class RefundCard extends Component {
                     <Text>退款待处理 还剩</Text>
                     <StaticCountdown countdown={refundInfo.handle_expiry_seconds} format="dd天hh时mm分" />
                 </View> : null}
-            </View>
+            </TouchableOpacity>
             <View style={styles.footer}>
                 <OrderButton text="查看详情" onClick={() => {
                     this.onClick()
@@ -83,20 +83,23 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
+    header:{},
     body: {
         padding: 15,
         fontSize: 14,
         color: "#333333",
-        lineHeight: 14,
-        height: 14,
         borderBottomWidth: 1,
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
+        flexDirection: 'row',
+        backgroundColor: '#ffffff'
     },
     icon: {
         backgroundColor: "#ff8855",
         color: "#FFFFFF",
-        marginRight: 5
+        marginRight: 5,
+        width: 14,
+        height: 14,
     },
     iconImage: {
         width: 14,
@@ -107,8 +110,10 @@ const styles = StyleSheet.create({
     },
     bodyLabel: {},
     footer: {
+        backgroundColor: '#ffffff',
         paddingVertical: 10,
         paddingHorizontal: 15,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     }
 })

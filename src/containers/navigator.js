@@ -20,7 +20,7 @@ import OrderList from "../pages/order/list";
 import OrderDetail from "../pages/order/detail";
 
 import RefundDetail from "../pages/refund/detail";
-import RefundList from "../pages/refund/detail";
+import RefundList from "../pages/refund/list";
 import RefundLogisticsFill from "../pages/refund/logisticsFill";
 import RefundServiceApply from "../pages/refund/serviceApply";
 import RefundServiceType from "../pages/refund/serviceType";

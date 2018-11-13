@@ -40,7 +40,7 @@ export default class OrderStateCard extends Component {
             {orderState === 40 ? <View>
                 <View style={styles.noticebar}>
                     <Image style={styles.noticebarImage} source={require('../../images/order/horn.png')}
-                           resizeMode="widthFix" />
+                           resizeMode="contain" />
                     <Text style={styles.noticebarText}>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
                 </View>
             </View> : null}

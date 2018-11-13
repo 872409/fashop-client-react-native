@@ -5,7 +5,7 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { RefundStateSteps } from '../../components'
+import { RefundStateSteps,OrderButton } from '../../components'
 
 export default class RefundStateReason extends Component {
     static propTypes = {
@@ -70,7 +70,7 @@ export default class RefundStateReason extends Component {
             {refundInfo.handle_state === 30 ? <View>
                 <View style={styles.success}>
                     <View style={styles.info}>
-                        <View style={styles.item}>
+                        <View style={[styles.item,{marginBottom: 10}]}>
                             <Text style={styles.label}>退款总金额</Text>
                             <Text style={styles.text}>¥{refundInfo.refund_amount}</Text>
                         </View>
@@ -93,17 +93,20 @@ export default class RefundStateReason extends Component {
     }
 }
 const styles = StyleSheet.create({
-    orderStateReason: {},
+    orderStateReason: {
+
+    },
     header: {
         borderBottomWidth: 1,
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
-        paddingVertical: 5,
-        paddingHorizontal: 15
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#FFFFFF',
     },
     state: {
         fontSize: 14,
-        color: "#333333"
+        color: "#333333",
     },
     body: {
         fontSize: 12,
@@ -128,7 +131,8 @@ const styles = StyleSheet.create({
         fontWeight: "800"
     },
     success: {
-        padding: 15
+        padding: 15,
+        backgroundColor:'#ffffff',
     },
     info: {
         paddingBottom: 15,
@@ -140,17 +144,19 @@ const styles = StyleSheet.create({
     name: {},
     stateSteps: {
         backgroundColor: "#FFFFFF",
-        padding: 15,
-
-
+        paddingVertical: 15,
     },
     item: {
-        color: "#333333",
-        fontSize: 14
+        flexDirection: 'row',
     },
     label: {
         fontWeight: "800",
-        marginRight: 10
+        marginRight: 10,
+        color: "#333333",
+        fontSize: 14,
     },
-    text: {}
+    text: {
+        color: "#333333",
+        fontSize: 14,
+    }
 })

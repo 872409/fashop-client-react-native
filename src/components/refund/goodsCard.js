@@ -47,7 +47,7 @@ export default class RefundGoodsCard extends Component {
                             } />
                         </View>
                         <View style={styles.body}>
-                            <Text>{goodsTitle}</Text>
+                            <Text style={styles.bodyText}>{goodsTitle}</Text>
                             <View style={styles.end}>
                                 <Text style={styles.spec}>{goodsSpec}</Text>
                                 <Text style={styles.number}>x {goodsNum}</Text>
@@ -61,7 +61,9 @@ export default class RefundGoodsCard extends Component {
     }
 }
 const styles = StyleSheet.create({
-    refundGoodsCard: {},
+    refundGoodsCard: {
+        backgroundColor:'#ffffff'
+    },
     item: {
         padding: 15,
         borderBottomWidth:1,
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
         borderBottomColor:"#F8F8F8",
     },
     content: {
-        justifyContent: "flex-start"
+        justifyContent: "space-between",
+        flexDirection: 'row'
     },
     image: {
         width: 60,
@@ -77,7 +80,12 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     body: {
-        flex:1
+        flex:1,
+    },
+    bodyText:{
+        fontSize: 14,
+        color: "#333",
+        lineHeight: 20,
     },
     text: {
         fontSize: 14,
@@ -90,7 +98,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#999999",
         lineHeight: 12,
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: 'row'
     },
     spec: {
         fontSize: 12,

@@ -84,19 +84,19 @@ export default class UserIndex extends Component {
                 img: require('../../images/user/state_new.png'),
                 title: '待付款',
                 link:()=>{
-                    this.props.navigation.navigate('RefundList',{state_type:'state_new'})
+                    this.props.navigation.navigate('OrderList',{state_type:'state_new'})
                 }
             }, {
                 img: require('../../images/user/state_pay.png'),
                 title: '待发货',
                 link:()=>{
-                    this.props.navigation.navigate('RefundList',{state_type:'state_pay'})
+                    this.props.navigation.navigate('OrderList',{state_type:'state_pay'})
                 }
             }, {
                 img: require('../../images/user/state_send.png'),
                 title: '已完成',
                 link:()=>{
-                    this.props.navigation.navigate('RefundList',{state_type:'state_success'})
+                    this.props.navigation.navigate('OrderList',{state_type:'state_success'})
                 }
             }, {
                 img: require('../../images/user/state_unevaluate.png'),

@@ -51,15 +51,18 @@ export default class OrderDetail extends Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             id: this.props.navigation.getParam('id')
+        },()=>{
+            console.log('set ok')
+            this.props.navigation.addListener(
+                'didFocus', async () => {
+                    this.init()
+                }
+            );
         })
-        this.props.navigation.addListener(
-            'didFocus', async () => {
-                this.init()
-            }
-        );
+
     }
 
     async init() {

@@ -7,8 +7,8 @@ import {
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from '../../models/buy'
-import { Modal, List } from "antd-mobile-rn";
-import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
+import { Modal } from "antd-mobile-rn";
+import { PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
 import { windowHeight } from "../../utils/publicStyleModule";
@@ -16,7 +16,6 @@ import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 
-const Item = List.Item
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 export default class OrderList extends Component {
@@ -25,12 +24,12 @@ export default class OrderList extends Component {
     }
 
     async componentWillMount() {
-        // const state_type = this.props.navigation.getParam('state_type')
-        // if(state_type){
-        //     this.setState({
-        //         state_type
-        //     })
-        // }
+        const state_type = this.props.navigation.getParam('state_type')
+        if(state_type){
+            this.setState({
+                state_type
+            })
+        }
     }
 
     goDetail(id) {

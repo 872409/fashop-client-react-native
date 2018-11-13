@@ -9,9 +9,11 @@ import fa from '../../utils/fa'
 import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import OrderModel from '../../models/order'
 import { UploadImageInterface } from '../../interface/uploadImage'
-import { List,Button } from 'antd-mobile-rn';
-import { Rater, Field, FixedBottom } from '../../components'
+import { List, Button } from 'antd-mobile-rn';
+import { Rater, Field } from '../../components'
+import { PublicStyles } from "../../utils/publicStyleModule";
 
+const Item = List.Item
 const goodsEvaluateModel = new GoodsEvaluateModel()
 const orderModel = new OrderModel()
 // todo
@@ -34,8 +36,10 @@ export default class EvaluateAdd extends Component {
         uploaderHeader: {},
     }
 
-    async componentWillMount({ order_goods_id = 440, delta = 1 }) {
-        const accessToken = fa.cache.get('user_token')
+    async componentWillMount() {
+        const order_goods_id = this.props.navigation.getParam('order_goods_id')
+        const delta = this.props.navigation.getParam('delta', 1)
+        // const accessToken = await fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
         })
@@ -43,12 +47,12 @@ export default class EvaluateAdd extends Component {
         this.setState({
             id: goodsInfoResult.info.id,
             delta: typeof delta !== 'undefined' ? delta : 1,
-            uploaderUrl: api.upload.addImage.url,
-            uploaderHeader: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Token': accessToken.access_token
-            },
-            goodsInfo: goodsInCardStackStyleInterpolatorfoResult.info,
+            // uploaderUrl:null,
+            // uploaderHeader: {
+            //     'Content-Type': 'multipart/form-data',
+            //     'Access-Token': accessToken.access_token
+            // },
+            goodsInfo: goodsInfoResult.info,
             orderGoodsId: order_goods_id
         })
     }
@@ -67,15 +71,15 @@ export default class EvaluateAdd extends Component {
         })
     }
 
-    onContentChange(e) {
+    onContentChange({value}) {
         this.setState({
-            content: e.detail.detail.value
+            content: value
         })
     }
 
-    onScoreChange(e) {
+    onScoreChange({value}) {
         this.setState({
-            score: parseInt(e.detail.value)
+            score: parseInt(value)
         })
     }
 
@@ -131,82 +135,82 @@ export default class EvaluateAdd extends Component {
             uploaderButtonText,
             uploaderHeader,
         } = this.state
-        return <View>
+        return goodsInfo ? <View style={[PublicStyles.ViewMax]}>
             <View>
-                <List>
-                    <View style={styles.refundGoodsCard}>
-                        <View style={styles.body}>
-                            <View style={styles.item}>
-                                <View style={styles.content}>
-                                    <View style={styles.image}>
-                                        <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
-                                    </View>
-                                    <View style={styles.body}>
-                                        <Text style={styles.bodyText}>商品评价</Text>
-                                        <Rater
-                                            num={5}
-                                            value={score}
-                                            size={2}
-                                            onChange={() => {
-                                                this.onScoreChange()
-                                            }} />
-                                    </View>
+                <View style={styles.refundGoodsCard}>
+                    <View style={styles.body}>
+                        <View style={styles.item}>
+                            <View style={styles.content}>
+                                <View style={styles.image}>
+                                    <Image
+                                        style={{ width: 80, height: 80 }}
+                                        source={{ uri: goodsInfo.goods_img }}
+                                        resizeMode={'contain'}
+                                    />
+                                </View>
+                                <View style={styles.body}>
+                                    <Text style={styles.bodyText}>商品评价</Text>
+                                    <Rater
+                                        num={5}
+                                        value={score}
+                                        size={20}
+                                        onChange={(e) => {
+                                            this.onScoreChange(e)
+                                        }} />
                                 </View>
                             </View>
                         </View>
                     </View>
-                </List>
-                <List>
-                    <Field
-                        type={'textarea'}
-                        title=""
-                        placeholder="请输入您要评价的内容"
-                        value={content}
-                        onChange={(e) => {
-                            this.onContentChange(e)
-                        }}
-                    >
-                    </Field>
-                    <Field
-                        type={'uploader'}
-                        title=""
-                        uploaderButtonText={uploaderButtonText}
-                        uploaderFormData={uploaderFormData}
-                        uploaderUrl={uploaderUrl}
-                        uploaderHeader={uploaderHeader}
-                        uploaderFiles={uploaderFiles}
-                        uploaderCount={uploaderCount}
-                        uploaderAllowDel={true}
-                        onSuccess={(e) => {
-                            this.onUploadFileSuccess(e)
-                        }}
-                        onDelete={(e) => {
-                            this.onUploadFileDelete(e)
-                        }}
-                    >
-                    </Field>
-                </List>
-            </View>
-            <FixedBottom>
-                <View style={styles.footer}>
-                    <Button type={'danger'} size="large" onClick={() => {
-                        this.onSubmit()
-                    }}>提交</Button>
                 </View>
-            </FixedBottom>
-        </View>
+                <Field
+                    type={'textarea'}
+                    title=""
+                    placeholder="请输入您要评价的内容"
+                    value={content}
+                    onChange={(e) => {
+                        this.onContentChange(e)
+                    }}
+                >
+                </Field>
+                <Field
+                    type={'uploader'}
+                    title=""
+                    uploaderButtonText={uploaderButtonText}
+                    uploaderFormData={uploaderFormData}
+                    uploaderUrl={uploaderUrl}
+                    uploaderHeader={uploaderHeader}
+                    uploaderFiles={uploaderFiles}
+                    uploaderCount={uploaderCount}
+                    uploaderAllowDel={true}
+                    onSuccess={(e) => {
+                        this.onUploadFileSuccess(e)
+                    }}
+                    onDelete={(e) => {
+                        this.onUploadFileDelete(e)
+                    }}
+                >
+                </Field>
+            </View>
+            <View style={styles.footer}>
+                <Button type={'warning'} size="large" onClick={() => {
+                    this.onSubmit()
+                }}>提交</Button>
+            </View>
+        </View> : null
     }
 }
 const styles = StyleSheet.create({
-    refundGoodsCard: {},
+    refundGoodsCard: {
+        flexDirection: 'row',
+        backgroundColor:'#fff',
+        marginBottom:8
+    },
 
     item: {
         padding: 15,
-        borderBottomWidth:1,
-        borderStyle:"solid",
-        borderBottomColor:"#F8F8F8",
     },
     content: {
+        flexDirection: 'row'
     },
     image: {
         marginRight: 15
@@ -238,6 +242,6 @@ const styles = StyleSheet.create({
         lineHeight: 14,
     },
     footer: {
-        justifyContent: "flex-end"
+        padding:15
     }
 })

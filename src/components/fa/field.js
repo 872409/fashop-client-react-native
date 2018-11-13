@@ -5,11 +5,9 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { List, TextareaItem, InputItem } from 'antd-mobile-rn';
-import { Area } from '../../components'
+import { TextareaItem, InputItem } from 'antd-mobile-rn';
+import { Area, FieldCell } from '../../components'
 
-const Item = List.Item;
-const Brief = Item.Brief;
 
 export default class Field extends Component {
     static propTypes = {
@@ -166,34 +164,32 @@ export default class Field extends Component {
         } = this.props
         return <View>
             {type === 'textarea' ?
-                <Item
-                    extra={
-                        <TextareaItem
-                            rows={rows}
-                            disabled={disabled}
-                            focus={focus}
-                            value={value}
-                            placeholder={placeholder}
-                            count={maxlength}
-                            onChange={(value) => {
-                                this.handleFieldChange(value)
-                            }}
-                            onFocus={(value) => {
-                                this.handleFieldFocus(value)
-                            }}
-                            onBlur={(value) => {
-                                this.handleFieldBlur(value)
-                            }}
-                        />
-                    }
-                >
-                    {title}
-                    <Brief>{desc}</Brief>
-                </Item> : null}
+                <FieldCell title={title} desc={desc}>
+                    <TextareaItem
+                        rows={rows}
+                        disabled={disabled}
+                        focus={focus}
+                        value={value}
+                        placeholder={placeholder}
+                        count={maxlength}
+                        onChange={(value) => {
+                            this.handleFieldChange(value)
+                        }}
+                        onFocus={(value) => {
+                            this.handleFieldFocus(value)
+                        }}
+                        onBlur={(value) => {
+                            this.handleFieldBlur(value)
+                        }}
+                    />
+                </FieldCell>
+                : null}
 
             {type === 'input' ?
-                <Item
-                    extra={
+                <FieldCell
+                    title={title}
+                    desc={desc}
+                    right={
                         <InputItem
                             type={inputType || 'text'}
                             disabled={disabled}
@@ -212,14 +208,13 @@ export default class Field extends Component {
                             }}
                         />
                     }
-                >
-                    {title}
-                    <Brief>{desc}</Brief>
-                </Item> : null}
+                /> : null}
 
             {type === 'picker' ?
-                <Item
-                    extra={
+                <FieldCell
+                    title={title}
+                    desc={desc}
+                    right={
                         <Picker
                             onChange={(value) => {
                                 this.handleFieldChange(value)
@@ -231,14 +226,13 @@ export default class Field extends Component {
                             </Text>
                         </Picker>
                     }
-                >
-                    {title}
-                    <Brief>{desc}</Brief>
-                </Item> : null}
+                /> : null}
 
             {type === 'area' ?
-                <Item
-                    extra={
+                <FieldCell
+                    title={title}
+                    desc={desc}
+                    right={
                         <Area
                             areaNames={areaNames}
                             placeholder={placeholder}
@@ -254,14 +248,13 @@ export default class Field extends Component {
                             }}
                         />
                     }
-                >
-                    {title}
-                    <Brief>{desc}</Brief>
-                </Item> : null}
+                /> : null}
 
             {type === 'switch' ?
-                <Item
-                    extra={
+                <FieldCell
+                    title={title}
+                    desc={desc}
+                    right={
                         <Switch
                             checked={checked}
                             loading={loading}
@@ -277,13 +270,9 @@ export default class Field extends Component {
                             }}
                         />
                     }
-                >
-                    {title}
-                    <Brief>{desc}</Brief>
-                </Item> : null}
+                />
+                : null}
         </View>
     }
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})

@@ -18,12 +18,14 @@ import RefundBaseInfo from './refund/baseInfo';
 import RefundCard from './refund/card';
 import RefundGoodsCard from './refund/goodsCard';
 import RefundStateCard from './refund/stateCard';
+import RefundGoodsInfo from './refund/goodsInfo';
 import RefundStateReason from './refund/stateReason';
 import RefundStateSteps from './refund/stateSteps';
 import Cell from './fa/cell';
 import Area from './fa/area';
 import CountDown from './fa/countDown';
 import Field from './fa/field';
+import FieldCell from './fa/fieldCell';
 import FixedBottom from './fa/fixedBottom';
 import Rater from './fa/rater';
 import StaticCountdown from './fa/staticCountdown';
@@ -53,10 +55,12 @@ export {
     RefundStateCard,
     RefundStateReason,
     RefundStateSteps,
+    RefundGoodsInfo,
     Cell,
     Area,
     CountDown,
     Field,
+    FieldCell,
     FixedBottom,
     Rater,
     StaticCountdown,

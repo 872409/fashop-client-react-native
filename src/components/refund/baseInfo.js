@@ -5,11 +5,12 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
+import { TimeFormat } from '../../components'
 
 export default class RefundBaseInfo extends Component {
     static propTypes = {
         reason: PropTypes.string,
-        amount: PropTypes.number,
+        amount: PropTypes.string,
         num: PropTypes.number,
         createTime: PropTypes.number,
         refundNumber: PropTypes.string
@@ -58,7 +59,9 @@ export default class RefundBaseInfo extends Component {
 
 }
 const styles = StyleSheet.create({
-    refundBaseInfo: {},
+    refundBaseInfo: {
+        backgroundColor:'#ffffff'
+    },
     item: {
         borderBottomWidth: 1,
         borderStyle: "solid",
@@ -69,22 +72,20 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         paddingVertical: 7.5,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        flexDirection: 'row'
     },
     label: {
         fontSize: 14,
         fontWeight: "800",
-        lineHeight: 14,
         color: "#333"
     },
     text: {
         fontSize: 14,
-        lineHeight: 14,
         color: "#666"
     },
     time: {
         fontSize: 14,
-        lineHeight: 14,
         color: "#666"
     }
 })

@@ -5,8 +5,9 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
-import { List, Modal } from 'antd-mobile-rn';
-import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo, OrderContact } from '../../components'
+import { Modal } from 'antd-mobile-rn';
+import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo } from '../../components'
+import { PublicStyles } from "../../utils/publicStyleModule";
 
 const refundModel = new RefundModel()
 
@@ -16,22 +17,21 @@ export default class RefundDetail extends Component {
         refundInfo: null,
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             id: this.props.navigation.getParam('id')
+        }, () => {
+            this.props.navigation.addListener(
+                'didFocus', async () => {
+                    this.init()
+                }
+            );
         })
-        this.props.navigation.addListener(
-            'didFocus', async () => {
-                this.init()
-            }
-        );
     }
 
     async init() {
         const refundInfo = await refundModel.info({ id: this.state.id })
-        console.log(refundInfo)
         if (refundInfo) {
-            console.log(refundInfo)
             this.setState({
                 refundInfo,
             })
@@ -44,7 +44,6 @@ export default class RefundDetail extends Component {
     }
 
     onTrack() {
-
         this.props.navigation.navigate('RefundLogisticsFill', {
             id: this.state.id,
             order_goods_id: this.state.refundInfo.order_goods_id
@@ -82,24 +81,40 @@ export default class RefundDetail extends Component {
 
     render() {
         const { refundInfo } = this.state
-        return refundInfo? <View>
+        return refundInfo ? <View style={[PublicStyles.ViewMax]}>
             <View>
-                <List>
-                    <RefundStateCard refundInfo={refundInfo} />
-                    <RefundStateReason refundInfo={refundInfo} onUndo={() => this.onUndo()}
-                                       onTrack={() => this.onTrack()} />
-                </List>
-                <List>
-                    <RefundGoodsInfo refundInfo={refundInfo} onGoods={() => this.onGoods()} />
-                </List>
-                <List>
-                    <RefundBaseInfo refundInfo={refundInfo} />
-                    <OrderContact />
-                </List>
+                <View style={{ marginBottom: 8 }}>
+                    <RefundStateCard
+                        refundInfo={refundInfo}
+                    />
+                    <RefundStateReason
+                        refundInfo={refundInfo}
+                        onUndo={() => {
+                            this.onUndo()
+                        }}
+                        onTrack={() => {
+                            this.onTrack()
+                        }}
+                    />
+                </View>
+                <View style={{ marginBottom: 8 }}>
+                    <RefundGoodsInfo
+                        refundInfo={refundInfo}
+                        onGoods={() => {
+                            this.onGoods()
+                        }} />
+                </View>
+                <View>
+                    <RefundBaseInfo
+                        reason={refundInfo.user_reason}
+                        amount={refundInfo.refund_amount}
+                        num={refundInfo.goods_num}
+                        createTime={refundInfo.create_time}
+                        refundNumber={refundInfo.refund_sn}
+                    />
+                </View>
             </View>
-        </View>:null
+        </View> : null
     }
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})

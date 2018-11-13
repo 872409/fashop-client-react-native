@@ -5,7 +5,9 @@ import {
     Text
 } from 'react-native';
 import PropTypes from "prop-types";
-
+import { Steps } from 'antd-mobile-rn';
+import Time from "../../utils/time"
+const Step = Steps.Step
 export default class RefundStateSteps extends Component {
     static propTypes = {
         refundInfo: PropTypes.object,
@@ -21,33 +23,37 @@ export default class RefundStateSteps extends Component {
         const { refundInfo } = this.props
         const steps = [
             {
-                current: false,
                 done: true,
                 text: '买家退款',
-                desc: Time.format('M/D h:m', refundInfo.create_time)
+                desc: Time.format('Y/M/D h:m', refundInfo.create_time)
             },
             {
                 done: true,
-                current: false,
                 text: '商家受理',
-                desc: Time.format('M/D h:m', refundInfo.create_time)
+                desc: Time.format('Y/M/D h:m', refundInfo.handle_time)
             },
             {
                 done: true,
-                current: true,
                 text: '退款成功',
-                desc: Time.format('M/D h:m', refundInfo.create_time)
+                desc: Time.format('Y/M/D h:m', refundInfo.handle_time)
             }
         ]
-            // <fa-steps type="horizon" steps={steps} hasDesc={true} />
-
         return <View style={styles.refundSteps}>
-            <Text>从ant里引入</Text>
+            <Steps current={2} size={'small'}>
+                {steps.map((item: any, index: any) => (
+                    <Step
+                        key={index}
+                        title={item.text}
+                        description={item.desc}
+                        status={item.done}
+                    />
+                ))}
+            </Steps>
         </View>
     }
 }
 const styles = StyleSheet.create({
     refundSteps: {
-        backgroundColor: "#F8F8F8"
+        height:3*60
     }
 })

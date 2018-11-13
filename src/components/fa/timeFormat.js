@@ -9,6 +9,7 @@ export default class TimeFormat extends Component {
     static propTypes = {
         value: PropTypes.number,
         format: PropTypes.string,
+        style: PropTypes.object
     };
     static defaultProps = {
         value: null,
@@ -44,9 +45,9 @@ export default class TimeFormat extends Component {
     }
 
     render() {
-        const { value, format } = this.props
+        const { value, format, style } = this.props
         const time = this.format(value, format)
-        return <Text styles={styles.time}>{time}</Text>
+        return <Text style={[styles.time, style]}>{time}</Text>
     }
 }
 const styles = StyleSheet.create({

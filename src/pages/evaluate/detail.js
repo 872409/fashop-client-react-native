@@ -6,7 +6,7 @@ import {
     Image
 } from 'react-native';
 import GoodsEvaluate from '../../models/goodsEvaluate'
-import { Field, FixedBottom } from '../../components'
+import { TimeFormat, Rater } from '../../components'
 
 const goodsEvaluateModel = new GoodsEvaluate()
 export default class EvaluateDetail extends Component {
@@ -15,9 +15,22 @@ export default class EvaluateDetail extends Component {
         evaluate: null
     }
 
-    componentWillMount({ order_goods_id }) {
+    componentWillMount() {
         this.setState({
-            order_goods_id
+            order_goods_id: this.props.navigation.getParam('order_goods_id')
+        }, () => {
+            this.props.navigation.addListener(
+                'didFocus', async () => {
+                    const { order_goods_id } = this.state
+                    const evaluate = await goodsEvaluateModel.info({
+                        order_goods_id
+                    })
+                    this.setState({
+                        evaluate
+                    })
+                    this.updateListRow()
+                }
+            );
         })
     }
 
@@ -27,22 +40,6 @@ export default class EvaluateDetail extends Component {
             current: e.currentTarget.dataset.url,
             urls: e.currentTarget.dataset.images
         })
-    }
-
-    componentDidMount() {
-        this.props.navigation.addListener(
-            'didFocus', async () => {
-                // todo
-                const { order_goods_id } = this.state
-                const evaluate = await goodsEvaluateModel.info({
-                    order_goods_id
-                })
-                this.setState({
-                    evaluate
-                })
-                this.updateListRow()
-            }
-        );
     }
 
     updateListRow() {
@@ -59,14 +56,14 @@ export default class EvaluateDetail extends Component {
         const {
             evaluate
         } = this.state
-        return <View style={styles.evaluateDetail}>
+        return evaluate ? <View style={styles.evaluateDetail}>
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
                         <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} style={styles.avatarImage} />
                         <View style={styles.nickname}>
                             <Text style={styles.nicknameText}>{evaluate.nickname}</Text>
-                            <TimeFormat value={evaluate.create_time} />
+                            <TimeFormat value={evaluate.create_time} style={{ color: '#999' }} />
                         </View>
                     </View>
                     <View style={styles.star}>
@@ -81,6 +78,7 @@ export default class EvaluateDetail extends Component {
                         {
                             evaluate.images.map((item, index) => {
                                 return <Image
+                                    index={`images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
                                     onPress={() => {
@@ -94,12 +92,16 @@ export default class EvaluateDetail extends Component {
                 {evaluate.reply_content ? <View style={styles.replyContent}>
                     <Text>客服：</Text>
                     <Text>{evaluate.reply_content}</Text>
-                    <TimeFormat value={evaluate.reply_time} />
+                    <TimeFormat value={evaluate.reply_time} style={{ marginLeft: 5, color: '#999' }} />
                 </View> : null}
 
                 {evaluate.additional_content || evaluate.additional_images ? <View style={styles.content}>
-                    <Text>{evaluate.additional_interval_day === 0 ? '当天' : evaluate.additional_interval_day + '天后'}追评</Text>
-                    {evaluate.additional_content ? <Text>{evaluate.additional_content}</Text> : null}
+                    <View style={{ borderLeftWidth: 5, borderColor: 'red', borderStyle: 'solid', paddingLeft: 10 }}>
+                        <Text
+                            style={{ color: '#999' }}>{evaluate.additional_interval_day === 0 ? '当天' : evaluate.additional_interval_day + '天后'}追评</Text>
+                    </View>
+                    {evaluate.additional_content ?
+                        <Text style={{ marginTop: 15, color: '#333' }}>{evaluate.additional_content}</Text> : null}
                 </View> : null}
 
                 {evaluate.additional_images.length > 0 ?
@@ -107,6 +109,7 @@ export default class EvaluateDetail extends Component {
                         {
                             evaluate.additional_images.map((item, index) => {
                                 return <Image
+                                    index={`additional_images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
                                     onPress={() => {
@@ -122,34 +125,37 @@ export default class EvaluateDetail extends Component {
                 {evaluate.reply_content2 ? <View style={styles.replyContent}>
                     <Text>客服：</Text>
                     <Text>{evaluate.reply_content2}</Text>
-                    <TimeFormat value={evaluate.reply_time2} />
+                    <TimeFormat value={evaluate.reply_time2} style={{ marginLeft: 5, color: '#999' }} />
                 </View> : null}
 
                 <View style={styles.spec}>
-                    <Text>{goodsInfo.goods_spec_string}</Text>
+                    <Text>{evaluate.goods_spec_string}</Text>
                 </View>
                 <View style={styles.goodsEvaluate}>
-                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} />
-                    <Text>{goodsInfo.goods_title}</Text>
+                    <Image source={evaluate.goods_img} resizeMode={'contain'} />
+                    <Text>{evaluate.goods_title}</Text>
                 </View>
             </View>
-        </View>
+        </View> : null
     }
 
 }
 const styles = StyleSheet.create({
     evaluateDetail: {
-        padding: 15,
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#f8f8f8"
     },
-    goodsEvaluateItem: {},
+    goodsEvaluateItem: {
+        padding: 15,
+        backgroundColor: '#fff'
+    },
     header: {
         marginTop: 15,
         justifyContent: "space-between",
-        marginBottom: 15
+        flexDirection: 'row',
     },
     avatar: {
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        flexDirection: 'row'
     },
     avatarImage: {
         width: 32,
@@ -157,42 +163,39 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     nickname: {
-
         flexDirection: "column"
     },
     nicknameText: {
         fontSize: 14,
-        lineHeight: 14,
         marginBottom: 6,
         fontWeight: "800",
-        flex: 1
     },
 
     content: {
         fontSize: 14,
-        color: "#333"
+        color: "#333",
+        marginTop: 10,
     },
-
     contentText: {
-        fontSize: 12,
+        fontSize: 14,
         lineHeight: 22,
         color: "#333",
         width: "100%",
-        marginBottom: 10
     },
     replyContent: {
         backgroundColor: "#f8f8f8",
         padding: 5,
         fontSize: 12,
-        lineHeight: 22,
         color: "#666",
-        borderRadius: 3
+        borderRadius: 3,
+        alignItems: 'center',
+        flexDirection: 'row'
     },
-
     photoList: {
         marginTop: 10,
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        marginBottom: 10
     },
     photoListImage: {
         width: 80,

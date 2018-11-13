@@ -6,10 +6,9 @@ import {
     Image
 } from 'react-native';
 import GoodsEvaluateModel from '../../models/goodsEvaluate'
-import { Tabs } from 'antd-mobile-rn';
 import { EvaluateCard } from '../../components'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
-import { windowHeight } from "../../utils/publicStyleModule";
+import { windowHeight, PublicStyles, ThemeStyle, windowWidth } from "../../utils/publicStyleModule";
 import { GoodsEvaluateApi } from "../../config/api/goodsEvaluate";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
@@ -18,10 +17,11 @@ const goodsEvaluateModel = new GoodsEvaluateModel()
 export default class EvaluateList extends Component {
     state = {
         order_id: 0,
+        evaluate_state: 'un_evaluate'
     }
 
     async componentWillMount() {
-        const order_id = this.props.navigation.getItem('order_id')
+        const order_id = this.props.navigation.getParam('order_id')
         if (order_id > 0) {
             this.setState({
                 order_id
@@ -46,15 +46,6 @@ export default class EvaluateList extends Component {
         this.props.navigation.navigate('EvaluateAdditional', { order_goods_id })
     }
 
-    onTabChange(e) {
-        this.setState({
-            evaluate_state: e.detail,
-            page: 1,
-            list: []
-        })
-        this.getList()
-    }
-
     // 更新某条
     async updateListRow(id) {
         let { list } = this.state
@@ -77,13 +68,18 @@ export default class EvaluateList extends Component {
     render() {
         const tabList = [
             {
-                state: 'un_evaluate',
+                evaluate_state: 'un_evaluate',
                 tabLabel: '待评价',
             }, {
-                state: 'is_evaluate',
+                evaluate_state: 'is_evaluate',
                 tabLabel: '已评价',
             }
         ]
+        const { evaluate_state } = this.state
+        let params = {}
+        if (evaluate_state) {
+            params['evaluate_state'] = params
+        }
         return (
             <View style={[PublicStyles.ViewMax]}>
                 <ScrollableTabView
@@ -101,7 +97,7 @@ export default class EvaluateList extends Component {
                     tabBarActiveTextColor={ThemeStyle.ThemeColor}
                     tabBarInactiveTextColor='#666'
                     tabBarUnderlineStyle={{
-                        width: windowWidth * 0.75 / 4,
+                        width: windowWidth * 0.75 / 2,
                         left: windowWidth / 14,
                         backgroundColor: `${ThemeStyle.ThemeColor}`,
                         height: 3,
@@ -111,11 +107,11 @@ export default class EvaluateList extends Component {
                     onChangeTab={({ i }) => {
                         if (i === 0) {
                             this.ListView.setFetchParams({
-                                state: 'un_evaluate',
+                                evaluate_state: 'un_evaluate',
                             })
                         } else if (i === 1) {
                             this.ListView.setFetchParams({
-                                state: 'is_evaluate',
+                                evaluate_state: 'is_evaluate',
                             })
                         }
                     }}
@@ -129,34 +125,39 @@ export default class EvaluateList extends Component {
                         ))
                     }
                 </ScrollableTabView>
-                <List>
-                    <ListView
-                        ref={e => this.ListView = e}
-                        keyExtractor={e => String(e.state)}
-                        api={GoodsEvaluateApi.list}
-                        renderItem={item => (
-                            <EvaluateCard
-                                goodsInfo={item}
-                                onGoods={() => this.onGoods()}
-                                onAdd={() => this.onAdd()}
-                                onDetail={() => this.onDetail()}
-                                onAdditional={() => this.onAdditional()}
-                            />
-                        )}
-                        ListEmptyComponent={() => (
-                            <ListEmptyView
-                                height={windowHeight - 80}
-                                uri={require('../../images/order/list-empty.png')}
-                                desc='暂无相关数据'
-                            />
-                        )}
-                    />
-                </List>
+                <ListView
+                    ref={e => this.ListView = e}
+                    keyExtractor={e => String(e.id)}
+                    api={GoodsEvaluateApi.mine}
+                    fetchParams={params}
+                    renderItem={({item}) => (
+                        <EvaluateCard
+                            goodsInfo={item}
+                            onGoods={() => {
+                                this.onGoods(item.id)
+                            }}
+                            onAdd={() => {
+                                this.onAdd(item.id)
+                            }}
+                            onDetail={() => {
+                                this.onDetail(item.id)
+                            }}
+                            onAdditional={() => {
+                                this.onAdditional(item.id)
+                            }}
+                        />
+                    )}
+                    ListEmptyComponent={() => (
+                        <ListEmptyView
+                            height={windowHeight - 80}
+                            uri={require('../../images/order/list-empty.png')}
+                            desc='暂无相关数据'
+                        />
+                    )}
+                />
             </View>
         );
     }
 
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})
