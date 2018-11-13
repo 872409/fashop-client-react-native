@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         paddingVertical: 5,
         paddingHorizontal: 15,
-        marginLeft: 10
+        marginLeft: 10,
     },
     active: {
         borderWidth: 1,

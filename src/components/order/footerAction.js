@@ -4,7 +4,9 @@ import {
     View,
 } from 'react-native';
 import PropTypes from "prop-types";
-
+import {
+    OrderButton
+} from '../../components'
 export default class OrderFooterAction extends Component {
     static propTypes = {
         showReceiveBtn: PropTypes.bool,
@@ -60,7 +62,6 @@ export default class OrderFooterAction extends Component {
             showCancelBtn,
             showEvaluateBtn,
             showPayBtn,
-            showLogisticsBtn,
         } = this.props
         return <View style={styles.orderFooterAction}>
             <View style={styles.footer}>
@@ -99,12 +100,15 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         fontSize: 14,
         lineHeight: 14,
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: 'row'
     },
     left: {
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        flexDirection: 'row'
     },
     right: {
-        justifyContent: "space-between"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     }
 })

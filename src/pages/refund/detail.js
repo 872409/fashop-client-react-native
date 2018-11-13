@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
@@ -19,13 +16,10 @@ export default class RefundDetail extends Component {
         refundInfo: null,
     }
 
-    async componentWillMount({ id }) {
-        this.setState({
-            id
-        })
-    }
-
     componentDidMount() {
+        this.setState({
+            id: this.props.navigation.getParam('id')
+        })
         this.props.navigation.addListener(
             'didFocus', async () => {
                 this.init()
@@ -35,6 +29,7 @@ export default class RefundDetail extends Component {
 
     async init() {
         const refundInfo = await refundModel.info({ id: this.state.id })
+        console.log(refundInfo)
         if (refundInfo) {
             console.log(refundInfo)
             this.setState({
@@ -87,7 +82,7 @@ export default class RefundDetail extends Component {
 
     render() {
         const { refundInfo } = this.state
-        return <View>
+        return refundInfo? <View>
             <View>
                 <List>
                     <RefundStateCard refundInfo={refundInfo} />
@@ -102,7 +97,7 @@ export default class RefundDetail extends Component {
                     <OrderContact />
                 </List>
             </View>
-        </View>
+        </View>:null
     }
 }
 const styles = StyleSheet.create({

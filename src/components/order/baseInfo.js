@@ -14,7 +14,7 @@ import fa from "../../utils/fa";
 
 export default class OrderBaseInfo extends Component {
     static propTypes = {
-        orderNumber: PropTypes.number,
+        orderNumber: PropTypes.string,
         createTime: PropTypes.number,
         payTime: PropTypes.number,
         payment: PropTypes.string,

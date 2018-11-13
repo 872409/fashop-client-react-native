@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 
@@ -77,19 +78,19 @@ export default class OrderCardFooter extends Component {
                     {showCancelBtn === true ?
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
                             this.onCancel()
-                        }}>取消</TouchableOpacity> : null}
+                        }}><Text style={{color:"#ff4400"}}>取消</Text></TouchableOpacity> : null}
                     {showEvaluateBtn === true ?
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
                             this.onEvaluate()
-                        }}>评价</TouchableOpacity> : null}
+                        }}><Text style={{color:"#ff4400"}}>评价</Text></TouchableOpacity> : null}
                     {showPayBtn === true ?
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
                             this.onPay()
-                        }}>去支付</TouchableOpacity> : null}
+                        }}><Text style={{color:"#ff4400"}}>去支付</Text></TouchableOpacity> : null}
                     {showReceiveBtn === true ?
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
                             this.onReceive()
-                        }}>确认收货</TouchableOpacity> : null}
+                        }}><Text style={{color:"#ff4400"}}>确认收货</Text></TouchableOpacity> : null}
                 </View> : null}
         </View>
     }
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     footer: {
         borderTopWidth: 1,
         borderStyle: "solid",
-        borderTopColor: "#cccccc",
+        borderTopColor: "#f8f8f8",
         justifyContent: "flex-end",
         paddingVertical: 10,
         paddingHorizontal: 0,

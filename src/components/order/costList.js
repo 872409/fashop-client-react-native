@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 export default class OrderCostList extends Component {
     static propTypes = {
-        goodsTotal: PropTypes.number,
-        freight: PropTypes.number,
-        totalCost: PropTypes.number,
+        goodsTotal: PropTypes.string,
+        freight: PropTypes.string,
+        totalCost: PropTypes.string,
     };
     static defaultProps = {
         goodsTotal: null,
