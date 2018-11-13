@@ -8,6 +8,8 @@ import IndexView from "../pages/index";
 import GoodsDetail from "../pages/category/goodsDetail";
 import OrderAction from "../pages/category/orderAction";
 
+import Pay from "../pages/pay";
+
 import UserLogin from "../pages/user/login";
 import UserRegister from "../pages/user/register";
 import UserAddressAdd from "../pages/user/address/add";
@@ -74,6 +76,12 @@ export default createStackNavigator(
             screen: OrderAction,
             navigationOptions: {
                 title: '提交订单'
+            }
+        },
+        Pay: {
+            screen: Pay,
+            navigationOptions: {
+                title: '收银台'
             }
         },
         // user

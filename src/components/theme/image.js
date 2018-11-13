@@ -6,7 +6,7 @@ export default class ThemeImage extends PureComponent {
     render() {
         const {
             source,
-            errImg = require('../../images/fetchStatus/image-error.png')
+            errImg = require('../../images/fetchStatus/networkImageError.png')
         } = this.props
         if (!source || !source.uri){
             return (

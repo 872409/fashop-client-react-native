@@ -142,22 +142,6 @@ export default class CategoryDetail extends Component {
                 this.botView()
             }
             <Modal
-                // title={(
-                //     <View style={styles.popModalTitleView}>
-                //         <View style={styles.popModalTitleLeft} />
-                //         <View style={styles.popModalTitleTight}>
-                //             <Text style={[styles.popModalTitleTightP]}> ¥{currentSpec.price}</Text>
-                //             <Text style={[PublicStyles.descTwo9]}>
-                //                 已选：
-                //                 {
-                //                     currentSpec.spec.map((item) => {
-                //                         return `${item.value_name} `;
-                //                     })
-                //                 }
-                //             </Text>
-                //         </View>
-                //     </View>
-                // )}
                 closable={true}
                 popup={true}
                 visible={specVisible}
