@@ -10,6 +10,7 @@ import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "../../components/goods/stepper";
+import { add } from "../../actions/cart";
 
 const specInit = [];
 
@@ -35,6 +36,8 @@ export default class GoodsSpecList extends Component{
             currentSpec,
             navigation
         } = this.props;
+        console.log('currentSpec', currentSpec);
+        
         const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
         return <View style={PublicStyles.ViewMax}>
             <View style={styles.popModalTitleView}>
@@ -153,7 +156,7 @@ export default class GoodsSpecList extends Component{
                     }}
                     onClick={() => {
                         closeModal()
-                        // if (if_cart === 0) {
+                        if (if_cart === 0) {
                             navigation.navigate("OrderAction",{
                                 cart_buy_items: [
                                     {
@@ -169,10 +172,15 @@ export default class GoodsSpecList extends Component{
                                 ],
                                 if_cart
                             })
-                        // }
-                        // if (if_cart === 1) {
-                        //     console.log('加入购物车');
-                        // }
+                        }
+                        if (if_cart === 1) {
+                            add({
+                                params: {
+                                    goods_sku_id: 12,
+                                    quantity: selectNum
+                                }
+                            })
+                        }
                     }}
                 >
                     确定

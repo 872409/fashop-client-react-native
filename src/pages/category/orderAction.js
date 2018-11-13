@@ -33,9 +33,12 @@ const Item = List.Item
     defaultAddress,
     fetchStatus: defaultAddressFetchStatus,
 }))
-@stateHoc()
+// @stateHoc()
 export default class OrderAction extends Component {
-    hocComponentDidMount() {
+    // hocComponentDidMount() {
+    //     this.props.dispatch(getDefaultAddress())
+    // }
+    componentDidMount() {
         this.props.dispatch(getDefaultAddress())
     }
     render() {

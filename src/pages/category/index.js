@@ -8,52 +8,60 @@ import {
     Image
 } from 'react-native';
 import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
-import { connect } from "react-redux";
-import { getCategoryList } from "../../actions/category";
-import { stateHoc } from "../../utils";
+import { Image as NetworkImage } from "../../components/theme";
+import { Fetch } from "../../utils";
+import { Toast } from '../../utils/publicFuncitonModule';
+import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 
-@connect(({
-    View: {
-        category: {
-            categoryList,
-            categoryListFetchStatus,
-        }
-    }
-}) => ({
-    categoryList,
-    fetchStatus: categoryListFetchStatus,
-}))
-@stateHoc()
-export default class CategoryIndex extends Component {
+export default class Category extends Component {
     state = {
         current: 0,
+        categoryList: []
     }
-    hocComponentDidMount() {
-        this.props.dispatch(getCategoryList());
+    async componentDidMount() {
+        const e = await Fetch.fetch({
+            api: GoodsCategoryApi.list,
+        })
+        if (e.code === 0) {
+            this.setState({
+                categoryList: e.result.list,
+                current: e.result.list[0].id
+            })
+        } else {
+            Toast.warn(e.msg)
+        }
     }
     render() {
-        const { current } = this.state
-        const { categoryList } = this.props
-        const currentList = categoryList.filter(item=>item.id===current)
-        const child = currentList.length ? currentList[0]._child : []
+        const { current, categoryList } = this.state;
+        const currentList = categoryList.filter(item => item.id === current)
+        const _child = currentList.length ? currentList[0]._child : []
         return <View style={[PublicStyles.ViewMax, { flexDirection: 'row' }]}>
             <ScrollView style={styles.left}>
                 {
-                    categoryList.map((item,index)=>{
-                        const active = item.id===current
+                    categoryList.map((item, index) => {
+                        const active = item.id === current
                         return (
                             <TouchableOpacity
                                 key={index}
                                 activeOpacity={.6}
-                                style={styles.leftItem}
+                                style={[styles.leftItem, {
+                                    backgroundColor: active ? '#f8f8f8' : '#ffffff'
+                                }]}
                                 onPress={() => {
                                     this.setState({
                                         current: item.id,
-                                        child: item._child
                                     })
                                 }}
                             >
-                                <Text style={[styles.leftName, { color: active ? ThemeStyle.ThemeColor : '#333' }]}>{item.name}</Text>
+                                <Text 
+                                    style={[styles.leftName, {
+                                        color: active ? ThemeStyle.ThemeColor : '#333',
+                                        fontFamily: active ? 'PingFangSC-Medium' : 'PingFangSC-Regular',
+                                        fontWeight: active ? '500' : '400',
+                                    }]}
+                                >
+                                    {item.name}
+                                </Text>
                             </TouchableOpacity>
                         )
                     })
@@ -61,31 +69,41 @@ export default class CategoryIndex extends Component {
             </ScrollView>
             <ScrollView style={styles.right}>
                 {
-                    !current ? this.empty({content: '请选择'}) :
-                    current&&child.length ? this.renderRight(child) :
-                    current&&!child.length ? this.empty({content: '当前分类为空'}) : null
+                    !current ? this.empty({ content: '请选择' }) :
+                        current && _child.length ? this.renderRight(_child) :
+                            current && !_child.length ? this.empty({ content: '当前分类为空' }) : null
                 }
             </ScrollView>
         </View>;
     }
-    renderRight(child){
-        return(
+    renderRight(_child) {
+        const { navigation } = this.props
+        return (
             <View style={styles.rightList}>
                 {
-                    child.map((item,index)=>(
-                        <View key={index} style={styles.rightItem}>
-                            <Image style={styles.rightImg} source={{uri: item.icon}}/>
-                            <Text style={PublicStyles.descTwo6}>{item.name}</Text>
-                        </View>
+                    _child.map((item, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={styles.rightItem}
+                            onPress={() => {
+                                navigation.navigate("ShopList", {
+                                    category_id: item.id,
+                                    title: item.title
+                                })
+                            }}
+                        >
+                            <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}></NetworkImage>
+                            <Text style={[PublicStyles.title, { fontSize: 14 }]} numberOfLines={1}>{item.name}</Text>
+                        </TouchableOpacity>
                     ))
                 }
             </View>
         )
     }
-    empty({content}){
-        return(
+    empty({ content }) {
+        return (
             <View style={styles.emptyWarp}>
-                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}/>
+                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}></Image>
                 <Text style={PublicStyles.descFour9}>{content}</Text>
             </View>
         )
@@ -94,22 +112,19 @@ export default class CategoryIndex extends Component {
 
 const styles = StyleSheet.create({
     left: {
-        width: windowWidth*0.28,
+        width: windowWidth * 0.33,
         backgroundColor: '#fff',
-        borderRightWidth: 0.5,
-        borderRightColor: '#eaeaea',
     },
     leftItem: {
-        height: 44,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },
     leftName: {
-        fontSize: 14
+        fontSize: 16
     },
     right: {
-        width: windowWidth*0.72,
-        padding: 10
+        width: windowWidth * 0.67,
     },
     rightList: {
         flexDirection: 'row',
@@ -117,17 +132,18 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     rightItem: {
-        width: (windowWidth*0.72-20)/3,
+        width: (windowWidth * 0.67) / 3.01,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 15
     },
     rightImg: {
-        width: 52,
-        height: 52,
+        width: (windowWidth * 0.67) / 3 - 30,
+        height: (windowWidth * 0.67) / 3 - 30,
         marginBottom: 10
     },
     emptyWarp: {
-        height: windowHeight/2,
+        height: windowHeight / 2,
         alignItems: 'center',
         justifyContent: 'center'
     },
