@@ -32,14 +32,12 @@ export default class OrderCardGoods extends Component {
                 this.onClick()
             }}>
                 <ScrollView contentContainerStyle={styles.orderCardGoods}>
-                    <View>
                         {
                             goodsList.length > 0 ? goodsList.map((item) => {
-                                return <View style={styles.item}>
-                                    <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
+                                return <View style={styles.item} key={item.id}>
+                                    <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'contain'} />
                                 </View>
                             }) : null}
-                    </View>
                 </ScrollView>
             </TouchableOpacity> : null}
             {goodsList.length === 1 ? <TouchableOpacity onPress={() => {
@@ -67,10 +65,9 @@ export default class OrderCardGoods extends Component {
 }
 const styles = StyleSheet.create({
     orderCardGoods: {
-        marginTop: 15,
-        marginRight: 15,
-        marginLeft: 15,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor:'#f8f8f8',
+        paddingHorizontal: 15
     },
     item: {
         marginRight: 10,
@@ -87,6 +84,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginRight: 15,
         marginLeft: 15,
+        marginBottom: 15
     },
     oneItem: {
         justifyContent: "flex-start",

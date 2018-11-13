@@ -83,18 +83,33 @@ export default class UserIndex extends Component {
             {
                 img: require('../../images/user/state_new.png'),
                 title: '待付款',
+                link:()=>{
+                    this.props.navigation.navigate('RefundList',{state_type:'state_new'})
+                }
             }, {
                 img: require('../../images/user/state_pay.png'),
                 title: '待发货',
+                link:()=>{
+                    this.props.navigation.navigate('RefundList',{state_type:'state_pay'})
+                }
             }, {
                 img: require('../../images/user/state_send.png'),
                 title: '已完成',
+                link:()=>{
+                    this.props.navigation.navigate('RefundList',{state_type:'state_success'})
+                }
             }, {
                 img: require('../../images/user/state_unevaluate.png'),
                 title: '待评价',
+                link:()=>{
+                    this.props.navigation.navigate('EvaluateList')
+                }
             }, {
                 img: require('../../images/user/state_refund.png'),
                 title: '退款售后',
+                link:()=>{
+                    this.props.navigation.navigate('RefundList')
+                }
             }
         ]
         return (
@@ -113,7 +128,7 @@ export default class UserIndex extends Component {
                                 key={index}
                                 style={styles.midItem}
                                 onPress={() => {
-                                    this.goOrderList()
+                                    item.link()
                                 }}
                             >
                                 <Image style={styles.midImg} source={item.img} />

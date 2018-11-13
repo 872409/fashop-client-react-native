@@ -7,6 +7,10 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
+import {
+    OrderButton,
+} from '../../components'
+import { windowWidth } from "../../utils/publicStyleModule";
 
 export default class OrderGoodsList extends Component {
     static propTypes = {
@@ -37,8 +41,8 @@ export default class OrderGoodsList extends Component {
     render() {
         const { goodsList } = this.props
         return <View style={styles.orderGoodsList}>
-            {goodsList.length > 0 ? goodsList.map((item) => <View style={styles.item}>
-                <TouchableOpacity style={styles.content} onPress={(item) => {
+            {goodsList.length > 0 ? goodsList.map((item) => <View style={styles.item} key={item.id}>
+                <TouchableOpacity style={styles.content} onPress={() => {
                     this.onGoodsDetail(item)
                 }}>
                     <View style={styles.content}>
@@ -56,7 +60,7 @@ export default class OrderGoodsList extends Component {
                     <OrderButton
                         text="申请退款"
                         size="small"
-                        onClick={(item) => {
+                        onClick={() => {
                             this.onRefund(item)
                         }} />
                 </View> : null}
@@ -64,7 +68,7 @@ export default class OrderGoodsList extends Component {
                     <OrderButton
                         text="退款中"
                         size="small"
-                        onClick={(item) => {
+                        onClick={() => {
                             this.onRefundDetail(item)
                         }} />
                 </View> : null}
@@ -72,7 +76,7 @@ export default class OrderGoodsList extends Component {
                     <OrderButton
                         text="退款完成"
                         size="small"
-                        onClick={(item) => {
+                        onClick={() => {
                             this.onRefundDetail(item)
                         }} />
                 </View> : null}
@@ -82,7 +86,7 @@ export default class OrderGoodsList extends Component {
 }
 const styles = StyleSheet.create({
     orderGoodsList: {
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
     },
     item: {
         padding: 15,
@@ -99,12 +103,15 @@ const styles = StyleSheet.create({
         height: 60,
         marginRight: 10
     },
-    body: {},
+    body: {
+        width: windowWidth / 2
+    },
     bodyText: {
-        fontSize: 14,
+        fontSize: 12,
         color: "#333",
         lineHeight: 20,
-        fontWeight: "800"
+        fontWeight: "800",
+        flex: 1
     },
     end: {
         justifyContent: 'flex-end',
@@ -124,6 +131,7 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     footer: {
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     }
 })

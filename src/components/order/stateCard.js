@@ -11,7 +11,7 @@ export default class OrderStateCard extends Component {
     static propTypes = {
         orderState: PropTypes.number,
         expireSeconds: PropTypes.number,
-        cost: PropTypes.number,
+        cost: PropTypes.string,
     };
     static defaultProps = {
         orderState: null,
@@ -51,7 +51,7 @@ export default class OrderStateCard extends Component {
                     <Text style={styles.leftText}>待付款</Text>
                 </View>
                 <View style={styles.right}>
-                    <Text style={styles.rightText}>需付款：¥{{ cost }}</Text>
+                    <Text style={styles.rightText}>需付款：¥{ cost }</Text>
                 </View>
             </View> : null}
             {orderState === 20 ? <View style={styles.orderStateCard}>
@@ -69,6 +69,8 @@ export default class OrderStateCard extends Component {
                            resizeMode="stretch" />
                     <Text style={styles.leftText}>待收货</Text>
                 </View>
+                <View style={styles.right}>
+                </View>
             </View> : null}
             {orderState === 40 ? <View style={styles.orderStateCard}>
                 <View style={styles.left}>
@@ -84,23 +86,25 @@ export default class OrderStateCard extends Component {
 }
 const styles = StyleSheet.create({
     orderStateCard: {
-        padding: 15,
-        height: 50,
+        paddingVertical:30,
+        paddingHorizontal:15,
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: "#FF635C",
-        color: "#FFFFFF"
+        color: "#FFFFFF",
+        flexDirection: 'row'
     },
     left: {
         justifyContent: "flex-start",
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: 'row'
     },
     leftImage: {
         width: 20,
         height: 20,
         marginRight: 10
     },
-    laftText: {
+    leftText: {
         fontSize: 18,
         fontWeight: "800",
         color: "#FFFFFF"
@@ -124,7 +128,8 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         backgroundColor: "#FFFFCC",
-        padding: 10
+        padding: 10,
+        flexDirection:'row'
     },
     noticebarImage: {
         width: 20,
@@ -134,6 +139,7 @@ const styles = StyleSheet.create({
     noticebarText: {
         fontSize: 12,
         lineHeight: 16,
-        color: "#F07B3F"
+        color: "#F07B3F",
+        flex:1
     }
 })

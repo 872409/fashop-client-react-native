@@ -175,7 +175,7 @@ export default class OrderDetail extends Component {
                 <View style={styles.item}>
                     <OrderStateCard
                         orderState={orderInfo.state}
-                        expireSeconds="1000"
+                        expireSeconds={1000}
                         cost={orderInfo.amount}
                     />
 
@@ -191,13 +191,13 @@ export default class OrderDetail extends Component {
                     <OrderGoodsList
                         orderInfo={orderInfo}
                         goodsList={orderInfo.extend_order_goods}
-                        goodsDetail={({ goodsInfo }) => {
+                        onGoodsDetail={({ goodsInfo }) => {
                             this.onGoodsDetail(goodsInfo)
                         }}
-                        goodsRefundClick={({ goodsInfo }) => {
+                        onRefund={({ goodsInfo }) => {
                             this.onRefund(goodsInfo)
                         }}
-                        goodsRefundDetail={({ goodsInfo }) => {
+                        onRefundDetail={({ goodsInfo }) => {
                             this.onRefundDetail(goodsInfo)
                         }}
                     />
