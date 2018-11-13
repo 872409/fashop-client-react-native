@@ -25,7 +25,7 @@ export default class OrderAddress extends Component {
         return <View style={styles.orderAddress}>
             <View style={styles.info}>
                 <View style={styles.user}>
-                    <Image source={require('../../images/order/buyer-address.png')} resizeMode="stretch" />
+                    <Image style={styles.image} source={require('../../images/order/buyer-address.png')} resizeMode="stretch" />
                     <Text style={styles.name}>{name}</Text>
                     <Text style={styles.phone}>{phone}</Text>
                 </View>
@@ -39,34 +39,32 @@ export default class OrderAddress extends Component {
 const styles = StyleSheet.create({
     orderAddress: {
         padding: 15,
+        backgroundColor:'#FFFFFF'
     },
     image: {
-        width: 20,
-        height: 20,
+        width: 15,
+        height: 15,
         marginRight: 10
     },
     info: {},
     user: {
         alignItems: "center",
-        marginBottom: 10
+        marginBottom: 10,
+        flexDirection: 'row',
     },
     name: {
         fontSize: 14,
-        fontWeight: "800",
-        marginRight: 15,
-        lineHeight: 14,
-
+        marginRight: 10,
+        fontWeight: '800'
     },
     phone: {
         fontSize: 14,
-        fontWeight: "800",
         marginRight: 15,
-        lineHeight: 14,
+        fontWeight: '800'
     },
     address: {
         fontSize: 14,
-        lineHeight: 14,
         color: "#999999",
-        marginLeft: 30
+        marginLeft: 25
     }
 })

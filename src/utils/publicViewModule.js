@@ -128,8 +128,6 @@ export class ListView extends Component {
         const totalPages = Math.ceil(totalNumber - rows)
         this.state.fetchAllow = totalPages > page;
         if (page === 1) {
-            console.warn(e)
-
             const dataSource = changeDataStructurese ? changeDataStructurese(e.list, []) : e.list;
             this.setState({ dataSource, isRefreshing: false });
         } else {

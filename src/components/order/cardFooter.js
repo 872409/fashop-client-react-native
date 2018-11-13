@@ -14,6 +14,7 @@ export default class OrderCardFooter extends Component {
         showPayBtn: PropTypes.bool,
         showReceiveBtn: PropTypes.bool,
         showLogisticsBtn: PropTypes.bool,
+        showCancelBtn: PropTypes.bool,
     };
     static defaultProps = {
         goodsNumber: null,
@@ -22,6 +23,7 @@ export default class OrderCardFooter extends Component {
         showPayBtn: false,
         showReceiveBtn: false,
         showLogisticsBtn: false,
+        showCancelBtn: false,
     };
 
     onClick() {
@@ -61,7 +63,7 @@ export default class OrderCardFooter extends Component {
             showEvaluateBtn,
             showPayBtn,
             showReceiveBtn,
-            showLogisticsBtn,
+            showCancelBtn
         } = this.props
 
         return <View style={styles.orderCardFooter}>
@@ -73,13 +75,21 @@ export default class OrderCardFooter extends Component {
             {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn ?
                 <View style={styles.footer}>
                     {showCancelBtn === true ?
-                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onCancel()}>取消</View> : null}
+                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
+                            this.onCancel()
+                        }}>取消</TouchableOpacity> : null}
                     {showEvaluateBtn === true ?
-                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onEvaluate()}>评价</View> : null}
+                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
+                            this.onEvaluate()
+                        }}>评价</TouchableOpacity> : null}
                     {showPayBtn === true ?
-                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onPay()}>去支付</View> : null}
+                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
+                            this.onPay()
+                        }}>去支付</TouchableOpacity> : null}
                     {showReceiveBtn === true ?
-                        <View style={[styles.btn, styles.btnDanger]} onPress={this.onReceive()}>确认收货</View> : null}
+                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
+                            this.onReceive()
+                        }}>确认收货</TouchableOpacity> : null}
                 </View> : null}
         </View>
     }
@@ -88,29 +98,28 @@ const styles = StyleSheet.create({
     orderCardFooter: {
         paddingVertical: 0,
         paddingHorizontal: 15,
+        borderTopColor: '#f8f8f8',
+        borderTopWidth:1
     },
     header: {
         textAlign: "right",
-        padding: "10px 0",
-
+        paddingVertical:10,
         alignItems: "center",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     },
     number: {
         fontSize: 14,
-        lineHeight: 14,
         color: "#333333",
 
     },
     priceDesc: {
         fontSize: 14,
-        lineHeight: 14,
         color: "#333333",
         marginLeft: 10
     },
     price: {
         fontSize: 16,
-        lineHeight: 16,
         color: "#333333",
         fontWeight: "800",
 
@@ -122,6 +131,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         paddingVertical: 10,
         paddingHorizontal: 0,
+        flexDirection: 'row'
 
     },
     btn: {

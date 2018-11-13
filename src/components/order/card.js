@@ -13,6 +13,7 @@ export default class OrderCard extends Component {
 }
 const styles = StyleSheet.create({
     orderCard: {
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        marginBottom: 8
     }
 })

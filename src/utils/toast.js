@@ -10,7 +10,7 @@ export default class Toast {
         if (typeof options['time'] === "undefined") {
             options['time'] = 1000
         }
-        if (typeof options['info'] === "undefined") {
+        if (typeof options['type'] === "undefined") {
             options['type'] = 'warn'
         }
         this.setDurationTime(options.time)

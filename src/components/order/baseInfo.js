@@ -3,8 +3,14 @@ import {
     StyleSheet,
     View,
     Text,
+    Clipboard
 } from 'react-native';
 import PropTypes from "prop-types";
+import {
+    OrderButton,
+    TimeFormat
+} from '../../components'
+import fa from "../../utils/fa";
 
 export default class OrderBaseInfo extends Component {
     static propTypes = {
@@ -21,10 +27,9 @@ export default class OrderBaseInfo extends Component {
     };
 
     setClipboardData() {
-        // todo
-        wx.setClipboardData({
-            data: `${this.state.orderNumber}`
-        })
+        const { orderNumber } = this.props
+        Clipboard.setString(`${orderNumber}`);
+        fa.toast.show({ title: '已复制', type: 'info' })
     }
 
     render() {
@@ -33,7 +38,7 @@ export default class OrderBaseInfo extends Component {
             <View style={styles.item}>
                 <View style={styles.row}>
                     <Text style={styles.label}>订单编号：</Text>
-                    <Text style={styles.text}>{{ orderNumber }}</Text>
+                    <Text style={styles.text}>{orderNumber}</Text>
                     <OrderButton text="复制" size="small" onClick={() => {
                         this.setClipboardData()
                     }} />
@@ -57,18 +62,21 @@ export default class OrderBaseInfo extends Component {
     }
 }
 const styles = StyleSheet.create({
-    orderBaseInfo: {},
+    orderBaseInfo: {
+        backgroundColor: '#FFFFFF'
+    },
     item: {
         borderStyle: "solid",
         borderBottomWidth: 1,
         borderBottomColor: '#F8F8F8',
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     row: {
         justifyContent: "flex-start",
         alignItems: "center",
         paddingVertical: 7.5,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        flexDirection: 'row'
     },
     label: {
         fontSize: 14,

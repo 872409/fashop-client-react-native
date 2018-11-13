@@ -6,12 +6,11 @@ import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from "../../models/buy";
 import React, { Component } from 'react';
-import { Modal, List } from "antd-mobile-rn";
+import { Modal, List, WhiteSpace } from "antd-mobile-rn";
 import {
     OrderStateCard,
     OrderAddress,
     OrderGoodsList,
-    OrderContact,
     OrderBaseInfo,
     OrderCostList,
     OrderFooterAction
@@ -27,41 +26,35 @@ export default class OrderDetail extends Component {
         orderLog: null,
     }
 
-    async componentWillMount({ id }) {
-        this.setState({
-            id
-        })
-    }
-
-    onRefund(e) {
+    onRefund(goodsInfo) {
         const orderInfo = this.state.orderInfo
-        const { goodsInfo } = e.detail
         // 根据类型跳转到是退款还是退款退货  订单状态：0(已取消)10(默认):未付款;20:已付款;30:已发货;40:已收货;    多少天后不可退的业务逻辑
         if (orderInfo.state === 20) {
             // 直接跳转到申请发货
-            this.props.navigation.navigate('RefundServiceApply',{
-                order_goods_id:goodsInfo.id,
-                refund_type:1
+            this.props.navigation.navigate('RefundServiceApply', {
+                order_goods_id: goodsInfo.id,
+                refund_type: 1
             })
 
         } else if (orderInfo.state === 30 || orderInfo.state === 40) {
             // 选择是退款还是退款并退货
-            this.props.navigation.navigate('RefundServiceType',{
-                order_goods_id:goodsInfo.id,
+            this.props.navigation.navigate('RefundServiceType', {
+                order_goods_id: goodsInfo.id,
             })
         }
     }
 
-    onRefundDetail(e) {
-        // todo e
-        const { goodsInfo } = e.detail
-        this.props.navigation.navigate('RefundDetail',{
-            id:goodsInfo.refund_id,
+    onRefundDetail(goodsInfo) {
+        this.props.navigation.navigate('RefundDetail', {
+            id: goodsInfo.refund_id,
         })
     }
 
 
     componentDidMount() {
+        this.setState({
+            id: this.props.navigation.getParam('id')
+        })
         this.props.navigation.addListener(
             'didFocus', async () => {
                 this.init()
@@ -79,16 +72,14 @@ export default class OrderDetail extends Component {
         }
     }
 
-    onGoodsDetail(e) {
-        // todo e
-        const { goodsInfo } = e.detail
-        this.props.navigation.navigate('GoodsDetail',{
-            id:goodsInfo.goods_id,
+    onGoodsDetail(goodsInfo) {
+        this.props.navigation.navigate('GoodsDetail', {
+            id: goodsInfo.goods_id,
         })
     }
 
-    async onCancel(e) {
-        const orderInfo = e.detail.orderInfo
+    async onCancel() {
+        const { orderInfo } = this.state
         const result = await orderModel.cancel({
             'id': orderInfo.id,
         })
@@ -102,20 +93,19 @@ export default class OrderDetail extends Component {
         }
     }
 
-    onEvaluate(e) {
-        // todo e
-        const orderInfo = e.detail.orderInfo
-        this.props.navigation.navigate('EvaluateList',{
-            order_id:orderInfo.id,
+    onEvaluate() {
+        const { orderInfo } = this.state
+        this.props.navigation.navigate('EvaluateList', {
+            order_id: orderInfo.id,
         })
     }
 
-    async onReceive(e) {
+    async onReceive() {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: () => async () => {
-                    const orderInfo = e.detail.orderInfo
+                    const { orderInfo } = this.state
                     const result = await orderModel.confirmReceipt({
                         'id': orderInfo.id,
                     })
@@ -134,7 +124,7 @@ export default class OrderDetail extends Component {
 
     async onPay() {
         const userInfo = fa.cache.get('user_info')
-        const orderInfo = this.state.orderInfo
+        const { orderInfo } = this.state
         const self = this
         // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
         const payResult = await buyModel.pay({
@@ -179,11 +169,10 @@ export default class OrderDetail extends Component {
     }
 
     render() {
-        // todo    address={orderInfo.extend_order_extend.reciver_name}
-        const {orderInfo} = this.state
-        return <View>
-            <View>
-                <List>
+        const { orderInfo } = this.state
+        return orderInfo ? <View>
+            <View style={styles.main}>
+                <View style={styles.item}>
                     <OrderStateCard
                         orderState={orderInfo.state}
                         expireSeconds="1000"
@@ -195,19 +184,26 @@ export default class OrderDetail extends Component {
                         phone={orderInfo.extend_order_extend.receiver_phone}
                         address={orderInfo.extend_order_extend.reciver_name}
                     />
-                </List>
+                    <WhiteSpace size="sm" />
+                </View>
 
-                <List>
+                <View style={styles.item}>
                     <OrderGoodsList
                         orderInfo={orderInfo}
                         goodsList={orderInfo.extend_order_goods}
-                        goodsDetail="onGoodsDetail"
-                        goodsRefundClick="onRefund"
-                        goodsRefundDetail="onRefundDetail"
+                        goodsDetail={({ goodsInfo }) => {
+                            this.onGoodsDetail(goodsInfo)
+                        }}
+                        goodsRefundClick={({ goodsInfo }) => {
+                            this.onRefund(goodsInfo)
+                        }}
+                        goodsRefundDetail={({ goodsInfo }) => {
+                            this.onRefundDetail(goodsInfo)
+                        }}
                     />
-                    <OrderContact number={serviceNumber} />
-                </List>
-                <List>
+                    <WhiteSpace size="sm" />
+                </View>
+                <View style={styles.item}>
                     <OrderBaseInfo
                         orderInfo={orderInfo}
                         orderNumber={orderInfo.sn}
@@ -215,8 +211,9 @@ export default class OrderDetail extends Component {
                         payment="微信支付"
                         payTime={orderInfo.payment_time}
                     />
-                </List>
-                <List>
+                    <WhiteSpace size="sm" />
+                </View>
+                <View style={styles.item}>
                     <OrderCostList
                         goodsTotal={orderInfo.goods_amount}
                         freight={orderInfo.freight_fee}
@@ -229,16 +226,27 @@ export default class OrderDetail extends Component {
                         showPayBtn={orderInfo.if_pay}
                         showLogisticsBtn={orderInfo.showLogisticsBtn}
                         showReceiveBtn={orderInfo.if_receive}
-                        onPay="onPay"
-                        onReceive="onReceive"
-                        onCancel="onCancel"
-                        onEvaluate="onEvaluate"
+                        onPay={() => {
+                            this.onPay()
+                        }}
+                        onReceive={() => {
+                            this.onReceive()
+                        }}
+                        onCancel={() => {
+                            this.onCancel()
+                        }}
+                        onEvaluate={() => {
+                            this.onEvaluate()
+                        }}
                     />
-                </List>
+                </View>
             </View>
-        </View>
+        </View> : null
     }
 }
 const styles = StyleSheet.create({
-
+    main: {
+        backgroundColor: '#f8f8f8',
+    },
+    item: {}
 })

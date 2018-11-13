@@ -4,7 +4,8 @@ import {
     View,
     ScrollView,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 
@@ -27,7 +28,9 @@ export default class OrderCardGoods extends Component {
             goodsList,
         } = this.props
         return <View>
-            {goodsList.length > 1 ? <View onPress={this.onClick()}>
+            {goodsList.length > 1 ? <TouchableOpacity onPress={() => {
+                this.onClick()
+            }}>
                 <ScrollView contentContainerStyle={styles.orderCardGoods}>
                     <View>
                         {
@@ -38,24 +41,27 @@ export default class OrderCardGoods extends Component {
                             }) : null}
                     </View>
                 </ScrollView>
-            </View> : null}
-            {goodsList.length === 1 ? <View onPress={this.onClick()}>
+            </TouchableOpacity> : null}
+            {goodsList.length === 1 ? <TouchableOpacity onPress={() => {
+                this.onClick()
+            }}>
                 <View style={styles.orderCardGoodsOne}>
                     {goodsList.map((item) => {
-                        return <View style={styles.oneItem}>
+                        return <View style={styles.oneItem} key={item.id}>
                             <Image style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'contain'} />
                             <View style={styles.oneBody}>
                                 <Text style={styles.oneText}>{item.goods_title}</Text>
                                 <View style={styles.oneDesc}>
-                                    <Text style={styles.oneDescLabel}>{item.goods_spec_string}</Text><Text
-                                    style={styles.oneDescText}>x{item.goods_num}</Text></View>
+                                    <Text style={styles.oneDescLabel}>{item.goods_spec_string}</Text>
+                                    <Text style={styles.oneDescText}>x{item.goods_num}</Text>
+                                </View>
                                 <Text>¥{item.goods_price}</Text>
                             </View>
                         </View>
                     })}
 
                 </View>
-            </View> : null}
+            </TouchableOpacity> : null}
         </View>
     }
 }
@@ -64,12 +70,14 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginRight: 15,
         marginLeft: 15,
+        flexDirection: 'row'
     },
     item: {
         marginRight: 10,
         borderBottomWidth: 1,
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
+        flexDirection: 'row'
     },
     image: {
         width: 75,
@@ -82,7 +90,8 @@ const styles = StyleSheet.create({
     },
     oneItem: {
         justifyContent: "flex-start",
-        height: 75
+        height: 75,
+        flexDirection:'row'
     },
     oneImage: {
         width: 75,
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
     },
     oneText: {
         fontSize: 14,
-        fontWeight: "800",
+        fontWeight: "400",
         lineHeight: 18,
     },
     oneLabel: {
@@ -110,11 +119,11 @@ const styles = StyleSheet.create({
     oneDesc: {
         fontSize: 12,
         color: "#999",
-        lineHeight: 12,
         marginBottom: 10,
         height: 12,
         marginTop: 5,
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        flexDirection:'row'
     },
     oneDescLabel: {},
     oneDescText: {}

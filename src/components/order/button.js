@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 
@@ -28,7 +29,7 @@ export default class OrderButton extends Component {
 
     render() {
         const { size, text, type, active } = this.props
-        return <View style={[styles.orderButton]} onPress={this.onClick()}><Text>{text}</Text></View>
+        return <TouchableOpacity style={[styles.orderButton]} onPress={()=>{                 this.onClick()             }}><Text>{text}</Text></TouchableOpacity>
     }
 }
 const styles = StyleSheet.create({

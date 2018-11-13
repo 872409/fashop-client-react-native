@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#F8F8F8",
+        flexDirection: 'row'
     },
     left: {
         alignItems: "center"

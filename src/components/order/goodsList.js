@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 
@@ -37,18 +38,20 @@ export default class OrderGoodsList extends Component {
         const { goodsList } = this.props
         return <View style={styles.orderGoodsList}>
             {goodsList.length > 0 ? goodsList.map((item) => <View style={styles.item}>
-                <View style={styles.content} onPress={(item) => this.onGoodsDetail(item)}>
-                    <View style={styles.image}>
-                        <Image source={{ uri: item.goods_img }} resizeMode={'contain'} />
-                    </View>
-                    <View style={styles.body}>
-                        <Text style={styles.bodyText}>{item.goods_title}</Text>
+                <TouchableOpacity style={styles.content} onPress={(item) => {
+                    this.onGoodsDetail(item)
+                }}>
+                    <View style={styles.content}>
+                        <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'contain'} />
+                        <View style={styles.body}>
+                            <Text style={styles.bodyText}>{item.goods_title}</Text>
+                        </View>
                     </View>
                     <View style={styles.end}>
                         <Text style={styles.price}>¥{item.goods_price}</Text>
                         <Text style={styles.number}>x {item.goods_num}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
                 {item.refund_state === 1 ? <View style={styles.footer}>
                     <OrderButton
                         text="申请退款"
@@ -78,24 +81,25 @@ export default class OrderGoodsList extends Component {
     }
 }
 const styles = StyleSheet.create({
-    orderGoodsList: {},
+    orderGoodsList: {
+        backgroundColor: '#FFFFFF'
+    },
     item: {
         padding: 15,
-        borderBottomWidth:1,
-        borderStyle:"solid",
-        borderBottomColor:"#F8F8F8",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        borderBottomColor: "#F8F8F8",
     },
     content: {
-        justifyContent: "flex-start"
+        justifyContent: "space-between",
+        flexDirection: 'row'
     },
     image: {
         width: 60,
         height: 60,
         marginRight: 10
     },
-    body: {
-        flex:1
-    },
+    body: {},
     bodyText: {
         fontSize: 14,
         color: "#333",
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
         fontWeight: "800"
     },
     end: {
-        textAlign: "right",
+        justifyContent: 'flex-end',
         marginLeft: 20
     },
     price: {
@@ -111,11 +115,13 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         marginBottom: 10,
         lineHeight: 14,
+        textAlign: 'right'
     },
     number: {
         fontSize: 14,
         marginBottom: 10,
         lineHeight: 14,
+        textAlign: 'right'
     },
     footer: {
         justifyContent: "flex-end"

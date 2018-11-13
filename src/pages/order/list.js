@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    Text
 } from 'react-native';
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from '../../models/buy'
 import { Modal, List } from "antd-mobile-rn";
-import { PublicStyles,ThemeStyle,windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
 import { ListEmptyView, ListView } from "../../utils/publicViewModule";
 import { windowHeight } from "../../utils/publicStyleModule";
@@ -15,11 +16,12 @@ import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 
+const Item = List.Item
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 export default class OrderList extends Component {
     state = {
-        state_type: 'all',
+        state_type: null,
     }
 
     async componentWillMount() {
@@ -32,7 +34,7 @@ export default class OrderList extends Component {
     }
 
     goDetail(id) {
-        this.props.navigation.navigate('OrderDetail',{id})
+        this.props.navigation.navigate('OrderDetail', { id })
     }
 
 
@@ -54,7 +56,7 @@ export default class OrderList extends Component {
     onEvaluate(e) {
         // todo e
         const orderInfo = e.detail.orderInfo
-        this.props.navigation.navigate('OrderDetail',{order_id:orderInfo.id})
+        this.props.navigation.navigate('OrderDetail', { order_id: orderInfo.id })
 
     }
 
@@ -160,115 +162,122 @@ export default class OrderList extends Component {
                 tabLabel: '已完成'
             }
         ]
-        const {state_type} = this.state
-        // todo initialPage
+        const { state_type } = this.state
+        let params = {}
+        if (state_type) {
+            params['state_type'] = params
+        }
         return (
             <View style={[PublicStyles.ViewMax]}>
-                    <ScrollableTabView
-                        style={{ backgroundColor: '#fff', flex: 0 }}
-                        initialPage={0}
-                        renderTabBar={() =>
-                            <DefaultTabBar
-                                style={{
-                                    borderWidth: 0,
-                                    borderColor: 'rgba(0,0,0,0)'
-                                }}
-                                tabStyle={{ paddingBottom: 0 }}
+                <ScrollableTabView
+                    style={{ backgroundColor: '#fff', flex: 0 }}
+                    initialPage={0}
+                    renderTabBar={() =>
+                        <DefaultTabBar
+                            style={{
+                                borderWidth: 0,
+                                borderColor: 'rgba(0,0,0,0)'
+                            }}
+                            tabStyle={{ paddingBottom: 0 }}
+                        />
+                    }
+                    tabBarActiveTextColor={ThemeStyle.ThemeColor}
+                    tabBarInactiveTextColor='#666'
+                    tabBarUnderlineStyle={{
+                        backgroundColor: `${ThemeStyle.ThemeColor}`,
+                        height: 3,
+                        borderRadius: 4,
+                    }}
+                    tabBarTextStyle={{}}
+                    onChangeTab={({ i }) => {
+                        if (i === 0) {
+                            this.ListView.setFetchParams({
+                                state_type: null,
+                            })
+                        } else if (i === 1) {
+                            this.ListView.setFetchParams({
+                                state_type: 'state_new',
+                            })
+                        } else if (i === 2) {
+                            this.ListView.setFetchParams({
+                                state_type: 'state_pay',
+                            })
+                        } else if (i === 3) {
+                            this.ListView.setFetchParams({
+                                state_type: 'state_send',
+                            })
+                        } else if (i === 4) {
+                            this.ListView.setFetchParams({
+                                state_type: 'state_success',
+                            })
+                        }
+                    }}
+                >
+                    {
+                        tabList.map((item, index) => (
+                            <View
+                                key={index}
+                                tabLabel={item.tabLabel}
                             />
-                        }
-                        tabBarActiveTextColor={ThemeStyle.ThemeColor}
-                        tabBarInactiveTextColor='#666'
-                        tabBarUnderlineStyle={{
-                            width: windowWidth * 0.75 / 4,
-                            left: windowWidth / 14,
-                            backgroundColor: `${ThemeStyle.ThemeColor}`,
-                            height: 3,
-                            borderRadius: 4,
-                        }}
-                        tabBarTextStyle={{}}
-                        onChangeTab={({ i }) => {
-                            if (i === 0) {
-                                this.ListView.setFetchParams({
-                                    state_type: '',
-                                })
-                            } else if (i === 1) {
-                                this.ListView.setFetchParams({
-                                    state_type: 'state_new',
-                                })
-                            } else if (i === 2) {
-                                this.ListView.setFetchParams({
-                                    state_type: 'state_pay',
-                                })
-                            } else if (i === 3) {
-                                this.ListView.setFetchParams({
-                                    state_type: 'state_send',
-                                })
-                            } else if (i === 4) {
-                                this.ListView.setFetchParams({
-                                    state_type: 'state_success',
-                                })
-                            }
-                        }}
-                    >
-                        {
-                            tabList.map((item, index) => (
-                                <View
-                                    key={index}
-                                    tabLabel={item.tabLabel}
-                                />
-                            ))
-                        }
-                    </ScrollableTabView>
-                    <List>
-                        <ListView
-                            ref={e => this.ListView = e}
-                            keyExtractor={e => String(e.state_type)}
-                            api={OrderApi.list}
-                            fetchParams={{state_type}}
-                            renderItem={ item => (
-                                <Item>
-                                    <OrderCard>
-                                        <OrderCardHeader
-                                            orderId={item.id}
-                                            state={item.state}
-                                            sn={item.sn}
-                                        />
-                                        <OrderCardGoods
-                                            orderId={item.id}
-                                            goodsList={item.extend_order_goods}
-                                            onClick={() => this.goDetail(item.order_goods_id)} />
-                                        <OrderCardFooter
-                                            orderInfo={item}
-                                            orderId={item.id}
-                                            goodsNumber={item.goods_num}
-                                            totalCost={item.amount}
-                                            showEvaluateBtn={item.if_evaluate}
-                                            showPayBtn={item.if_pay}
-                                            showReceiveBtn={item.if_receive}
-                                            showLogisticsBtn={item.showLogisticsBtn}
-                                            onPay={() => this.onPay()}
-                                            onReceive={() => this.onReceive()}
-                                            onCancel={() => this.onCancel()}
-                                            onEvaluate={() => this.onEvaluate()}
-                                        />
-                                    </OrderCard>
-                                </Item>
-                            )}
-                            ListEmptyComponent={()=>(
-                                <ListEmptyView
-                                    height={windowHeight-80}
-                                    uri={require('../../images/order/list-empty.png')}
-                                    desc='暂无相关数据'
-                                />
-                            )}
-                        >
-                        </ListView>
-                    </List>
+                        ))
+                    }
+                </ScrollableTabView>
+                <ListView
+                    ref={e => this.ListView = e}
+                    keyExtractor={e => String(e.id)}
+                    api={OrderApi.list}
+                    fetchParams={params}
+                    renderItem={({ item }) => (
+                        <OrderCard key={`card_${item.id}`}>
+                            <OrderCardHeader
+                                orderId={item.id}
+                                state={item.state}
+                                sn={item.sn}
+                            />
+                            <OrderCardGoods
+                                orderId={item.id}
+                                goodsList={item.extend_order_goods}
+                                onClick={() => {
+                                    this.goDetail(item.id)
+                                }}
+                            />
+                            <OrderCardFooter
+                                orderInfo={item}
+                                orderId={item.id}
+                                goodsNumber={item.goods_num}
+                                totalCost={parseFloat(item.amount)}
+                                showEvaluateBtn={item.if_evaluate}
+                                showPayBtn={item.if_pay}
+                                showReceiveBtn={item.if_receive}
+                                showLogisticsBtn={item.showLogisticsBtn}
+                                showCancelBtn={item.if_cancel}
+                                onPay={() => {
+                                    this.onPay()
+                                }}
+                                onReceive={() => {
+                                    this.onReceive()
+                                }}
+                                onCancel={() => {
+                                    this.onCancel()
+                                }}
+                                onEvaluate={() => {
+                                    this.onEvaluate()
+                                }}
+                            />
+                        </OrderCard>
+                    )}
+                    ListEmptyComponent={() => (
+                        <ListEmptyView
+                            height={windowHeight - 80}
+                            uri={require('../../images/order/list-empty.png')}
+                            desc='暂无相关数据'
+                        />
+                    )}
+                >
+                </ListView>
             </View>
         );
     }
 
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})

@@ -49,23 +49,26 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingVertical: 0,
         paddingHorizontal: 15,
+        flexDirection: 'row'
     },
     label: {
         fontSize: 14,
-        fontWeight: "800"
+        fontWeight: "400"
     },
     text: {
         fontSize: 12,
         fontWeight: "800"
     },
     footer: {
-        textAlign: "right",
         paddingTop: 10,
         paddingRight: 15,
         paddingLeft: 15,
         borderTopWidth: 1,
         borderStyle: "solid",
         borderTopColor: "#F8F8F8",
+        flexDirection: 'row',
+        justifyContent: "flex-end",
+        alignItems: 'center'
     },
     footerLabel: {
         fontSize: 12
