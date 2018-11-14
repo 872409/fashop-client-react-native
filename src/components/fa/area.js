@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 import { Picker } from 'antd-mobile-rn';
@@ -65,8 +66,6 @@ export default class Area extends Component {
     initDisplayList() {
         const { areaList, selected } = this.props
         let displayList = []
-        console.warn(areaList)
-        return
         displayList[0] = areaList.map(function (item) {
             return item.name;
         })
@@ -87,6 +86,7 @@ export default class Area extends Component {
         const { selected, areaNames, placeholder } = this.props
         return <View style={styles.section}>
             <Picker
+                title="选择地区"
                 cols={3}
                 onChange={(e) => {
                     this.onChange(e)
@@ -97,10 +97,12 @@ export default class Area extends Component {
                     this.onColumnChange(e)
                 }}
             >
-                <View style={styles.picker}>
+                <TouchableOpacity style={styles.picker} onPress={()=>{
+
+                }}>
                     {areaNames ? <Text style={styles.text}>{areaNames}</Text> : null}
                     {placeholder ? <Text style={styles.placeholder}>{placeholder}</Text> : null}
-                </View>
+                </TouchableOpacity>
             </Picker>
         </View>
     }
