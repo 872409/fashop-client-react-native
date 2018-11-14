@@ -117,10 +117,13 @@ export default class Field extends Component {
         }
     }
 
-    uploaderPreViewImage(e) {
-        wx.preViewImage({
-            current: e.currentTarget.id,
-            urls: this.data.uploaderFiles
+    uploaderPreViewImage({images,index}) {
+        let _images = images ? images.map(img => {
+            return { source: { uri: img } }
+        }) : []
+        this.props.navigation.navigate('PhotoGallery', {
+            images:_images,
+            index
         })
     }
 

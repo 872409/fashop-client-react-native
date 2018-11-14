@@ -69,7 +69,7 @@ initLibraryConfig({
         const header = {
             'User-Id': "563",
             // 'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNjc4IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDE1MTY4OTEsImV4cCI6MTU0MjEyMTY5MX0.K7dXfExAaYevmlBuSjnkkTdqxSL54yLWTvRaQTBh_fI",
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNzk4IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDIxMDUwNDcsImV4cCI6MTU0MjcwOTg0N30.KbOcSB43CTypLg9Nhb3T-SYOjthYzOWYD-AUcmDzNEg",
             // 'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,

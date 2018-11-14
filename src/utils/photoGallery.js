@@ -3,11 +3,7 @@ import{
     StyleSheet,
     Text,
     View,
-    Image,
-    Navigator,
     TouchableOpacity,
-    ScrollView,
-    CameraRoll,
 } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -25,7 +21,7 @@ export default class PhotoGallery extends Component{
                 <Text style={styles.captionText}>
                     {
                         (images[index] && images[index].caption) || ''
-                    } 
+                    }
                 </Text>
             </View>
         );
@@ -120,29 +116,29 @@ var styles = StyleSheet.create({
         top:40,
         left:0,
     },
-    galleryCount: { 
-        top: 30, 
-        height: 65, 
+    galleryCount: {
+        top: 30,
+        height: 65,
         right: 15,
-        position: 'absolute', 
+        position: 'absolute',
         justifyContent: 'center',
     },
-    galleryCountText: { 
-        color: 'white', 
-        fontSize: 15, 
-        fontStyle: 'italic', 
+    galleryCountText: {
+        color: 'white',
+        fontSize: 15,
+        fontStyle: 'italic',
     },
-    caption: { 
-        bottom: 30, 
-        height: 65, 
-        width: '100%', 
-        position: 'absolute', 
-        justifyContent: 'center' 
+    caption: {
+        bottom: 30,
+        height: 65,
+        width: '100%',
+        position: 'absolute',
+        justifyContent: 'center'
     },
-    captionText: { 
-        textAlign: 'center', 
-        color: 'white', 
-        fontSize: 15, 
-        fontStyle: 'italic' 
+    captionText: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 15,
+        fontStyle: 'italic'
     }
 })
