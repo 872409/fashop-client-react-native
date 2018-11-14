@@ -269,7 +269,7 @@ export default class Field extends Component {
                     desc={desc}
                     right={
                         <Switch
-                            trackColor={'#4dd865'}
+                            trackColor={{false: '#4dd865', true: '#4dd865'}}
                             checked={checked}
                             disabled={disabled}
                             onChange={(value) => {
