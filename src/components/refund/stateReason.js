@@ -5,7 +5,8 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { RefundStateSteps,OrderButton } from '../../components'
+import OrderButton from "../order/button";
+import RefundStateSteps from "./stateSteps";
 
 export default class RefundStateReason extends Component {
     static propTypes = {

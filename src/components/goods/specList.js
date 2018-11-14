@@ -34,7 +34,7 @@ export default class GoodsSpecList extends Component{
         console.log("currentSku", currentSku);
         
         const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
-        return <View style={PublicStyles.ViewMax}>
+        return <View style={PublicStyles.ViewOut}>
             <View style={styles.popModalTitleView}>
                 {
                     currentSku.img ? <Image

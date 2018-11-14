@@ -5,7 +5,7 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { TimeFormat } from '../../components'
+import TimeFormat from '../fa/timeFormat'
 
 export default class RefundBaseInfo extends Component {
     static propTypes = {

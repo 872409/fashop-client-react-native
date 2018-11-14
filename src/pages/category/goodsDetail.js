@@ -13,7 +13,7 @@ import { getGoodsDetail } from "../../actions/category";
 import { stateHoc } from "../../utils";
 // import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-View';
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
-import { Carousel, Modal } from 'antd-mobile-rn'
+import { Carousel, Modal, Toast } from 'antd-mobile-rn'
 import {
     Goods,
     Separator,
@@ -22,6 +22,9 @@ import {
     BodyText
 } from '../../components/body'
 import SpecList from '../../components/goods/specList'
+import GoodsCollectModel from "../../models/goodsCollect";
+
+const goodsCollectModel = new GoodsCollectModel()
 
 @connect(({
     View: {
@@ -29,10 +32,18 @@ import SpecList from '../../components/goods/specList'
             goodsDetailData,
             goodsDetailFetchStatus,
         }
+    },
+    app: {
+        user: {
+            login,
+            userInfo
+        }
     }
 }) => ({
     data: goodsDetailData,
     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
+    login,
+    userInfo
 }))
 @stateHoc({
     detail: true,
@@ -253,7 +264,7 @@ export default class CategoryDetail extends Component {
                         <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}
-                            onPress={() => { }}
+                            onPress={this.onCollect}
                         >
                             <Image source={require('../../images/goodsDetail/collect.png')}/>
                             <Text style={leftText}>收藏</Text>
@@ -296,6 +307,18 @@ export default class CategoryDetail extends Component {
                 </View>
             </SafeAreaView>
         )
+    }
+    onCollect = async() => {
+        const { navigation, login } = this.props;
+        const { id } = navigation.state.params;
+        if(login){
+            const result = await goodsCollectModel.add({
+                goods_id: id
+            })
+            if (result !== false) {
+                Toast.info('成功收藏', 1)
+            }
+        }
     }
 }
 

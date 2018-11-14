@@ -7,7 +7,9 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { RefundGoodsCard,OrderButton,StaticCountdown } from '../../components'
+import OrderButton from "../order/button";
+import StaticCountdown from "../fa/staticCountdown";
+import RefundGoodsCard from "./goodsCard";
 
 export default class RefundCard extends Component {
     static propTypes = {

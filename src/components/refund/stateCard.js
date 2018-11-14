@@ -5,7 +5,8 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { TimeFormat, StaticCountdown } from '../../components'
+import TimeFormat from "../fa/timeFormat";
+import StaticCountdown from "../fa/staticCountdown";
 
 export default class RefundStateCard extends Component {
     static propTypes = {

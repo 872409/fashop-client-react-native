@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import { TextareaItem, Picker, Switch } from 'antd-mobile-rn';
-import { Area, FieldCell } from '../../components'
+import Area from "./area";
+import FieldCell from "./fieldCell";
 import { ImageUpload } from '../../components/theme'
 
 export default class Field extends Component {
