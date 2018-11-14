@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "antd-mobile-rn": "^2.3.0",
+    "array-tree-filter": "^2.1.0",
     "moji-react-native-utils": "^2.0.2",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",

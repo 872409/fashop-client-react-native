@@ -31,4 +31,25 @@ export default class Fa {
         }
         return result;
     }
+
+    static getAntAreaList(list) {
+        return Array.isArray(list) && list.length> 0 ? list.map((item) => {
+            return {
+                value: `${item.id}`,
+                label: `${item.name}`,
+                children: typeof item['childs'] !== 'undefined' && Array.isArray(item.childs) && item.childs.length > 0 ? item.childs.map((sub) => {
+                    return {
+                        value: `${sub.id}`,
+                        label: `${sub.name}`,
+                        children: typeof sub['childs'] !== 'undefined' && Array.isArray(sub.childs) && sub.childs.length > 0 ? sub.childs.map((area) => {
+                            return {
+                                value: `${area.id}`,
+                                label: `${area.name}`
+                            }
+                        }) : []
+                    }
+                }) : []
+            }
+        }) : []
+    }
 }

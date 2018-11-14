@@ -18,7 +18,7 @@ const addressModel = new AddressModel()
 
 export default class UserAddressList extends Component {
     onEdit(id) {
-        this.props.navigation.navigate('UserAddressEdit', { id })
+        this.props.navigation.navigate('UserAddressEdit', { id, updateListRow: this.updateListRow })
     }
 
     async onDelete(id) {
@@ -43,12 +43,19 @@ export default class UserAddressList extends Component {
         this.props.navigation.navigate('UserAddressAdd')
     }
 
+    // todo
+    async updateListRow(id) {
+        console.log('updateListRow')
+         // this.ListView.manuallyRefresh()
+    }
+
     render() {
         return <View style={[PublicStyles.ViewMax]}>
             <ListView
+                ref={e => this.ListView = e}
                 api={AddressApi.list}
                 keyExtractor={e => String(e.id)}
-                renderItem={({item})=><AddressCard
+                renderItem={({ item }) => <AddressCard
                     name={item.truename}
                     phone={item.phone}
                     id={item.id}
@@ -56,7 +63,7 @@ export default class UserAddressList extends Component {
                     onEdit={(id) => {
                         this.onEdit(id)
                     }}
-                    />
+                />
                 }
             />
             <FixedBottom>
@@ -65,6 +72,4 @@ export default class UserAddressList extends Component {
         </View>
     }
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})

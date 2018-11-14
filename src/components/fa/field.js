@@ -3,9 +3,10 @@ import {
     StyleSheet,
     View,
     Text,
+    TextInput
 } from 'react-native';
 import PropTypes from "prop-types";
-import { TextareaItem, InputItem,Picker ,Switch} from 'antd-mobile-rn';
+import { TextareaItem, Picker, Switch } from 'antd-mobile-rn';
 import { Area, FieldCell } from '../../components'
 import { ImageUpload } from '../../components/theme'
 
@@ -47,7 +48,7 @@ export default class Field extends Component {
         disabled: false,
         loading: false,
         checked: false,
-        inputType: 'text',
+        inputType: 'numeric',
         pickerMode: 'selector',
         placeholder: null,
         focus: false,
@@ -168,7 +169,7 @@ export default class Field extends Component {
                     <ImageUpload
                         maxNum={uploaderMaxNum}
                         defaultValue={value ? value : []}
-                        onChange={({images}) => {
+                        onChange={({ images }) => {
                             this.handleFieldChange(images)
                         }}
                     />
@@ -202,14 +203,14 @@ export default class Field extends Component {
                     title={title}
                     desc={desc}
                     right={
-                        <InputItem
-                            type={inputType || 'text'}
-                            disabled={disabled}
-                            focus={focus}
-                            value={value}
+                        <TextInput
+                            keyboardType={inputType || 'default'}
+                            editable={!disabled}
+                            autoFocus={focus}
+                            value={`${value}`}
                             placeholder={placeholder}
                             maxLength={maxlength}
-                            onChange={(value) => {
+                            onChangeText={(value) => {
                                 this.handleFieldChange(value)
                             }}
                             onFocus={(value) => {
@@ -245,21 +246,22 @@ export default class Field extends Component {
                     title={title}
                     desc={desc}
                     right={
-                        <Area
-                            areaNames={areaNames}
-                            placeholder={placeholder}
-                            areaList={areaList}
-                            selected={[0,0,0]}
-                            onChange={(value) => {
-                                this.handleFieldChange(value)
-                            }}
-                            onFocus={(value) => {
-                                this.handleFieldFocus(value)
-                            }}
-                            onBlur={(value) => {
-                                this.handleFieldBlur(value)
-                            }}
-                        />
+                        Array.isArray(areaList) && areaList.length > 0 ?
+                            <Area
+                                areaNames={areaNames}
+                                placeholder={placeholder}
+                                areaList={areaList}
+                                value={value}
+                                onChange={({value}) => {
+                                    this.handleFieldChange(value)
+                                }}
+                                onFocus={({value}) => {
+                                    this.handleFieldFocus(value)
+                                }}
+                                onBlur={({value}) => {
+                                    this.handleFieldBlur(value)
+                                }}
+                            /> : <View />
                     }
                 /> : null}
 
