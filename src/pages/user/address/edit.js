@@ -9,13 +9,13 @@ import {
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import AreaModel from '../../../models/area'
+import { List, Modal, Button } from 'antd-mobile-rn';
+import { Field } from '../../../components'
+import arrayTreeFilter from "array-tree-filter";
+import { StackActions } from "react-navigation";
 
 const addressModel = new AddressModel()
 const areaModel = new AreaModel()
-import { List, Modal, Button } from 'antd-mobile-rn';
-import { Field, FixedBottom } from '../../../components'
-import { windowWidth } from "../../../utils/publicStyleModule";
-
 export default class UserAddressEdit extends Component {
     state = {
         id: null,
@@ -47,14 +47,22 @@ export default class UserAddressEdit extends Component {
             address: info.address,
             is_default: info.is_default,
             combine_detail: info.combine_detail,
-            areaList: areaResult.list,
+            areaList: fa.getAntAreaList(areaResult.list),
             onLoaded: true
         })
     }
 
     onAreaChange({ value }) {
+        const { areaList } = this.state
+        const treeChildren = arrayTreeFilter(
+            areaList, (item, level) => item.value === value[level]
+        );
+
         this.setState({
-            area_id: value.ids[2]
+            area_id: value[2],
+            combine_detail: treeChildren.map(v => {
+                return v.label;
+            }).join(' ')
         })
     }
 
@@ -78,7 +86,7 @@ export default class UserAddressEdit extends Component {
 
     onIsDefaultChange({ value }) {
         this.setState({
-            is_default: value.checked ? 1 : 0
+            is_default: value ? 1 : 0
         })
     }
 
@@ -87,8 +95,9 @@ export default class UserAddressEdit extends Component {
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: () => async () => {
+                    const { id } = this.state
                     const result = await addressModel.del({
-                        id: this.state.id
+                        id
                     })
                     if (result === false) {
                         fa.toast.show({
@@ -132,7 +141,11 @@ export default class UserAddressEdit extends Component {
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
-            this.props.navigation.goBack()
+            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
+            const updateListRow = this.props.navigation.getParam('updateListRow')
+            if (updateListRow) {
+                updateListRow(id)
+            }
         }
     }
 
@@ -145,8 +158,9 @@ export default class UserAddressEdit extends Component {
             is_default,
             combine_detail,
             areaList,
+            onLoaded
         } = this.state
-        return <View>
+        return onLoaded?<View>
             <View>
                 <List>
                     <Field
@@ -161,19 +175,20 @@ export default class UserAddressEdit extends Component {
                     </Field>
                     <Field
                         title="联系方式："
-                        inputType="number"
+                        inputType="numeric"
                         placeholder="请输入手机号"
                         value={mobile_phone}
                         onChange={(e) => {
                             this.onMobilePhoneChange(e)
                         }}
-                    >
+                    >2
                     </Field>
                     <Field
                         title="所在地区："
                         type={'area'}
                         areaList={areaList}
-                        areaNames={combine_detail}
+                        value={[]}
+                        areaNames={combine_detail ? combine_detail : '请选择地区'}
                         onChange={(e) => {
                             this.onAreaChange(e)
                         }}
@@ -192,30 +207,33 @@ export default class UserAddressEdit extends Component {
                         title="设置默认地址："
                         desc="注：每次下单时会使用该地址"
                         type={'switch'}
-                        right={true}
-                        checked={is_default}
+                        checked={is_default === 1}
                         onChange={(e) => {
                             this.onIsDefaultChange(e)
                         }}
                     >
                     </Field>
                 </List>
-                <FixedBottom>
-                    <View style={styles.buttonArea}>
-                        <Button size="large" onClick={() => {
-                            this.onDelete(id)
-                        }}>删除地址</Button>
-                        <Button type={'danger'} size="large" onClick={() => {
-                            this.onSubmit()
-                        }}>保存</Button>
-                    </View>
-                </FixedBottom>
+                <View style={styles.buttonArea}>
+                    <Button style={{ borderRadius: 0, flex: 1 }} type={'default'} size="large" onClick={() => {
+                        this.onDelete(id)
+                    }}>删除地址</Button>
+
+                    <Button style={{ borderRadius: 0, flex: 1 }} type={'warning'} size="large" onClick={() => {
+                        this.onSubmit()
+                    }}>保存</Button>
+
+                </View>
             </View>
-        </View>
+        </View> : null
     }
 }
 const styles = StyleSheet.create({
     buttonArea: {
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        flexDirection: 'row',
+        marginTop: 15
     },
 });
+
+
