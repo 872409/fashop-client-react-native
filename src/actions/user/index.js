@@ -85,7 +85,6 @@ export const initUserInfoStorage = (userInfoData)=>{
 
             dispatch(updateUserInfo())
         }else {
-            dispatch(updateUserInfo())
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
         }
