@@ -143,7 +143,7 @@ export default class UserAddressEdit extends Component {
         } else {
             this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
             const updateListRow = this.props.navigation.getParam('updateListRow')
-            if (updateListRow) {
+            if (typeof updateListRow === 'function') {
                 updateListRow(id)
             }
         }
@@ -160,7 +160,7 @@ export default class UserAddressEdit extends Component {
             areaList,
             onLoaded
         } = this.state
-        return onLoaded?<View>
+        return onLoaded ? <View>
             <View>
                 <List>
                     <Field

@@ -81,7 +81,7 @@ export default class EvaluateAdditional extends Component {
         }
     }
 
-    updateListRow() {
+    updateListRow = ()=> {
         const { id } = this.state
         if (id > 0) {
             const pages = getCurrentPages();

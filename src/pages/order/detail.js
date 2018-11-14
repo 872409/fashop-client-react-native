@@ -162,7 +162,7 @@ export default class OrderDetail extends Component {
         }
     }
 
-    updateListRow() {
+    updateListRow = () =>{
         const { id } = this.state
         if (id > 0) {
             const pages = getCurrentPages();

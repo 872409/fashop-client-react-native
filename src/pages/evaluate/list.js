@@ -48,7 +48,7 @@ export default class EvaluateList extends Component {
     }
 
     // 更新某条
-    async updateListRow(id) {
+     updateListRow = (id) => {
         this.ListView.manuallyRefresh()
         // todo 单条刷新
         // let { list } = this.state

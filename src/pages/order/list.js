@@ -120,7 +120,7 @@ export default class OrderList extends Component {
     }
 
     // 更新某条
-    async updateListRow(id) {
+     updateListRow = async(id) => {
         // todo
         let { list } = this.state
         const listIndex = list.findIndex((row) => row.id === id)

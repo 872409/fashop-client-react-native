@@ -69,7 +69,7 @@ export default class RefundDetail extends Component {
         ])
     }
 
-    updateListRow() {
+    updateListRow = () => {
         // todo
         const { id } = this.state
         if (id > 0) {

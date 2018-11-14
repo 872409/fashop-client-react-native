@@ -4,7 +4,8 @@ import {
     View,
     ScrollView,
     Text,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 import { PublicStyles } from '../../../utils/publicStyleModule';
 import fa from '../../../utils/fa'
@@ -17,9 +18,7 @@ import { ListView } from "../../../utils/publicViewModule";
 const addressModel = new AddressModel()
 
 export default class UserAddressList extends Component {
-    onEdit(id) {
-        this.props.navigation.navigate('UserAddressEdit', { id, updateListRow: this.updateListRow })
-    }
+
 
     async onDelete(id) {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
@@ -39,14 +38,17 @@ export default class UserAddressList extends Component {
         ])
     }
 
-    onAdd() {
-        this.props.navigation.navigate('UserAddressAdd')
+    onEdit(id) {
+        this.props.navigation.navigate('UserAddressEdit', { id, updateListRow: this.updateListRow })
     }
 
-    // todo
-    async updateListRow(id) {
-        console.log('updateListRow')
-         // this.ListView.manuallyRefresh()
+    onAdd() {
+        this.props.navigation.navigate('UserAddressAdd', { updateListRow: this.updateListRow })
+    }
+
+    // todo id
+    updateListRow = (id) => {
+        this.ListView.manuallyRefresh()
     }
 
     render() {
@@ -66,9 +68,9 @@ export default class UserAddressList extends Component {
                 />
                 }
             />
-            <FixedBottom>
+            <SafeAreaView>
                 <Button size="large" onClick={() => this.onAdd()}>+ 新建地址</Button>
-            </FixedBottom>
+            </SafeAreaView>
         </View>
     }
 }
