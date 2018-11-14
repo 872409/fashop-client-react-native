@@ -8,7 +8,7 @@ import {
 import fa from '../../utils/fa'
 import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import OrderModel from '../../models/order'
-import {  Button } from 'antd-mobile-rn';
+import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
 import { PublicStyles } from "../../utils/publicStyleModule";
 import { StackActions } from 'react-navigation';
@@ -25,6 +25,7 @@ export default class EvaluateAdd extends Component {
         goodsInfo: null,
         uploaderMaxNum: 9,
         uploaderButtonText: '上传图片(最多9张)',
+        images: []
     }
 
     async componentWillMount() {
@@ -44,7 +45,7 @@ export default class EvaluateAdd extends Component {
 
     onImagesChange({ value }) {
         this.setState({
-            images:value
+            images: value
         })
     }
 
@@ -61,7 +62,7 @@ export default class EvaluateAdd extends Component {
     }
 
     async onSubmit() {
-        const {score,content,images,orderGoodsId, delta} = this.state
+        const { score, content, images, orderGoodsId, delta } = this.state
         if (!score) {
             return fa.toast.show({ title: '请选择评分' })
         }
@@ -74,7 +75,7 @@ export default class EvaluateAdd extends Component {
             content,
             score,
         }
-        if (images.length > 0) {
+        if (Array.isArray(images) && images.length > 0) {
             data['images'] = images
         }
 
@@ -100,7 +101,7 @@ export default class EvaluateAdd extends Component {
             uploaderMaxNum,
         } = this.state
         return goodsInfo ? <View style={[PublicStyles.ViewMax]}>
-            <View>
+            <View style={{backgroundColor: '#fff'}}>
                 <View style={styles.refundGoodsCard}>
                     <View style={styles.body}>
                         <View style={styles.item}>
@@ -109,7 +110,7 @@ export default class EvaluateAdd extends Component {
                                     <Image
                                         style={{ width: 80, height: 80 }}
                                         source={{ uri: goodsInfo.goods_img }}
-                                        resizeMode={'contain'}
+                                        resizeMode={'cover'}
                                     />
                                 </View>
                                 <View style={styles.body}>
@@ -159,7 +160,8 @@ const styles = StyleSheet.create({
     refundGoodsCard: {
         flexDirection: 'row',
         backgroundColor: '#fff',
-        marginBottom: 8
+        borderBottomColor:'#f8f8f8',
+        borderBottomWidth: 8
     },
 
     item: {

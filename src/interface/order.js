@@ -173,7 +173,7 @@ export class OrderGoodsInfoInterface extends Interface {
     constructor(param) {
         super()
         try {
-            this.info = param.info
+            this.info = new OrderGoodsInfoInfoInterface(param.info)
         } catch (e) {
             throw new Exception(e, 'OrderGoodsInfoInterface interface attribute error')
         }
@@ -215,9 +215,10 @@ export class OrderGoodsInfoInfoInterface extends Interface {
             this.goods_num = param.goods_num
             this.goods_img = param.goods_img
             this.goods_spec = param.goods_spec
-            this.goods_spec_string = param.goods_spec.map(function (item) {
+            const goods_spec_string = param.goods_spec.map(function (item) {
                 return item.value_id > 0 ? `${item.name}:${item.value_name}` : ''
             })
+            this.goods_spec_string = goods_spec_string? goods_spec_string.join(',') :null
             this.goods_type = param.goods_type
             this.goods_freight_way = param.goods_freight_way
             this.goods_freight_fee = parseFloat(param.goods_freight_fee)

@@ -46,7 +46,7 @@ export default class OrderGoodsList extends Component {
                     this.onGoodsDetail(item)
                 }}>
                     <View style={styles.content}>
-                        <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'contain'} />
+                        <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
                         <View style={styles.body}>
                             <Text style={styles.bodyText}>{item.goods_title}</Text>
                         </View>

@@ -24,7 +24,7 @@ export default class UserAddressList extends Component {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: () => async () => {
+                text: '确认', onPress: async () => {
                     const result = await addressModel.del({ id })
                     if (result) {
                         this.initList()

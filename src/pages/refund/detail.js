@@ -8,6 +8,7 @@ import RefundModel from '../../models/refund'
 import { Modal } from 'antd-mobile-rn';
 import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo } from '../../components'
 import { PublicStyles } from "../../utils/publicStyleModule";
+import { StackActions } from "react-navigation";
 
 const refundModel = new RefundModel()
 
@@ -39,8 +40,8 @@ export default class RefundDetail extends Component {
     }
 
     onGoods() {
-        // todo
-        this.props.navigation.navigate('GoodsDetail', { id: this.state.refundInfo.goods_id })
+        const {goods_id} = this.state.refundInfo
+        this.props.navigation.navigate('GoodsDetail', { id: goods_id })
     }
 
     onTrack() {
@@ -55,8 +56,9 @@ export default class RefundDetail extends Component {
         Modal.alert('撤销申请', '您将撤销本次申请，如果问题未解决，您还可以再次发起。确定继续吗？', [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: () => async () => {
-                    const result = await refundModel.revoke({ id: this.state.id })
+                text: '确认', onPress: async () => {
+                    const { id } = this.state
+                    const result = await refundModel.revoke({ id })
                     if (result) {
                         this.init()
                     } else {
@@ -70,12 +72,13 @@ export default class RefundDetail extends Component {
     }
 
     updateListRow = () => {
-        // todo
         const { id } = this.state
         if (id > 0) {
-            const pages = getCurrentPages();
-            const prevPage = pages[pages.length - 2];
-            prevPage.updateListRow(id);
+            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
+            const updateListRow = this.props.navigation.getParam('updateListRow')
+            if (typeof updateListRow === 'function') {
+                updateListRow(id)
+            }
         }
     }
 

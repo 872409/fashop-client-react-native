@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 14,
         lineHeight: 14,
+        marginBottom: 8,
+        textAlign: 'right'
     },
     rightLabel: {
         color: "#FFFFFF",

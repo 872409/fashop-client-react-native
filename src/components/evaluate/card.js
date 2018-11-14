@@ -52,7 +52,7 @@ export default class EvaluateCard extends Component {
                         }}>
                             <Image source={{
                                 uri: goodsInfo.goods_img
-                            }} resizeMode={'contain'}
+                            }} resizeMode={'cover'}
                                    style={{
                                        width:80,
                                        height:80

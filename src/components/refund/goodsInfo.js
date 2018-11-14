@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 
@@ -28,12 +29,12 @@ export default class RefundGoodsInfo extends Component {
         return <View style={styles.refundGoodsInfo}>
             <View style={styles.header}><Text>退款信息</Text></View>
             <View style={styles.body}>
-                <View style={styles.item} onPress={()=>{
+                <TouchableOpacity style={styles.item} onPress={()=>{
                     this.onGoods()
                 }}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'contain'} style={{
+                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'cover'} style={{
                                 width: 60,
                                 height: 60
                             }} />
@@ -46,7 +47,7 @@ export default class RefundGoodsInfo extends Component {
                             </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </View>
         </View>
     }

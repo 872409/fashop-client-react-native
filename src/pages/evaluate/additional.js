@@ -24,6 +24,7 @@ export default class EvaluateAdditional extends Component {
         goodsInfo: null,
         uploaderMaxNum: 9,
         uploaderButtonText: '上传图片(最多9张)',
+        images: []
     }
 
     async componentWillMount() {
@@ -52,6 +53,7 @@ export default class EvaluateAdditional extends Component {
             content: value
         })
     }
+
     async onSubmit() {
         const { content, images, orderGoodsId, delta } = this.state
 
@@ -63,7 +65,7 @@ export default class EvaluateAdditional extends Component {
             order_goods_id: orderGoodsId,
             additional_content: content,
         }
-        if (images > 0) {
+        if (Array.isArray(images) && images.length > 0) {
             data['additional_images'] = images
         }
 
@@ -81,7 +83,7 @@ export default class EvaluateAdditional extends Component {
         }
     }
 
-    updateListRow = ()=> {
+    updateListRow = () => {
         const { id } = this.state
         if (id > 0) {
             const pages = getCurrentPages();
@@ -97,7 +99,7 @@ export default class EvaluateAdditional extends Component {
             uploaderMaxNum,
         } = this.state
         return goodsInfo ? <View>
-            <View>
+            <View style={{backgroundColor: '#fff'}}>
                 <View style={styles.refundGoodsCard}>
                     <View style={styles.body}>
                         <View style={styles.item}>
@@ -106,7 +108,7 @@ export default class EvaluateAdditional extends Component {
                                     <Image
                                         style={{ width: 80, height: 80 }}
                                         source={{ uri: goodsInfo.goods_img }}
-                                        resizeMode={'contain'}
+                                        resizeMode={'cover'}
                                     />
                                 </View>
                                 <View style={styles.body}>
@@ -159,7 +161,8 @@ const styles = StyleSheet.create({
     refundGoodsCard: {
         flexDirection: 'row',
         backgroundColor: '#fff',
-        marginBottom: 8
+        borderBottomColor:'#f8f8f8',
+        borderBottomWidth: 8
     },
 
     item: {

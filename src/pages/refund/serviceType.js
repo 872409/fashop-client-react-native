@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import OrderModel from '../../models/order'
 import { List } from 'antd-mobile-rn';
-import { Field, FixedBottom, Cell } from '../../components'
+import { Cell } from '../../components'
 
 const orderModel = new OrderModel()
 
@@ -16,9 +16,9 @@ export default class ServiceType extends Component {
         goodsInfo: null,
     }
 
-    async componentWillMount(options) {
+    async componentWillMount() {
         const goodsInfoResult = await orderModel.goodsInfo({
-            id: typeof options['order_goods_id'] !== 'undefined' ? options['order_goods_id'] : 414
+            id: this.props.navigation.getParam('order_goods_id')
         })
         this.setState({
             goodsInfo: goodsInfoResult.info,
@@ -26,7 +26,6 @@ export default class ServiceType extends Component {
     }
 
     onClick(refundType) {
-        this.props.navigation.navigate('RefundServiceApply')
         this.props.navigation.navigate('RefundServiceApply', {
             order_goods_id: this.state.goodsInfo.id,
             refund_type: refundType,
@@ -36,63 +35,71 @@ export default class ServiceType extends Component {
 
     render() {
         const { goodsInfo } = this.state
-        return <View>
-            <List>
+        return goodsInfo ? <View>
                 <View style={styles.refundGoodsCard}>
-                    <View style={styles.body}>
-                        <View style={styles.item}>
-                            <View style={styles.content}>
-                                <View style={styles.image}>
-                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} style={{
-                                        width: 60,
-                                        height: 60,
-                                    }} />
-                                </View>
-                                <View style={styles.body}>
-                                    <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
-                                    <View style={styles.end}>
-                                        <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
-                                        <Text style={styles.number}>x {goodsInfo.goods_num}</Text>
-                                    </View>
+                    <View style={styles.item}>
+                        <View style={styles.content}>
+                            <View style={styles.image}>
+                                <Image source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
+                                    width: 60,
+                                    height: 60,
+                                }} />
+                            </View>
+                            <View style={styles.body}>
+                                <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
+                                <View style={styles.end}>
+                                    <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
+                                    <Text style={styles.number}>x {goodsInfo.goods_num}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
-            </List>
-            <List>
-                <Cell
-                    isLink={true}
-                    title="仅退款"
-                    label="未收到货（包含未签收），或卖家协商同意前提现"
-                    onClick={(e) => this.onClick(1)}
-                    icon="../../images/refund/refund-type-1.png"
-                >
-                </Cell>
-                <Cell isLink={true}
-                      title="退货退款"
-                      label="已收到货，需要退换已收到的货物"
-                      onClick={(e) => this.onClick(2)}
-                      icon="../../images/refund/refund-type-2.png">
-                </Cell>
-            </List>
-        </View>
-
+                <List>
+                    <Cell
+                        titleStyle={{ fontSize: 14 }}
+                        arrow={'horizontal'}
+                        title="仅退款"
+                        label="未收到货（包含未签收），或卖家协商同意前提现"
+                        onClick={() => {
+                            this.onClick(1)
+                        }}
+                        icon={<Image style={styles.icon} source={require("../../images/refund/refund-type-1.png")} />}
+                    >
+                    </Cell>
+                    <Cell
+                        titleStyle={{ fontSize: 14 }}
+                        arrow={'horizontal'}
+                        title="退货退款"
+                        label="已收到货，需要退换已收到的货物"
+                        onClick={() => {
+                            this.onClick(2)
+                        }}
+                        icon={<Image style={styles.icon} source={require("../../images/refund/refund-type-2.png")} />}
+                    >
+                    </Cell>
+                </List>
+            </View> :
+            null
     }
-
 }
 const styles = StyleSheet.create({
-
-    refundGoodsCard: {},
+    icon: {
+        width: 25,
+        height: 25,
+        marginRight: 15
+    },
+    refundGoodsCard: {
+        backgroundColor: '#fff',
+    },
     item: {
         padding: 15,
-        borderBottomWidth: 1,
+        borderBottomWidth: 8,
         borderStyle: "solid",
-        borderBottomColor: "#ff4400",
+        borderBottomColor: "#f8f8f8",
     },
     content: {
-
-        justifyContent: "flex-start"
+        flexDirection: 'row',
     },
     image: {
         width: 60,
@@ -103,23 +110,21 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bodyText: {
-        fontSize: 12,
+        fontSize: 14,
+        fontWeight: "800",
         color: "#333",
-        lineHeight: 18,
+        marginBottom: 10
     },
     end: {
-        justifyContent: "space-between",
+        flexDirection: 'column',
+    },
+    spec: {
+        fontSize: 12,
+        color: "#999999",
+    },
+    number: {
         marginTop: 5,
         fontSize: 12,
         color: "#999999",
-        lineHeight: 12,
-        alignItems: "center"
     },
-    spec: {
-        color: "#999999",
-    },
-    number: {},
-    footer: {
-        justifyContent: "flex-end"
-    }
 })
