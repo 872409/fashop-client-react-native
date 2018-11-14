@@ -13,18 +13,18 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 export default class ImageUpload extends Component {
     static defaultProps = {
         onChange: () => { },
-        max_num: 3, // 最大选择图片数目
+        maxNum: 3, // 最大选择图片数目
         defaultValue: [], // 默认已选择图片
         addRender: null, // 自定义上传样式
-        imgStyle: {}, // 
-        warpStyle: {} // 
+        imgStyle: {}, //
+        warpStyle: {} //
     }
     state = {
         images: this.props.defaultValue ? this.props.defaultValue : []
     }
     render() {
         const { images } = this.state
-        const { onChange, max_num, addRender, imgStyle, warpStyle } = this.props;
+        const { onChange, maxNum, addRender, imgStyle, warpStyle } = this.props;
         return (
             <View style={[styles.imagePickerOut, warpStyle]}>
                 {
@@ -66,7 +66,7 @@ export default class ImageUpload extends Component {
                     ))
                 }
                 {
-                    images.length >= max_num ? null : addRender ? 
+                    images.length >= maxNum ? null : addRender ?
                     // 自定义上传样式
                     <TouchableOpacity
                         activeOpacity={0.7}
@@ -74,7 +74,7 @@ export default class ImageUpload extends Component {
                         onPress={() => {
                             asynImagePicker({
                                 options: {
-                                    imageCount: max_num - images.length
+                                    imageCount: maxNum - images.length
                                 },
                                 getResult: (newImages) => {
                                     onChange({ images: [...images, ...newImages] })
@@ -96,7 +96,7 @@ export default class ImageUpload extends Component {
                         onPress={() => {
                             asynImagePicker({
                                 options: {
-                                    imageCount: max_num - images.length
+                                    imageCount: maxNum - images.length
                                 },
                                 getResult: (newImages) => {
                                     onChange({ images: [...images, ...newImages] })

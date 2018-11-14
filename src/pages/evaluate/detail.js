@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import GoodsEvaluate from '../../models/goodsEvaluate'
 import { TimeFormat, Rater } from '../../components'
@@ -34,11 +35,13 @@ export default class EvaluateDetail extends Component {
         })
     }
 
-    preViewImage(e) {
-        // todo
-        wx.preViewImage({
-            current: e.currentTarget.dataset.url,
-            urls: e.currentTarget.dataset.images
+    preViewImage({ images, index }) {
+        let _images = images ? images.map(img => {
+            return { source: { uri: img } }
+        }) : []
+        this.props.navigation.navigate('PhotoGallery', {
+            images:_images,
+            index
         })
     }
 
@@ -77,18 +80,23 @@ export default class EvaluateDetail extends Component {
                     <View style={styles.photoList}>
                         {
                             evaluate.images.map((item, index) => {
-                                return <Image
-                                    index={`images_${index}`}
+                                return <TouchableOpacity
+                                    onPress={() => {
+                                        this.preViewImage({
+                                            images: evaluate.images,
+                                            index
+                                        })
+                                    }}
+                                ><Image
+                                    key={`images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
-                                    onPress={() => {
-                                        this.preViewImage(item, index, evaluate.images)
-                                    }}
-                                />
+                                /></TouchableOpacity>
                             })
                         }
                     </View>
-                    : null}
+                    : null
+                }
                 {evaluate.reply_content ? <View style={styles.replyContent}>
                     <Text>客服：</Text>
                     <Text>{evaluate.reply_content}</Text>
@@ -108,15 +116,19 @@ export default class EvaluateDetail extends Component {
                     <View style={styles.photoList}>
                         {
                             evaluate.additional_images.map((item, index) => {
-                                return <Image
-                                    index={`additional_images_${index}`}
+                                return <TouchableOpacity
+                                    onPress={() => {
+                                        this.preViewImage({
+                                            images: evaluate.additional_images,
+                                            index
+                                        })
+                                    }}
+                                ><Image
+                                    key={`additional_images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
-                                    onPress={() => {
-                                        this.preViewImage(item, index, evaluate.additional_images)
-                                    }}
                                     style={styles.photoListImage}
-                                />
+                                /></TouchableOpacity>
                             })
                         }
                     </View>
