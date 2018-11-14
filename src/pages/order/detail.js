@@ -98,18 +98,25 @@ export default class OrderDetail extends Component {
     }
 
     async onCancel() {
-        const { orderInfo } = this.state
-        const result = await orderModel.cancel({
-            'id': orderInfo.id,
-        })
-        if (result) {
-            this.init()
-            this.updateListRow(orderInfo.id)
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(orderModel.getException().getCode())
-            })
-        }
+        Modal.alert('您确认取消吗？状态修改后不能变更', null, [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: async () => {
+                    const { orderInfo } = this.state
+                    const result = await orderModel.cancel({
+                        'id': orderInfo.id,
+                    })
+                    if (result) {
+                        this.init()
+                        this.updateListRow(orderInfo.id)
+                    } else {
+                        fa.toast.show({
+                            title: fa.code.parse(orderModel.getException().getCode())
+                        })
+                    }
+                }
+            }
+        ])
     }
 
     onEvaluate() {
@@ -174,7 +181,6 @@ export default class OrderDetail extends Component {
     }
 
     updateListRow = () => {
-
         const { id } = this.state
         if (id > 0) {
             this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
@@ -183,7 +189,6 @@ export default class OrderDetail extends Component {
                 updateListRow(id)
             }
         }
-
     }
 
 

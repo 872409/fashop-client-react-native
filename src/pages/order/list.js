@@ -10,7 +10,7 @@ import BuyModel from '../../models/buy'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
-import {  ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/publicViewModule";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
@@ -22,10 +22,14 @@ const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 
 @connect(
-    ({ app: { user: {
-        login,
-        userInfo,
-    }}}) => ({
+    ({
+         app: {
+             user: {
+                 login,
+                 userInfo,
+             }
+         }
+     }) => ({
         login,
         userInfo,
     }),
@@ -37,7 +41,7 @@ export default class OrderList extends Component {
 
     async componentWillMount() {
         const state_type = this.props.navigation.getParam('state_type')
-        if(state_type){
+        if (state_type) {
             this.setState({
                 state_type
             })
@@ -48,35 +52,37 @@ export default class OrderList extends Component {
         this.props.navigation.navigate('OrderDetail', { id })
     }
 
+    async onCancel(orderInfo) {
+        Modal.alert('您确认取消吗？状态修改后不能变更', null, [
+            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {
+                text: '确认', onPress: async () => {
+                    const result = await orderModel.cancel({
+                        'id': orderInfo.id,
+                    })
+                    if (result === true) {
+                        this.updateListRow(orderInfo.id)
+                    } else {
+                        fa.toast.show({
+                            title: fa.code.parse(orderModel.getException().getCode())
+                        })
+                    }
+                }
+            }
+        ])
 
-    async onCancel(e) {
-        const orderInfo = e.detail.orderInfo
-        const result = await orderModel.cancel({
-            'id': orderInfo.id,
-        })
-        if (result) {
-            this.getList()
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(orderModel.getException().getCode())
-            })
-        }
     }
 
-
-    onEvaluate(e) {
-        // todo e
-        const orderInfo = e.detail.orderInfo
+    onEvaluate(orderInfo) {
         this.props.navigation.navigate('OrderDetail', { order_id: orderInfo.id })
 
     }
 
-    async onReceive(e) {
+    async onReceive(orderInfo) {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: async () => {
-                    const orderInfo = e.detail.orderInfo
                     const result = await orderModel.confirmReceipt({
                         'id': orderInfo.id,
                     })
@@ -91,6 +97,7 @@ export default class OrderList extends Component {
             }
         ])
     }
+
     async onPay(orderInfo) {
         const { userInfo } = this.props
         // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
@@ -125,23 +132,8 @@ export default class OrderList extends Component {
         }
     }
 
-    // 更新某条
-     updateListRow = async(id) => {
-        // todo
-        let { list } = this.state
-        const listIndex = list.findIndex((row) => row.id === id)
-        if (listIndex !== -1) {
-            let requestParam = { page: 1, rows: 1, id: list[listIndex].id }
-            const result = await orderModel.list(requestParam)
-            if (result) {
-                if (result.list.length === 0) {
-                    list = list.splice(listIndex, 1)
-                } else {
-                    list[listIndex] = result.list[0]
-                }
-                this.setState({ list })
-            }
-        }
+    updateListRow = async (id) => {
+        this.ListView.manuallyRefresh()
     }
 
     render() {
@@ -262,13 +254,13 @@ export default class OrderList extends Component {
                                     this.onPay(item)
                                 }}
                                 onReceive={() => {
-                                    this.onReceive()
+                                    this.onReceive(item)
                                 }}
                                 onCancel={() => {
-                                    this.onCancel()
+                                    this.onCancel(item)
                                 }}
                                 onEvaluate={() => {
-                                    this.onEvaluate()
+                                    this.onEvaluate(item)
                                 }}
                             />
                         </OrderCard>
