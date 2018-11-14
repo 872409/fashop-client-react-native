@@ -158,9 +158,6 @@ export default class Field extends Component {
             areaNames,
             areaList,
             uploaderMaxNum,
-            uploaderFiles,
-            uploaderName,
-            uploaderUrl,
             uploaderButtonText,
             uploaderHeader,
             uploaderFormData,
@@ -172,8 +169,8 @@ export default class Field extends Component {
                     <ImageUpload
                         maxNum={uploaderMaxNum}
                         defaultValue={value ? value : []}
-                        onChange={(value) => {
-                            this.handleFieldChange(value)
+                        onChange={({images}) => {
+                            this.handleFieldChange(images)
                         }}
                     />
                 </FieldCell>

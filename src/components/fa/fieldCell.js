@@ -22,14 +22,14 @@ export default class FieldCell extends Component {
         const { title, desc, right, children } = this.props
         return <View style={styles.cell}>
             {title || desc || right ?
-                <View>
+                <View style={{paddingHorizontal:15,backgroundColor:'#fff',paddingTop: 15}}>
                     {
                         title || desc ?
                             <View>
-                                <Text>
+                                <Text style={{color:'#666'}}>
                                     {title}
                                 </Text>
-                                <Text>{desc}</Text>
+                                {desc?<Text>{desc}</Text>:null}
                             </View>
                             : null
                     }

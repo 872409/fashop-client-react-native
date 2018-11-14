@@ -29,7 +29,6 @@ export default class EvaluateDetail extends Component {
                     this.setState({
                         evaluate
                     })
-                    this.updateListRow()
                 }
             );
         })
@@ -45,15 +44,15 @@ export default class EvaluateDetail extends Component {
         })
     }
 
-    updateListRow() {
-        // todo
-        const { id } = this.state.evaluate
-        if (id > 0) {
-            const pages = getCurrentPages();
-            const prevPage = pages[pages.length - 2];
-            prevPage.updateListRow(id);
-        }
-    }
+    // updateListRow() {
+    //     // todo
+    //     const { id } = this.state.evaluate
+    //     if (id > 0) {
+    //         const pages = getCurrentPages();
+    //         const prevPage = pages[pages.length - 2];
+    //         prevPage.updateListRow(id);
+    //     }
+    // }
 
     render() {
         const {
@@ -81,6 +80,7 @@ export default class EvaluateDetail extends Component {
                         {
                             evaluate.images.map((item, index) => {
                                 return <TouchableOpacity
+                                    key={`images_${index}`}
                                     onPress={() => {
                                         this.preViewImage({
                                             images: evaluate.images,
@@ -88,7 +88,6 @@ export default class EvaluateDetail extends Component {
                                         })
                                     }}
                                 ><Image
-                                    key={`images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
                                 /></TouchableOpacity>
@@ -112,11 +111,12 @@ export default class EvaluateDetail extends Component {
                         <Text style={{ marginTop: 15, color: '#333' }}>{evaluate.additional_content}</Text> : null}
                 </View> : null}
 
-                {evaluate.additional_images.length > 0 ?
+                {Array.isArray(evaluate.additional_images) && evaluate.additional_images.length > 0 ?
                     <View style={styles.photoList}>
                         {
                             evaluate.additional_images.map((item, index) => {
                                 return <TouchableOpacity
+                                    key={`additional_images_${index}`}
                                     onPress={() => {
                                         this.preViewImage({
                                             images: evaluate.additional_images,
@@ -124,7 +124,6 @@ export default class EvaluateDetail extends Component {
                                         })
                                     }}
                                 ><Image
-                                    key={`additional_images_${index}`}
                                     source={{ uri: item }}
                                     resizeMode={'contain'}
                                     style={styles.photoListImage}

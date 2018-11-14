@@ -8,15 +8,13 @@ import {
 import fa from '../../utils/fa'
 import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import OrderModel from '../../models/order'
-import { UploadImageInterface } from '../../interface/uploadImage'
-import { List, Button } from 'antd-mobile-rn';
+import {  Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
 import { PublicStyles } from "../../utils/publicStyleModule";
+import { StackActions } from 'react-navigation';
 
-const Item = List.Item
 const goodsEvaluateModel = new GoodsEvaluateModel()
 const orderModel = new OrderModel()
-// todo
 export default class EvaluateAdd extends Component {
     state = {
         id: 0,
@@ -25,21 +23,13 @@ export default class EvaluateAdd extends Component {
         orderGoodsId: 0,
         content: '',
         goodsInfo: null,
-        uploaderFiles: [],
-        uploaderName: 'file',
-        uploaderFormData: {
-            type: 'file'
-        },
         uploaderMaxNum: 9,
-        uploaderUrl: null,
         uploaderButtonText: '上传图片(最多9张)',
-        uploaderHeader: {},
     }
 
     async componentWillMount() {
         const order_goods_id = this.props.navigation.getParam('order_goods_id')
         const delta = this.props.navigation.getParam('delta', 1)
-        // const accessToken = await fa.cache.get('user_token')
         const goodsInfoResult = await orderModel.goodsInfo({
             id: order_goods_id
         })
@@ -47,58 +37,45 @@ export default class EvaluateAdd extends Component {
         this.setState({
             id: goodsInfoResult.info.id,
             delta: typeof delta !== 'undefined' ? delta : 1,
-            // uploaderUrl:null,
-            // uploaderHeader: {
-            //     'Content-Type': 'multipart/form-data',
-            //     'Access-Token': accessToken.access_token
-            // },
             goodsInfo: goodsInfoResult.info,
             orderGoodsId: order_goods_id
         })
     }
 
-    onUploadFileSuccess(e) {
-        const result = new UploadImageInterface(e.detail.result)
-        let files = this.state.uploaderFiles
+    onImagesChange({ value }) {
         this.setState({
-            uploaderFiles: files.concat(result.origin.path)
+            images:value
         })
     }
 
-    onUploadFileDelete(e) {
-        this.setState({
-            uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
-        })
-    }
-
-    onContentChange({value}) {
+    onContentChange({ value }) {
         this.setState({
             content: value
         })
     }
 
-    onScoreChange({value}) {
+    onScoreChange({ value }) {
         this.setState({
             score: parseInt(value)
         })
     }
 
     async onSubmit() {
-        if (!this.state.score) {
+        const {score,content,images,orderGoodsId, delta} = this.state
+        if (!score) {
             return fa.toast.show({ title: '请选择评分' })
         }
-        if (!this.state.content) {
+        if (!content) {
             return fa.toast.show({ title: '请输入评价内容' })
         }
-
         let data = {
-            order_goods_id: this.state.orderGoodsId,
+            order_goods_id: orderGoodsId,
             is_anonymous: 0,
-            content: this.state.content,
-            score: this.state.score,
+            content,
+            score,
         }
-        if (this.state.uploaderFiles.length > 0) {
-            data['images'] = this.state.uploaderFiles
+        if (images.length > 0) {
+            data['images'] = images
         }
 
         const result = await goodsEvaluateModel.add(data)
@@ -107,19 +84,11 @@ export default class EvaluateAdd extends Component {
                 title: fa.code.parse(goodsEvaluateModel.getException().getCode())
             })
         } else {
-            // todo
-            this.updateListRow()
-            // 可能存在跳回两页
-            this.props.navigation.goBack()
-        }
-    }
-
-    updateListRow() {
-        const { id } = this.state
-        if (id > 0) {
-            const pages = getCurrentPages();
-            const prevPage = pages[pages.length - 2];
-            prevPage.updateListRow(id);
+            const updateListRow = this.props.navigation.getParam('updateListRow')
+            if (updateListRow) {
+                updateListRow(orderGoodsId)
+            }
+            this.props.navigation.dispatch(StackActions.pop({ n: delta }));
         }
     }
 
@@ -128,12 +97,7 @@ export default class EvaluateAdd extends Component {
             score,
             content,
             goodsInfo,
-            uploaderFiles,
-            uploaderFormData,
             uploaderMaxNum,
-            uploaderUrl,
-            uploaderButtonText,
-            uploaderHeader,
         } = this.state
         return goodsInfo ? <View style={[PublicStyles.ViewMax]}>
             <View>
@@ -164,8 +128,8 @@ export default class EvaluateAdd extends Component {
                 </View>
                 <Field
                     type={'textarea'}
-                    title=""
                     placeholder="请输入您要评价的内容"
+                    rows={3}
                     value={content}
                     onChange={(e) => {
                         this.onContentChange(e)
@@ -173,18 +137,12 @@ export default class EvaluateAdd extends Component {
                 >
                 </Field>
                 <Field
+                    title={'上传图片(最多9张)'}
                     type={'uploader'}
-                    title=""
                     value={[]}
-                    uploaderButtonText={uploaderButtonText}
-                    uploaderFiles={uploaderFiles}
                     uploaderMaxNum={uploaderMaxNum}
-                    uploaderAllowDel={true}
-                    onSuccess={(e) => {
-                        this.onUploadFileSuccess(e)
-                    }}
-                    onDelete={(e) => {
-                        this.onUploadFileDelete(e)
+                    onChange={(e) => {
+                        this.onImagesChange(e)
                     }}
                 >
                 </Field>
@@ -200,8 +158,8 @@ export default class EvaluateAdd extends Component {
 const styles = StyleSheet.create({
     refundGoodsCard: {
         flexDirection: 'row',
-        backgroundColor:'#fff',
-        marginBottom:8
+        backgroundColor: '#fff',
+        marginBottom: 8
     },
 
     item: {
@@ -240,6 +198,6 @@ const styles = StyleSheet.create({
         lineHeight: 14,
     },
     footer: {
-        padding:15
+        padding: 15
     }
 })
