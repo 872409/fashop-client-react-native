@@ -3,6 +3,7 @@ package com.fashop;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNSyanImagePickerPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.theweflex.react.WeChatPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSyanImagePickerPackage(),
             new ImagePickerPackage(),
             new WeChatPackage(),
             new VectorIconsPackage()

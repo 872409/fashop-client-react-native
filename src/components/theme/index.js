@@ -1,13 +1,13 @@
 import Button from './button'
 import HeaderButton from './headerButton'
 import Image from './image'
-import ImagePicker from "./imagePicker";
+import ImageUpload from "./imageUpload";
 import VideoUpload from "./videoUpload";
 
 export {
     Button,
     HeaderButton,
     Image,
-    ImagePicker,
+    ImageUpload,
     VideoUpload,
 }

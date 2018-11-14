@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-syan-image-picker')
     compile project(':react-native-image-picker')
     compile project(':react-native-wechat')
     compile project(':react-native-vector-icons')
