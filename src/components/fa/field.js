@@ -5,10 +5,9 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
-import { TextareaItem, InputItem } from 'antd-mobile-rn';
+import { TextareaItem, InputItem,Picker ,Switch} from 'antd-mobile-rn';
 import { Area, FieldCell } from '../../components'
 import { ImageUpload } from '../../components/theme'
-import { windowWidth } from "../../utils/publicStyleModule";
 
 export default class Field extends Component {
     static propTypes = {
@@ -158,9 +157,6 @@ export default class Field extends Component {
             areaNames,
             areaList,
             uploaderMaxNum,
-            uploaderFiles,
-            uploaderName,
-            uploaderUrl,
             uploaderButtonText,
             uploaderHeader,
             uploaderFormData,
@@ -172,8 +168,8 @@ export default class Field extends Component {
                     <ImageUpload
                         maxNum={uploaderMaxNum}
                         defaultValue={value ? value : []}
-                        onChange={(value) => {
-                            this.handleFieldChange(value)
+                        onChange={({images}) => {
+                            this.handleFieldChange(images)
                         }}
                     />
                 </FieldCell>
@@ -253,6 +249,7 @@ export default class Field extends Component {
                             areaNames={areaNames}
                             placeholder={placeholder}
                             areaList={areaList}
+                            selected={[0,0,0]}
                             onChange={(value) => {
                                 this.handleFieldChange(value)
                             }}
@@ -272,17 +269,11 @@ export default class Field extends Component {
                     desc={desc}
                     right={
                         <Switch
+                            trackColor={'#4dd865'}
                             checked={checked}
-                            loading={loading}
                             disabled={disabled}
                             onChange={(value) => {
                                 this.handleFieldChange(value)
-                            }}
-                            onFocus={(value) => {
-                                this.handleFieldFocus(value)
-                            }}
-                            onBlur={(value) => {
-                                this.handleFieldBlur(value)
                             }}
                         />
                     }

@@ -33,7 +33,8 @@ export default class UserAddressEdit extends Component {
 
     }
 
-    async componentWillMount({ id }) {
+    async componentWillMount() {
+        const id = this.props.navigation.getParam('id')
         const areaCache = await fa.cache.get('area_list_level2')
         const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
         const info = await addressModel.info({ id })
@@ -102,26 +103,27 @@ export default class UserAddressEdit extends Component {
     }
 
     async onSubmit() {
-        if (!this.state.truename) {
+        const { id, truename, mobile_phone, area_id, address, is_default, type } = this.state
+        if (!truename) {
             return fa.toast.show({ title: '请输入姓名' })
         }
-        if (!this.state.mobile_phone) {
+        if (!mobile_phone) {
             return fa.toast.show({ title: '请输入手机号' })
         }
-        if (!this.state.area_id) {
+        if (!area_id) {
             return fa.toast.show({ title: '请选择所在地区' })
         }
-        if (!this.state.address) {
+        if (!address) {
             return fa.toast.show({ title: '请填写楼栋楼层或房间号信息' })
         }
         let data = {
-            id: this.state.id,
-            truename: this.state.truename,
-            mobile_phone: this.state.mobile_phone,
-            address: this.state.address,
-            is_default: this.state.is_default,
-            type: this.state.type,
-            area_id: this.state.area_id
+            id,
+            truename,
+            mobile_phone,
+            address,
+            is_default,
+            type,
+            area_id
         }
 
         const result = await addressModel.edit(data)

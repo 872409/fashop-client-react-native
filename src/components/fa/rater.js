@@ -37,6 +37,7 @@ export default class Rater extends Component {
                     return <View>
                         {index < value ?
                             <TouchableOpacity
+                                key={index}
                                 onPress={() => {
                                     this.onChange(index + 1)
                                 }}
@@ -51,6 +52,7 @@ export default class Rater extends Component {
                             /></TouchableOpacity> : null}
                         {index >= value ?
                             <TouchableOpacity
+                                key={index}
                                 onPress={() => {
                                     this.onChange(index + 1)
                                 }}

@@ -108,8 +108,8 @@ export default class ImageUpload extends Component {
                         }}
                     >
                         <SimpleLineIcons
-                            name='arrow-up-circle'
-                            color="#F77062"
+                            name='cloud-upload'
+                            color="#ccc"
                             size={22}
                         />
                     </TouchableOpacity>
