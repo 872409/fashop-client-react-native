@@ -38,11 +38,7 @@ export class ListView extends Component {
                 <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                     {
                         !fetchAllow &&
-                        <Image
-                            source={require('../images/fetchStatus/nullData.png')}
-                            style={{ width: windowWidth * 0.5, height: windowWidth * 0.5 }}
-                            resizeMode={'contain'}
-                        />
+                        <ListEmptyView />
                     }
                     <Text style={{ fontSize: 15, color: ThemeStyle.ThemeColor, marginTop: 15 }}>
                         {fetchAllow ? '正在获取数据' : ''}
@@ -187,7 +183,7 @@ export class ListView extends Component {
                 onEndReached={() => {
                     this.fetchData()
                 }}
-                contentContainerStyle={contentContainerStyle}
+                contentContainerStyle={[dataSource.length ? {} : { flex: 1 }, contentContainerStyle]}
                 refreshControl={
                     <RefreshControl
                         colors={['#fff']}
@@ -699,24 +695,23 @@ export class StatusBarComponent extends Component {
 
 
 /**
- * listView_empty_View
- */
+ * listview_empty_View
+*/
 export class ListEmptyView extends Component {
     static propTypes = {
-        height: PropTypes.number,
         uri: PropTypes.number,
         desc: PropTypes.string,
     };
     static defaultProps = {
-        height: windowHeight - 130,
         uri: require('../images/fetchStatus/emptyOrder.png'),
-        desc: '暂时没有相关订单',
+        desc: '暂时没有相关信息',
     };
-
     render() {
-        const { uri, desc, height } = this.props
+        const { uri, desc } = this.props
         return (
-            <View style={[styles.emptyView, { height: height ? height : 130 }]}>
+            <View style={[
+                styles.emptyView,
+            ]}>
                 <Image
                     source={uri}
                     style={styles.emptyImg}
@@ -751,17 +746,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     emptyView: {
-        height: windowHeight - 130,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
     emptyImg: {
-        width: windowWidth * 0.35,
-        height: windowWidth * 0.35,
+        width: windowWidth * 0.30,
+        height: windowWidth * 0.30,
     },
     emptyText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'PingFangSC-Regular',
         color: '#999',
         lineHeight: 28,

@@ -36,7 +36,6 @@ export default class UserMessage extends Component{
                     }}
                     ListEmptyComponent={() => (
                         <ListEmptyView
-                            height={windowHeight - 160}
                             uri={require('../../images/fetchStatus/messageEmpty.png')}
                             desc='暂时没有相关消息'
                         />

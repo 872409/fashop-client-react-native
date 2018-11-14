@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import { EvaluateCard } from '../../components'
-import { ListEmptyView, ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/publicViewModule";
 import { windowHeight, PublicStyles, ThemeStyle, windowWidth } from "../../utils/publicStyleModule";
 import { GoodsEvaluateApi } from "../../config/api/goodsEvaluate";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
@@ -145,13 +145,6 @@ export default class EvaluateList extends Component {
                             onAdditional={() => {
                                 this.onAdditional(item.id)
                             }}
-                        />
-                    )}
-                    ListEmptyComponent={() => (
-                        <ListEmptyView
-                            height={windowHeight - 80}
-                            uri={require('../../images/order/list-empty.png')}
-                            desc='暂无相关数据'
                         />
                     )}
                 />
