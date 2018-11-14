@@ -4,17 +4,15 @@ import {
     View,
     ScrollView,
     Text,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 import fa from '../../utils/fa'
-import AddressModel from '../../models/address'
-import { List, Button } from 'antd-mobile-rn';
-import { Field, FixedBottom } from '../../components'
-import { ListEmptyView, ListView } from "../../utils/publicViewModule";
-import { windowHeight } from "../../utils/publicStyleModule";
-import {AddressApi} from "../../config/api/address";
+import { Button } from 'antd-mobile-rn';
+import { ListView } from "../../utils/publicViewModule";
+import { AddressApi } from "../../config/api/address";
 import { PublicStyles } from '../../utils/publicStyleModule';
-const addressModel = new AddressModel()
+import AddressCard from "../../components/address/card";
 
 export default class AddressList extends Component {
     onAddressChecked(id) {
@@ -22,40 +20,44 @@ export default class AddressList extends Component {
         this.props.navigation.goBack()
     }
 
-    goEdit(id) {
-        this.props.navigation.navigate('AddressEdit',{id})
+    onEdit(id) {
+        this.props.navigation.navigate('UserAddressEdit', { id, updateListRow: this.updateListRow })
     }
 
-    goAdd() {
-        this.props.navigation.navigate('AddressAdd')
+    onAdd() {
+        this.props.navigation.navigate('UserAddressAdd', { updateListRow: this.updateListRow })
+    }
+
+    // todo id
+    updateListRow = (id) => {
+        this.ListView.manuallyRefresh()
     }
 
     render() {
-        return <View style={{
-            backgroundColor: '#F8F8F8'
-        }}>
-            <View>
-                <ListView
-                    renderItem={ item => (
-                        <AddressCard
-                            name={item.truename}
-                            phone={item.phone}
-                            addressId={item.id}
-                            address={item.combine_detail}
-                            checked={item.is_default === 1}
-                            goEdit={() => this.goEdit()}
-                            onAddressChecked={() => this.onAddressChecked(item.id)} />
-                    )}
-                    api={AddressApi.list}
-                    fetchParams={{type_id}}
-                />
-            </View>
-            <FixedBottom>
-                <Button size="large" onClick={() => this.goAdd()}>+ 新建地址</Button>
-            </FixedBottom>
+        return <View style={[PublicStyles.ViewMax]}>
+            <ListView
+                ref={e => this.ListView = e}
+                api={AddressApi.list}
+                keyExtractor={e => String(e.id)}
+                renderItem={item => (
+                    <AddressCard
+                        name={item.truename}
+                        phone={item.phone}
+                        id={item.id}
+                        address={item.combine_detail}
+                        onEdit={(id) => {
+                            this.onEdit(id)
+                        }}
+                        onAddressChecked={() => {
+                            this.onAddressChecked(item.id)
+                        }} />
+                )}
+                fetchParams={{ type_id }}
+            />
+            <SafeAreaView>
+                <Button size="large" onClick={() => this.onAdd()}>+ 新建地址</Button>
+            </SafeAreaView>
         </View>
     }
 }
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})

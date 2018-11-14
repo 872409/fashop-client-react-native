@@ -9,7 +9,7 @@ import {
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import AreaModel from '../../../models/area'
-import { List, Modal, Button } from 'antd-mobile-rn';
+import { Modal, Button } from 'antd-mobile-rn';
 import { Field } from '../../../components'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
@@ -161,59 +161,57 @@ export default class UserAddressEdit extends Component {
             onLoaded
         } = this.state
         return onLoaded ? <View>
-            <View>
-                <List>
-                    <Field
-                        title="收货人："
-                        placeholder="请输入姓名"
-                        focus={true}
-                        value={truename}
-                        onChange={(e) => {
-                            this.onTruenameChange(e)
-                        }}
-                    >
-                    </Field>
-                    <Field
-                        title="联系方式："
-                        inputType="numeric"
-                        placeholder="请输入手机号"
-                        value={mobile_phone}
-                        onChange={(e) => {
-                            this.onMobilePhoneChange(e)
-                        }}
-                    >2
-                    </Field>
-                    <Field
-                        title="所在地区："
-                        type={'area'}
-                        areaList={areaList}
-                        value={[]}
-                        areaNames={combine_detail ? combine_detail : '请选择地区'}
-                        onChange={(e) => {
-                            this.onAreaChange(e)
-                        }}
-                    >
-                    </Field>
-                    <Field
-                        title="详细地址："
-                        value={address}
-                        placeholder="填写楼栋楼层或房间号信息"
-                        onChange={(e) => {
-                            this.onAddressChange(e)
-                        }}
-                    >
-                    </Field>
-                    <Field
-                        title="设置默认地址："
-                        desc="注：每次下单时会使用该地址"
-                        type={'switch'}
-                        checked={is_default === 1}
-                        onChange={(e) => {
-                            this.onIsDefaultChange(e)
-                        }}
-                    >
-                    </Field>
-                </List>
+            <View style={{ backgroundColor: '#fff' }}>
+                <Field
+                    title="收货人："
+                    placeholder="请输入姓名"
+                    focus={true}
+                    value={truename}
+                    onChange={(e) => {
+                        this.onTruenameChange(e)
+                    }}
+                >
+                </Field>
+                <Field
+                    title="联系方式："
+                    inputType="numeric"
+                    placeholder="请输入手机号"
+                    value={mobile_phone}
+                    onChange={(e) => {
+                        this.onMobilePhoneChange(e)
+                    }}
+                >2
+                </Field>
+                <Field
+                    title="所在地区："
+                    type={'area'}
+                    areaList={areaList}
+                    value={[]}
+                    areaNames={combine_detail ? combine_detail : '请选择地区'}
+                    onChange={(e) => {
+                        this.onAreaChange(e)
+                    }}
+                >
+                </Field>
+                <Field
+                    title="详细地址："
+                    value={address}
+                    placeholder="填写楼栋楼层或房间号信息"
+                    onChange={(e) => {
+                        this.onAddressChange(e)
+                    }}
+                >
+                </Field>
+                <Field
+                    title="设置默认地址："
+                    desc="注：每次下单时会使用该地址"
+                    type={'switch'}
+                    checked={is_default === 1}
+                    onChange={(e) => {
+                        this.onIsDefaultChange(e)
+                    }}
+                >
+                </Field>
                 <View style={styles.buttonArea}>
                     <Button style={{ borderRadius: 0, flex: 1 }} type={'default'} size="large" onClick={() => {
                         this.onDelete(id)
