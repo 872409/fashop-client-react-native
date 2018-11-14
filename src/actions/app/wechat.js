@@ -99,7 +99,7 @@ export const wechatLogin = ({tokenData,userData, func})=>{
     }
 }
 
-export const wechatRegister = ({tokenData,userData, func})=>{
+export const wechatRegister = ({tokenData, userData, func})=>{
     return async dispatch=>{
         const e = await Fetch.fetch({
             api: UserApi.register,
