@@ -1,6 +1,6 @@
 import { env } from '../root';
 
-const ROOT_URL = `${env.domain}/admin/`;
+const ROOT_URL = `${env.domain}/`;
 export const UserApi = {
     login: {
         url: `${ROOT_URL}server/user/login`,

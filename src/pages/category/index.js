@@ -88,7 +88,6 @@ export default class Category extends Component {
                             onPress={() => {
                                 navigation.navigate("GoodsList", {
                                     category_id: item.id,
-                                    title: item.title
                                 })
                             }}
                         >
