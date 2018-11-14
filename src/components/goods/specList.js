@@ -17,7 +17,8 @@ const specInit = [];
 export default class GoodsSpecList extends Component{
     state = {
         spec: this.props.currentSpec.stock === '-' ? specInit : this.props.currentSpec.spec,
-        selectNum: this.props.currentSpec.selectNum
+        selectNum: this.props.currentSpec.selectNum,
+        currentSku: {}
     }
     componentDidMount(){
         this.setState({
@@ -25,9 +26,10 @@ export default class GoodsSpecList extends Component{
         })
     }
     render() {
-        const { spec, selectNum } = this.state;
+        const { spec, selectNum, currentSku } = this.state;
         const {
             if_cart,
+            skus,
             specList,
             skuList,
             changeCurrentSpec,
@@ -36,7 +38,7 @@ export default class GoodsSpecList extends Component{
             currentSpec,
             navigation
         } = this.props;
-        console.log('currentSpec', currentSpec);
+        console.log('currentSku', currentSku);
         
         const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
         return <View style={PublicStyles.ViewMax}>
@@ -94,24 +96,42 @@ export default class GoodsSpecList extends Component{
                                                     this.setState({
                                                         spec: newSpec
                                                     })
-                                                    skuList.map((skuListItem, skuListIndex) => {
-                                                        const ifValueId = []
-                                                        skuListItem.spec.map((skuListSpecItem) => {
-                                                            const ifValueIdItem = spec.findIndex((specItem) => {
-                                                                return specItem.value_id === skuListSpecItem.value_id;
-                                                            })
-                                                            if (ifValueIdItem > -1) {
-                                                                ifValueId.push(ifValueIdItem);
-                                                            }
-                                                        })
-                                                        if (ifValueId.length === spec.length) {
-                                                            const newList = {
-                                                                ...skuList[skuListIndex],
-                                                                selectNum
-                                                            }
-                                                            changeCurrentSpec(newList);
-                                                        }
-                                                    })
+                                                    console.log('newSpec', newSpec);
+                                                    
+                                                    // skuList.map((skuListItem, skuListIndex) => {
+                                                    //     const ifValueId = []
+                                                    //     skuListItem.spec.map((skuListSpecItem) => {
+                                                    //         const ifValueIdItem = spec.findIndex((specItem) => {
+                                                    //             return specItem.value_id === skuListSpecItem.value_id;
+                                                    //         })
+                                                    //         if (ifValueIdItem > -1) {
+                                                    //             ifValueId.push(ifValueIdItem);
+                                                    //         }
+                                                    //     })
+                                                    //     if (ifValueId.length === spec.length) {
+                                                    //         const newList = {
+                                                    //             ...skuList[skuListIndex],
+                                                    //             selectNum
+                                                    //         }
+                                                    //         changeCurrentSpec(newList);
+                                                    //     }
+                                                    // })
+                                                    // skus.map((skusItem, skusIndex) => {
+                                                    //     const ifValueId = []
+                                                    //     skusItem.spec.map((skusSpecItem) => {
+                                                    //         const ifValueIdItem = spec.findIndex((specItem) => {
+                                                    //             return specItem.value_id === skusSpecItem.value_id;
+                                                    //         })
+                                                    //         if (ifValueIdItem > -1) {
+                                                    //             ifValueId.push(ifValueIdItem);
+                                                    //         }
+                                                    //     })
+                                                    //     if (ifValueId.length === spec.length) {
+                                                    //         this.setState({
+                                                    //             currentSku: skus[skusIndex]
+                                                    //         })
+                                                    //     }
+                                                    // })
                                                 }}
                                                 style={[{
                                                     backgroundColor: selected > -1 ? ThemeStyle.ThemeColor : '#f8f8f8',
@@ -157,21 +177,21 @@ export default class GoodsSpecList extends Component{
                     onClick={() => {
                         closeModal()
                         if (if_cart === 0) {
-                            navigation.navigate("OrderAction",{
-                                cart_buy_items: [
-                                    {
-                                        goods_id: data.id,
-                                        quantity: selectNum,
-                                        goods_data: data
-                                    },
-                                    {
-                                        goods_id: data.id,
-                                        quantity: selectNum,
-                                        goods_data: data
-                                    }
-                                ],
-                                if_cart
-                            })
+                            // navigation.navigate("OrderAction",{
+                            //     cart_buy_items: [
+                            //         {
+                            //             goods_id: data.id,
+                            //             quantity: selectNum,
+                            //             goods_data: data
+                            //         },
+                            //         {
+                            //             goods_id: data.id,
+                            //             quantity: selectNum,
+                            //             goods_data: data
+                            //         }
+                            //     ],
+                            //     if_cart
+                            // })
                         }
                         if (if_cart === 1) {
                             add({

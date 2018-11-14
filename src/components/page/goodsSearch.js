@@ -8,8 +8,8 @@ import {
 
 export default class PageGoodsSearch extends Component {
     render() {
-        const { data, goGoodsList } = this.props;
-        const { options } = data
+        const { goGoodsList } = this.props;
+        const { options } = this.props.data
         const { background_color } = options
         return <View style={[styles.warp,{backgroundColor: background_color}]}>
             <View style={[styles.inputView,{borderWidth: (background_color==='#fff'||background_color==='#ffffff') ? 0.5 : 0}]}>

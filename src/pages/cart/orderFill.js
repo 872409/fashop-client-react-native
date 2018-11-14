@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
 import { Button, List, InputItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
@@ -42,7 +42,7 @@ export default class CartOrderFill extends Component {
         } = this.state
         return (
             <View style={PublicStyles.ViewMax}>
-                <View style={styles.orderFill}>
+                <ScrollView>
                     <List style={{ marginTop: 10 }}>
                         {addressId > 0 ?
                             <View style={styles.address}>
@@ -125,28 +125,28 @@ export default class CartOrderFill extends Component {
                             </Item>
                         </View>
                     </List>
-                    <View>
-                        <View style={styles.footer}>
-                            <View style={styles.footerLeft}>
-                                <Text style={styles.footerLeftLabel}>实付：</Text>
-                                <Text style={styles.footerLeftText}>¥{calculate ? calculate.pay_amount : total}</Text>
-                            </View>
-                            <View>
-                                <Button
-                                    size={'large'}
-                                    type={'warning'}
-                                    onClick={() => {
-                                        this.onCreateOrder()
-                                    }}
-                                    disabled={!calculate}
-                                    style={{ borderRadius: 0 }}
-                                >
-                                    提交订单
-                                </Button>
-                            </View>
+                </ScrollView>
+                <SafeAreaView style={{backgroundColor: '#fff'}}>
+                    <View style={styles.footer}>
+                        <View style={styles.footerLeft}>
+                            <Text style={styles.footerLeftLabel}>实付：</Text>
+                            <Text style={styles.footerLeftText}>¥{calculate ? calculate.pay_amount : total}</Text>
+                        </View>
+                        <View>
+                            <Button
+                                size={'large'}
+                                type={'warning'}
+                                onClick={() => {
+                                    this.onCreateOrder()
+                                }}
+                                disabled={!calculate}
+                                style={{ borderRadius: 0 }}
+                            >
+                                提交订单
+                            </Button>
                         </View>
                     </View>
-                </View>
+                </SafeAreaView>
             </View>
         )
     }
@@ -293,6 +293,7 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
+        const { navigation } = this.props
         const self = this
         if (!this.state.addressId) {
             fa.toast.show({
@@ -306,55 +307,60 @@ export default class CartOrderFill extends Component {
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
         })
-        const userInfo = fa.cache.get('user_info')
-        if (result) {
-            // 支付modal也算onShow 这儿临时限制下
-            this.setState({
-                payState: true
-            })
-            const pay_amount = this.state.calculate.pay_amount
-            // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
-            const payResult = await buyModel.pay({
-                'order_type': 'goods_buy',
-                'pay_sn': result.pay_sn,
-                'payment_code': 'wechat',
-                'payment_channel': 'wechat_mini',
-                'openid': userInfo.wechat_mini_openid
-            })
-            if (payResult) {
-                wx.requestPayment({
-                    'timeStamp': payResult.timeStamp,
-                    'nonceStr': payResult.nonceStr,
-                    'package': payResult.package,
-                    'signType': payResult.signType,
-                    'paySign': payResult.paySign,
-                    'success': function () {
-                        wx.redirectTo({
-                            url: `/pages/pay/result/index?pay_amount=${pay_amount}&order_id=${result.order_id}&pay_sn=${result.pay_sn}`
-                        })
-                    },
-                    'fail': function (res) {
-                        fa.toast.show({
-                            title: '支付被取消'
-                        })
-                        setTimeout(function () {
-                            wx.redirectTo({
-                                url: `/pages/order/detail/index?id=${result.order_id}`
-                            })
-                        }, 1000)
-                    }
-                })
-            } else {
-                fa.toast.show({
-                    title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
-                })
-                wx.navigateBack({ delta: self.data.delta })
-            }
-        } else {
-            fa.toast.show({
-                title: +fa.code.parse(buyModel.getException().getCode())
+        if(result){
+            navigation.replace('Pay',{
+                ...result
             })
         }
+        // const userInfo = fa.cache.get('user_info')
+        // if (result) {
+        //     // 支付modal也算onShow 这儿临时限制下
+        //     this.setState({
+        //         payState: true
+        //     })
+        //     const pay_amount = this.state.calculate.pay_amount
+        //     // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
+        //     const payResult = await buyModel.pay({
+        //         'order_type': 'goods_buy',
+        //         'pay_sn': result.pay_sn,
+        //         'payment_code': 'wechat',
+        //         'payment_channel': 'wechat_mini',
+        //         'openid': userInfo.wechat_mini_openid
+        //     })
+        //     if (payResult) {
+        //         wx.requestPayment({
+        //             'timeStamp': payResult.timeStamp,
+        //             'nonceStr': payResult.nonceStr,
+        //             'package': payResult.package,
+        //             'signType': payResult.signType,
+        //             'paySign': payResult.paySign,
+        //             'success': function () {
+        //                 wx.redirectTo({
+        //                     url: `/pages/pay/result/index?pay_amount=${pay_amount}&order_id=${result.order_id}&pay_sn=${result.pay_sn}`
+        //                 })
+        //             },
+        //             'fail': function (res) {
+        //                 fa.toast.show({
+        //                     title: '支付被取消'
+        //                 })
+        //                 setTimeout(function () {
+        //                     wx.redirectTo({
+        //                         url: `/pages/order/detail/index?id=${result.order_id}`
+        //                     })
+        //                 }, 1000)
+        //             }
+        //         })
+        //     } else {
+        //         fa.toast.show({
+        //             title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
+        //         })
+        //         wx.navigateBack({ delta: self.data.delta })
+        //     }
+        // } else {
+        //     fa.toast.show({
+        //         title: +fa.code.parse(buyModel.getException().getCode())
+        //     })
+        // }
 
     }
 
