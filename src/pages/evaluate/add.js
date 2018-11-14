@@ -30,7 +30,7 @@ export default class EvaluateAdd extends Component {
         uploaderFormData: {
             type: 'file'
         },
-        uploaderCount: 9,
+        uploaderMaxNum: 9,
         uploaderUrl: null,
         uploaderButtonText: '上传图片(最多9张)',
         uploaderHeader: {},
@@ -130,7 +130,7 @@ export default class EvaluateAdd extends Component {
             goodsInfo,
             uploaderFiles,
             uploaderFormData,
-            uploaderCount,
+            uploaderMaxNum,
             uploaderUrl,
             uploaderButtonText,
             uploaderHeader,
@@ -175,12 +175,10 @@ export default class EvaluateAdd extends Component {
                 <Field
                     type={'uploader'}
                     title=""
+                    value={[]}
                     uploaderButtonText={uploaderButtonText}
-                    uploaderFormData={uploaderFormData}
-                    uploaderUrl={uploaderUrl}
-                    uploaderHeader={uploaderHeader}
                     uploaderFiles={uploaderFiles}
-                    uploaderCount={uploaderCount}
+                    uploaderMaxNum={uploaderMaxNum}
                     uploaderAllowDel={true}
                     onSuccess={(e) => {
                         this.onUploadFileSuccess(e)

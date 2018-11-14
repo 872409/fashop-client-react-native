@@ -7,7 +7,8 @@ import {
 import PropTypes from "prop-types";
 import { TextareaItem, InputItem } from 'antd-mobile-rn';
 import { Area, FieldCell } from '../../components'
-
+import { ImageUpload } from '../../components/theme'
+import { windowWidth } from "../../utils/publicStyleModule";
 
 export default class Field extends Component {
     static propTypes = {
@@ -31,7 +32,7 @@ export default class Field extends Component {
         maxlength: PropTypes.number,
         areaNames: PropTypes.string,
         areaList: PropTypes.array,
-        uploaderCount: PropTypes.number,
+        uploaderMaxNum: PropTypes.number,
         uploaderFiles: PropTypes.array,
         uploaderName: PropTypes.string,
         uploaderUrl: PropTypes.string,
@@ -60,7 +61,7 @@ export default class Field extends Component {
         rows: 1,
         areaNames: null,
         areaList: [],
-        uploaderCount: 1,
+        uploaderMaxNum: 1,
         uploaderFiles: [],
         uploaderName: 'image',
         uploaderUrl: null,
@@ -90,11 +91,11 @@ export default class Field extends Component {
 
     uploaderChooseImage(e) {
         let that = this;
-        if (that.data.uploaderFiles.length >= that.data.uploaderCount) {
+        if (that.data.uploaderFiles.length >= that.data.uploaderMaxNum) {
             return false
         } else {
             wx.chooseImage({
-                count: that.data.uploaderCount,
+                count: that.data.uploaderMaxNum,
                 sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success(res) {
@@ -117,12 +118,12 @@ export default class Field extends Component {
         }
     }
 
-    uploaderPreViewImage({images,index}) {
+    uploaderPreViewImage({ images, index }) {
         let _images = images ? images.map(img => {
             return { source: { uri: img } }
         }) : []
         this.props.navigation.navigate('PhotoGallery', {
-            images:_images,
+            images: _images,
             index
         })
     }
@@ -156,7 +157,7 @@ export default class Field extends Component {
             rows,
             areaNames,
             areaList,
-            uploaderCount,
+            uploaderMaxNum,
             uploaderFiles,
             uploaderName,
             uploaderUrl,
@@ -166,6 +167,18 @@ export default class Field extends Component {
             uploaderAllowDel
         } = this.props
         return <View>
+            {type === 'uploader' ?
+                <FieldCell title={title} desc={desc}>
+                    <ImageUpload
+                        maxNum={uploaderMaxNum}
+                        defaultValue={value ? value : []}
+                        onChange={(value) => {
+                            this.handleFieldChange(value)
+                        }}
+                    />
+                </FieldCell>
+                : null}
+
             {type === 'textarea' ?
                 <FieldCell title={title} desc={desc}>
                     <TextareaItem

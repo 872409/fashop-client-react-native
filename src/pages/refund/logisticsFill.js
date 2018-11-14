@@ -187,7 +187,7 @@ export default class RefundLogisticsFill extends Component {
                         uploaderUrl={uploaderUrl}
                         uploaderHeader={uploaderHeader}
                         uploaderFiles={uploaderFiles}
-                        uploaderCount={6}
+                        uploaderMaxNum={6}
                         uploaderAllowDel={true}
                         success="onUploadFileSuccess"
                         onChange={(value)=>{this.handleFieldChange(value)}}

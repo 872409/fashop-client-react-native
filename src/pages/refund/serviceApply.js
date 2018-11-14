@@ -240,7 +240,7 @@ export default class ServiceApply extends Component {
                     uploaderUrl={uploaderUrl}
                     uploaderHeader={uploaderHeader}
                     uploaderFiles={uploaderFiles}
-                    uploaderCount={6}
+                    uploaderMaxNum={6}
                     uploaderAllowDel={true}
                     onSuccess={(e) => this.onUploadFileSuccess(e)}
                     onDelete={(e) => this.onUploadFileDelete(e)}

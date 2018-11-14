@@ -1,4 +1,3 @@
-
 import SYImagePicker from "react-native-syan-image-picker";
 import { Toast } from './publicFuncitonModule';
 import Fetch from './fetch';
@@ -12,8 +11,8 @@ const defaultOptions = {
     imageCount: 9,          // 最大选择图片数目，默认9
     isCamera: true,         // 是否允许用户在内部拍照，默认true
     isCrop: false,          // 是否允许裁剪，默认false
-    CropW: windowWidth*0.6, // 裁剪宽度，默认屏幕宽度60%
-    CropH: windowWidth*0.6, // 裁剪高度，默认屏幕宽度60%
+    cropW: windowWidth*0.6, // 裁剪宽度，默认屏幕宽度60%
+    cropH: windowWidth*0.6, // 裁剪高度，默认屏幕宽度60%
     isGif: false,           // 是否允许选择GIF，默认false，暂无回调GIF数据
     showCropCircle: false,  // 是否显示圆形裁剪区域，默认false
     showCropFrame: true,    // 是否显示裁剪区域，默认true
