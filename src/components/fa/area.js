@@ -5,6 +5,7 @@ import {
     Text,
 } from 'react-native';
 import PropTypes from "prop-types";
+import { Picker } from 'antd-mobile-rn';
 
 export default class Area extends Component {
     static propTypes = {
@@ -22,53 +23,50 @@ export default class Area extends Component {
         // 省市县显示列数，3-省市县，2-省市，1-省
         columnsNum: 3
     };
-    data: {
-        displayList: []
+    state = {
+        displayList: [],
     }
-    // todo
-    attached() {
+
+    componentWillMount() {
         this.initDisplayList()
     }
 
-    columnChange(e) {
-        let selected = this.data.selected
+    onColumnChange(e) {
+        const { selected } = this.props
         selected[e.detail.column] = e.detail.value
         for (let i = 0; i < selected.length; i++) {
             if (e.detail.column < i) {
                 selected[i] = 0
             }
         }
-        this.setState({
-            selected: selected
-        })
+
+        if (this.props.onColumnChange) {
+            this.props.onColumnChange({ value: selected });
+        }
         this.initDisplayList()
     }
 
-    change() {
-        const displayList = this.data.displayList
-        let selected = this.data.selected
-        const areaList = this.data.areaList
+    onChange() {
+        const displayList = this.state.displayList
+        let selected = this.props.selected
+        const areaList = this.props.areaList
         const areaNames = displayList[0][selected[0]] + ' ' + displayList[1][selected[1]] + ' ' + displayList[2][selected[2]]
         const provinceId = areaList[selected[0]]['id']
         const cityId = areaList[selected[0]]['childs'][selected[1]]['id']
         const areaId = areaList[selected[0]]['childs'][selected[1]]['childs'][selected[2]]['id']
         const ids = [provinceId, cityId, areaId]
 
-        this.setState({
-            areaNames
-        })
-        this.triggerEvent('change', {
-            value: this.data.selected,
-            areaNames,
-            ids
-        })
+
+        if (this.props.onChange) {
+            this.props.onChange({ value: selected, areaNames, ids });
+        }
     }
 
     initDisplayList() {
-        const displayList = []
-        const areaList = this.data.areaList
-        let selected = this.data.selected
-
+        const { areaList, selected } = this.props
+        let displayList = []
+        console.warn(areaList)
+        return
         displayList[0] = areaList.map(function (item) {
             return item.name;
         })
@@ -85,15 +83,21 @@ export default class Area extends Component {
     }
 
     render() {
+        const { displayList } = this.state
+        const { selected, areaNames, placeholder } = this.props
         return <View style={styles.section}>
             <Picker
-                mode="multiSelector"
-                onChange={(e) => this.bindMultiPickerChange(e)}
+                cols={3}
+                onChange={(e) => {
+                    this.onChange(e)
+                }}
                 value={selected}
                 data={displayList}
-                onPickerChange={(e) => this.columnChange(e)}
+                onPickerChange={(e) => {
+                    this.onColumnChange(e)
+                }}
             >
-                <View style={styles.Picker}>
+                <View style={styles.picker}>
                     {areaNames ? <Text style={styles.text}>{areaNames}</Text> : null}
                     {placeholder ? <Text style={styles.placeholder}>{placeholder}</Text> : null}
                 </View>
@@ -102,5 +106,8 @@ export default class Area extends Component {
     }
 }
 const styles = StyleSheet.create({
-    
+    section: {},
+    picker: {},
+    text: {},
+    placeholder: {}
 })
