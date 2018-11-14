@@ -10,6 +10,7 @@ import Navigator from './navigator';
 import { initUserInfoStorage } from "../actions/user";
 import { initWechat } from '../actions/app/wechat';
 import { NavigationActions } from 'react-navigation';
+import SplashScreen from "react-native-splash-screen";
 // import { createNavigationPropConstructor } from 'react-navigation-redux-helpers';
 // import FetchLoading from '../components/FetchLoading';
 
@@ -24,6 +25,7 @@ class App extends Component {
         } = this.props
         // dispatch(initUserInfoStorage())
         dispatch(initWechat())
+        SplashScreen.hide();
     }
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
