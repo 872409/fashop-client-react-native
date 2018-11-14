@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import { windowWidth } from '../../utils/publicStyleModule';
 
@@ -21,10 +22,16 @@ export default class PageShopWindow extends Component {
     oneBigTwoSmall(data){
         return(
             <View style={styles.bigList}>
-                <Image style={styles.bigImg} source={{ uri: data[0].img.url }}/>
+                {
+                    this.publicImage({ link: data[0].link, img: data[0].img, style: styles.bigImg, index: 0 })
+                }
                 <View>
-                    <Image style={styles.smallImg1} source={{ uri: data[1].img.url }}/>
-                    <Image style={styles.smallImg1} source={{ uri: data[2].img.url }}/>
+                    {
+                        this.publicImage({ link: data[1].link, img: data[1].img, style: styles.smallImg1, index: 1 })
+                    }
+                    {
+                        this.publicImage({ link: data[2].link, img: data[2].img, style: styles.smallImg1, index: 2 })
+                    }
                 </View>
             </View>
         )
@@ -33,11 +40,23 @@ export default class PageShopWindow extends Component {
         return(
             <View style={styles.smallList}>
                 {
-                    data.map((item, index) => (
-                        <Image style={styles.smallImg2} key={index} source={{uri: item.img.url}}/>
-                    ))
+                    data.map((item, index) => this.publicImage({ link: item.link, img: item.img, style: styles.smallImg2, index }))
                 }
             </View>
+        )
+    }
+    publicImage({ link, img, style, index }){
+        const { handelLink } = this.props;
+        return(
+            <TouchableOpacity
+                key={index}
+                activeOpacity={.8}
+                onPress={() => {
+                    handelLink(link)
+                }}
+            >
+                <Image style={style} source={{ uri: img.url }} />
+            </TouchableOpacity>
         )
     }
 }

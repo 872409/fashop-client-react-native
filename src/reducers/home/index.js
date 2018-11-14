@@ -17,6 +17,15 @@ export default (state = initialState, action) => {
                 homeView: action.data,
                 homeViewFetchStatus: action.fetchStatus
             }
+        case types.home.GET_HOME_VIEW:
+            return {
+                ...{
+                    pageInfo: null,
+                    pageInfoFetchStatus: fetchStatus.l,
+                },
+                pageInfo: action.data,
+                pageInfoFetchStatus: action.fetchStatus
+            }
         default:
             return state;
     }

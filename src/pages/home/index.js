@@ -61,26 +61,26 @@ export default class HomeIndex extends Component {
             </ScrollView>
         </View>
     }
-    handelLink(link) {
+    handelLink = (link) => {
         // link.action = portal 首页
         // link.action = goods 商品 param { id: 10000 }
         // link.action = page 页面 param { id: 'slfkf2dc' }
         // link.action = url 页面 param { url: 'http://fashop.cn' }
         const { navigation } = this.props
         switch (link.action) {
-            // case 'portal':
-                // navigation.navigate('IndexView')
-                // break
-            case 'goods':
-                navigation.navigate('GoodsDetail',{
-                    id: link.param.id
+            case "portal":
+                return navigation.navigate("IndexView");
+            case "goods":
+                return navigation.navigate("GoodsDetail", { id: link.param.id });
+            case "page":
+                return navigation.navigate("PageView", { id: link.param.id });
+            case "url":
+                return navigation.navigate('PublicWebView', {
+                    title: 'Fashop',
+                    url: link.param.url
                 })
-                break
-            case 'page':
-                navigation.navigate('PageView',{
-                    id: link.param.id
-                })
-                break
+            default:
+                return navigation.navigate("IndexView");
         }
     }
     bodyItem(item,index){
@@ -103,19 +103,19 @@ export default class HomeIndex extends Component {
             case "auxiliary_blank":
                 return <AuxiliaryBlank key={index} data={item} />;
             case "image_ads":
-                return <ImageAds key={index} data={item} />;
+                return <ImageAds key={index} data={item} handelLink={handelLink} />;
             case "image_nav":
-                return <ImageNav key={index} data={item} />;
+                return <ImageNav key={index} data={item} handelLink={handelLink} />;
             case "shop_window":
-                return <ShopWindow key={index} data={item} />;
+                return <ShopWindow key={index} data={item} handelLink={handelLink} />;
             case "video":
                 return <Video key={index} data={item} />;
             case "top_menu":
-                return <TopMenu key={index} data={item} />;
+                return <TopMenu key={index} data={item} handelLink={handelLink} />;
             case "title":
                 return <Title key={index} data={item} />;
             case "text_nav":
-                return <TextNav key={index} data={item} />;
+                return <TextNav key={index} data={item} handelLink={handelLink} />;
             default:
                 return <Text key={index}>NULL</Text>;
         }

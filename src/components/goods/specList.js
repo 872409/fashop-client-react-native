@@ -1,55 +1,55 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
+    StyleSheet,
+    View,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    Image
 } from "react-native";
 import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "../../components/goods/stepper";
-import { add } from "../../actions/cart";
-
-const specInit = [];
+import { add, edit, exist } from "../../actions/cart";
 
 export default class GoodsSpecList extends Component{
     state = {
-        spec: this.props.currentSpec.stock === '-' ? specInit : this.props.currentSpec.spec,
-        selectNum: this.props.currentSpec.selectNum
-    }
-    componentDidMount(){
-        this.setState({
-            sepc: this.props.currentSpec.spec
-        })
+        spec: [],
+        selectNum: 1,
+        currentSku: {},
+        currentSpec: {},
     }
     render() {
-        const { spec, selectNum } = this.state;
+        const { spec, selectNum, currentSku, currentSpec } = this.state;
         const {
             if_cart,
+            skus,
             specList,
             skuList,
-            changeCurrentSpec,
             data,
             closeModal,
-            currentSpec,
             navigation
         } = this.props;
-        console.log('currentSpec', currentSpec);
+        console.log("currentSku", currentSku);
         
         const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
         return <View style={PublicStyles.ViewMax}>
             <View style={styles.popModalTitleView}>
-                <View style={styles.popModalTitleLeft} />
+                {
+                    currentSku.img ? <Image
+                        source={{ uri: currentSku.img }}
+                        style={styles.popModalTitleLeft}
+                    /> : <View style={styles.popModalTitleLeft} />
+                }
                 <View style={styles.popModalTitleTight}>
                     <Text style={[styles.popModalTitleTightP]}> ¥{currentSpec.price}</Text>
                     <Text style={[PublicStyles.descTwo9]}>
                         已选：
                         {
-                            currentSpec.spec.map((item) => {
+                            currentSpec.spec ? currentSpec.spec.map((item) => {
                                 return `${item.value_name} `;
-                            })
+                            }) : null
                         }
                     </Text>
                 </View>
@@ -109,7 +109,25 @@ export default class GoodsSpecList extends Component{
                                                                 ...skuList[skuListIndex],
                                                                 selectNum
                                                             }
-                                                            changeCurrentSpec(newList);
+                                                            this.setState({
+                                                                currentSpec: newList
+                                                            })
+                                                        }
+                                                    })
+                                                    skus.map((skusItem, skusIndex) => {
+                                                        const ifValueId = []
+                                                        skusItem.spec.map((skusSpecItem) => {
+                                                            const ifValueIdItem = spec.findIndex((specItem) => {
+                                                                return specItem.value_id === skusSpecItem.value_id;
+                                                            })
+                                                            if (ifValueIdItem > -1) {
+                                                                ifValueId.push(ifValueIdItem);
+                                                            }
+                                                        })
+                                                        if (ifValueId.length === spec.length) {
+                                                            this.setState({
+                                                                currentSku: skus[skusIndex]
+                                                            })
                                                         }
                                                     })
                                                 }}
@@ -157,29 +175,24 @@ export default class GoodsSpecList extends Component{
                     onClick={() => {
                         closeModal()
                         if (if_cart === 0) {
-                            navigation.navigate("OrderAction",{
-                                cart_buy_items: [
-                                    {
-                                        goods_id: data.id,
-                                        quantity: selectNum,
-                                        goods_data: data
-                                    },
-                                    {
-                                        goods_id: data.id,
-                                        quantity: selectNum,
-                                        goods_data: data
-                                    }
-                                ],
-                                if_cart
-                            })
+                            // navigation.navigate("OrderAction",{
+                            //     cart_buy_items: [
+                            //         {
+                            //             goods_id: data.id,
+                            //             quantity: selectNum,
+                            //             goods_data: data
+                            //         },
+                            //         {
+                            //             goods_id: data.id,
+                            //             quantity: selectNum,
+                            //             goods_data: data
+                            //         }
+                            //     ],
+                            //     if_cart
+                            // })
                         }
                         if (if_cart === 1) {
-                            add({
-                                params: {
-                                    goods_sku_id: 12,
-                                    quantity: selectNum
-                                }
-                            })
+                            this.changeCart(currentSku, selectNum)
                         }
                     }}
                 >
@@ -187,6 +200,22 @@ export default class GoodsSpecList extends Component{
                 </Button>
             </SafeAreaView>
         </View>
+    }
+    changeCart = async (currentSku, selectNum) => {
+        const params = {
+            goods_sku_id: currentSku.id,
+            quantity: selectNum
+        }
+        const e = await exist({
+            params: {
+                goods_sku_id: currentSku.id
+            }
+        })
+        if(e){
+            edit({ params });
+        }else{
+            add({ params });
+        }
     }
 }
 

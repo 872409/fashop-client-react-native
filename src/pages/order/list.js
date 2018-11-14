@@ -14,9 +14,22 @@ import {  ListView } from "../../utils/publicViewModule";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
+import * as WeChat from "react-native-wechat";
+import { connect } from "react-redux";
+import { Toast } from '../../utils/publicFuncitonModule';
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
+
+@connect(
+    ({ app: { user: {
+        login,
+        userInfo,
+    }}}) => ({
+        login,
+        userInfo,
+    }),
+)
 export default class OrderList extends Component {
     state = {
         state_type: null,
@@ -78,43 +91,37 @@ export default class OrderList extends Component {
             }
         ])
     }
-
-    async onPay(e) {
-        const userInfo = fa.cache.get('user_info')
-        const orderInfo = e.detail.orderInfo
-        const self = this
-        // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
+    async onPay(orderInfo) {
+        const { userInfo } = this.props
+        // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         const payResult = await buyModel.pay({
-            'order_type': 'goods_buy',
-            'pay_sn': orderInfo.pay_sn,
-            'payment_code': 'wechat',
-            'payment_channel': 'wechat_mini',
-            'openid': userInfo.wechat_mini_openid
+            order_type: 'goods_buy',
+            pay_sn: orderInfo.pay_sn,
+            payment_code: 'wechat',
+            openid: 'oy0Ue1N9xdbCCdSByzCNj8VjLBNM',
+            // openid: userInfo.wechat_openid,
+            payment_channel: 'wechat_app'
         })
         if (payResult) {
             // todo
-            // wx.requestPayment({
-            //     'timeStamp': payResult.timeStamp,
-            //     'nonceStr': payResult.nonceStr,
-            //     'package': payResult.package,
-            //     'signType': payResult.signType,
-            //     'paySign': payResult.paySign,
-            //     'success': function () {
-            //         self.setState({
-            //             page: 1
-            //         })
-            //         self.updateListRow(orderInfo.id)
-            //     },
-            //     'fail': function (res) {
-            //         fa.toast.show({
-            //             title: res
-            //         })
-            //     }
-            // })
+            const payOptions = {
+                partnerId: `${payResult.partnerid}`,     // 商家向财付通申请的商家id
+                prepayId: `${payResult.prepayid}`,     // 预支付订单
+                nonceStr: `${payResult.noncestr}`,     // 随机串，防重发
+                timeStamp: `${payResult.timestamp}`,     // 时间戳，防重发
+                package: `${payResult.packagestr}`,     // 商家根据财付通文档填写的数据和签名
+                sign: `${payResult.sign}`     // 商家根据微信开放平台文档对数据做的签名
+            };
+            try {
+                const a = await WeChat.pay(payOptions)
+                // this.paySuccess()
+                Toast.info('支付成功');
+            } catch (err) {
+                console.log(err)
+                Toast.warn('支付失败1');
+            }
         } else {
-            fa.toast.show({
-                title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
-            })
+            Toast.warn('支付失败2');
         }
     }
 
@@ -252,7 +259,7 @@ export default class OrderList extends Component {
                                 showLogisticsBtn={item.showLogisticsBtn}
                                 showCancelBtn={item.if_cancel}
                                 onPay={() => {
-                                    this.onPay()
+                                    this.onPay(item)
                                 }}
                                 onReceive={() => {
                                     this.onReceive()

@@ -10,23 +10,22 @@ import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
 
 export default class PageImageAds extends Component {
     render() {
+        const { handelLink } = this.props;
         const { data, options } = this.props.data
         const { layout_style } = options
         // 显示形式：折叠轮播1、上下平铺2
         if(layout_style === 1){
-            return this.carousel(data)
+            return this.carousel(data,handelLink)
         }
-        return this.card(data);
+        return this.card(data,handelLink);
     }
-    carousel(data){
+    carousel(data,handelLink){
         return(
             <Carousel
                 autoplay={data.length>1}
                 infinite={data.length>1}
                 dotActiveStyle={styles.dotActive}
                 dotStyle={styles.dot}
-                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                // afterChange={index => console.log('slide to', index)}
             >
                 {
                     data.map((item, i) => (
@@ -34,10 +33,7 @@ export default class PageImageAds extends Component {
                             activeOpacity={1}
                             style={styles.img}
                             onPress={() => {
-                                // navigation.navigate('PublicWebView', {
-                                //     title: item.title,
-                                //     url: `${env.domain}/app/info/detail?id=${item.id}`
-                                // })
+                                handelLink(item.link)
                             }}
                             key={i}
                         >
@@ -53,7 +49,7 @@ export default class PageImageAds extends Component {
             </Carousel>
         )
     }
-    card(data){
+    card(data,handelLink){
         return(
             <View>
                 {
@@ -62,10 +58,7 @@ export default class PageImageAds extends Component {
                             activeOpacity={1}
                             style={styles.img}
                             onPress={() => {
-                                // navigation.navigate('PublicWebView', {
-                                //     title: item.title,
-                                //     url: `${env.domain}/app/info/detail?id=${item.id}`
-                                // })
+                                handelLink(item.link)
                             }}
                             key={i}
                         >

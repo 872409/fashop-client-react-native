@@ -9,6 +9,7 @@ import {
 
 export default class PageTopMenu extends Component {
     render() {
+        const { handelLink } = this.props;
         const { data, options } = this.props.data;
         const { menu_format, menu_space } = options
         // 菜单格式：纯文字导航1、小图标导航2（小图标导航 V1不包含）
@@ -22,6 +23,9 @@ export default class PageTopMenu extends Component {
                             backgroundColor: item.background_color,
                             marginRight: (index!==(data.length-1))&&menu_space===2 ? 4 : 0
                         }]}
+                        onPress={() => {
+                            handelLink(item.link)
+                        }}
                     >
                         {
                             menu_format===2 ?

@@ -41,17 +41,6 @@ export default class CategoryDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,
-        currentSpec: {
-            stock: '-',
-            price: '-',
-            selectNum: 1,
-            spec: [{
-                id: 0,
-                name: '-',
-                value_id: 0,
-                value_name: '-',
-            }]
-        },
     }
     hocComponentDidMount() {
         const {
@@ -72,7 +61,7 @@ export default class CategoryDetail extends Component {
         return this.props.navigation.state.params.id
     }
     render() {
-        const { specVisible, if_cart, currentSpec } = this.state;
+        const { specVisible, if_cart } = this.state;
         const { navigation } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
@@ -157,16 +146,12 @@ export default class CategoryDetail extends Component {
                     if_cart={if_cart}
                     data={data}
                     skuList={data.sku_list ? data.sku_list : []}
+                    skus={data.skus ? data.skus : []}
                     specList={data.spec_list ? data.spec_list : []}
-                    changeCurrentSpec={this.changeCurrentSpec}
-                    currentSpec={currentSpec}
                     closeModal={this.closeModal}
                 />
             </Modal>
         </View>
-    }
-    changeCurrentSpec = (currentSpec) => {
-        this.setState({ currentSpec });
     }
     closeModal = () => {
         this.setState({ specVisible: false });
@@ -182,8 +167,6 @@ export default class CategoryDetail extends Component {
                 infinite={data.length > 1}
                 dotActiveStyle={styles.dotActive}
                 dotStyle={styles.dot}
-                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                // afterChange={index => console.log('slide to', index)}
             >
                 {
                     data.map((item, index) => (
@@ -259,14 +242,14 @@ export default class CategoryDetail extends Component {
             <SafeAreaView style={{backgroundColor: '#fff'}}>
                 <View style={styles.bot}>
                     <View style={[PublicStyles.rowCenter,styles.botLeft]}>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}
                             onPress={() => { }}
                         >
                             <Image source={require('../../images/goodsDetail/im.png')}/>
                             <Text style={leftText}>客服</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}
@@ -360,7 +343,8 @@ const styles = StyleSheet.create({
     },
     botLeft: {
         flexDirection: 'row',
-        width: windowWidth*0.41
+        // width: windowWidth*0.41
+        width: ((windowWidth*0.41)/3)*2
     },
     botRight: {
         flexDirection: 'row',

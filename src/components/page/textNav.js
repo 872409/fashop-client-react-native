@@ -8,11 +8,20 @@ const Item = List.Item
 
 export default class PageTextNav extends Component {
     render() {
+        const { handelLink } = this.props
         const { data } = this.props.data
         return <List>
             {
                 data.map((item,index)=>(
-                    <Item key={index} arrow="horizontal">{item.title}</Item>
+                    <Item 
+                        key={index} 
+                        arrow="horizontal"
+                        onClick={() => {
+                            handelLink(item.link)
+                        }}
+                    >
+                        {item.title}
+                    </Item>
                 ))
             }
         </List>

@@ -10,6 +10,7 @@ import { windowWidth } from '../../utils/publicStyleModule';
 
 export default class PageImageNav extends Component {
     render() {
+        const { handelLink } = this.props
         const { data, options } = this.props.data
         const { rows, each_row_display } = options;
         // 行数：1行、2行、3行、4行
@@ -23,10 +24,7 @@ export default class PageImageNav extends Component {
                             width: windowWidth/each_row_display
                         }]}
                         onPress={() => {
-                            navigation.navigate('Goods', {
-                                category_id: item.id,
-                                title: item.title
-                            })
+                            handelLink(item.link)
                         }}
                     >
                         <Image

@@ -6,7 +6,7 @@ import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from "../../models/buy";
 import React, { Component } from 'react';
-import { Modal,  WhiteSpace } from "antd-mobile-rn";
+import { Modal, WhiteSpace } from "antd-mobile-rn";
 import {
     OrderStateCard,
     OrderAddress,
@@ -15,11 +15,26 @@ import {
     OrderCostList,
     OrderFooterAction
 } from '../../components'
-import { StackActions } from "react-navigation";
+import * as WeChat from "react-native-wechat";
+import { connect } from "react-redux";
+import { Toast } from '../../utils/publicFuncitonModule';
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
 
+@connect(
+    ({
+         app: {
+             user: {
+                 login,
+                 userInfo,
+             }
+         }
+     }) => ({
+        login,
+        userInfo,
+    }),
+)
 export default class OrderDetail extends Component {
     state = {
         id: null,
@@ -55,7 +70,7 @@ export default class OrderDetail extends Component {
     componentWillMount() {
         this.setState({
             id: this.props.navigation.getParam('id')
-        },()=>{
+        }, () => {
             console.log('set ok')
             this.props.navigation.addListener(
                 'didFocus', async () => {
@@ -127,43 +142,38 @@ export default class OrderDetail extends Component {
     }
 
     async onPay() {
-        const userInfo = fa.cache.get('user_info')
-        const { orderInfo } = this.state
-        const self = this
-        // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
+        const { userInfo } = this.props
+        const { orderInfo } = this.state;
         const payResult = await buyModel.pay({
             'order_type': 'goods_buy',
             'pay_sn': orderInfo.pay_sn,
             'payment_code': 'wechat',
-            'payment_channel': 'wechat_mini',
-            'openid': userInfo.wechat_mini_openid
+            'openid': userInfo.wechat_openid,
+            payment_channel: 'wechat_app'
         })
         if (payResult) {
-            // todo 支付
-            wx.requestPayment({
-                'timeStamp': payResult.timeStamp,
-                'nonceStr': payResult.nonceStr,
-                'package': payResult.package,
-                'signType': payResult.signType,
-                'paySign': payResult.paySign,
-                'success': function () {
-                    self.init()
-                    self.updateListRow()
-                },
-                'fail': function (res) {
-                    fa.toast.show({
-                        title: res
-                    })
-                }
-            })
+            // todo
+            const payOptions = {
+                partnerId: `${payResult.partnerid}`,
+                prepayId: `${payResult.prepayid}`,
+                nonceStr: `${payResult.noncestr}`,
+                timeStamp: `${payResult.timestamp}`,
+                package: `${payResult.packagestr}`,
+                sign: `${payResult.sign}`
+            };
+            try {
+                const a = await WeChat.pay(payOptions)
+                // this.paySuccess()
+                Toast.info('支付成功');
+            } catch (e) {
+                Toast.warn('支付失败');
+            }
         } else {
-            fa.toast.show({
-                title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
-            })
+            Toast.warn('支付失败');
         }
     }
 
-    updateListRow = () =>{
+    updateListRow = () => {
 
         const { id } = this.state
         if (id > 0) {
@@ -175,7 +185,6 @@ export default class OrderDetail extends Component {
         }
 
     }
-
 
 
     render() {

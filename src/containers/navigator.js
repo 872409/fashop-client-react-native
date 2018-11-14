@@ -15,6 +15,7 @@ import OrderAction from "../pages/category/orderAction";
 import Pay from "../pages/pay";
 
 import UserLogin from "../pages/user/login";
+import UserInfo from "../pages/user/info";
 import UserRegister from "../pages/user/register";
 import UserAddressAdd from "../pages/user/address/add";
 import UserAddressEdit from "../pages/user/address/edit";
@@ -112,6 +113,12 @@ export default createStackNavigator(
             screen: UserLogin,
             navigationOptions: {
                 title: '登录'
+            }
+        },
+        UserInfo: {
+            screen: UserInfo,
+            navigationOptions: {
+                title: '个人中心'
             }
         },
         UserRegister: {

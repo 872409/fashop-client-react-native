@@ -45,17 +45,17 @@ export default class Pay extends Component{
         const { navigation } = this.props
         const { pay_sn } = navigation.state.params
         const e = await Fetch.fetch({
-            api: BuyApi.pay,
+            api: BuyApi.info,
             params:{
                 pay_sn,
             }
         })
-        // console.log(e);
+        console.log(e);
         if (e.code === 0) {
             this.setState({
-                payment_list: e.data.payment_list,
-                pay_amount: e.data.pay_amount,
-                order_id:e.data.order_info.id
+                payment_list: e.result.payment_list,
+                pay_amount: e.result.pay_amount,
+                order_id:e.result.order_info.id
             });
         } else {
             Toast.info(e.msg, 1);
@@ -71,11 +71,11 @@ export default class Pay extends Component{
         // console.log('pay',nav);
         return (
             <View style={[PublicStyles.ViewMax]}>
-                <NoticeBar
+                {/* <NoticeBar
                     mode="closable"
                 >
                     订单超过15分钟未支付，将会被取消！！！
-                </NoticeBar>
+                </NoticeBar> */}
                 <List>
                     {
                         payment_list.map((item,index)=>{

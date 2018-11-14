@@ -23,7 +23,7 @@ class App extends Component {
         const {
             dispatch
         } = this.props
-        // dispatch(initUserInfoStorage())
+        dispatch(initUserInfoStorage())
         dispatch(initWechat())
         SplashScreen.hide();
     }
