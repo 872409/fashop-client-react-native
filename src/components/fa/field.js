@@ -89,51 +89,6 @@ export default class Field extends Component {
         }
     }
 
-    uploaderChooseImage(e) {
-        let that = this;
-        if (that.data.uploaderFiles.length >= that.data.uploaderMaxNum) {
-            return false
-        } else {
-            wx.chooseImage({
-                count: that.data.uploaderMaxNum,
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                success(res) {
-                    // todo 优化先预览后返回覆盖
-                    const tempFilePaths = res.tempFilePaths
-                    for (let i = 0; i < tempFilePaths.length; i++) {
-                        wx.uploadFile({
-                            url: that.data.uploaderUrl,
-                            filePath: tempFilePaths[i],
-                            name: that.data.uploaderName,
-                            header: that.data.uploaderHeader,
-                            formData: that.data.uploaderFormData,
-                            success(res) {
-                                that.triggerEvent('success', JSON.parse(res.data));
-                            }
-                        })
-                    }
-                }
-            })
-        }
-    }
-
-    uploaderPreViewImage({ images, index }) {
-        let _images = images ? images.map(img => {
-            return { source: { uri: img } }
-        }) : []
-        this.props.navigation.navigate('PhotoGallery', {
-            images: _images,
-            index
-        })
-    }
-
-    uploaderDelImage(e) {
-        this.triggerEvent('delete', {
-            index: e.currentTarget.dataset.index,
-            url: e.currentTarget.dataset.url,
-        });
-    }
 
     render() {
         const {
