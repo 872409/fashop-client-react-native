@@ -172,6 +172,10 @@ export default class CategoryDetail extends Component {
         this.setState({ specVisible: false });
     }
     carousel(data){
+        const { navigation } = this.props
+        let newImages = data ? data.map(item => {
+            return { source: { uri: item } }
+        }) : []
         return(
             <Carousel
                 autoplay={data.length > 1}
@@ -182,17 +186,17 @@ export default class CategoryDetail extends Component {
                 // afterChange={index => console.log('slide to', index)}
             >
                 {
-                    data.map((item, i) => (
+                    data.map((item, index) => (
                         <TouchableOpacity
                             activeOpacity={1}
                             style={styles.carouselImg}
                             onPress={() => {
-                                // navigation.navigate('PublicWebView', {
-                                //     title: item.title,
-                                //     url: `${env.domain}/app/info/detail?id=${item.id}`
-                                // })
+                                navigation.navigate('PhotoGallery', {
+                                    images: newImages,
+                                    index
+                                })
                             }}
-                            key={i}
+                            key={index}
                         >
                             <Image
                                 source={{

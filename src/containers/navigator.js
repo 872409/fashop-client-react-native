@@ -5,6 +5,8 @@ import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/Sta
 
 import IndexView from "../pages/index";
 
+import PhotoGallery from "../utils/photoGallery";
+
 import GoodsDetail from "../pages/category/goodsDetail";
 import OrderAction from "../pages/category/orderAction";
 
@@ -63,6 +65,13 @@ export default createStackNavigator(
             screen: IndexView,
             navigationOptions: ({ navigation }) => {
                 return indexNavigationOptions({ navigation })[navigation.state.routes[navigation.state.index].routeName]
+            }
+        },
+        // 点击查看大图
+        PhotoGallery: {
+            screen: PhotoGallery,
+            navigationOptions: {
+                header: null,
             }
         },
         // category
