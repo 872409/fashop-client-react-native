@@ -1,20 +1,21 @@
-const refundModel = new RefundModel()
-const orderModel = new OrderModel()
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
     ScrollView,
     Text,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
 import OrderModel from '../../models/order'
-import { UploadImageInterface } from '../../interface/uploadImage'
-import { List,Button } from 'antd-mobile-rn';
-import { Field ,FixedBottom} from '../../components'
+import { Button } from 'antd-mobile-rn';
+import { Field } from '../../components'
+import { StackActions } from "react-navigation";
 
+const refundModel = new RefundModel()
+const orderModel = new OrderModel()
 export default class ServiceApply extends Component {
     state = {
         delta: 1,
@@ -22,45 +23,49 @@ export default class ServiceApply extends Component {
 
         refundType: 1,
         reasonList: [],
-        receiveStateList: ['未收到货', '已收到货'],
+        receiveStateList: [
+            {
+                value: '未收到货',
+                label: '未收到货'
+            },
+            {
+                value: '已收到货',
+                label: '已收到货'
+            }
+        ],
         reason: '',
         userReceive: null,
         refundAmount: '',
         userExplain: '',
 
         goodsInfo: null,
-        uploaderFiles: [],
-        uploaderName: 'file',
-        uploaderFormData: {
-            type: 'file'
-        },
-        uploaderUrl: null,
+        images: [],
+        uploaderMaxNum: 6,
         uploaderButtonText: '上传凭证(最多6张)',
-        uploaderHeader: {},
     }
 
-    async componentWillMount({ order_goods_id, refund_type, delta = 1 }) {
-        // delta 传的话
-        const accessToken = fa.cache.get('user_token')
+    async componentWillMount() {
+        const order_goods_id = this.props.navigation.getParam('order_goods_id')
+        const refund_type = this.props.navigation.getParam('refund_type')
+        const delta = this.props.navigation.getParam('delta', 1)
+
         const goodsInfoResult = await orderModel.goodsInfo({
-            id: typeof  order_goods_id !== 'undefined' ? order_goods_id : 414
+            id: order_goods_id
         })
         const refundType = parseInt(refund_type) !== 1 ? 2 : 1
         const result = await refundModel.reasonList({
             refund_type: refundType
         })
         const reasonList = result.list.map(function (item) {
-            return item.title
+            return {
+                value: item.title,
+                label: item.title
+            }
         })
         const noMoreThan = parseFloat(goodsInfoResult.info.goods_pay_price) + parseFloat(goodsInfoResult.info.goods_freight_fee)
         this.setState({
             refundType,
             delta: parseInt(delta),
-            uploaderUrl: api.upload.addImage.url,
-            uploaderHeader: {
-                'Content-Type': 'multipart/form-data',
-                'Access-Token': accessToken.access_token
-            },
             refundAmount: noMoreThan,
             noMoreThan,
             goodsInfo: goodsInfoResult.info,
@@ -68,82 +73,74 @@ export default class ServiceApply extends Component {
         })
     }
 
-    // todo 失败处理
-    onUploadFileSuccess(e) {
-        const result = new UploadImageInterface(e.detail.result)
-        let files = this.state.uploaderFiles
+    onRefundAmountChange({ value }) {
         this.setState({
-            uploaderFiles: files.concat(result.origin.path)
+            refundAmount: parseFloat(isNaN(value) || !value ? 0 : value).toFixed(2)
         })
     }
 
-    onUploadFileDelete(e) {
+    onReceiveStateChange({ value }) {
         this.setState({
-            uploaderFiles: fa.remove(this.state.uploaderFiles, e.detail.url)
+            userReceive: value[0]
         })
     }
 
-    onRefundAmountChange(e) {
+    onResonChange({ value }) {
         this.setState({
-            refundAmount: parseFloat(isNaN(e.detail.detail.value) || !e.detail.detail.value ? 0 : e.detail.detail.value).toFixed(2)
+            reason: value[0]
         })
     }
 
-    onReceiveStateChange(e) {
+    onUserExplainChange({ value }) {
         this.setState({
-            userReceive: parseInt(e.detail.detail.value)
+            userExplain: value
         })
     }
 
-    onResonChange(e) {
+    onImagesChange({ value }) {
         this.setState({
-            reason: e.detail.detail.value
-        })
-    }
-
-    onUserExplainChange(e) {
-        this.setState({
-            userExplain: e.detail.detail.value
+            images: value
         })
     }
 
     async onSubmit() {
-        if (!this.state.reason) {
+        const { reason, refundAmount, noMoreThan, userExplain, refundType, userReceive, images, delta ,goodsInfo} = this.state
+        if (!reason) {
             return fa.toast.show({ title: '请选择退款原因' })
         }
-        if (!this.state.refundAmount) {
+        if (!refundAmount) {
             return fa.toast.show({ title: '请输入退款金额' })
         }
-        if (parseFloat(this.state.refundAmount) > this.state.noMoreThan) {
+        if (parseFloat(refundAmount) > noMoreThan) {
             return fa.toast.show({ title: '退款金额不得超过¥' + this.state.noMoreThan })
         }
-        if (!this.state.userExplain) {
+        if (!userExplain) {
             return fa.toast.show({ title: '请填写退款说明' })
         }
-        if (!this.state.refundType === 2 && typeof this.state.userReceive !== "number") {
+        if (!refundType === 2 && typeof userReceive !== "number") {
             return fa.toast.show({ title: '请选择货物状态' })
         }
         let data = {
-            refund_type: this.state.refundType,
-            order_goods_id: this.state.goodsInfo.id,
-            reason: this.state.reasonList[this.state.reason],
-            refund_amount: this.state.refundAmount,
-            user_explain: this.state.userExplain,
+            refund_type: refundType,
+            order_goods_id: goodsInfo.id,
+            reason,
+            refund_amount: refundAmount,
+            user_explain: userExplain,
         }
-        if (this.state.uploaderFiles.length > 0) {
-            data['images'] = this.state.uploaderFiles
+        if (images.length > 0) {
+            data['images'] = images
         }
-        if (this.state.refundType === 2) {
-            data['user_receive'] = this.state.userReceive + 1
+        if (refundType === 2) {
+            data['user_receive'] = userReceive + 1
         }
+        console.log(data)
         const result = await refundModel.apply(data)
         if (result === false) {
             fa.toast.show({
-                title: fa.code.parse(refundModel.getException().getCode())
+                title: refundModel.getException().getMessage()
             })
         } else {
-            // todo delta
-            this.props.navigation.goBack()
+            this.props.navigation.dispatch(StackActions.pop({ n: delta }));
         }
     }
 
@@ -158,43 +155,34 @@ export default class ServiceApply extends Component {
             refundAmount,
             userExplain,
             goodsInfo,
-            uploaderFiles,
-            uploaderFormData,
-            uploaderUrl,
-            uploaderButtonText,
-            uploaderHeader,
+            uploaderMaxNum
         } = this.state
-        return <View>
-            <List>
-                <View style={styles.refundGoodsCard}>
-                    <View style={styles.body}>
-                        <View style={styles.item}>
-                            <View style={styles.content}>
-                                <View style={styles.image}>
-                                    <Image source={goodsInfo.goods_img} resizeMode={'contain'} style={{
-                                        width: 60,
-                                        height: 60,
-                                    }}/>
-                                </View>
-                                <View style={styles.body}>
-                                    <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
-                                    <View style={styles.end}>
-                                        <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
-                                        <Text style={styles.number}>x {goodsInfo.goods_num}</Text>
-                                    </View>
-                                </View>
+        return goodsInfo ? <View>
+            <View style={styles.refundGoodsCard}>
+                <View style={styles.item}>
+                    <View style={styles.content}>
+                        <View style={styles.image}>
+                            <Image source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
+                                width: 60,
+                                height: 60,
+                            }} />
+                        </View>
+                        <View style={styles.body}>
+                            <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
+                            <View style={styles.end}>
+                                <Text style={styles.spec}>{goodsInfo.goods_spec_string}</Text>
+                                <Text style={styles.number}>数量：x {goodsInfo.goods_num}</Text>
                             </View>
                         </View>
                     </View>
                 </View>
-            </List>
-            <List>
+
                 {refundType === 2 ? <Field
                     type={'picker'}
                     title="货物状态"
                     placeholder="请选择"
-                    range={receiveStateList}
                     value={userReceive}
+                    data={receiveStateList}
                     onChange={(e) => {
                         this.onReceiveStateChange(e)
                     }}
@@ -206,72 +194,68 @@ export default class ServiceApply extends Component {
                     title="退款原因"
                     placeholder="请选择"
                     value={reason}
-                    range={reasonList}
+                    data={reasonList}
                     onChange={(e) => {
                         this.onResonChange(e)
                     }}
-                    right={true}
                 >
                 </Field>
                 <Field
                     type={'input'}
-                    inputType="digit"
+                    inputType="decimal-pad"
                     title="退款金额"
                     placeholder={`¥${noMoreThan}`}
                     value={refundAmount ? refundAmount : noMoreThan}
-                    onBlur={(e) => this.onRefundAmountChange(e)}
+                    onChange={(e) => {
+                        this.onRefundAmountChange(e)
+                    }}
                     desc={`最多¥${noMoreThan}，含发货邮费¥${goodsInfo.goods_freight_fee}`}
-                    right={true}
                 >
                 </Field>
                 <Field
                     title="退款说明"
                     placeholder="必填"
                     value={userExplain}
-                    onChange={(e) => this.onUserExplainChange(e)}
+                    onChange={(e) => {
+                        this.onUserExplainChange(e)
+                    }}
                     right={true}
                 >
                 </Field>
                 <Field
+                    title={'上传图片(最多9张)'}
                     type={'uploader'}
-                    title="图片上传"
-                    uploaderButtonText={uploaderButtonText}
-                    uploaderFormData={uploaderFormData}
-                    uploaderUrl={uploaderUrl}
-                    uploaderHeader={uploaderHeader}
-                    uploaderFiles={uploaderFiles}
-                    uploaderMaxNum={6}
-                    uploaderAllowDel={true}
-                    onSuccess={(e) => this.onUploadFileSuccess(e)}
-                    onDelete={(e) => this.onUploadFileDelete(e)}
-                    onChange={(value) => {
-                        this.handleFieldChange(value)
+                    value={[]}
+                    uploaderMaxNum={uploaderMaxNum}
+                    onChange={(e) => {
+                        this.onImagesChange(e)
                     }}
                 >
                 </Field>
-            </List>
-            <FixedBottom>
+            </View>
+            <SafeAreaView>
                 <View style={styles.footer}>
-                    <Button type={'danger'} size="large" onClick={() => {
+                    <Button type={'warning'} size="large" onClick={() => {
                         this.onSubmit()
                     }}>提交</Button>
                 </View>
-            </FixedBottom>
-        </View>
+            </SafeAreaView>
+        </View> : null
 
     }
 }
 const styles = StyleSheet.create({
-    refundGoodsCard: {},
+    refundGoodsCard: {
+        backgroundColor: '#fff',
+    },
     item: {
         padding: 15,
-        borderBottomWidth: 1,
+        borderBottomWidth: 8,
         borderStyle: "solid",
-        borderBottomColor: "#ff4400",
+        borderBottomColor: "#f8f8f8",
     },
     content: {
-
-        justifyContent: "flex-start"
+        flexDirection: 'row',
     },
     image: {
         width: 60,
@@ -282,23 +266,25 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bodyText: {
-        fontSize: 12,
+        fontSize: 14,
+        fontWeight: "800",
         color: "#333",
-        lineHeight: 18,
+        marginBottom: 10
     },
     end: {
-        justifyContent: "space-between",
+        flexDirection: 'column',
+
+    },
+    spec: {
+        fontSize: 12,
+        color: "#999999",
+    },
+    number: {
         marginTop: 5,
         fontSize: 12,
         color: "#999999",
-        lineHeight: 12,
-        alignItems: "center"
     },
-    spec: {
-        color: "#999999",
-    },
-    number: {},
     footer: {
-        justifyContent: "flex-end"
+        padding: 15
     }
 })

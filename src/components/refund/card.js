@@ -45,10 +45,10 @@ export default class RefundCard extends Component {
                     {
                         refundInfo.handle_state === 30 || refundInfo.handle_state === 51 ?
                             <Image style={styles.iconImage} source={require('../../images/refund/refund-success.png')}
-                                   resizeMode={'contain'}
+                                   resizeMode={'cover'}
                             />
                             : <Image style={styles.iconImage} source={require('../../images/refund/refund-ing.png')}
-                                     resizeMode={'contain'} />
+                                     resizeMode={'cover'} />
                     }
                 </View>
                 <Text style={styles.bodyText}>{refundInfo.refund_type === 1 ? '仅退款' : '退货退款'}</Text>

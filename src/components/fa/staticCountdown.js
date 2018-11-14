@@ -19,10 +19,25 @@ export default class StaticCountdown extends Component {
         numStyle: '',
         symbolStyle: ''
     };
+
+
     computeTime = 0
     endTimeMs = 0
     timeItems = null
 
+
+    componentWillMount() {
+        this.init()
+        const {format} = this.props
+        const now = Date.now();
+        if (format && this.endTimeMs) {
+            this.computeTime = parseInt((this.endTimeMs - now) / 1000);
+            this.initCountdown();
+        }
+    }
+    componentWillUnmount() {
+        clearInterval(this._timer);
+    }
     /**
      * Initialization
      */
@@ -71,9 +86,7 @@ export default class StaticCountdown extends Component {
             clearInterval(this._timer);
             this.emitEndCount();
         }
-
         this.timeItems = this.getTimeItems(this.computeTime, this.format);
-
     }
 
     /**
@@ -89,7 +102,7 @@ export default class StaticCountdown extends Component {
         let arr = format.match(/[a-zA-Z]{1,3}/g) || [];
         let symbolArr = format.match(/[\u4e00-\u9fa5]+|[^a-zA-Z]/g) || [];
         let time = this.getTime(computeTime, format);
-        return arr.map((item, i) => {
+        return Array.isArray(arr) && arr.length>0 && arr.map((item, i) => {
             return {
                 num: time[item],
                 symbol: symbolArr[i],
@@ -164,21 +177,12 @@ export default class StaticCountdown extends Component {
         }
     }
 
-    componentWillMount() {
-        const now = Date.now();
-        if (this.format && this.endTimeMs) {
-            this.computeTime = parseInt((this.endTimeMs - now) / 1000);
-            this.initCountdown();
-        }
-    }
 
-    componentWillUnmount() {
-        clearInterval(this._timer);
-    }
 
     render() {
+        const timeItems = this.timeItems
         return <View style={styles.countdown}>
-            {this.timeItems.length > 0 ? this.timeItems.map(() => <View style={styles.item}>
+            {Array.isArray(timeItems) && timeItems.length > 0 ? timeItems.map((item) => <View style={styles.item}>
                 <Text style={styles.itemNum}>{item.num}</Text>
                 <Text style={styles.itemSymbol}>{item.symbol}</Text>
             </View>) : null}
@@ -186,8 +190,17 @@ export default class StaticCountdown extends Component {
     }
 }
 const styles = StyleSheet.create({
-    countdown: {},
-    item: {},
-    itemNum: {},
-    itemSymbol: {}
+    countdown: {
+        flexDirection: 'row'
+    },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    itemNum: {
+        color:'#fff'
+    },
+    itemSymbol: {
+        color:'#fff'
+    }
 })

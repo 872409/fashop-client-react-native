@@ -39,7 +39,7 @@ export default class RefundGoodsCard extends Component {
                 <View style={styles.item}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: goodsImg }} resizeMode={'contain'} style={
+                            <Image source={{ uri: goodsImg }} resizeMode={'cover'} style={
                                 {
                                     width: 60,
                                     height: 60,
@@ -62,7 +62,8 @@ export default class RefundGoodsCard extends Component {
 }
 const styles = StyleSheet.create({
     refundGoodsCard: {
-        backgroundColor:'#ffffff'
+        backgroundColor:'#ffffff',
+        flexDirection:'row'
     },
     item: {
         padding: 15,
@@ -93,19 +94,16 @@ const styles = StyleSheet.create({
         lineHeight: 20,
     },
     end: {
-        justifyContent: "space-between",
-        marginTop: 5,
-        fontSize: 12,
-        color: "#999999",
-        lineHeight: 12,
-        alignItems: "center",
-        flexDirection: 'row'
+        flexDirection: 'column',
     },
     spec: {
         fontSize: 12,
         color: "#999999",
     },
     number: {
+        marginTop: 5,
+        fontSize: 12,
+        color: "#999999",
     },
     footer: {
         justifyContent: "flex-end"

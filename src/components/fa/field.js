@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
-    TextInput
+    TextInput, TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
 import { TextareaItem, Picker, Switch } from 'antd-mobile-rn';
@@ -184,14 +184,13 @@ export default class Field extends Component {
                     desc={desc}
                     right={
                         <Picker
+                            cols={1}
                             onChange={(value) => {
                                 this.handleFieldChange(value)
                             }}
                             value={value}
                             data={data}>
-                            <Text style={styles.picker}>
-                                {value || value === 0 ? data[value] : placeholder}
-                            </Text>
+                            <PickerChildren text={value || value === 0 ? value : placeholder}/>
                         </Picker>
                     }
                 /> : null}
@@ -207,13 +206,13 @@ export default class Field extends Component {
                                 placeholder={placeholder}
                                 areaList={areaList}
                                 value={value}
-                                onChange={({value}) => {
+                                onChange={({ value }) => {
                                     this.handleFieldChange(value)
                                 }}
-                                onFocus={({value}) => {
+                                onFocus={({ value }) => {
                                     this.handleFieldFocus(value)
                                 }}
-                                onBlur={({value}) => {
+                                onBlur={({ value }) => {
                                     this.handleFieldBlur(value)
                                 }}
                             /> : <View />
@@ -226,7 +225,7 @@ export default class Field extends Component {
                     desc={desc}
                     right={
                         <Switch
-                            trackColor={{false: '#4dd865', true: '#4dd865'}}
+                            trackColor={{ false: '#4dd865', true: '#4dd865' }}
                             checked={checked}
                             disabled={disabled}
                             onChange={(value) => {
@@ -240,3 +239,10 @@ export default class Field extends Component {
     }
 }
 const styles = StyleSheet.create({})
+const PickerChildren = (props: any) => (
+    <TouchableOpacity onPress={props.onClick} style={styles.picker}>
+        <Text style={styles.picker}>
+            {props.text}
+        </Text>
+    </TouchableOpacity>
+);

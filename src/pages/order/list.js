@@ -10,8 +10,7 @@ import BuyModel from '../../models/buy'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
-import { ListEmptyView, ListView } from "../../utils/publicViewModule";
-import { windowHeight } from "../../utils/publicStyleModule";
+import {  ListView } from "../../utils/publicViewModule";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
@@ -63,7 +62,7 @@ export default class OrderList extends Component {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: () => async () => {
+                text: '确认', onPress: async () => {
                     const orderInfo = e.detail.orderInfo
                     const result = await orderModel.confirmReceipt({
                         'id': orderInfo.id,
@@ -164,13 +163,15 @@ export default class OrderList extends Component {
         const { state_type } = this.state
         let params = {}
         if (state_type) {
-            params['state_type'] = params
+            params['state_type'] = state_type
         }
+        const findResult = tabList.findIndex((row) => row.state_type === state_type)
+        const tabIndex = findResult > -1 ? findResult : 0
         return (
             <View style={[PublicStyles.ViewMax]}>
                 <ScrollableTabView
                     style={{ backgroundColor: '#fff', flex: 0 }}
-                    initialPage={0}
+                    initialPage={tabIndex}
                     renderTabBar={() =>
                         <DefaultTabBar
                             style={{

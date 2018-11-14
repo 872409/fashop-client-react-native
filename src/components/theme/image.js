@@ -12,7 +12,7 @@ export default class ThemeImage extends PureComponent {
             return (
                 <Image
                     {...this.props}
-                    resizeMode={'contain'}
+                    resizeMode={'cover'}
                     source={errImg}
                 />
             )

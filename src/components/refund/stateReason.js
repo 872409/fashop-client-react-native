@@ -116,14 +116,19 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
     },
-    span: {},
+    span: {
+        fontSize:14,
+        color:'#999',
+        lineHeight:18,
+        marginBottom: 8
+    },
     footer: {
         borderBottomWidth: 1,
         borderStyle: "solid",
         borderBottomColor: "#F8F8F8",
         padding: 15,
-
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        flexDirection: 'row'
     },
     address: {
         fontSize: 14,

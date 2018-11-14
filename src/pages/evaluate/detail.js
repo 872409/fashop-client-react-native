@@ -62,7 +62,7 @@ export default class EvaluateDetail extends Component {
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
-                        <Image source={{ uri: evaluate.avatar }} resizeMode={'contain'} style={styles.avatarImage} />
+                        <Image source={{ uri: evaluate.avatar }} resizeMode={'cover'} style={styles.avatarImage} />
                         <View style={styles.nickname}>
                             <Text style={styles.nicknameText}>{evaluate.nickname}</Text>
                             <TimeFormat value={evaluate.create_time} style={{ color: '#999' }} />
@@ -89,7 +89,7 @@ export default class EvaluateDetail extends Component {
                                     }}
                                 ><Image
                                     source={{ uri: item }}
-                                    resizeMode={'contain'}
+                                    resizeMode={'cover'}
                                 /></TouchableOpacity>
                             })
                         }
@@ -125,7 +125,7 @@ export default class EvaluateDetail extends Component {
                                     }}
                                 ><Image
                                     source={{ uri: item }}
-                                    resizeMode={'contain'}
+                                    resizeMode={'cover'}
                                     style={styles.photoListImage}
                                 /></TouchableOpacity>
                             })
@@ -143,7 +143,7 @@ export default class EvaluateDetail extends Component {
                     <Text>{evaluate.goods_spec_string}</Text>
                 </View>
                 <View style={styles.goodsEvaluate}>
-                    <Image source={evaluate.goods_img} resizeMode={'contain'} />
+                    <Image source={evaluate.goods_img} resizeMode={'cover'} />
                     <Text>{evaluate.goods_title}</Text>
                 </View>
             </View>

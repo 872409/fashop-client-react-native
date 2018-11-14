@@ -6,7 +6,7 @@ import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from "../../models/buy";
 import React, { Component } from 'react';
-import { Modal, List, WhiteSpace } from "antd-mobile-rn";
+import { Modal,  WhiteSpace } from "antd-mobile-rn";
 import {
     OrderStateCard,
     OrderAddress,
@@ -15,6 +15,7 @@ import {
     OrderCostList,
     OrderFooterAction
 } from '../../components'
+import { StackActions } from "react-navigation";
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()
@@ -107,7 +108,7 @@ export default class OrderDetail extends Component {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: () => async () => {
+                text: '确认', onPress: async () => {
                     const { orderInfo } = this.state
                     const result = await orderModel.confirmReceipt({
                         'id': orderInfo.id,
@@ -163,13 +164,19 @@ export default class OrderDetail extends Component {
     }
 
     updateListRow = () =>{
+
         const { id } = this.state
         if (id > 0) {
-            const pages = getCurrentPages();
-            const prevPage = pages[pages.length - 2];
-            prevPage.updateListRow(id);
+            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
+            const updateListRow = this.props.navigation.getParam('updateListRow')
+            if (typeof updateListRow === 'function') {
+                updateListRow(id)
+            }
         }
+
     }
+
+
 
     render() {
         const { orderInfo } = this.state
