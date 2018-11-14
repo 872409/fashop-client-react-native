@@ -53,7 +53,6 @@ export default class UserHelpCenter extends Component{
                 }}
                 ListEmptyComponent={()=>(
                     <ListEmptyView
-                        height={windowHeight-80}
                         uri={require('../../images/fetchStatus/nullData.png')}
                         desc='暂时没有相关信息'
                     />

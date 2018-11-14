@@ -265,15 +265,7 @@ export default class OrderList extends Component {
                             />
                         </OrderCard>
                     )}
-                    ListEmptyComponent={() => (
-                        <ListEmptyView
-                            height={windowHeight - 80}
-                            uri={require('../../images/order/list-empty.png')}
-                            desc='暂无相关数据'
-                        />
-                    )}
-                >
-                </ListView>
+                />
             </View>
         );
     }

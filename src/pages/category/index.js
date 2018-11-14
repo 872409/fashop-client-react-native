@@ -86,7 +86,7 @@ export default class Category extends Component {
                             key={index}
                             style={styles.rightItem}
                             onPress={() => {
-                                navigation.navigate("ShopList", {
+                                navigation.navigate("GoodsList", {
                                     category_id: item.id,
                                     title: item.title
                                 })

@@ -6,7 +6,7 @@ import {
 import { RefundCard } from '../../components'
 
 import RefundModel from '../../models/refund'
-import { ListEmptyView, ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/publicViewModule";
 import { PublicStyles, windowHeight } from "../../utils/publicStyleModule";
 import { RefundApi } from "../../config/api/refund";
 
@@ -58,13 +58,6 @@ export default class RefundList extends Component {
                                 }}
                         />
                     </View>
-                )}
-                ListEmptyComponent={() => (
-                    <ListEmptyView
-                        height={windowHeight - 80}
-                        uri={require('../../images/order/list-empty.png')}
-                        desc='暂无相关数据'
-                    />
                 )}
             >
             </ListView>

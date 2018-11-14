@@ -28,7 +28,6 @@ export default class UserMessageDetail extends Component{
                 fetchParams={{type_id}}
                 ListEmptyComponent={()=>(
                     <ListEmptyView
-                        height={windowHeight-80}
                         uri={require('../../images/fetchStatus/messageEmpty.png')}
                         desc='暂时没有相关消息'
                     />
