@@ -6,7 +6,9 @@ import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/Sta
 import IndexView from "../pages/index";
 
 import PhotoGallery from "../utils/photoGallery";
+import PageView from "../pages/home/page";
 
+import GoodsList from "../pages/category/goodsList";
 import GoodsDetail from "../pages/category/goodsDetail";
 import OrderAction from "../pages/category/orderAction";
 
@@ -37,6 +39,7 @@ import EvaluateAdd from "../pages/evaluate/add"
 import EvaluateAdditional from "../pages/evaluate/additional"
 import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
+
 // StackViewStyleInterpolator.forVertical
 const modalStyleStackNames = [
     // 'UserLogin',
@@ -46,7 +49,6 @@ const modalStyleStackNames = [
 const indexNavigationOptions = ({ navigation }) => ({
     'Home': {
         header: null,
-        // title:'首页',
     },
     'Category': {
         title: '分类'
@@ -67,6 +69,12 @@ export default createStackNavigator(
                 return indexNavigationOptions({ navigation })[navigation.state.routes[navigation.state.index].routeName]
             }
         },
+        PageView: {
+            screen: PageView,
+            navigationOptions: {
+                header: null,
+            }
+        },
         // 点击查看大图
         PhotoGallery: {
             screen: PhotoGallery,
@@ -75,6 +83,12 @@ export default createStackNavigator(
             }
         },
         // category
+        GoodsList: {
+            screen: GoodsList,
+            navigationOptions: {
+                title: '商品搜索'
+            }
+        },
         GoodsDetail: {
             screen: GoodsDetail,
             navigationOptions: {

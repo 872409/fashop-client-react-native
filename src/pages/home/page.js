@@ -66,22 +66,23 @@ export default class HomeIndex extends Component {
         // link.action = goods 商品 param { id: 10000 }
         // link.action = page 页面 param { id: 'slfkf2dc' }
         // link.action = url 页面 param { url: 'http://fashop.cn' }
-        const { navigation } = this.props
-        switch (link.action) {
-            // case 'portal':
-                // navigation.navigate('IndexView')
-                // break
-            case 'goods':
-                navigation.navigate('GoodsDetail',{
-                    id: link.param.id
-                })
-                break
-            case 'page':
-                navigation.navigate('PageView',{
-                    id: link.param.id
-                })
-                break
-        }
+        // switch (link.action) {
+        //     case 'portal':
+        //         wx.switchTab({
+        //             url: '/pages/index/index'
+        //         })
+        //         break
+        //     case 'goods':
+        //         wx.navigateTo({
+        //             url: `/pages/goods/detail/index?id=${link.param.id}`
+        //         })
+        //         break
+        //     case 'page':
+        //         wx.navigateTo({
+        //             url: `/pages/page/index?id=${link.param.id}`
+        //         })
+        //         break
+        // }
     }
     bodyItem(item,index){
         const { navigation } = this.props;
