@@ -43,7 +43,6 @@ export default class UserIndex extends Component {
 
     top() {
         const { login, userInfo, navigation } = this.props;
-        const { nickname, avatar } = userInfo || {}
         return (
             <TouchableOpacity
                 style={[PublicStyles.rowBetweenCenter, styles.topWarp]}
@@ -54,7 +53,7 @@ export default class UserIndex extends Component {
             >
                 <View style={PublicStyles.rowCenter}>
                     <Avatar
-                        avatar={avatar}
+                        avatar={login ? userInfo.profile.avatar : null}
                         size={60}
                         otherStyle={{
                             marginRight: 15,
@@ -62,7 +61,7 @@ export default class UserIndex extends Component {
                     />
                     <Text style={[PublicStyles.boldTitle, { fontSize: 20 }]}>
                         {
-                            login ? nickname : "点击登录"
+                            login ? userInfo.profile.nickname : "点击登录"
                         }
                     </Text>
                 </View>

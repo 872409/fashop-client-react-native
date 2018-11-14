@@ -85,6 +85,7 @@ export const initUserInfoStorage = (userInfoData)=>{
 
             dispatch(updateUserInfo())
         }else {
+            dispatch(updateUserInfo())
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
         }
@@ -114,7 +115,7 @@ export const updateUserInfo = ({callback}={})=>{
         })
         .then((e) => {
             if (e.code === 0) {
-                dispatch(updateUserInfoFunc(e.data))
+                dispatch(updateUserInfoFunc(e.result.info))
                 callback&&callback()
             } else {
                 Toast.warn("获取用户最新数据异常");
@@ -266,30 +267,33 @@ const userSignOutFunc = ({dispatch})=>{
 //管理用户数据
 const manageUserInfo = (e)=> {
     // console.log('manageUserInfo',e);
+    // { id: 563,
+    //     username: 'wechat_mini_oX3Qk0RaO1SPqT-KQNKx6rjdts_I_d1e99fc9',
+    //     phone: null,
+    //     email: null,
+    //     state: 1,
+    //     salt: '56ea1c760da8314aab01504529eda896',
+    //     is_discard: 0,
+    //     create_time: 1534994779,
+    //     delete_time: null,
+    //     profile: 
+    //      { id: 2,
+    //        user_id: 563,
+    //        name: null,
+    //        nickname: '韩文博😊',
+    //        avatar: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep7piaSYcwom3S1gouQ2nMxpXm2WwJuEA15qEXtkibRBXm7bc9BEuWuABP53ibrMWkJImTTIynzGfjTQ/132',
+    //        sex: 1,
+    //        birthday: 0,
+    //        qq: null,
+    //        delete_time: null },
+    //     assets: 
+    //      { id: 2,
+    //        user_id: 563,
+    //        points: 0,
+    //        balance: '0.00',
+    //        delete_time: null } }
     return {
-        user_id : e.id,
-        phone : e.phone,
-        sex: e.sex,
-        birthday: e.birthday,
-        name: e.name,
-        nickname: e.nickname,
-        real_name: e.real_name,
-        avatar: e.avatar,
-        access_token:e.access_token,
-        wechat_openid : e.wechat_openid,
-        province_name: e.province_name,
-        city_name: e.city_name,
-        area_market_name: e.area_market_name,
-        points: e.points,
-        alipay_account: e.alipay_account, // 支付宝账号
-        bank_name: e.bank_name, // 银行名字
-        bank_account: e.bank_account, // 银行卡号
-        bank_user_name: e.bank_user_name, // 银行用户名
-        is_auth: e.is_auth, // 0未实名 1审核中 2审核通过 3被拒绝
-        idcard: e.idcard,
-        auth_img: e.auth_img, // 名片
-        idimg: e.idimg, // 身份证正面
-        idimg_opposite: e.idimg_opposite, // 身份证反面
+        ...e
     }
 }
 

@@ -6,6 +6,9 @@ import fa from "../../utils/fa";
 import CartModel from "../../models/cart";
 import BuyModel from "../../models/buy";
 import AddressModel from "../../models/address";
+import * as WeChat from "react-native-wechat";
+import { connect } from "react-redux";
+import { Toast } from '../../utils/publicFuncitonModule';
 
 const cartModel = new CartModel()
 const buyModel = new BuyModel()
@@ -13,6 +16,15 @@ const addressModel = new AddressModel()
 
 const Item = List.Item;
 
+@connect(
+    ({ app: { user: {
+        login,
+        userInfo,
+    }}}) => ({
+        login,
+        userInfo,
+    }),
+)
 export default class CartOrderFill extends Component {
     state = {
         delta: 1,
@@ -293,13 +305,9 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
-        const { navigation } = this.props
-        const self = this
+        const { navigation, userInfo } = this.props
         if (!this.state.addressId) {
-            fa.toast.show({
-                title: '请选择收货地址'
-            })
-            return
+            return Toast.info("请选择收货地址");
         }
         const result = await buyModel.create({
             'way': this.state.way,
@@ -307,60 +315,38 @@ export default class CartOrderFill extends Component {
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
         })
-        if(result){
-            navigation.replace('Pay',{
-                ...result
+        if (result) {
+            const payResult = await buyModel.pay({
+                order_type: 'goods_buy',
+                pay_sn: result.pay_sn,
+                payment_code: 'wechat',
+                openid: userInfo.wechat_openid,
+                payment_channel: 'wechat_app'
             })
+            if (payResult) {
+                // todo
+                const payOptions = {
+                    partnerId: `${payResult.partnerid}`,     // 商家向财付通申请的商家id
+                    prepayId: `${payResult.prepayid}`,     // 预支付订单
+                    nonceStr: `${payResult.noncestr}`,     // 随机串，防重发
+                    timeStamp: `${payResult.timestamp}`,     // 时间戳，防重发
+                    package: `${payResult.packagestr}`,     // 商家根据财付通文档填写的数据和签名
+                    sign: `${payResult.sign}`     // 商家根据微信开放平台文档对数据做的签名
+                };
+                try {
+                    const a = await WeChat.pay(payOptions)
+                    // this.paySuccess()
+                    Toast.info('支付成功');
+                } catch (err) {
+                    console.log(err)
+                    Toast.warn('支付失败1');
+                }
+            } else {
+                Toast.warn('支付失败2');
+            }
+        } else {
+            Toast.warn('支付失败');
         }
-        // const userInfo = fa.cache.get('user_info')
-        // if (result) {
-        //     // 支付modal也算onShow 这儿临时限制下
-        //     this.setState({
-        //         payState: true
-        //     })
-        //     const pay_amount = this.state.calculate.pay_amount
-        //     // 发起支付，未填写openid是因为本次开发小程序为必须微信授权登陆
-        //     const payResult = await buyModel.pay({
-        //         'order_type': 'goods_buy',
-        //         'pay_sn': result.pay_sn,
-        //         'payment_code': 'wechat',
-        //         'payment_channel': 'wechat_mini',
-        //         'openid': userInfo.wechat_mini_openid
-        //     })
-        //     if (payResult) {
-        //         wx.requestPayment({
-        //             'timeStamp': payResult.timeStamp,
-        //             'nonceStr': payResult.nonceStr,
-        //             'package': payResult.package,
-        //             'signType': payResult.signType,
-        //             'paySign': payResult.paySign,
-        //             'success': function () {
-        //                 wx.redirectTo({
-        //                     url: `/pages/pay/result/index?pay_amount=${pay_amount}&order_id=${result.order_id}&pay_sn=${result.pay_sn}`
-        //                 })
-        //             },
-        //             'fail': function (res) {
-        //                 fa.toast.show({
-        //                     title: '支付被取消'
-        //                 })
-        //                 setTimeout(function () {
-        //                     wx.redirectTo({
-        //                         url: `/pages/order/detail/index?id=${result.order_id}`
-        //                     })
-        //                 }, 1000)
-        //             }
-        //         })
-        //     } else {
-        //         fa.toast.show({
-        //             title: '支付失败：' + fa.code.parse(buyModel.getException().getCode())
-        //         })
-        //         wx.navigateBack({ delta: self.data.delta })
-        //     }
-        // } else {
-        //     fa.toast.show({
-        //         title: +fa.code.parse(buyModel.getException().getCode())
-        //     })
-        // }
 
     }
 

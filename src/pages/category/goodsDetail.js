@@ -41,17 +41,6 @@ export default class CategoryDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,
-        currentSpec: {
-            stock: '-',
-            price: '-',
-            selectNum: 1,
-            spec: [{
-                id: 0,
-                name: '-',
-                value_id: 0,
-                value_name: '-',
-            }]
-        },
     }
     hocComponentDidMount() {
         const {
@@ -72,7 +61,7 @@ export default class CategoryDetail extends Component {
         return this.props.navigation.state.params.id
     }
     render() {
-        const { specVisible, if_cart, currentSpec } = this.state;
+        const { specVisible, if_cart } = this.state;
         const { navigation } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
@@ -159,15 +148,10 @@ export default class CategoryDetail extends Component {
                     skuList={data.sku_list ? data.sku_list : []}
                     skus={data.skus ? data.skus : []}
                     specList={data.spec_list ? data.spec_list : []}
-                    changeCurrentSpec={this.changeCurrentSpec}
-                    currentSpec={currentSpec}
                     closeModal={this.closeModal}
                 />
             </Modal>
         </View>
-    }
-    changeCurrentSpec = (currentSpec) => {
-        this.setState({ currentSpec });
     }
     closeModal = () => {
         this.setState({ specVisible: false });
