@@ -1,17 +1,10 @@
-import Fetch from './fetch';
 import stateHoc from "./stateHoc";
 import { Toast } from './publicFuncitonModule';
 import { initLibraryConfig, fetchStatus, storageModule } from "moji-react-native-utils";
-import {
-    AppName,
-    AppPlatform,
-    errorCollectApi,
-    env,
-} from "../config/root";
+import { AppName, AppPlatform, errorCollectApi, env } from "../config/root";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
 import { NavigationActions } from "react-navigation";
-import { userSignOut } from "../actions/user";
 
 initLibraryConfig({
     ToastInfo: (content) => {
@@ -44,7 +37,7 @@ initLibraryConfig({
         env,
     },
     removeUserInfo: () => {
-        store.dispatch(userSignOut({ exception: true }))
+        // store.dispatch(userSignOut({ exception: true }))
     },
     showLoading: () => {
         store.dispatch(setIsShowFetchLoading(true))
@@ -69,7 +62,7 @@ initLibraryConfig({
         const header = {
             'User-Id': "563",
             // 'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNzk4IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDIxMDUwNDcsImV4cCI6MTU0MjcwOTg0N30.KbOcSB43CTypLg9Nhb3T-SYOjthYzOWYD-AUcmDzNEg",
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxOTUzIiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDMxNjA1ODksImV4cCI6MTU0Mzc2NTM4OX0.CEm4-x2vy7eOFHsbkQJh_M6jj09-lRYqbxL-qjQjs24",
             // 'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,
@@ -81,7 +74,6 @@ initLibraryConfig({
 })
 
 export {
-    Fetch,
     stateHoc,
     fetchStatus,
     storageModule

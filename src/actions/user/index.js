@@ -1,206 +1,168 @@
 import types from '../../constants';
-import { Fetch } from "../../utils";
-import { fetchStatus, storageModule } from "moji-react-native-utils";
-// import { NavigationActions } from "react-navigation";
+import { store } from "../../utils";
+import Fetch from "../../utils/fetch";
+import {  storageModule } from "moji-react-native-utils";
 import { Toast } from "../../utils/publicFuncitonModule";
-import store from "../../store";
 import { UserApi } from "../../config/api/user";
-// import { initializeSDKWithOptions, logOut } from "ws-im-react-native";
-// import JPushModule from "../../utils/JPushModule";
-// import {getPushSetting} from '../push'
-// import {getUserOrderWebSocket,closeUserOrderWebSocket} from "../../utils/userOrderWebSocket";
-
 
 /**
  * 登陆方法
-**/
-export const userLogin = ({userInfoData,func}={})=>{
+ **/
+export const userLogin = ({ userInfoData, func } = {}) => {
     return async dispatch => {
         //整理用户信息
         const userInfo = manageUserInfo(userInfoData)
 
         //设置登陆状态
-        await dispatch(setUserStatus(true,userInfo))
+        await dispatch(setUserStatus(true, userInfo))
 
         func && func()
 
         //登陆后需要处理的方法
-        userLoginOutFunc({dispatch,userInfo})
+        userLoginOutFunc({ dispatch, userInfo })
 
     }
 }
 
 
-
-
 /**
  * 退出登陆方法
-**/
-export const userSignOut = ({func,exception}={})=>{
+ **/
+export const userSignOut = ({ func, exception } = {}) => {
     return async dispatch => {
-        if(!exception){
-            const e = await Fetch.fetch({
-                api: UserApi.logout
-            })
-            if(e.code===0){
-                // Toast.info('退出成功');
-            }else{
-                Toast.warn(e.errmsg)
-            }
-        }
-
-        // logOut()
-        // .then((e) => {
-        //     console.log(e);
-        // })
-
         //设置退出登陆状态
-        dispatch(setUserStatus(false,null))
-
+        dispatch(setUserStatus(false, null))
         //退出登陆后需要处理的方法
-        userSignOutFunc({dispatch})
-
+        userSignOutFunc({ dispatch })
         func && func()
     }
 }
 
 
-
-
 /**
  * 初始化检查用户登陆
-**/
-export const initUserInfoStorage = (userInfoData)=>{
+ **/
+export const initUserInfoStorage = (userInfoData) => {
     return async dispatch => {
         // userSignOutFunc({dispatch})
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
 
-        if(userInfoData){
+        if (userInfoData) {
             const userInfo = JSON.parse(userInfoData)
 
-            await dispatch(setUserStatus(true,userInfo))
+            await dispatch(setUserStatus(true, userInfo))
 
-            userLoginOutFunc({userInfo,dispatch})
+            userLoginOutFunc({ userInfo, dispatch })
 
             dispatch(updateUserInfo())
-        }else {
+        } else {
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
         }
 
         dispatch({
-            type : types.app.INIT_USERINFO_STORAGE,
-            data : true
+            type: types.app.INIT_USERINFO_STORAGE,
+            data: true
         })
     }
 }
 
 
-
-
 /**
  * 更新用户信息
-**/
-export const updateUserInfo = ({callback}={})=>{
+ **/
+export const updateUserInfo = ({ callback } = {}) => {
     return dispatch => {
         dispatch({
-            type : types.user.UPDATE_USER_INFO_LOADING,
-            refreshing : true,
+            type: types.user.UPDATE_USER_INFO_LOADING,
+            refreshing: true,
         })
 
         Fetch.fetch({
             api: UserApi.self
         })
-        .then((e) => {
-            if (e.code === 0) {
-                dispatch(updateUserInfoFunc(e.result.info))
-                callback&&callback()
-            } else {
-                Toast.warn("获取用户最新数据异常");
-                dispatch({
-                    type : types.user.UPDATE_USER_INFO_LOADING,
-                    refreshing : false,
-                })
-            }
-        })
+            .then((e) => {
+                if (e.code === 0) {
+                    dispatch(updateUserInfoFunc(e.result.info))
+                    callback && callback()
+                } else {
+                    Toast.warn("获取用户最新数据异常");
+                    dispatch({
+                        type: types.user.UPDATE_USER_INFO_LOADING,
+                        refreshing: false,
+                    })
+                }
+            })
     }
 }
 
 
-
-
 /**
  * 修改用户信息
-**/
-export const modifyUserInfo = ({params,func=()=>{}})=>{
+ **/
+export const modifyUserInfo = ({
+                                   params, func = () => {
+    }
+                               }) => {
     return dispatch => {
         Fetch.fetch({
             api: UserApi.editProfile,
             params
         })
-        .then((e)=>{
-            if(e.code===0){
-                Toast.info('保存成功')
-                dispatch(updateUserInfoFunc(e.data))
-                func&&func()
-            }else{
-                Toast.error(e.errmsg)
-            }
-        })
+            .then((e) => {
+                if (e.code === 0) {
+                    Toast.info('保存成功')
+                    dispatch(updateUserInfoFunc(e.data))
+                    func && func()
+                } else {
+                    Toast.error(e.errmsg)
+                }
+            })
     }
 }
-
-
 
 
 /**
  * 被动修改用户信息
-**/
-export const passiveModifyUserInfo = ({data,callback})=>{
+ **/
+export const passiveModifyUserInfo = ({ data, callback }) => {
     return dispatch => {
         dispatch(updateUserInfoFunc(data))
-        callback&&callback()
+        callback && callback()
     }
 }
-
-
-
-
 
 
 /**
  * 微信登陆
-**/
-export const wechatLogin = ({code}) => {
+ **/
+export const wechatLogin = ({ code }) => {
     return dispatch => {
         Fetch.fetch("USERWECHATOAUTH", { code })
-        .then(e => {
-            if (e.code === 0) {
-                dispatch(userLogin({
-                    userInfoData : e.data,
-                    func : ()=>{
-                        dispatch(replace('/index/user'))
-                    }
-                }))
-            } else {
-                Message.fail(e.errmsg)
-            }
-        })
+            .then(e => {
+                if (e.code === 0) {
+                    dispatch(userLogin({
+                        userInfoData: e.data,
+                        func: () => {
+                            dispatch(replace('/index/user'))
+                        }
+                    }))
+                } else {
+                    Message.fail(e.errmsg)
+                }
+            })
     }
 }
 
 
-
-
-
 //登陆后需要处理的方法
-const userLoginOutFunc = async({dispatch,userInfo})=>{
+const userLoginOutFunc = async ({ dispatch, userInfo }) => {
     storageModule.setUserInfo(userInfo)
-    storageModule.set('userHistory',JSON.stringify({
-        user_id:userInfo.user_id,
-        phone:userInfo.phone,
-        avatar:userInfo.avatar,
+    storageModule.set('userHistory', JSON.stringify({
+        user_id: userInfo.user_id,
+        phone: userInfo.phone,
+        avatar: userInfo.avatar,
     }))
     // dispatch(getUserPointsSigninfo())
     // const {
@@ -250,10 +212,8 @@ const userLoginOutFunc = async({dispatch,userInfo})=>{
 }
 
 
-
-
 //退出登陆后需要处理的方法
-const userSignOutFunc = ({dispatch})=>{
+const userSignOutFunc = ({ dispatch }) => {
     storageModule.removeUserInfo()
     // const resetAction = NavigationActions.back()
     // dispatch(resetAction)
@@ -261,10 +221,8 @@ const userSignOutFunc = ({dispatch})=>{
 }
 
 
-
-
 //管理用户数据
-const manageUserInfo = (e)=> {
+const manageUserInfo = (e) => {
     // console.log('manageUserInfo',e);
     // { id: 563,
     //     username: 'wechat_mini_oX3Qk0RaO1SPqT-KQNKx6rjdts_I_d1e99fc9',
@@ -275,7 +233,7 @@ const manageUserInfo = (e)=> {
     //     is_discard: 0,
     //     create_time: 1534994779,
     //     delete_time: null,
-    //     profile: 
+    //     profile:
     //      { id: 2,
     //        user_id: 563,
     //        name: null,
@@ -285,7 +243,7 @@ const manageUserInfo = (e)=> {
     //        birthday: 0,
     //        qq: null,
     //        delete_time: null },
-    //     assets: 
+    //     assets:
     //      { id: 2,
     //        user_id: 563,
     //        points: 0,
@@ -297,15 +255,14 @@ const manageUserInfo = (e)=> {
 }
 
 
-
 // 设置用户状态
-const setUserStatus = (login,userInfo)=>{
+const setUserStatus = (login, userInfo) => {
     return dispatch => {
-        return new Promise(resolve=>{
+        return new Promise(resolve => {
             dispatch({
-                type : types.user.USER_STATUS_CHANGE,
-                login : login,
-                userInfo : userInfo
+                type: types.user.USER_STATUS_CHANGE,
+                login: login,
+                userInfo: userInfo
             })
             resolve()
         })
@@ -313,25 +270,21 @@ const setUserStatus = (login,userInfo)=>{
 }
 
 
-
-
-
 // 更新用户信息方法
-export const updateUserInfoFunc = (e)=>{
+export const updateUserInfoFunc = (e) => {
     const userInfo = manageUserInfo(e)
     storageModule.setUserInfo(userInfo)
-    storageModule.set('userHistory',JSON.stringify({
-        user_id:userInfo.user_id,
-        phone:userInfo.phone,
-        avatar:userInfo.avatar,
+    storageModule.set('userHistory', JSON.stringify({
+        user_id: userInfo.user_id,
+        phone: userInfo.phone,
+        avatar: userInfo.avatar,
     }))
     return {
-        type : types.user.UPDATE_USER_INFO,
-        userInfo : userInfo,
-        refreshing : false,
+        type: types.user.UPDATE_USER_INFO,
+        userInfo: userInfo,
+        refreshing: false,
     }
 }
-
 
 
 // 更新个人中心混合的各种状态数量
@@ -358,7 +311,6 @@ export const updateUserInfoFunc = (e)=>{
 //         })
 //     }
 // }
-
 
 
 // 查询用户是否签到和是否领取可领积分

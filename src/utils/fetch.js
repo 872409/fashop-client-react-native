@@ -1,9 +1,4 @@
-import {
-    fetchData,
-} from "moji-react-native-utils";
-import {
-    userSignOut,
-} from "../actions/user";
+import { fetchData} from "moji-react-native-utils";
 import exceptionUtil from '../utils/exception'
 
 export default class Fetch {
@@ -13,13 +8,6 @@ export default class Fetch {
             params,
         })
             .then((e) => {
-                switch (e.code) {
-                    case -999:
-                        store.dispatch(userSignOut())
-                        break;
-                    default:
-                        break;
-                }
                 console.log(api, params, e)
                 return e
             })

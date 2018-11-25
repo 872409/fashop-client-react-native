@@ -2,9 +2,9 @@ import types from '../../constants';
 import { Toast } from "../../utils/publicFuncitonModule";
 import { AddressApi } from "../../config/api/address";
 import {
-    Fetch,
     fetchStatus
 } from '../../utils';
+import Fetch from '../../utils/fetch'
 
 export const getDefaultAddress = () => {
     return async dispatch => {

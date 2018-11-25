@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
 import {windowWidth} from '../../utils/publicStyleModule';
 import PropTypes from 'prop-types';
 import{
-    StyleSheet,
     View,
     Image,
 } from 'react-native';

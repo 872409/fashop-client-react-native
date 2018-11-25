@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text
 } from 'react-native';
 
 export default class BodySeparator extends Component {

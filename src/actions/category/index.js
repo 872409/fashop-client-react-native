@@ -3,9 +3,9 @@ import { Toast } from "../../utils/publicFuncitonModule";
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 import { GoodsApi } from "../../config/api/goods";
 import {
-    Fetch,
     fetchStatus
 } from '../../utils';
+import Fetch from '../../utils/fetch'
 
 export const getCategoryList = () => {
     return async dispatch => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet,  Image, TouchableWithoutFeedback } from 'react-native';
 
 export default class CartCheckbox extends Component {
     constructor(props, context) {

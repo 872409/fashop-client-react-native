@@ -2,11 +2,9 @@ import React,{ Component } from 'react';
 import {windowWidth} from '../../utils/publicStyleModule';
 import PropTypes from 'prop-types';
 import{
-    StyleSheet,
     View,
     Image,
 } from 'react-native';
-// import LottieView from 'lottie-react-native';
 
 
 export default class FetchLoading extends Component{

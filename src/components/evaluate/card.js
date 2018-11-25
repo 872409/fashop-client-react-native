@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { OrderButton } from '../../components'
+import OrderButton from '../order/button'
 
 export default class EvaluateCard extends Component {
     static propTypes = {
@@ -45,53 +45,53 @@ export default class EvaluateCard extends Component {
         const { goodsInfo } = this.props
 
         return <View style={styles.evaluateGoodsCard}>
-                <View style={styles.item}>
-                    <View style={styles.content}>
-                        <TouchableOpacity style={styles.image} onPress={()=>{
+            <View style={styles.item}>
+                <View style={styles.content}>
+                    <TouchableOpacity style={styles.image} onPress={() => {
+                        this.onGoods()
+                    }}>
+                        <Image source={{
+                            uri: goodsInfo.goods_img
+                        }} resizeMode={'cover'}
+                               style={{
+                                   width: 80,
+                                   height: 80
+                               }}
+                        />
+                    </TouchableOpacity>
+                    <View style={styles.body}>
+                        <TouchableOpacity onPress={() => {
                             this.onGoods()
-                        }}>
-                            <Image source={{
-                                uri: goodsInfo.goods_img
-                            }} resizeMode={'cover'}
-                                   style={{
-                                       width:80,
-                                       height:80
-                                   }}
-                            />
+                        }}><Text style={styles.text}>{goodsInfo.goods_title}</Text>
                         </TouchableOpacity>
-                        <View style={styles.body}>
-                           <TouchableOpacity onPress={()=>{
-                               this.onGoods()
-                           }}><Text style={styles.text}>{goodsInfo.goods_title}</Text>
-                           </TouchableOpacity>
-                            <View style={styles.buttonArea}>
-                                {goodsInfo.evaluate_state > 0 ? <OrderButton
-                                    text="查看评价"
-                                    size="small"
-                                    onClick={() => {
-                                        this.onDetail()
-                                    }} /> : null}
-                                {goodsInfo.evaluate_state === 0 ?
-                                    <OrderButton
-                                        text="去评价"
-                                        size="small"
-                                        type={'danger'}
-                                        onClick={() => {
-                                            this.onAdd()
-                                        }}
-                                    /> : null}
-                                {goodsInfo.evaluate_state === 1 ? <OrderButton
-                                    text="追加评价"
+                        <View style={styles.buttonArea}>
+                            {goodsInfo.evaluate_state > 0 ? <OrderButton
+                                text="查看评价"
+                                size="small"
+                                onClick={() => {
+                                    this.onDetail()
+                                }} /> : null}
+                            {goodsInfo.evaluate_state === 0 ?
+                                <OrderButton
+                                    text="去评价"
                                     size="small"
                                     type={'danger'}
                                     onClick={() => {
-                                        this.onAdditional()
+                                        this.onAdd()
                                     }}
                                 /> : null}
-                            </View>
+                            {goodsInfo.evaluate_state === 1 ? <OrderButton
+                                text="追加评价"
+                                size="small"
+                                type={'danger'}
+                                onClick={() => {
+                                    this.onAdditional()
+                                }}
+                            /> : null}
                         </View>
                     </View>
                 </View>
+            </View>
         </View>
     }
 }
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     body: {
-        flex:1
+        flex: 1
     },
     text: {
         fontSize: 14,

@@ -11,7 +11,7 @@ import { PublicStyles } from '../../../utils/publicStyleModule';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import { Modal, Button } from 'antd-mobile-rn';
-import { FixedBottom, AddressCard } from '../../../components'
+import {  AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
 import { ListView } from "../../../utils/publicViewModule";
 

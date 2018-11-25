@@ -6,10 +6,8 @@ import {
     Clipboard
 } from 'react-native';
 import PropTypes from "prop-types";
-import {
-    OrderButton,
-    TimeFormat
-} from '../../components'
+import TimeFormat from '../fa/timeFormat'
+import OrderButton from './button'
 import fa from "../../utils/fa";
 
 export default class OrderBaseInfo extends Component {

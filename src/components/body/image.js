@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
-    ScrollView,
-    Text,
-    TouchableOpacity,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import { windowWidth } from '../../utils/publicStyleModule';
 
 export default class BodyImage extends Component {
     render() {

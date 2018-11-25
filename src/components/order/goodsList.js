@@ -7,9 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import {
-    OrderButton,
-} from '../../components'
+import OrderButton from './button'
 import { windowWidth } from "../../utils/publicStyleModule";
 
 export default class OrderGoodsList extends Component {

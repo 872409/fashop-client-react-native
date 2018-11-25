@@ -1,17 +1,15 @@
 import types from '../../constants';
 import { Toast } from "../../utils/publicFuncitonModule";
 import { PageApi } from "../../config/api/page";
-import {
-    Fetch,
-    fetchStatus
-} from '../../utils';
-
+import {  fetchStatus } from '../../utils';
+import Fetch from '../../utils/fetch'
 export const getHomeView = () => {
     return async dispatch => {
         try {
             const e = await Fetch.fetch({
                 api: PageApi.portal,
             })
+
             if (e.code === 0) {
                 dispatch(updateHomeView(e.result.info, fetchStatus.s))
             } else {
@@ -32,7 +30,7 @@ const updateHomeView = (data, fetchStatus) => {
     }
 }
 
-export const getPageInfo = ({params}) => {
+export const getPageInfo = ({ params }) => {
     return async dispatch => {
         try {
             const e = await Fetch.fetch({

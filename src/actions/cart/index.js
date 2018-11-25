@@ -1,6 +1,6 @@
 import { Toast } from "../../utils/publicFuncitonModule";
 import { CartApi } from "../../config/api/cart";
-import { Fetch } from '../../utils';
+import Fetch from '../../utils/fetch'
 
 export const list = async ({ params } = {}) => {
     try {

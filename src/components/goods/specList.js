@@ -29,10 +29,9 @@ export default class GoodsSpecList extends Component{
             skuList,
             data,
             closeModal,
-            navigation
         } = this.props;
         console.log("currentSku", currentSku);
-        
+
         const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
         return <View style={PublicStyles.ViewOut}>
             <View style={styles.popModalTitleView}>

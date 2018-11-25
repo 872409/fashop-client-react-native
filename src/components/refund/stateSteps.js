@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
-    Text
+    View
 } from 'react-native';
 import PropTypes from "prop-types";
 import { Steps } from 'antd-mobile-rn';

@@ -1,5 +1,5 @@
 import types from '../../constants';
-import { fetchStatus } from "../../utils";
+import { fetchStatus } from "moji-react-native-utils";
 
 const initialState = {
     // homeView: [],

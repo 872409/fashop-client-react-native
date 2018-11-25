@@ -2,10 +2,8 @@ import React,{ Component } from 'react';
 import {windowWidth} from '../../utils/publicStyleModule';
 import PropTypes from 'prop-types';
 import{
-    StyleSheet,
     View,
     Image,
-    AppState,
 } from 'react-native';
 
 export default class FetchLogin extends Component{

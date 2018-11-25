@@ -1,5 +1,5 @@
 import types from '../../constants';
-import { fetchStatus } from "../../utils";
+import { fetchStatus } from "moji-react-native-utils";
 
 const initialState = {
     // categoryList: [],
@@ -24,11 +24,11 @@ export default (state = initialState, action) => {
                     goodsDetailFetchStatus: {},
                 },
                 goodsDetailData: {
-                    ...{}, 
+                    ...{},
                     ...action.goodsDetailData
                 },
                 goodsDetailFetchStatus: {
-                    ...{}, 
+                    ...{},
                     ...action.goodsDetailFetchStatus
                 },
             }
