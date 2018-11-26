@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import { windowWidth } from '../../utils/publicStyleModule';
 
 export default class BodyImage extends Component {
-    render() {
+    state = {
+        imgWidth: windowWidth,
+        imgHeight: 0,
+    }
+    componentDidMount(){
         const { url } = this.props
-        return <Image
-            source={{
-                uri: url
+        // 图片自适应高度
+        Image.getSize(url, (width, height) => {
+            this.setState({
+                imgHeight: Math.floor(windowWidth/width*height)
+            })
+        })
+    }
+    render() {
+        const { url, navigation } = this.props
+        const { imgWidth, imgHeight } = this.state
+        return <TouchableOpacity
+            activeOpacity={.8}
+            onPress={()=>{
+                navigation.navigate('PhotoGallery', {
+                    images: [{ source: { uri: url } }],
+                    index: 0
+                })
             }}
-            style={styles.img}
-        />
+        >
+            <Image
+                source={{
+                    uri: url
+                }}
+                style={{
+                    width: imgWidth,
+                    height: imgHeight,
+                }}
+            />
+        </TouchableOpacity>
     }
 }
 
 const styles = StyleSheet.create({
-    img: {
-        width: windowWidth,
-        height: windowWidth
-    },
+    
 });

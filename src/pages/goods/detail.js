@@ -26,19 +26,19 @@ import GoodsCollectModel from "../../models/goodsCollect";
 const goodsCollectModel = new GoodsCollectModel()
 
 @connect(({
-              view: {
-                  category: {
-                      goodsDetailData,
-                      goodsDetailFetchStatus,
-                  }
-              },
-              app: {
-                  user: {
-                      login,
-                      userInfo
-                  }
-              }
-          }) => ({
+    view: {
+        category: {
+            goodsDetailData,
+            goodsDetailFetchStatus,
+        }
+    },
+    app: {
+        user: {
+            login,
+            userInfo
+        }
+    }
+}) => ({
     data: goodsDetailData,
     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
     login,
@@ -179,6 +179,7 @@ export default class GoodsDetail extends Component {
     }
 
     detail(data) {
+        const { navigation } = this.props
         return (
             <View style={styles.body}>
                 <Text style={[styles.detailTitle, PublicStyles.boldTitle]}>商品详情</Text>
@@ -190,7 +191,7 @@ export default class GoodsDetail extends Component {
                             case "separator":
                                 return <Separator key={index} data={item} />;
                             case "image":
-                                return <BodyImage key={index} url={item.value.url} />;
+                                return <BodyImage key={index} url={item.value.url} navigation={navigation}/>;
                             case "video":
                                 return <Video key={index} data={item} />;
                             case "text":

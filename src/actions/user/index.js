@@ -51,8 +51,6 @@ export const initUserInfoStorage = (userInfoData) => {
         const userInfoData = await storageModule.getUserInfo()
         
         if (userInfoData) {
-            console.log('22222222222');
-            
             const userInfo = JSON.parse(userInfoData)
 
             await dispatch(setUserStatus(true, userInfo))
@@ -61,7 +59,6 @@ export const initUserInfoStorage = (userInfoData) => {
 
             dispatch(updateUserInfo())
         } else {
-        console.log('111111111111');
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
         }
