@@ -81,9 +81,10 @@ export default class Home extends Component {
                 return navigation.navigate("PageDetail", { id: link.param.id });
             case "url":
                 return navigation.navigate('PublicWebView', {
-                    title: 'Fashop',
                     url: link.param.url
                 })
+            case "goods_category":
+                return navigation.navigate("GoodsList", { category_id: link.param.id });
             default:
                 return navigation.navigate("Home");
         }

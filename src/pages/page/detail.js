@@ -8,7 +8,6 @@ import {
 import { connect } from "react-redux";
 import { getPageInfo } from "../../actions/page";
 import { stateHoc } from "../../utils";
-import SafeAreaView from "react-native-safe-area-view";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import {
     Goods,
@@ -44,6 +43,7 @@ export default class PageDetail extends Component {
             title,
         }
     }
+
     hocComponentDidMount() {
         const { id } = this.props.navigation.state.params
         this.props.dispatch(
@@ -51,16 +51,19 @@ export default class PageDetail extends Component {
         );
 
     }
+
     hocDetailKey() {
         return this.props.navigation.state.params.id
     }
-    componentDidMount(){
+
+    componentDidMount() {
         const { pageInfo, navigation } = this.props;
         const { name } = pageInfo;
         navigation.setParams({
             title: name
         })
     }
+
     render() {
         const { pageInfo } = this.props
         const { background_color, name, body } = pageInfo
@@ -94,9 +97,10 @@ export default class PageDetail extends Component {
                 return navigation.navigate("PageDetail", { id: link.param.id });
             case "url":
                 return navigation.navigate('PublicWebView', {
-                    title: 'Fashop',
                     url: link.param.url
                 })
+            case "goods_category":
+                return navigation.navigate("GoodsList", { category_id: link.param.id });
             default:
                 return navigation.navigate("Home");
         }

@@ -5,7 +5,7 @@ import Index from "../pages/index";
 import PhotoGallery from "../utils/photoGallery";
 import PageDetail from "../pages/page/detail";
 
-import GoodsList from "../pages/category/goodsList";
+import GoodsList from "../pages/goods/list";
 import GoodsDetail from "../pages/goods/detail";
 import OrderAction from "../pages/category/orderAction";
 

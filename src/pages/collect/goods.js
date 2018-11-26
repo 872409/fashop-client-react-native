@@ -46,7 +46,7 @@ export default class GoodsCollect extends Component {
     }
 
     render() {
-        return <View style={[PublicStyles.ViewMax]}>
+        return <View style={[PublicStyles.ViewMax,{padding:15}]}>
             <ListView
                 ref={e => this.ListView = e}
                 keyExtractor={e => String(e.id)}
