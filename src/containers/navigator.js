@@ -55,9 +55,6 @@ function getCurrentRouteName(navigationState) {
 }
 
 const indexNavigationOptions = ({ navigation }) => ({
-    'Index': {
-        title: '首页'
-    },
     'Home': {
         title: '首页'
     },
@@ -82,9 +79,6 @@ export default createStackNavigator(
         },
         PageDetail: {
             screen: PageDetail,
-            navigationOptions: {
-                title: '',
-            }
         },
         // 点击查看大图
         PhotoGallery: {

@@ -38,9 +38,12 @@ import {
 }))
 @stateHoc()
 export default class PageDetail extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.params.title,
-    })
+    static navigationOptions = ({ navigation }) => {
+        const { title } = navigation.state.params || {}
+        return {
+            title,
+        }
+    }
     hocComponentDidMount() {
         const { id } = this.props.navigation.state.params
         this.props.dispatch(
@@ -52,8 +55,10 @@ export default class PageDetail extends Component {
         return this.props.navigation.state.params.id
     }
     componentDidMount(){
-        this.props.navigation.setParams({
-            title:'111'
+        const { pageInfo, navigation } = this.props;
+        const { name } = pageInfo;
+        navigation.setParams({
+            title: name
         })
     }
     render() {
