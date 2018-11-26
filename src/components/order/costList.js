@@ -6,7 +6,7 @@ export default class OrderCostList extends Component {
     static propTypes = {
         goodsTotal: PropTypes.string,
         freight: PropTypes.string,
-        totalCost: PropTypes.string,
+        totalCost: PropTypes.any,
     };
     static defaultProps = {
         goodsTotal: null,
