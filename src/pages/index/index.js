@@ -54,7 +54,7 @@ export default createBottomTabNavigator(
                 ),
             }),
         },
-        ShopCart: {
+        Cart: {
             screen: Cart,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: "购物车",

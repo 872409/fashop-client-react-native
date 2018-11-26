@@ -42,10 +42,24 @@ const modalStyleStackNames = [
     // 'UserLogin',
 ]
 
+function getCurrentRouteName(navigationState) {
+    if (!navigationState) {
+        return null;
+    }
+    const route = navigationState.routes[navigationState.index];
+    // dive into nested navigators
+    if (route.routes) {
+        return getCurrentRouteName(route);
+    }
+    return route.routeName;
+}
 
 const indexNavigationOptions = ({ navigation }) => ({
+    'Index': {
+        title: '首页'
+    },
     'Home': {
-        header: null,
+        title: '首页'
     },
     'Category': {
         title: '分类'
@@ -60,19 +74,18 @@ const indexNavigationOptions = ({ navigation }) => ({
 
 export default createStackNavigator(
     {
-        PageDetail: {
-            screen: PageDetail,
-            navigationOptions: {
-                header: null,
-            }
-        },
         Index: {
             screen: Index,
             navigationOptions:({ navigation }) => {
-                return indexNavigationOptions({navigation})[navigation.state.routeName]
+                return indexNavigationOptions({navigation})[getCurrentRouteName(navigation.state)]
             }
         },
-
+        PageDetail: {
+            screen: PageDetail,
+            navigationOptions: {
+                title: '',
+            }
+        },
         // 点击查看大图
         PhotoGallery: {
             screen: PhotoGallery,

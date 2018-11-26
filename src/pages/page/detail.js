@@ -38,19 +38,26 @@ import {
 }))
 @stateHoc()
 export default class PageDetail extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.title,
+    })
     hocComponentDidMount() {
-        // const { id } = this.props.navigation.state.params
-        const id = 59
-        console.log(id)
+        const { id } = this.props.navigation.state.params
         this.props.dispatch(
             getPageInfo({ params: { id } })
         );
+
     }
-
+    hocDetailKey() {
+        return this.props.navigation.state.params.id
+    }
+    componentDidMount(){
+        this.props.navigation.setParams({
+            title:'111'
+        })
+    }
     render() {
-        console.log('render')
         const { pageInfo } = this.props
-
         const { background_color, name, body } = pageInfo
         return <View
             style={[
@@ -59,9 +66,6 @@ export default class PageDetail extends Component {
                 }
             ]}
         >
-            <SafeAreaView style={styles.titleWarp}>
-                <Text style={styles.title}>{name}</Text>
-            </SafeAreaView>
             <ScrollView>
                 {
                     body.map((item, index) => this.bodyItem(item, index))

@@ -26,19 +26,19 @@ import GoodsCollectModel from "../../models/goodsCollect";
 const goodsCollectModel = new GoodsCollectModel()
 
 @connect(({
-    view: {
-        category: {
-            goodsDetailData,
-            goodsDetailFetchStatus,
-        }
-    },
-    app: {
-        user: {
-            login,
-            userInfo
-        }
-    }
-}) => ({
+              view: {
+                  category: {
+                      goodsDetailData,
+                      goodsDetailFetchStatus,
+                  }
+              },
+              app: {
+                  user: {
+                      login,
+                      userInfo
+                  }
+              }
+          }) => ({
     data: goodsDetailData,
     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
     login,
@@ -52,6 +52,7 @@ export default class CategoryDetail extends Component {
         specVisible: false,
         if_cart: -1,
     }
+
     hocComponentDidMount() {
         const {
             navigation,
@@ -67,9 +68,11 @@ export default class CategoryDetail extends Component {
             })
         );
     }
+
     hocDetailKey() {
         return this.props.navigation.state.params.id
     }
+
     render() {
         const { specVisible, if_cart } = this.state;
         const { navigation } = this.props;
@@ -163,15 +166,17 @@ export default class CategoryDetail extends Component {
             </Modal>
         </View>
     }
+
     closeModal = () => {
         this.setState({ specVisible: false });
     }
-    carousel(data){
+
+    carousel(data) {
         const { navigation } = this.props
         let newImages = data ? data.map(item => {
             return { source: { uri: item } }
         }) : []
-        return(
+        return (
             <Carousel
                 autoplay={data.length > 1}
                 infinite={data.length > 1}
@@ -203,17 +208,18 @@ export default class CategoryDetail extends Component {
             </Carousel>
         )
     }
-    titleView(data){
-        return(
+
+    titleView(data) {
+        return (
             <View style={styles.titleWarp}>
                 <View style={styles.titleTop}>
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <Text style={styles.price}>￥ {data.price}</Text>
-                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')}/>
+                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
                     </View>
                 </View>
-                <View style={[styles.titleBot,PublicStyles.rowBetweenCenter]}>
+                <View style={[styles.titleBot, PublicStyles.rowBetweenCenter]}>
                     <Text style={PublicStyles.descTwo9}>库存 {data.stock}</Text>
                     <Text style={PublicStyles.descTwo9}>销量 {data.sale_num}</Text>
                     <Text style={PublicStyles.descTwo9}>运费 {data.freight_fee}</Text>
@@ -221,10 +227,11 @@ export default class CategoryDetail extends Component {
             </View>
         )
     }
-    detail(data){
-        return(
+
+    detail(data) {
+        return (
             <View style={styles.body}>
-                <Text style={[styles.detailTitle,PublicStyles.boldTitle]}>商品详情</Text>
+                <Text style={[styles.detailTitle, PublicStyles.boldTitle]}>商品详情</Text>
                 {
                     data.body.map((item, index) => {
                         switch (item.type) {
@@ -246,12 +253,13 @@ export default class CategoryDetail extends Component {
             </View>
         )
     }
-    botView(){
-        const leftText = [PublicStyles.descTwo9,{fontSize: 10, marginTop: 6}]
-        return(
-            <SafeAreaView style={{backgroundColor: '#fff'}}>
+
+    botView() {
+        const leftText = [PublicStyles.descTwo9, { fontSize: 10, marginTop: 6 }]
+        return (
+            <SafeAreaView style={{ backgroundColor: '#fff' }}>
                 <View style={styles.bot}>
-                    <View style={[PublicStyles.rowCenter,styles.botLeft]}>
+                    <View style={[PublicStyles.rowCenter, styles.botLeft]}>
                         {/* <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}
@@ -265,22 +273,23 @@ export default class CategoryDetail extends Component {
                             style={styles.botItem}
                             onPress={this.onCollect}
                         >
-                            <Image source={require('../../images/goodsDetail/collect.png')}/>
+                            <Image source={require('../../images/goodsDetail/collect.png')} />
                             <Text style={leftText}>收藏</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}
-                            onPress={() => { }}
+                            onPress={() => {
+                            }}
                         >
-                            <Image source={require('../../images/goodsDetail/cart.png')}/>
+                            <Image source={require('../../images/goodsDetail/cart.png')} />
                             <Text style={leftText}>购物车</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.botRight]}>
                         <TouchableOpacity
                             activeOpacity={.8}
-                            style={[styles.botItem,{backgroundColor: ThemeStyle.ThemeColor2}]}
+                            style={[styles.botItem, { backgroundColor: ThemeStyle.ThemeColor2 }]}
                             onPress={() => {
                                 this.setState({
                                     specVisible: true,
@@ -288,11 +297,11 @@ export default class CategoryDetail extends Component {
                                 })
                             }}
                         >
-                            <Text style={[PublicStyles.title,{color: '#fff'}]}>加入购物车</Text>
+                            <Text style={[PublicStyles.title, { color: '#fff' }]}>加入购物车</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.8}
-                            style={[styles.botItem,{backgroundColor: ThemeStyle.ThemeColor}]}
+                            style={[styles.botItem, { backgroundColor: ThemeStyle.ThemeColor }]}
                             onPress={() => {
                                 this.setState({
                                     specVisible: true,
@@ -300,17 +309,18 @@ export default class CategoryDetail extends Component {
                                 })
                             }}
                         >
-                            <Text style={[PublicStyles.title,{color: '#fff'}]}>立即购买</Text>
+                            <Text style={[PublicStyles.title, { color: '#fff' }]}>立即购买</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </SafeAreaView>
         )
     }
-    onCollect = async() => {
+
+    onCollect = async () => {
         const { navigation, login } = this.props;
         const { id } = navigation.state.params;
-        if(login){
+        if (login) {
             const result = await goodsCollectModel.add({
                 goods_id: id
             })
@@ -366,21 +376,21 @@ const styles = StyleSheet.create({
     botLeft: {
         flexDirection: 'row',
         // width: windowWidth*0.41
-        width: ((windowWidth*0.41)/3)*2
+        width: ((windowWidth * 0.41) / 3) * 2
     },
     botRight: {
         flexDirection: 'row',
         flex: 1
     },
-    botItem:{
+    botItem: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    popModalTitleView:{
+    popModalTitleView: {
         height: 45,
     },
-    popModalTitleLeft:{
+    popModalTitleLeft: {
         width: 90,
         height: 90,
         borderRadius: 3,
@@ -390,11 +400,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         zIndex: 100
     },
-    popModalTitleTight:{
+    popModalTitleTight: {
         alignItems: 'flex-start',
         marginLeft: 105,
     },
-    popModalTitleTightP:{
+    popModalTitleTightP: {
         fontSize: 18,
         color: ThemeStyle.ThemeColor,
     },

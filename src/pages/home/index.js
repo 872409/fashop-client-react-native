@@ -8,7 +8,6 @@ import {
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
-import SafeAreaView from "react-native-safe-area-view";
 import { PublicStyles } from '../../utils/publicStyleModule';
 import {
     Goods,
@@ -26,24 +25,32 @@ import {
 } from "../../components/page"
 
 @connect(({
-    view: {
-        home: {
-            homeView,
-            homeViewFetchStatus,
-        }
-    }
-}) => ({
+              view: {
+                  home: {
+                      homeView,
+                      homeViewFetchStatus,
+                  }
+              }
+          }) => ({
     homeView,
     fetchStatus: homeViewFetchStatus,
 }))
 @stateHoc()
 export default class Home extends Component {
+    static navigationOptions = {
+        title: 'Welcome',//设置标题内容
+    };
+
+
     hocComponentDidMount() {
         this.props.dispatch(getHomeView())
     }
+
     render() {
+
         const { homeView } = this.props
-        const { background_color, name, body } = homeView
+        const { background_color, body } = homeView
+
         return <View
             style={[
                 PublicStyles.ViewMax, {
@@ -51,16 +58,14 @@ export default class Home extends Component {
                 }
             ]}
         >
-            <SafeAreaView style={styles.titleWarp}>
-                <Text style={styles.title}>{name}</Text>
-            </SafeAreaView>
             <ScrollView>
                 {
-                    body.map((item,index)=> this.bodyItem(item,index))
+                    body.map((item, index) => this.bodyItem(item, index))
                 }
             </ScrollView>
         </View>
     }
+
     handelLink = (link) => {
         // link.action = portal 首页
         // link.action = goods 商品 param { id: 10000 }
@@ -83,7 +88,8 @@ export default class Home extends Component {
                 return navigation.navigate("Home");
         }
     }
-    bodyItem(item,index){
+
+    bodyItem(item, index) {
         const { navigation } = this.props;
         switch (item.type) {
             case "goods":
