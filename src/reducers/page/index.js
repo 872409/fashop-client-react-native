@@ -14,8 +14,8 @@ export default (state = initialState, action) => {
                     pageInfo: null,
                     pageInfoFetchStatus: fetchStatus.l,
                 },
-                pageInfo: action.data,
-                pageInfoFetchStatus: action.fetchStatus
+                pageInfo: action.pageInfo,
+                pageInfoFetchStatus: action.pageInfoFetchStatus
             }
         default:
             return state;

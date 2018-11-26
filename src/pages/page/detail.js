@@ -113,19 +113,19 @@ export default class PageDetail extends Component {
             case "auxiliary_blank":
                 return <AuxiliaryBlank key={index} data={item} />;
             case "image_ads":
-                return <ImageAds key={index} data={item} handelLink={handelLink} />;
+                return <ImageAds key={index} data={item} handelLink={this.handelLink} />;
             case "image_nav":
-                return <ImageNav key={index} data={item} handelLink={handelLink} />;
+                return <ImageNav key={index} data={item} handelLink={this.handelLink} />;
             case "shop_window":
-                return <ShopWindow key={index} data={item} handelLink={handelLink} />;
+                return <ShopWindow key={index} data={item} handelLink={this.handelLink} />;
             case "video":
                 return <Video key={index} data={item} />;
             case "top_menu":
-                return <TopMenu key={index} data={item} handelLink={handelLink} />;
+                return <TopMenu key={index} data={item} handelLink={this.handelLink} />;
             case "title":
                 return <Title key={index} data={item} />;
             case "text_nav":
-                return <TextNav key={index} data={item} handelLink={handelLink} />;
+                return <TextNav key={index} data={item} handelLink={this.handelLink} />;
             default:
                 return <Text key={index}>NULL</Text>;
         }
