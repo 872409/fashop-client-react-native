@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
-import { Button, List, InputItem } from 'antd-mobile-rn';
+import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
 import CartModel from "../../models/cart";
 import BuyModel from "../../models/buy";
@@ -17,10 +17,14 @@ const addressModel = new AddressModel()
 const Item = List.Item;
 
 @connect(
-    ({ app: { user: {
-        login,
-        userInfo,
-    }}}) => ({
+    ({
+         app: {
+             user: {
+                 login,
+                 userInfo,
+             }
+         }
+     }) => ({
         login,
         userInfo,
     }),
@@ -55,14 +59,14 @@ export default class CartOrderFill extends Component {
         return (
             <View style={PublicStyles.ViewMax}>
                 <ScrollView>
-                    <List style={{ marginTop: 10 }}>
+                    <List style={{ marginTop: 8 }}>
                         {addressId > 0 ?
                             <View style={styles.address}>
                                 <View style={styles.selected}>
                                     <Item arrow={'horizontal'} onClick={() => {
                                         this.goAddressList()
                                     }}>
-                                        <View>
+                                        <View style={{ paddingVertical: 10 }}>
                                             <View style={styles.selectedNamePhone}>
                                                 <Text style={styles.selectedUserName}>{address.truename}</Text>
                                                 <Text style={styles.selectedUserPhone}>{address.phone}</Text>
@@ -83,9 +87,8 @@ export default class CartOrderFill extends Component {
                                 </View>
                                 <Image style={styles.addressFooterLine}
                                        source={require('../../images/cart/address-footer-line.png')} />
-                            </View>}
-                    </List>
-                    <List>
+                            </View>
+                        }
                         <View>
                             {
                                 cartList.length > 0 ? cartList.map((item, index) => (
@@ -112,33 +115,40 @@ export default class CartOrderFill extends Component {
                                     </Item>
                                 )) : null
                             }
-                            <Item>
-                                <View style={styles.message}>
-                                    <InputItem
-                                        placeholder={'选填 有什么想对商家说的（45字以内）'}
-                                        value={message}
-                                        onChange={(val) => {
-                                            this.onMessageChange(val)
-                                        }} />
-                                </View>
-                            </Item>
                         </View>
                     </List>
+                    <View style={styles.message}>
+                        <TextareaItem
+                            rows={3}
+                            value={message}
+                            placeholder={'选填 有什么想对商家说的（45字以内）'}
+                            count={255}
+                            onChange={(value) => {
+                                this.onMessageChange(value)
+                            }}
+                        />
+                    </View>
                     <List>
                         <View>
-                            {calculate > 0 ? <Item title="运费">
-                                <Text style={styles.freightPrice}>+ ¥{calculate.pay_freight_fee}}</Text>
+                            {calculate > 0 ? <Item
+                                extra={
+                                    <Text style={styles.freightPrice}>+ ¥{calculate.pay_freight_fee}}</Text>
+                                }
+                            >
+                                运费
                             </Item> : null}
-                            <Item title="小计">
-                                <View slot="footer">
-                                    <Text
-                                        style={styles.totalPrice}>¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}</Text>
-                                </View>
+                            <Item
+                                  extra={
+                                      <View slot="footer"><Text
+                                          style={styles.totalPrice}>¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}</Text></View>
+                                  }
+                            >
+                                小计
                             </Item>
                         </View>
                     </List>
                 </ScrollView>
-                <SafeAreaView style={{backgroundColor: '#fff'}}>
+                <SafeAreaView style={{ backgroundColor: '#fff' }}>
                     <View style={styles.footer}>
                         <View style={styles.footerLeft}>
                             <Text style={styles.footerLeftLabel}>实付：</Text>
@@ -193,14 +203,16 @@ export default class CartOrderFill extends Component {
     }
 
     goAddressAdd() {
-        wx.navigateTo({
-            url: '/pages/address/add/index'
-        })
+        this.props.navigation.navigate('AddressAdd')
     }
 
     goAddressList() {
-        wx.navigateTo({
-            url: '/pages/address/list/index'
+        this.props.navigation.navigate('AddressList', { onAddressChange: this.onAddressChange })
+    }
+
+    onAddressChange = (id) => {
+        this.setState({
+            addressId: id
         })
     }
 
@@ -407,7 +419,11 @@ const styles = StyleSheet.create({
         width: 48,
         height: 48,
     },
-    message: {},
+    message: {
+        backgroundColor: '#ffffff',
+        marginBottom: 8,
+        marginTop: 8
+    },
     footer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
@@ -449,6 +465,7 @@ const styles = StyleSheet.create({
         color: '#FF635C'
     },
     oneItem: {
+        paddingVertical: 10,
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },

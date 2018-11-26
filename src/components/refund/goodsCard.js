@@ -11,7 +11,7 @@ export default class RefundGoodsCard extends Component {
     static propTypes = {
         goodsTitle: PropTypes.string,
         goodsImg: PropTypes.string,
-        goodsNum: PropTypes.string,
+        goodsNum: PropTypes.any,
         goodsSpec: PropTypes.string,
     };
     static defaultProps = {
