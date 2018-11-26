@@ -135,17 +135,12 @@ export default class PageVideo extends Component {
                         repeat={false}
                     />
                 </TouchableOpacity>
-                {/* <View style={styles.textStyle}>
+                <View style={styles.textStyle}>
                     <Text style={styles.volumeControl}>
                         {formatTime(this.state.duration - this.state.currentTime)}
                     </Text>
-                    <Button style={styles.btnStyle} title={'关闭广告'} color={'#73808080'}
-                        onPress={() => {
-                            this.props.navigation.goBack()
-                        }} />
-                </View> */}
-
-                {/* <View style={styles.controls}>
+                </View>
+                <View style={styles.controls}>
                     <View style={styles.generalControls}>
 
                     </View>
@@ -156,7 +151,7 @@ export default class PageVideo extends Component {
                             <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
                         </View>
                     </View>
-                </View> */}
+                </View>
             </View>
         );
     }
@@ -204,11 +199,11 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     innerProgressCompleted: {
-        height: 20,
+        height: 6,
         backgroundColor: '#cccccc',
     },
     innerProgressRemaining: {
-        height: 20,
+        height: 6,
         backgroundColor: '#2C2C2C',
     },
     generalControls: {
@@ -224,7 +219,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     volumeControl: {
-        fontSize: 25,
+        fontSize: 16,
         color: '#fff',
         flex: 1,
         flexDirection: 'row',
