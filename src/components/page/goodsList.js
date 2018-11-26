@@ -28,8 +28,8 @@ export default class PageGoodsList extends Component {
                         showMarketPrice
                     }
                     switch (layout_style) {
-                        case 1: return this.big(params);
-                        case 2: return this.small(params);
+                        case 1: return this.small(params);
+                        case 2: return this.big(params);
                         case 3: return this.oneBigTwoSmall(params);
                         case 4: return this.list(params);
                         default: return <Text>NULL</Text>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     },
     listTitle:{
         marginBottom: 20,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '400',
         lineHeight: 16,
     },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     },
     bigTitle:{
         marginVertical: 6,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '400',
         lineHeight: 16,
     },
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     },
     smallTitle:{
         marginVertical: 6,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '400',
         lineHeight: 20,
         height: 40
