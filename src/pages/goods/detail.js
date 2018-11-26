@@ -47,7 +47,7 @@ const goodsCollectModel = new GoodsCollectModel()
 @stateHoc({
     detail: true,
 })
-export default class CategoryDetail extends Component {
+export default class GoodsDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,
@@ -78,57 +78,7 @@ export default class CategoryDetail extends Component {
         const { navigation } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
-        // console.log(data);
-        // const tabList = [
-        //     {
-        //         render: () => this.goods(),
-        //         tabLabel: '商品'
-        //     }, {
-        //         render: () => this.evaluate(),
-        //         tabLabel: '评价'
-        //     }, {
-        //         render: () => this.detail(),
-        //         tabLabel: '详情'
-        //     }
-        // ]
-        return <View style={PublicStyles.ViewMax}>
-            {/* <ScrollableTabView
-                style={{ backgroundColor: '#fff', flex: 0 }}
-                initialPage={0}
-                renderTabBar={() =>
-                    <DefaultTabBar
-                        style={{
-                            borderWidth: 0,
-                            borderColor: 'rgba(0,0,0,0)'
-                        }}
-                        tabStyle={{ paddingBottom: 0 }}
-                    />
-                }
-                tabBarActiveTextColor={ThemeStyle.ThemeColor}
-                tabBarInactiveTextColor='#666'
-                tabBarUnderlineStyle={{
-                    width: windowWidth * 0.5 / 4,
-                    left: windowWidth / 9.8,
-                    backgroundColor: `${ThemeStyle.ThemeColor}`,
-                    height: 3,
-                    borderRadius: 4
-                }}
-                tabBarTextStyle={{}}
-                onChangeTab={({ i }) => {
-                    // this.setState({
-                    //     tabIndex: i
-                    // })
-                }}
-            >
-                {
-                    tabList.map((item, index) => (
-                        <View
-                            key={index}
-                            tabLabel={item.tabLabel}
-                        />
-                    ))
-                }
-            </ScrollableTabView> */}
+        return data ? <View style={PublicStyles.ViewMax}>
             <ScrollView>
                 {
                     this.carousel(data.images)
@@ -164,7 +114,7 @@ export default class CategoryDetail extends Component {
                     closeModal={this.closeModal}
                 />
             </Modal>
-        </View>
+        </View> : null
     }
 
     closeModal = () => {
@@ -173,18 +123,18 @@ export default class CategoryDetail extends Component {
 
     carousel(data) {
         const { navigation } = this.props
-        let newImages = data ? data.map(item => {
+        let newImages = Array.isArray(data) && data.length > 0 ? data.map(item => {
             return { source: { uri: item } }
         }) : []
         return (
             <Carousel
-                autoplay={data.length > 1}
-                infinite={data.length > 1}
+                autoplay={Array.isArray(data) && data.length > 1}
+                infinite={Array.isArray(data) && data.length > 1}
                 dotActiveStyle={styles.dotActive}
                 dotStyle={styles.dot}
             >
                 {
-                    data.map((item, index) => (
+                    Array.isArray(data) && data.map((item, index) => (
                         <TouchableOpacity
                             activeOpacity={1}
                             style={styles.carouselImg}
@@ -233,7 +183,7 @@ export default class CategoryDetail extends Component {
             <View style={styles.body}>
                 <Text style={[styles.detailTitle, PublicStyles.boldTitle]}>商品详情</Text>
                 {
-                    data.body.map((item, index) => {
+                    Array.isArray(data.body) && data.body.length > 0 && data.body.map((item, index) => {
                         switch (item.type) {
                             case "goods":
                                 return <Goods key={index} data={item} />;
@@ -375,7 +325,6 @@ const styles = StyleSheet.create({
     },
     botLeft: {
         flexDirection: 'row',
-        // width: windowWidth*0.41
         width: ((windowWidth * 0.41) / 3) * 2
     },
     botRight: {
@@ -394,7 +343,6 @@ const styles = StyleSheet.create({
         width: 90,
         height: 90,
         borderRadius: 3,
-        // boxShadow: "5 0 10 rgba(0,0,0,0.07)",
         backgroundColor: '#fff',
         position: 'absolute',
         bottom: 0,

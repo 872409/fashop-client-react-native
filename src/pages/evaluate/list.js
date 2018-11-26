@@ -5,14 +5,11 @@ import {
     Text,
     Image
 } from 'react-native';
-import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import { EvaluateCard } from '../../components'
 import { ListView } from "../../utils/publicViewModule";
-import { windowHeight, PublicStyles, ThemeStyle, windowWidth } from "../../utils/publicStyleModule";
+import { PublicStyles, ThemeStyle, windowWidth } from "../../utils/publicStyleModule";
 import { GoodsEvaluateApi } from "../../config/api/goodsEvaluate";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-
-const goodsEvaluateModel = new GoodsEvaluateModel()
 
 export default class EvaluateList extends Component {
     state = {
@@ -40,7 +37,7 @@ export default class EvaluateList extends Component {
     }
 
     onAdd(order_goods_id) {
-        this.props.navigation.navigate('EvaluateAdd', { order_goods_id,updateListRow:this.updateListRow })
+        this.props.navigation.navigate('EvaluateAdd', { order_goods_id, updateListRow: this.updateListRow })
     }
 
     onAdditional(order_goods_id) {
@@ -48,7 +45,7 @@ export default class EvaluateList extends Component {
     }
 
     // 更新某条
-     updateListRow = (id) => {
+    updateListRow = (id) => {
         this.ListView.manuallyRefresh()
         // todo 单条刷新
         // let { list } = this.state
@@ -133,11 +130,11 @@ export default class EvaluateList extends Component {
                     keyExtractor={e => String(e.id)}
                     api={GoodsEvaluateApi.mine}
                     fetchParams={params}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                         <EvaluateCard
                             goodsInfo={item}
                             onGoods={() => {
-                                this.onGoods(item.id)
+                                this.onGoods(item.goods_id)
                             }}
                             onAdd={() => {
                                 this.onAdd(item.id)
