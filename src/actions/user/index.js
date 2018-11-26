@@ -4,6 +4,8 @@ import Fetch from "../../utils/fetch";
 import {  storageModule } from "moji-react-native-utils";
 import { Toast } from "../../utils/publicFuncitonModule";
 import { UserApi } from "../../config/api/user";
+import { OrderApi } from '../../config/api/order';
+import { CartApi } from '../../config/api/cart';
 
 /**
  * 登陆方法
@@ -47,8 +49,10 @@ export const initUserInfoStorage = (userInfoData) => {
         // userSignOutFunc({dispatch})
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
-
+        
         if (userInfoData) {
+            console.log('22222222222');
+            
             const userInfo = JSON.parse(userInfoData)
 
             await dispatch(setUserStatus(true, userInfo))
@@ -57,6 +61,7 @@ export const initUserInfoStorage = (userInfoData) => {
 
             dispatch(updateUserInfo())
         } else {
+        console.log('111111111111');
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
         }
@@ -78,22 +83,21 @@ export const updateUserInfo = ({ callback } = {}) => {
             type: types.user.UPDATE_USER_INFO_LOADING,
             refreshing: true,
         })
-
         Fetch.fetch({
             api: UserApi.self
         })
-            .then((e) => {
-                if (e.code === 0) {
-                    dispatch(updateUserInfoFunc(e.result.info))
-                    callback && callback()
-                } else {
-                    Toast.warn("获取用户最新数据异常");
-                    dispatch({
-                        type: types.user.UPDATE_USER_INFO_LOADING,
-                        refreshing: false,
-                    })
-                }
-            })
+        .then((e) => {
+            if (e.code === 0) {
+                dispatch(updateUserInfoFunc(e.result.info))
+                callback && callback()
+            } else {
+                Toast.warn("获取用户最新数据异常");
+                dispatch({
+                    type: types.user.UPDATE_USER_INFO_LOADING,
+                    refreshing: false,
+                })
+            }
+        })
     }
 }
 
@@ -101,10 +105,7 @@ export const updateUserInfo = ({ callback } = {}) => {
 /**
  * 修改用户信息
  **/
-export const modifyUserInfo = ({
-                                   params, func = () => {
-    }
-                               }) => {
+export const modifyUserInfo = ({params, func = () => {} }) => {
     return dispatch => {
         Fetch.fetch({
             api: UserApi.editProfile,
@@ -134,28 +135,6 @@ export const passiveModifyUserInfo = ({ data, callback }) => {
 }
 
 
-/**
- * 微信登陆
- **/
-export const wechatLogin = ({ code }) => {
-    return dispatch => {
-        Fetch.fetch("USERWECHATOAUTH", { code })
-            .then(e => {
-                if (e.code === 0) {
-                    dispatch(userLogin({
-                        userInfoData: e.data,
-                        func: () => {
-                            dispatch(replace('/index/user'))
-                        }
-                    }))
-                } else {
-                    Message.fail(e.errmsg)
-                }
-            })
-    }
-}
-
-
 //登陆后需要处理的方法
 const userLoginOutFunc = async ({ dispatch, userInfo }) => {
     storageModule.setUserInfo(userInfo)
@@ -164,7 +143,8 @@ const userLoginOutFunc = async ({ dispatch, userInfo }) => {
         phone: userInfo.phone,
         avatar: userInfo.avatar,
     }))
-    // dispatch(getUserPointsSigninfo())
+    dispatch(getOrderStateNum())
+    dispatch(getCartTotalNum())
     // const {
     //     index,
     //     routes
@@ -287,30 +267,44 @@ export const updateUserInfoFunc = (e) => {
 }
 
 
-// 更新个人中心混合的各种状态数量
-// export const getUserMixedStateNum = ()=>{
-//     return dispatch => {
-//         Fetch.fetch({apiName:'USERMIXEDSTATENUM'})
-//         .then((e)=>{
-//             if(e.code===0){
-//                 const {data} = e
-//                 dispatch({
-//                     type : types.user.GET_USER_MIXEDSTATENUM_DATA,
-//                     couponNum : data.voucher,
-//                     orderNum : {
-//                         order_nopay : data.order_nopay,
-//                         order_nosend : data.order_nosend,
-//                         order_noreceiving : data.order_noreceiving,
-//                         order_noeval : data.order_noeval,
-//                         order_refund : data.order_refund,
-//                     }
-//                 })
-//             }else {
-//                 Message.offline(e.errmsg)
-//             }
-//         })
-//     }
-// }
+// 更新订单状态数量
+export const getOrderStateNum = ()=>{
+    return dispatch => {
+        Fetch.fetch({
+            api: OrderApi.stateNum
+        })
+        .then((e)=>{
+            if(e.code===0){
+                dispatch({
+                    type: types.user.GET_ORDER_STATE_NUM,
+                    orderNum: e.result
+                })
+            }else {
+                Toast.warn(e.msg)
+            }
+        })
+    }
+}
+
+
+// 更新订单状态数量
+export const getCartTotalNum = ()=>{
+    return dispatch => {
+        Fetch.fetch({
+            api: CartApi.totalNum
+        })
+        .then((e)=>{
+            if(e.code===0){
+                dispatch({
+                    type: types.user.GET_CART_TOTAL_NUM,
+                    cartNum: e.result.total_num
+                })
+            }else {
+                Toast.warn(e.msg)
+            }
+        })
+    }
+}
 
 
 // 查询用户是否签到和是否领取可领积分

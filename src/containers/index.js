@@ -43,9 +43,14 @@ class App extends Component {
         }
     }
     render() {
+        const { cartNum } = this.props
         return (
             <View style={{ flex: 1 }}>
-                <Navigator />
+                <Navigator 
+                    screenProps={{
+                        cartNum
+                    }}
+                />
             </View>
         )
 
@@ -55,13 +60,13 @@ class App extends Component {
 
 const mapStateToProps = store => {
     const {
-        user,
+        user: { login, cartNum },
         initial: { showBootPage },
     } = store.app
     return {
-        login: user.login,
+        login,
+        cartNum,
         showBootPage,
-
     };
 };
 

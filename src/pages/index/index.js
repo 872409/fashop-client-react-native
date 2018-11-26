@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import { ThemeStyle } from "../../utils/publicStyleModule";
 import { createBottomTabNavigator } from 'react-navigation';
+import Badge from "@react-native-component/react-native-smart-badge";
 
 import Home from '../home';
 import Category from "../category";
@@ -20,6 +21,26 @@ class TabBarItem extends Component {
                     }
                 ]}
             />
+        )
+    }
+}
+
+class BadgeItem extends Component {
+    render() {
+        const { screenProps } = this.props;
+        const { cartNum } = screenProps;
+        return (
+            <View style={[{ width: 20, height: 20 }, this.props.style]}>
+                <TabBarItem {...this.props} />
+                {
+                    cartNum ? <Badge
+                        textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
+                        style={{ position: 'absolute', right: -20, top: -6 }}
+                    >
+                        {cartNum}
+                    </Badge> : null
+                }
+            </View>
         )
     }
 }
@@ -56,15 +77,22 @@ export default createBottomTabNavigator(
         },
         Cart: {
             screen: Cart,
-            navigationOptions: ({ navigation }) => ({
+            navigationOptions: ({ navigation, screenProps }) => ({
                 tabBarLabel: "购物车",
                 tabBarIcon: ({ focused, tintColor }) => (
-                    <TabBarItem
+                    <BadgeItem
+                        screenProps={screenProps}
                         tintColor={tintColor}
                         focused={focused}
                         normalImage={require("../../images/tab/tab3.png")}
                         selectedImage={require("../../images/tab/tabActive3.png")}
                     />
+                    // <TabBarItem
+                    //     tintColor={tintColor}
+                    //     focused={focused}
+                    //     normalImage={require("../../images/tab/tab3.png")}
+                    //     selectedImage={require("../../images/tab/tabActive3.png")}
+                    // />
                 ),
             })
         },

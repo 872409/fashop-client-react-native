@@ -582,6 +582,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@react-native-component/react-native-smart-badge@https://github.com/fightingljm/react-native-smart-badge":
+  version "1.1.1"
+  resolved "https://github.com/fightingljm/react-native-smart-badge#eaede0739963bc79dfb02737cc2bab00f3d8e8e2"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -787,7 +791,7 @@ array-tree-filter@1.0.x:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/array-tree-filter/-/array-tree-filter-1.0.1.tgz#0a8ad1eefd38ce88858632f9cc0423d7634e4d5d"
 
-array-tree-filter@~2.1.0:
+array-tree-filter@^2.1.0, array-tree-filter@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/array-tree-filter/-/array-tree-filter-2.1.0.tgz#873ac00fec83749f255ac8dd083814b4f6329190"
 

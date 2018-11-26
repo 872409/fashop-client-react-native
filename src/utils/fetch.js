@@ -8,7 +8,7 @@ export default class Fetch {
             params,
         })
             .then((e) => {
-                console.log(api, params, e)
+                // console.log(api, params, e)
                 return e
             })
 
