@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     TextInput,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
 export default class PageGoodsSearch extends Component {
@@ -11,7 +12,11 @@ export default class PageGoodsSearch extends Component {
         const { goGoodsList } = this.props;
         const { options } = this.props.data
         const { background_color } = options
-        return <View style={[styles.warp,{backgroundColor: background_color}]}>
+        return <TouchableOpacity 
+            style={[styles.warp,{backgroundColor: background_color}]}
+            activeOpacity={.8}
+            onPress={goGoodsList}
+        >
             <View style={[styles.inputView,{borderWidth: (background_color==='#fff'||background_color==='#ffffff') ? 0.5 : 0}]}>
                 <Image style={styles.img} source={require('../../images/search.png')}/>
                 <TextInput
@@ -21,7 +26,7 @@ export default class PageGoodsSearch extends Component {
                     onFocus={goGoodsList}
                 />
             </View>
-        </View>
+        </TouchableOpacity>
     }
 }
 

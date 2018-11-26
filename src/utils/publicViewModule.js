@@ -15,7 +15,7 @@ import {
     ViewPropTypes
 } from 'react-native';
 import { Toast } from './publicFuncitonModule';
-import { windowWidth,  ThemeStyle } from './publicStyleModule';
+import { windowWidth, windowHeight, ThemeStyle } from './publicStyleModule';
 import Fetch from '../utils/fetch';
 import { Button } from 'antd-mobile-rn';
 import { removeEmpty } from "./publicFuncitonModule";
@@ -31,6 +31,7 @@ export class ListView extends Component {
         onRefresh: PropTypes.func,
         contentContainerStyle: ViewPropTypes.style,
         changeDataStructurese: PropTypes.func,
+        numColumns: PropTypes.number,
     };
     static defaultProps = {
         ListEmptyComponent: ({ fetchAllow }) => {
@@ -52,6 +53,7 @@ export class ListView extends Component {
         },
         contentContainerStyle: null,
         changeDataStructurese: null,
+        numColumns: 1,
     };
 
     constructor(props) {
@@ -168,6 +170,7 @@ export class ListView extends Component {
             ListEmptyComponent,
             keyExtractor,
             onRefresh,
+            numColumns,
         } = this.props
         return (
             <FlatList
@@ -184,6 +187,7 @@ export class ListView extends Component {
                     this.fetchData()
                 }}
                 contentContainerStyle={[dataSource.length ? {} : { flex: 1 }, contentContainerStyle]}
+                numColumns={numColumns}
                 refreshControl={
                     <RefreshControl
                         colors={['#fff']}

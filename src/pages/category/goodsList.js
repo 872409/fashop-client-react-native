@@ -18,8 +18,6 @@ export default class GoodsList extends Component {
                 showCancelButton={false}
                 defaultValue={keywords}
                 onSubmit={value => {
-                    console.log(value);
-                    
                     this.ListView.setFetchParams({
                         keywords: value
                     })
@@ -28,10 +26,7 @@ export default class GoodsList extends Component {
             <ListView
                 ref={e => this.ListView = e}
                 keyExtractor={e => String(e.id)}
-                contentContainerStyle={{
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                }}
+                numColumns={2}
                 renderItem={({ item, index }) => (
                     <GoodsItem
                         data={item}
