@@ -52,7 +52,7 @@ export default class Rater extends Component {
                             /></TouchableOpacity> : null}
                         {index >= value ?
                             <TouchableOpacity
-                                key={index}
+                                key={`_${index}`}
                                 onPress={() => {
                                     this.onChange(index + 1)
                                 }}
