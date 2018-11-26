@@ -13,8 +13,6 @@ import {
 import { Toast } from '../../utils/publicFuncitonModule';
 import {
 	PublicStyles,
-	windowWidth,
-	windowHeight,
 	ThemeStyle
 } from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
@@ -22,11 +20,10 @@ import { userLogin } from '../../actions/user';
 import { env } from "../../config/root";
 import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
-// import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
-
+import fa from '../../utils/fa'
 @connect(({ app: { wechat: {
 	isWXAppInstalled,
 } } }) => ({
@@ -53,7 +50,7 @@ export default class UserLogin extends Component {
 					>
 						<View style={styles.logoView}>
 							<Image
-								source={require('../../images/logo2.png')}
+								source={require('../../images/login-logo.png')}
 								style={styles.logo}
 							/>
 						</View>
@@ -129,8 +126,8 @@ export default class UserLogin extends Component {
 												}
 											}}
 										>
-											<Image 
-												source={require('../../images/weixin.png')} 
+											<Image
+												source={require('../../images/weixin.png')}
 												style={{ width:25, height:25 }}
 											/>
 										</TouchableOpacity>
@@ -192,7 +189,7 @@ export default class UserLogin extends Component {
 				userInfoData: e.data
 			}))
 		} else {
-			Toast.warn(e.errmsg)
+			Toast.warn(fa.code.parse(e.code,e.msg))
 		}
 
 	}
@@ -205,7 +202,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#333',
 		height: 45,
-		// paddingLeft: 15,
 		borderBottomWidth: 0.5,
 		borderBottomColor: '#eaeaea'
 	},
@@ -213,7 +209,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 15,
-		// backgroundColor: '#fff',
 	},
 	text1: {
 		fontSize: 20,

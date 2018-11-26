@@ -82,13 +82,14 @@ export default class Code {
     /**
      * 解析
      * @param code
+     * @param msg
      * @return String
      */
-    parse(code) {
+    parse(code, msg = null) {
         if (typeof this.codes[code] !== 'undefined') {
             return this.codes[code]
         } else {
-            return '操作失败'
+            return msg ? msg : '操作失败'
         }
     }
 }
