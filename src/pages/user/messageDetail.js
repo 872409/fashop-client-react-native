@@ -6,9 +6,7 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import MessageItem from '../../components/public/messageItem';
 import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
-import { PublicStyles, windowWidth, windowHeight } from '../../utils/publicStyleModule'
 
 export default class UserMessageDetail extends Component{
     render(){

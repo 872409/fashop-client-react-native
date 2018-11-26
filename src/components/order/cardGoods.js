@@ -50,7 +50,9 @@ export default class OrderCardGoods extends Component {
                             <View style={styles.oneBody}>
                                 <Text style={styles.oneText}>{item.goods_title}</Text>
                                 <View style={styles.oneDesc}>
-                                    <Text style={styles.oneDescLabel}>{item.goods_spec_string}</Text>
+                                    <Text style={styles.oneDescLabel}>{item.goods_spec.map(function (spec) {
+                                        return spec.value_id > 0 ? `${spec.name}:${spec.value_name}` : ''
+                                    })}</Text>
                                     <Text style={styles.oneDescText}>x{item.goods_num}</Text>
                                 </View>
                                 <Text>¥{item.goods_price}</Text>
@@ -118,11 +120,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#999",
         marginBottom: 10,
-        height: 12,
         marginTop: 5,
         justifyContent: "space-between",
         flexDirection:'row'
     },
-    oneDescLabel: {},
-    oneDescText: {}
+    oneDescLabel: {
+        fontSize:12,
+        color:'#999'
+    },
+    oneDescText: {
+        fontSize:12,
+        color:'#999'
+    }
 })

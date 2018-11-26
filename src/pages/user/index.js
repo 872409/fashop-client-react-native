@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-import { PublicStyles } from '../../utils/publicStyleModule';
+import { PublicStyles, windowHeight, windowWidth } from '../../utils/publicStyleModule';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
@@ -32,9 +32,10 @@ const Item = List.Item
     }
 ))
 export default class User extends Component {
-    goOrderList(){
+    goOrderList() {
         this.props.navigation.navigate('OrderList')
     }
+
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
@@ -179,29 +180,38 @@ export default class User extends Component {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
                 path: () => {
+                    this.props.navigation.navigate('CollectGoods')
                 }
             }
         ]
         return (
-            <List>
-                {
-                    botList.map((item, index) => (
-                        <Item
-                            key={index}
-                            // thumb={item.img}
-                            arrow="horizontal"
-                            onClick={() => {
-                                item.path()
-                            }}
-                        >
-                            <View style={PublicStyles.rowCenter}>
-                                <Image style={styles.botImg} source={item.img} />
-                                <Text style={PublicStyles.title}>{item.title}</Text>
-                            </View>
-                        </Item>
-                    ))
-                }
-            </List>
+            <View style={PublicStyles.ViewMax}>
+                <List style={PublicStyles.ViewMax}>
+                    {
+                        botList.map((item, index) => (
+                            <Item
+                                key={index}
+                                arrow="horizontal"
+                                onClick={() => {
+                                    item.path()
+                                }}
+                            >
+                                <View style={PublicStyles.rowCenter}>
+                                    <Image style={styles.botImg} source={item.img} />
+                                    <Text style={PublicStyles.title}>{item.title}</Text>
+                                </View>
+                            </Item>
+                        ))
+                    }
+                </List>
+                <View style={styles.fashopCopyright}>
+                    <View style={styles.fashopCopyrightBody}>
+                        <Image source={require('../../images/fashop/copyright.png')} mode="aspectFit"
+                               style={styles.fashopCopyrightImg} />
+                        <Text style={styles.fashopCopyrightText}>提供技术支持</Text>
+                    </View>
+                </View>
+            </View>
         )
     }
 }
@@ -232,4 +242,26 @@ const styles = StyleSheet.create({
         height: 22,
         marginRight: 10
     },
+    fashopCopyright: {
+        bottom: 0,
+        width: windowWidth,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    fashopCopyrightBody: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    fashopCopyrightImg: {
+        height: 16,
+        width: 50,
+        marginRight: 5
+    },
+    fashopCopyrightText: {
+        color: '#cccccc',
+        fontSize: 12,
+        lineHeight: 12,
+        paddingBottom: 15,
+        marginTop: 5
+    }
 });

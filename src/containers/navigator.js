@@ -5,7 +5,7 @@ import Index from "../pages/index";
 import PhotoGallery from "../utils/photoGallery";
 import PageDetail from "../pages/page/detail";
 
-import GoodsList from "../pages/category/goodsList";
+import GoodsList from "../pages/goods/list";
 import GoodsDetail from "../pages/goods/detail";
 import OrderAction from "../pages/category/orderAction";
 
@@ -37,6 +37,8 @@ import EvaluateAdd from "../pages/evaluate/add"
 import EvaluateAdditional from "../pages/evaluate/additional"
 import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
+
+import CollectGoods from "../pages/collect/goods"
 
 const modalStyleStackNames = [
     // 'UserLogin',
@@ -244,6 +246,12 @@ export default createStackNavigator(
                 title: '评价列表'
             }
         },
+        CollectGoods:{
+            screen: CollectGoods,
+            navigationOptions: {
+                title: '商品收藏'
+            }
+        }
     },
     {
         navigationOptions: ({ navigation }) => ({

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {
     View,
@@ -11,23 +11,27 @@ import {
 import { Button, List } from 'antd-mobile-rn';
 import { userSignOut } from '../../actions/user';
 import { Button } from "../../components/theme";
-import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule'
+import { PublicStyles } from '../../utils/publicStyleModule'
 
 const Item = List.Item;
 const Brief = Item.Brief;
 
 @connect(
-    ({app:{user:{
-        login,
-        userInfo,
-    }}}) => ({
+    ({
+         app: {
+             user: {
+                 login,
+                 userInfo,
+             }
+         }
+     }) => ({
         login,
         userInfo,
     }),
 )
-export default class UserSetting extends Component{
-    render(){
-        const { navigation, dispatch, login, userInfo }=this.props;
+export default class UserSetting extends Component {
+    render() {
+        const { navigation, dispatch } = this.props;
         const list1 = [
             {
                 title: '修改密码',
@@ -38,7 +42,7 @@ export default class UserSetting extends Component{
             }
         ]
         return (
-            <SafeAreaView style={{flex:1,justifyContent:"space-between",backgroundColor:"#F8F8F8"}}>
+            <SafeAreaView style={{ flex: 1, justifyContent: "space-between", backgroundColor: "#F8F8F8" }}>
                 <View style={PublicStyles.ViewMax}>
                     <List>
                         {
@@ -77,6 +81,4 @@ export default class UserSetting extends Component{
     }
 }
 
-const styles=StyleSheet.create({
-
-})
+const styles = StyleSheet.create({})
