@@ -15,7 +15,6 @@ import { InputItem } from 'antd-mobile-rn';
 import { Button } from "../../components/theme";
 import { Toast } from "../../utils/publicFuncitonModule";
 import { CountdownButton } from "../../utils/PublicViewModule";
-import { changePhone } from '../../actions/user/helpCenter'
 
 @connect(
 	({ app: { user: {
@@ -96,7 +95,7 @@ export default class UserChangePhone extends Component {
 											}
 										}}
 										getData={(e) => {
-											if (e.code == 0) {
+											if (e.code === 0) {
 												Toast.info('验证码已发送')
 											} else {
 												Toast.warn(e.errmsg)

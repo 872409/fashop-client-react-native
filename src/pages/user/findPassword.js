@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Toast} from '../../utils/publicFuncitonModule';
 import {Fetch} from '../../utils';
-import { PublicStyles, windowWidth, windowHeight, ThemeStyle } from '../../utils/publicStyleModule';
+import { PublicStyles } from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
 import {CountdownButton} from '../../utils/PublicViewModule';
 import {
@@ -62,7 +62,7 @@ class UserFindPassword extends Component{
 							}
 						}}
 						getData = {(e)=>{
-							if(e.code==0){
+							if(e.code===0){
 								Toast.info('验证码已发送')
 							}else {
 								Toast.warn(e.errmsg)
@@ -88,7 +88,6 @@ class UserFindPassword extends Component{
 							phone,
 							smscode,
 							password,
-							repassword,
 						} = this.state
 						if(!phone){
 							return Toast.warn('请输入手机号')

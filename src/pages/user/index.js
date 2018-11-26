@@ -152,6 +152,7 @@ export default class User extends Component {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
                 path: () => {
+                    this.props.navigation.navigate('CollectGoods')
                 }
             }
         ]
@@ -161,7 +162,6 @@ export default class User extends Component {
                     botList.map((item, index) => (
                         <Item
                             key={index}
-                            // thumb={item.img}
                             arrow="horizontal"
                             onClick={() => {
                                 item.path()

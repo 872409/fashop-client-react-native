@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
-import { env, AppPlatform } from '../../config/root';
 import { Toast } from '../../utils/publicFuncitonModule';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
@@ -40,8 +39,8 @@ export default class UserRelation extends Component {
             phone,
             wechat_openid,
         } = userInfo || {}
-        const isBindPhone = phone && phone.length ? true : false
-        const isBindWechat = wechat_openid && wechat_openid.length ? true : false
+        const isBindPhone = !!(phone && phone.length)
+        const isBindWechat = !!(wechat_openid && wechat_openid.length)
         return (
             <View>
                 <List>

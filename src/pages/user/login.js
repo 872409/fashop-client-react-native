@@ -152,7 +152,7 @@ export default class UserLogin extends Component {
 							})
 						}}
 					>
-						<Text style={{ color: '#999' }}>已阅读并同意</Text>
+						<Text style={{ color: '#999' }}>登录代表已阅读并同意</Text>
 						<Text style={{ color: '#666' }}>《用户协议》</Text>
 					</TouchableOpacity>
 				</SafeAreaView>

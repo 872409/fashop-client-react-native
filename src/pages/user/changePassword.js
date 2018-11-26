@@ -7,10 +7,6 @@ import {
 import { Toast } from "../../utils/publicFuncitonModule";
 import {
     PublicStyles,
-    PublicStylesString,
-    windowWidth,
-    windowHeight,
-    ThemeStyle
 } from "../../utils/publicStyleModule";
 import { connect } from "react-redux";
 import {Fetch} from '../../utils';

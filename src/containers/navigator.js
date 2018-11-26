@@ -38,6 +38,8 @@ import EvaluateAdditional from "../pages/evaluate/additional"
 import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
 
+import CollectGoods from "../pages/collect/goods"
+
 const modalStyleStackNames = [
     // 'UserLogin',
 ]
@@ -250,6 +252,12 @@ export default createStackNavigator(
                 title: '评价列表'
             }
         },
+        CollectGoods:{
+            screen: CollectGoods,
+            navigationOptions: {
+                title: '商品收藏'
+            }
+        }
     },
     {
         navigationOptions: ({ navigation }) => ({

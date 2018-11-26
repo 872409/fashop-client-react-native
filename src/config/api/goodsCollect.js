@@ -2,7 +2,7 @@ import { env } from '../root';
 
 const ROOT_URL = `${env.domain}/server/`;
 export const GoodsCollectApi = {
-    mine: {
+    list: {
         url: `${ROOT_URL}goodscollect/mine`,
         method: 'GET'
     },

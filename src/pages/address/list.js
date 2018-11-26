@@ -52,7 +52,6 @@ export default class AddressList extends Component {
                             this.onAddressChecked(item.id)
                         }} />
                 )}
-                fetchParams={{ type_id }}
             />
             <SafeAreaView>
                 <Button size="large" onClick={() => this.onAdd()}>+ 新建地址</Button>

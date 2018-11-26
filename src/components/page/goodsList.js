@@ -201,9 +201,7 @@ const styles = StyleSheet.create({
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
     },
-
     // small
-
     smallImg:{
         width: (windowWidth - 40) / 2,
         height: (windowWidth - 40) / 2,

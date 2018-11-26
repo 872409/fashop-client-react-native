@@ -12,15 +12,10 @@ import { Toast } from "../../utils/publicFuncitonModule";
 import { Fetch } from "../../utils";
 import {
     PublicStyles,
-    PublicStylesString,
-    windowWidth,
-    windowHeight,
-    ThemeStyle
 } from "../../utils/publicStyleModule";
 import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/PublicViewModule";
 import { Button, InputItem } from "antd-mobile-rn";
-import { env, AppPlatform } from "../../config/root";
 import { Button } from "../../components/theme";
 import {updateUserInfo} from '../../actions/user';
 import { UserApi } from "../../config/api/user";
