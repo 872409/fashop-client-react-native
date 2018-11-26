@@ -12,7 +12,6 @@ export const getPageInfo = ({ params }) => {
                 api: PageApi.info,
                 params
             })
-
             if (e.code === 0) {
                 dispatch(updatePageInfo(e.result.info, fetchStatus.s))
             } else {

@@ -2,8 +2,8 @@ import types from '../../constants';
 import { fetchStatus } from "moji-react-native-utils";
 
 const initialState = {
-    // pageInfo: [],
-    // pageInfoFetchStatus: fetchStatus.l,
+    pageInfo: [],
+    pageInfoFetchStatus: fetchStatus.l,
 }
 
 export default (state = initialState, action) => {
