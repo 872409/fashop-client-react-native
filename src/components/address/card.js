@@ -22,16 +22,26 @@ export default class AddressCard extends Component {
     };
 
     onEdit(id) {
-        console.log(this.props.onEdit)
-        if ( this.props.onEdit) {
-            console.log('--------')
+        if (this.props.onEdit) {
             this.props.onEdit(id);
         }
     }
+
+    onAddressChecked(id) {
+        if (this.props.onAddressChecked) {
+            this.props.onAddressChecked(id);
+        }
+    }
+
     render() {
-        const { id,name, phone, address } = this.props
+        const { id, name, phone, address } = this.props
         return <View style={styles.addressCard}>
-            <View style={styles.info}>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.info}
+                onPress={() => {
+                    this.onAddressChecked(id)
+                }}>
                 <View style={styles.user}>
                     <View style={styles.namePhone}>
                         <Text style={styles.name}>{name}</Text>
@@ -39,8 +49,8 @@ export default class AddressCard extends Component {
                     </View>
                     <View style={styles.address}><Text>{address}</Text></View>
                 </View>
-            </View>
-            <TouchableOpacity style={styles.action} onPress={()=>{
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.action} onPress={() => {
                 this.onEdit(id)
             }}>
                 <Text style={styles.edit}>编辑</Text>
@@ -53,7 +63,9 @@ const styles = StyleSheet.create({
         padding: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor:'#fff'
+        backgroundColor: '#fff',
+        borderBottomColor: '#f1f1f1',
+        borderBottomWidth: 1,
     },
     checked: {
         flexDirection: 'row',

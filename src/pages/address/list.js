@@ -7,16 +7,18 @@ import {
     Image,
     SafeAreaView
 } from 'react-native';
-import fa from '../../utils/fa'
 import { Button } from 'antd-mobile-rn';
 import { ListView } from "../../utils/publicViewModule";
 import { AddressApi } from "../../config/api/address";
 import { PublicStyles } from '../../utils/publicStyleModule';
-import AddressCard from "../../components/address/card";
+import { AddressCard } from "../../components";
 
 export default class AddressList extends Component {
     onAddressChecked(id) {
-        fa.cache.set('address_checked_id', id)
+        const onAddressChange = this.props.navigation.getParam('onAddressChange')
+        if (typeof onAddressChange === 'function') {
+            onAddressChange(id)
+        }
         this.props.navigation.goBack()
     }
 
@@ -39,19 +41,19 @@ export default class AddressList extends Component {
                 ref={e => this.ListView = e}
                 api={AddressApi.list}
                 keyExtractor={e => String(e.id)}
-                renderItem={item => (
-                    <AddressCard
-                        name={item.truename}
-                        phone={item.phone}
-                        id={item.id}
-                        address={item.combine_detail}
-                        onEdit={(id) => {
-                            this.onEdit(id)
-                        }}
-                        onAddressChecked={() => {
-                            this.onAddressChecked(item.id)
-                        }} />
-                )}
+                renderItem={({ item }) => <AddressCard
+                    name={item.truename}
+                    phone={item.phone}
+                    id={item.id}
+                    address={item.combine_detail}
+                    onEdit={(id) => {
+                        this.onEdit(id)
+                    }}
+                    onAddressChecked={() => {
+                        this.onAddressChecked(item.id)
+                    }}
+                />
+                }
             />
             <SafeAreaView>
                 <Button size="large" onClick={() => this.onAdd()}>+ 新建地址</Button>
