@@ -26,7 +26,7 @@ import {
 } from "../../components/page"
 
 @connect(({
-    View: {
+    view: {
         home: {
             homeView,
             homeViewFetchStatus,
@@ -37,7 +37,7 @@ import {
     fetchStatus: homeViewFetchStatus,
 }))
 @stateHoc()
-export default class HomeIndex extends Component {
+export default class Home extends Component {
     hocComponentDidMount() {
         this.props.dispatch(getHomeView())
     }
@@ -69,18 +69,18 @@ export default class HomeIndex extends Component {
         const { navigation } = this.props
         switch (link.action) {
             case "portal":
-                return navigation.navigate("IndexView");
+                return navigation.navigate("Home");
             case "goods":
                 return navigation.navigate("GoodsDetail", { id: link.param.id });
             case "page":
-                return navigation.navigate("PageView", { id: link.param.id });
+                return navigation.navigate("PageDetail", { id: link.param.id });
             case "url":
                 return navigation.navigate('PublicWebView', {
                     title: 'Fashop',
                     url: link.param.url
                 })
             default:
-                return navigation.navigate("IndexView");
+                return navigation.navigate("Home");
         }
     }
     bodyItem(item,index){

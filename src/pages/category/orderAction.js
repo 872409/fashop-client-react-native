@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { stateHoc } from "../../utils";
 import {
     StyleSheet,
     View,
@@ -10,20 +9,14 @@ import {
     Image,
     SafeAreaView
 } from "react-native";
-import { InputItem, Button, List } from "antd-mobile-rn";
+import {  Button, List } from "antd-mobile-rn";
 import { getDefaultAddress } from "../../actions/address";
-// import {
-//     GoodsItem,
-//     GoodsScroll
-// } from "../../components/public";
-// import Address from "../../components/orderAction/Address";
-import { storageModule } from "moji-react-native-utils";
 import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
 
 const Item = List.Item
 
 @connect(({
-    View: {
+    view: {
         address: {
             defaultAddress,
             defaultAddressFetchStatus,
@@ -33,18 +26,14 @@ const Item = List.Item
     defaultAddress,
     fetchStatus: defaultAddressFetchStatus,
 }))
-// @stateHoc()
 export default class OrderAction extends Component {
-    // hocComponentDidMount() {
-    //     this.props.dispatch(getDefaultAddress())
-    // }
+
     componentDidMount() {
         this.props.dispatch(getDefaultAddress())
     }
     render() {
         const { navigation, defaultAddress } = this.props;
         const { cart_buy_items } = navigation.state.params
-        // const orderActionAddress = storageModule.get("orderActionAddress");
         const goodsList = cart_buy_items.map((item, index) => {
             return item.goods_data
         })

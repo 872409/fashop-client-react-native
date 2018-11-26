@@ -4,21 +4,15 @@ import {
     View,
     BackHandler,
     Alert,
-    StatusBar,
 } from "react-native";
 import Navigator from './navigator';
 import { initUserInfoStorage } from "../actions/user";
 import { initWechat } from '../actions/app/wechat';
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
-// import { createNavigationPropConstructor } from 'react-navigation-redux-helpers';
-// import FetchLoading from '../components/FetchLoading';
-
-// const navigationPropConstructor = createNavigationPropConstructor("root");
 
 class App extends Component {
     componentDidMount() {
-        // const bugsnag = new Client();
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         const {
             dispatch
@@ -49,35 +43,9 @@ class App extends Component {
         }
     }
     render() {
-        const {
-            cityName,
-            // navigation: {
-            //     index,
-            //     routes
-            // }
-        } = this.props
-
-        // const navigation = navigationPropConstructor(
-        //     this.props.dispatch,
-        //     this.props.navigation,
-        // );
-
-        // const bool = routes[index].routeName === 'BreedDogDetail' || routes[index].routeName === 'PuppyDetail'
-        // if (bool) {
-        //     StatusBar.setBarStyle('light-content', true)
-        // } else {
-        //     StatusBar.setBarStyle('default', true)
-        // }
-
         return (
             <View style={{ flex: 1 }}>
-                <Navigator
-                    // navigation={navigation}
-                    screenProps={{
-                        cityName
-                    }}
-                />
-                {/* <FetchLoading /> */}
+                <Navigator />
             </View>
         )
 
@@ -88,14 +56,12 @@ class App extends Component {
 const mapStateToProps = store => {
     const {
         user,
-        initial,
-        location: { cityName },
+        initial: { showBootPage },
     } = store.app
     return {
         login: user.login,
-        showBootPage: initial.showBootPage,
-        // navigation: store.navigation,
-        cityName,
+        showBootPage,
+
     };
 };
 

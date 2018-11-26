@@ -2,20 +2,20 @@ import types from '../../constants';
 import { fetchStatus } from "moji-react-native-utils";
 
 const initialState = {
-    // homeView: [],
-    // homeViewFetchStatus: fetchStatus.l,
+    // pageInfo: [],
+    // pageInfoFetchStatus: fetchStatus.l,
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case types.home.GET_HOME_VIEW:
+        case types.page.GET_PAGE_INFO:
             return {
                 ...{
-                    homeView: null,
-                    homeViewFetchStatus: fetchStatus.l,
+                    pageInfo: null,
+                    pageInfoFetchStatus: fetchStatus.l,
                 },
-                homeView: action.data,
-                homeViewFetchStatus: action.fetchStatus
+                pageInfo: action.data,
+                pageInfoFetchStatus: action.fetchStatus
             }
         default:
             return state;

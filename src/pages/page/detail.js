@@ -6,7 +6,7 @@ import {
     Text
 } from 'react-native';
 import { connect } from "react-redux";
-import { getPageInfo } from "../../actions/home";
+import { getPageInfo } from "../../actions/page";
 import { stateHoc } from "../../utils";
 import SafeAreaView from "react-native-safe-area-view";
 import { PublicStyles } from '../../utils/publicStyleModule';
@@ -26,26 +26,31 @@ import {
 } from "../../components/page"
 
 @connect(({
-    View: {
-        home: {
-            pageInfo,
-            pageInfoFetchStatus,
-        }
-    }
-}) => ({
+              view: {
+                  page: {
+                      pageInfo,
+                      pageInfoFetchStatus,
+                  }
+              }
+          }) => ({
     pageInfo,
     fetchStatus: pageInfoFetchStatus,
 }))
 @stateHoc()
-export default class PageView extends Component {
+export default class PageDetail extends Component {
     hocComponentDidMount() {
-        const { id } = this.props.navigation.state.params
+        // const { id } = this.props.navigation.state.params
+        const id = 59
+        console.log(id)
         this.props.dispatch(
             getPageInfo({ params: { id } })
         );
     }
+
     render() {
+        console.log('render')
         const { pageInfo } = this.props
+
         const { background_color, name, body } = pageInfo
         return <View
             style={[
@@ -64,6 +69,7 @@ export default class PageView extends Component {
             </ScrollView>
         </View>
     }
+
     handelLink = (link) => {
         // link.action = portal 首页
         // link.action = goods 商品 param { id: 10000 }
@@ -72,20 +78,21 @@ export default class PageView extends Component {
         const { navigation } = this.props
         switch (link.action) {
             case "portal":
-                return navigation.navigate("IndexView");
+                return navigation.navigate("Home");
             case "goods":
                 return navigation.navigate("GoodsDetail", { id: link.param.id });
             case "page":
-                return navigation.navigate("PageView", { id: link.param.id });
+                return navigation.navigate("PageDetail", { id: link.param.id });
             case "url":
                 return navigation.navigate('PublicWebView', {
                     title: 'Fashop',
                     url: link.param.url
                 })
             default:
-                return navigation.navigate("IndexView");
+                return navigation.navigate("Home");
         }
     }
+
     bodyItem(item, index) {
         const { navigation } = this.props;
         switch (item.type) {

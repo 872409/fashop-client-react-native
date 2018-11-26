@@ -2,9 +2,7 @@ import types from '../../constants';
 import { Toast } from "../../utils/publicFuncitonModule";
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 import { GoodsApi } from "../../config/api/goods";
-import {
-    fetchStatus
-} from '../../utils';
+import { fetchStatus } from '../../utils';
 import Fetch from '../../utils/fetch'
 
 export const getCategoryList = () => {

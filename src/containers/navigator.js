@@ -1,15 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
-import { ThemeStyle } from "../utils/publicStyleModule";
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-
-import IndexView from "../pages/index";
-
+import Index from "../pages/index";
 import PhotoGallery from "../utils/photoGallery";
-import PageView from "../pages/home/page";
+import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/category/goodsList";
-import GoodsDetail from "../pages/category/goodsDetail";
+import GoodsDetail from "../pages/goods/detail";
 import OrderAction from "../pages/category/orderAction";
 
 import Pay from "../pages/pay";
@@ -41,7 +38,6 @@ import EvaluateAdditional from "../pages/evaluate/additional"
 import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
 
-// StackViewStyleInterpolator.forVertical
 const modalStyleStackNames = [
     // 'UserLogin',
 ]
@@ -54,7 +50,7 @@ const indexNavigationOptions = ({ navigation }) => ({
     'Category': {
         title: '分类'
     },
-    'ShopCart': {
+    'Cart': {
         title: '购物车',
     },
     'User': {
@@ -64,18 +60,19 @@ const indexNavigationOptions = ({ navigation }) => ({
 
 export default createStackNavigator(
     {
-        IndexView: {
-            screen: IndexView,
-            navigationOptions: ({ navigation }) => {
-                return indexNavigationOptions({ navigation })[navigation.state.routes[navigation.state.index].routeName]
-            }
-        },
-        PageView: {
-            screen: PageView,
+        PageDetail: {
+            screen: PageDetail,
             navigationOptions: {
                 header: null,
             }
         },
+        Index: {
+            screen: Index,
+            navigationOptions:({ navigation }) => {
+                return indexNavigationOptions({navigation})[navigation.state.routeName]
+            }
+        },
+
         // 点击查看大图
         PhotoGallery: {
             screen: PhotoGallery,
@@ -256,14 +253,6 @@ export default createStackNavigator(
         }),
         headerTransitionPreset: 'uikit',
         mode: "card",
-        // ...Platform.select({
-        //     ios: {
-        //         headerMode: 'screen',
-        //     },
-        //     android: {
-        //         headerMode: 'screen',
-        //     },
-        // }),
         transitionConfig: (e) => ({
             screenInterpolator: (sceneProps) => {
                 const { scene } = sceneProps;

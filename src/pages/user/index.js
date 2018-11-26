@@ -23,7 +23,7 @@ const Item = List.Item
         userInfo,
     }),
 )
-export default class UserIndex extends Component {
+export default class User extends Component {
     goOrderList(){
         this.props.navigation.navigate('OrderList')
     }

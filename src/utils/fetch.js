@@ -1,4 +1,4 @@
-import { fetchData} from "moji-react-native-utils";
+import { fetchData } from "moji-react-native-utils";
 import exceptionUtil from '../utils/exception'
 
 export default class Fetch {
@@ -11,6 +11,7 @@ export default class Fetch {
                 console.log(api, params, e)
                 return e
             })
+
     }
 
     static async externalLinkFetch(...e) {

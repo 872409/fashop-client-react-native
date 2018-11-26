@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
 import { Image as NetworkImage } from "../../components/theme";
-import { Fetch } from "../../utils";
+import Fetch from "../../utils/fetch";
 import { Toast } from '../../utils/publicFuncitonModule';
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 
@@ -18,6 +18,7 @@ export default class Category extends Component {
         current: 0,
         categoryList: []
     }
+
     async componentDidMount() {
         const e = await Fetch.fetch({
             api: GoodsCategoryApi.list,
@@ -31,6 +32,7 @@ export default class Category extends Component {
             Toast.warn(e.msg)
         }
     }
+
     render() {
         const { current, categoryList } = this.state;
         const currentList = categoryList.filter(item => item.id === current)
@@ -53,7 +55,7 @@ export default class Category extends Component {
                                     })
                                 }}
                             >
-                                <Text 
+                                <Text
                                     style={[styles.leftName, {
                                         color: active ? ThemeStyle.ThemeColor : '#333',
                                         fontFamily: active ? 'PingFangSC-Medium' : 'PingFangSC-Regular',
@@ -76,6 +78,7 @@ export default class Category extends Component {
             </ScrollView>
         </View>;
     }
+
     renderRight(_child) {
         const { navigation } = this.props
         return (
@@ -99,6 +102,7 @@ export default class Category extends Component {
             </View>
         )
     }
+
     empty({ content }) {
         return (
             <View style={styles.emptyWarp}>

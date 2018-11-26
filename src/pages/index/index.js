@@ -3,10 +3,10 @@ import { Image } from "react-native";
 import { ThemeStyle } from "../../utils/publicStyleModule";
 import { createBottomTabNavigator } from 'react-navigation';
 
-import HomeIndex from '../home';
-import CategoryIndex from "../category";
-import ShopCartIndex from "../cart";
-import UserIndex from '../user';
+import Home from '../home';
+import Category from "../category";
+import Cart from "../cart";
+import User from '../user';
 
 class TabBarItem extends Component {
     render() {
@@ -15,7 +15,6 @@ class TabBarItem extends Component {
                 source={this.props.focused ? this.props.selectedImage : this.props.normalImage}
                 style={[
                     {
-                        // tintColor:this.props.tintColor,
                         width: 22,
                         height: 22
                     }
@@ -28,7 +27,7 @@ class TabBarItem extends Component {
 export default createBottomTabNavigator(
     {
         Home: {
-            screen: HomeIndex,
+            screen: Home,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: "首页",
                 tabBarIcon: ({ focused, tintColor }) => (
@@ -42,7 +41,7 @@ export default createBottomTabNavigator(
             }),
         },
         Category: {
-            screen: CategoryIndex,
+            screen: Category,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: '分类',
                 tabBarIcon: ({ focused, tintColor }) => (
@@ -56,7 +55,7 @@ export default createBottomTabNavigator(
             }),
         },
         ShopCart: {
-            screen: ShopCartIndex,
+            screen: Cart,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: "购物车",
                 tabBarIcon: ({ focused, tintColor }) => (
@@ -70,7 +69,7 @@ export default createBottomTabNavigator(
             })
         },
         User: {
-            screen: UserIndex,
+            screen: User,
             navigationOptions: ({ navigation }) => ({
                 tabBarLabel: "我的",
                 tabBarIcon: ({ focused, tintColor }) => (
