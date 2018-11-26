@@ -11,6 +11,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTLinkingManager.h>
 #import "RNSplashScreen.h"
+#import <AVFoundation/AVFoundation.h> 
 
 @implementation AppDelegate
 
@@ -32,6 +33,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [RNSplashScreen show];
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];  // 允许其他应用在视频组件上播放音乐
   return YES;
 }
 
