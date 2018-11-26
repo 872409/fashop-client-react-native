@@ -11,18 +11,26 @@ import { PublicStyles } from '../../utils/publicStyleModule';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
+import Badge from "@react-native-component/react-native-smart-badge";
 
 const Item = List.Item
 
 @connect(
-    ({ app: { user: {
+({ 
+    app: { 
+        user: {
+            login,
+            userInfo,
+            orderNum,
+        }
+    }
+}) => (
+    {
         login,
         userInfo,
-    }}}) => ({
-        login,
-        userInfo,
-    }),
-)
+        orderNum,
+    }
+))
 export default class User extends Component {
     goOrderList(){
         this.props.navigation.navigate('OrderList')
@@ -40,7 +48,6 @@ export default class User extends Component {
             }
         </View>;
     }
-
     top() {
         const { login, userInfo, navigation } = this.props;
         return (
@@ -78,45 +85,54 @@ export default class User extends Component {
     }
 
     mid() {
+        const { orderNum, navigation } = this.props;
         const orderList = [
             {
                 img: require('../../images/user/state_new.png'),
                 title: '待付款',
-                link:()=>{
-                    this.props.navigation.navigate('OrderList',{state_type:'state_new'})
+                num: orderNum.state_new,
+                path: "OrderList",
+                params: {
+                    state_type:'state_new'
                 }
             }, {
                 img: require('../../images/user/state_pay.png'),
                 title: '待发货',
-                link:()=>{
-                    this.props.navigation.navigate('OrderList',{state_type:'state_pay'})
+                num: orderNum.state_send,
+                path: "OrderList",
+                params: {
+                    state_type:'state_pay'
                 }
             }, {
                 img: require('../../images/user/state_send.png'),
                 title: '已完成',
-                link:()=>{
-                    this.props.navigation.navigate('OrderList',{state_type:'state_success'})
+                num: orderNum.state_success,
+                path: "OrderList",
+                params: {
+                    state_type:'state_success'
                 }
             }, {
                 img: require('../../images/user/state_unevaluate.png'),
                 title: '待评价',
-                link:()=>{
-                    this.props.navigation.navigate('EvaluateList')
-                }
+                num: orderNum.state_unevaluate,
+                path: "EvaluateList"
             }, {
                 img: require('../../images/user/state_refund.png'),
                 title: '退款售后',
-                link:()=>{
-                    this.props.navigation.navigate('RefundList')
-                }
+                num: orderNum.state_refund,
+                path: "RefundList"
             }
         ]
         return (
             <View style={{ marginVertical: 10 }}>
                 <List>
-                    <Item extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)} arrow="horizontal" onClick={() => {
-                        this.goOrderList()
-                    }}>
+                    <Item 
+                        extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)} 
+                        arrow="horizontal" 
+                        onClick={() => {
+                            this.goOrderList()
+                        }}
+                    >
                         <Text style={PublicStyles.boldTitle}>我的订单</Text>
                     </Item>
                 </List>
@@ -127,9 +143,20 @@ export default class User extends Component {
                                 key={index}
                                 style={styles.midItem}
                                 onPress={() => {
-                                    item.link()
+                                    navigation.navigate(item.path, item.params)
                                 }}
                             >
+                                {
+                                    item.num ? 
+                                    <Badge
+                                        textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
+                                        style={{ position: 'absolute', right: 10, top: -10 }}
+                                    >
+                                        {
+                                            item.num
+                                        }
+                                    </Badge> : null
+                                }
                                 <Image style={styles.midImg} source={item.img} />
                                 <Text style={PublicStyles.descTwo6}>{item.title}</Text>
                             </TouchableOpacity>

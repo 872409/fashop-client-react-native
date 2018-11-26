@@ -6,12 +6,14 @@ const initialState = {
     couponNum : 0,
     refreshing : false,
     orderNum : {
-        order_nopay : 0,
-        order_nosend : 0,
-        order_noreceiving : 0,
-        order_noeval : 0,
-        order_refund : 0,
+        state_new : 0,
+        state_send : 0,
+        state_success : 0,
+        state_close : 0,
+        state_unevaluate : 0,
+        state_refund : 0,
     },
+    cartNum : 0,
     cardList : [],
     unreadMessageNumber: 0,
     myDemandHallDetail:{},
@@ -31,10 +33,13 @@ export default (state = initialState, action)=> {
                 userInfo: action.userInfo,
                 refreshing: action.refreshing,
             })
-        case types.user.GET_USER_MIXEDSTATENUM_DATA:
+        case types.user.GET_ORDER_STATE_NUM:
             return Object.assign({}, state, {
-                couponNum: action.couponNum,
                 orderNum : action.orderNum,
+            })
+        case types.user.GET_CART_TOTAL_NUM:
+            return Object.assign({}, state, {
+                cartNum : action.cartNum,
             })
         case types.user.UPDATE_USER_INFO_LOADING:
             return Object.assign({}, state, {

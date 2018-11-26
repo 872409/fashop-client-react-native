@@ -9,6 +9,7 @@
     "theme": "node scripts/custom-rn-theme"
   },
   "dependencies": {
+    "@react-native-component/react-native-smart-badge": "https://github.com/fightingljm/react-native-smart-badge",
     "antd-mobile-rn": "^2.3.0",
     "array-tree-filter": "^2.1.0",
     "moji-react-native-utils": "^2.0.2",
