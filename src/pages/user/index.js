@@ -61,7 +61,7 @@ export default class User extends Component {
             >
                 <View style={PublicStyles.rowCenter}>
                     <Avatar
-                        avatar={login ? userInfo.profile.avatar : null}
+                        avatar={login&&userInfo&&userInfo.profile ? userInfo.profile.avatar : null}
                         size={60}
                         otherStyle={{
                             marginRight: 15,
@@ -69,7 +69,7 @@ export default class User extends Component {
                     />
                     <Text style={[PublicStyles.boldTitle, { fontSize: 20 }]}>
                         {
-                            login ? userInfo.profile.nickname : "点击登录"
+                            login&&userInfo&&userInfo.profile ? userInfo.profile.nickname : "点击登录"
                         }
                     </Text>
                 </View>

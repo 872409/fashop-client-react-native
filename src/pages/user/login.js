@@ -16,7 +16,7 @@ import {
 	ThemeStyle
 } from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
-import { userLogin } from '../../actions/user';
+import { userLogin, updateUserInfo } from "../../actions/user";
 import { env } from "../../config/root";
 import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
@@ -164,6 +164,7 @@ export default class UserLogin extends Component {
 			username,
 			password,
 		} = this.state
+		const { navigation } = this.props
 
 		if (!username) {
 			return Toast.warn('请输入用户名')
@@ -185,9 +186,15 @@ export default class UserLogin extends Component {
 			const {
 				dispatch
 			} = this.props;
-			dispatch(userLogin({
-				userInfoData: e.data
-			}))
+			dispatch(
+				userLogin({
+					userInfoData: e.result,
+					func: ()=>{
+						navigation.goBack()
+						dispatch(updateUserInfo())
+					}
+				})
+			)
 		} else {
 			Toast.warn(fa.code.parse(e.code,e.msg))
 		}

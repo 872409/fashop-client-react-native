@@ -60,10 +60,10 @@ initLibraryConfig({
         //     latitude,
         // } = location
         const header = {
-            'User-Id': "563",
-            // 'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxOTUzIiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDMxNjA1ODksImV4cCI6MTU0Mzc2NTM4OX0.CEm4-x2vy7eOFHsbkQJh_M6jj09-lRYqbxL-qjQjs24",
-            // 'Access-Token': userInfo ? userInfo.access_token : null,
+            // 'User-Id': "563",
+            'User-Id': userInfo ? userInfo.user_id : null,
+            // 'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxOTUzIiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDMxNjA1ODksImV4cCI6MTU0Mzc2NTM4OX0.CEm4-x2vy7eOFHsbkQJh_M6jj09-lRYqbxL-qjQjs24",
+            'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
             // 'City-Id': cityId,
             // 'Longitude': longitude,
