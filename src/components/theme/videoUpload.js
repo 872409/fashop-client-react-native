@@ -8,13 +8,10 @@ import {
     Platform
 } from 'react-native';
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
-import { Toast } from '../../utils/publicFuncitonModule';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { getHeaders } from "../../utils";
-import { env } from "../../config/root";
 import ImagePicker from "react-native-image-picker";
-// import axios from "axios";
 import * as Progress from "react-native-progress";
 
 export default class ThemeVideoUpload extends Component {
@@ -31,7 +28,7 @@ export default class ThemeVideoUpload extends Component {
         progressNumber: 0,
     }
     render() {
-        const { video, videoLoading, videoUri, images, video_cover, progressNumber } = this.state;
+        const { video, videoLoading, progressNumber } = this.state;
         const { text } = this.props
         return (
             <View style={styles.View3}>

@@ -1,5 +1,6 @@
 import { fetchData } from "moji-react-native-utils";
 import exceptionUtil from '../utils/exception'
+import { config } from '../utils'
 
 export default class Fetch {
     static fetch({ api, params = {} }) {
@@ -8,7 +9,7 @@ export default class Fetch {
             params,
         })
             .then((e) => {
-                // console.log(api, params, e)
+                console.log(api, params, e, config.getHeaders())
                 return e
             })
 
@@ -28,12 +29,14 @@ export default class Fetch {
      */
     static request(api, options = { params: {} }) {
         const { params } = options
+        console.log(api, params, e, config.getHeaders())
+
         return fetchData.fetch({
             api,
             params,
         })
             .then((e) => {
-                console.log(api, params, e)
+                console.log(api, params, e, config.getHeaders())
                 if (e.code === 0) {
                     return e
                 } else {
