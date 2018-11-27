@@ -57,7 +57,7 @@ export const initUserInfoStorage = (userInfoData) => {
 
             userLoginOutFunc({ userInfo, dispatch })
 
-            dispatch(updateUserInfo())
+            // dispatch(updateUserInfo())
         } else {
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
@@ -108,15 +108,15 @@ export const modifyUserInfo = ({params, func = () => {} }) => {
             api: UserApi.editProfile,
             params
         })
-            .then((e) => {
-                if (e.code === 0) {
-                    Toast.info('保存成功')
-                    dispatch(updateUserInfoFunc(e.data))
-                    func && func()
-                } else {
-                    Toast.error(e.errmsg)
-                }
-            })
+        .then((e) => {
+            if (e.code === 0) {
+                Toast.info('保存成功')
+                dispatch(updateUserInfoFunc(e.data))
+                func && func()
+            } else {
+                Toast.error(e.errmsg)
+            }
+        })
     }
 }
 
@@ -136,7 +136,7 @@ export const passiveModifyUserInfo = ({ data, callback }) => {
 const userLoginOutFunc = async ({ dispatch, userInfo }) => {
     storageModule.setUserInfo(userInfo)
     storageModule.set('userHistory', JSON.stringify({
-        user_id: userInfo.user_id,
+        user_id: userInfo.id,
         phone: userInfo.phone,
         avatar: userInfo.avatar,
     }))
@@ -238,8 +238,8 @@ const setUserStatus = (login, userInfo) => {
         return new Promise(resolve => {
             dispatch({
                 type: types.user.USER_STATUS_CHANGE,
-                login: login,
-                userInfo: userInfo
+                login,
+                userInfo
             })
             resolve()
         })
@@ -252,7 +252,7 @@ export const updateUserInfoFunc = (e) => {
     const userInfo = manageUserInfo(e)
     storageModule.setUserInfo(userInfo)
     storageModule.set('userHistory', JSON.stringify({
-        user_id: userInfo.user_id,
+        user_id: userInfo.id,
         phone: userInfo.phone,
         avatar: userInfo.avatar,
     }))
@@ -297,7 +297,7 @@ export const getCartTotalNum = ()=>{
                     cartNum: e.result.total_num
                 })
             }else {
-                Toast.warn(e.msg)
+                // Toast.warn(e.msg)
             }
         })
     }
