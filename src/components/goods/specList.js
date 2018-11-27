@@ -5,142 +5,104 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    SafeAreaView
 } from "react-native";
 import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
-import SafeAreaView from "react-native-safe-area-view";
+// import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "../../components/goods/stepper";
 import { add, edit, exist } from "../../actions/cart";
 
 export default class GoodsSpecList extends Component{
     state = {
-        spec: [],
-        selectNum: 1,
-        currentSku: {},
-        currentSpec: {},
+        spec_sign: [],
+        spec_value_sign: [],
+        current_sku: null,
+        quantity: 1
+    }
+    componentDidMount(){
+        const { skus } = this.props
+        if(skus){
+            this.setState({
+                spec_sign: JSON.parse(skus[0].spec_sign),
+                spec_value_sign: JSON.parse(skus[0].spec_value_sign),
+                current_sku: skus[0],
+            })
+        }
     }
     render() {
-        const { spec, selectNum, currentSku, currentSpec } = this.state;
-        const {
-            if_cart,
-            skus,
-            specList,
-            skuList,
-            data,
-            closeModal,
-        } = this.props;
-        console.log("currentSku", currentSku);
-
-        const stock = typeof currentSpec.stock !== 'string' ? currentSpec.stock : (data.stock ? data.stock : 1)
-        return <View style={PublicStyles.ViewOut}>
+        const { spec_sign, spec_value_sign, quantity, current_sku } = this.state;
+        const { spec_list, skus, closeModal, if_cart, navigation } = this.props;
+        return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
-                    currentSku.img ? <Image
-                        source={{ uri: currentSku.img }}
+                    current_sku ? <Image
+                        source={{ uri: current_sku.img }}
                         style={styles.popModalTitleLeft}
                     /> : <View style={styles.popModalTitleLeft} />
                 }
                 <View style={styles.popModalTitleTight}>
-                    <Text style={[styles.popModalTitleTightP]}> ¥{currentSpec.price}</Text>
+                    <Text style={[styles.popModalTitleTightP]}> ¥{current_sku ? current_sku.price : 0}</Text>
                     <Text style={[PublicStyles.descTwo9]}>
                         已选：
                         {
-                            currentSpec.spec ? currentSpec.spec.map((item) => {
+                            current_sku ? current_sku.spec.map((item) => {
                                 return `${item.value_name} `;
                             }) : null
                         }
                     </Text>
                 </View>
             </View>
-            <ScrollView
-                style={[{
-                    maxHeight: windowWidth - 100
-                }, styles.SpecListView]}
-            >
+            <ScrollView style={styles.SpecListView}>
                 {
-                    specList.map((specitem, i) => (
-                        <View key={i} style={[styles.specItemView,{borderTopWidth: i===0 ? 0 : .5}]}>
-                            <Text style={[PublicStyles.descFour9,{marginBottom: 18}]}>
-                                {specitem.name}
+                    spec_list.map((spec_list_item, i) => (
+                        <View key={i} style={[styles.specItemView, { borderTopWidth: i === 0 ? 0 : .5 }]}>
+                            <Text style={[PublicStyles.descFour9, { marginBottom: 18 }]}>
+                                {spec_list_item.name}
                             </Text>
                             <View style={styles.itemView}>
                                 {
-                                    specitem.value_list.map((specValueItem, j) => {
-                                        const newSpec = [...spec]
-                                        const newItem = {
-                                            id: specitem.id,
-                                            name: specitem.name,
-                                            value_id: specValueItem.id,
-                                            value_name: specValueItem.name,
-                                        }
-                                        const num = spec.findIndex((value, index) => {
-                                            return value.id === specitem.id
-                                        })
-                                        const selected = spec.findIndex((value, index) => {
-                                            return value.id === specitem.id && value.value_id === specValueItem.id
-                                        })
+                                    spec_list_item.value_list.map((spec_value_list_item, j) => {
+                                        const selected_index = spec_value_sign.indexOf(spec_value_list_item.id)
+                                        const selected = selected_index>-1
                                         return (
                                             <TouchableOpacity
                                                 key={j}
                                                 activeOpacity={.8}
                                                 onPress={() => {
-                                                    if (num > -1) {
-                                                        newSpec.splice(num, 1, newItem)
-                                                    } else {
-                                                        newSpec.push(newItem)
+                                                    let new_spec_value_sign = spec_value_sign.concat()
+                                                    if(selected){
+                                                        new_spec_value_sign.splice(selected_index,1)
+                                                    }else{
+                                                        new_spec_value_sign.push(spec_value_list_item.id)
                                                     }
+                                                    const current_skus = skus.find((item, index) => {
+                                                        return item.spec_value_sign === JSON.stringify(new_spec_value_sign.sort())
+                                                    })
                                                     this.setState({
-                                                        spec: newSpec
-                                                    })
-                                                    skuList.map((skuListItem, skuListIndex) => {
-                                                        const ifValueId = []
-                                                        skuListItem.spec.map((skuListSpecItem) => {
-                                                            const ifValueIdItem = spec.findIndex((specItem) => {
-                                                                return specItem.value_id === skuListSpecItem.value_id;
-                                                            })
-                                                            if (ifValueIdItem > -1) {
-                                                                ifValueId.push(ifValueIdItem);
-                                                            }
-                                                        })
-                                                        if (ifValueId.length === spec.length) {
-                                                            const newList = {
-                                                                ...skuList[skuListIndex],
-                                                                selectNum
-                                                            }
-                                                            this.setState({
-                                                                currentSpec: newList
-                                                            })
-                                                        }
-                                                    })
-                                                    skus.map((skusItem, skusIndex) => {
-                                                        const ifValueId = []
-                                                        skusItem.spec.map((skusSpecItem) => {
-                                                            const ifValueIdItem = spec.findIndex((specItem) => {
-                                                                return specItem.value_id === skusSpecItem.value_id;
-                                                            })
-                                                            if (ifValueIdItem > -1) {
-                                                                ifValueId.push(ifValueIdItem);
-                                                            }
-                                                        })
-                                                        if (ifValueId.length === spec.length) {
-                                                            this.setState({
-                                                                currentSku: skus[skusIndex]
-                                                            })
-                                                        }
+                                                        spec_value_sign: new_spec_value_sign.sort(), // 升序
+                                                        quantity: 1, // 每次选择要把数量变为1
+                                                        current_sku: current_skus
                                                     })
                                                 }}
-                                                style={[{
-                                                    backgroundColor: selected > -1 ? ThemeStyle.ThemeColor : '#f8f8f8',
-                                                },styles.sepcItemTouch]}
+                                                style={[
+                                                    styles.sepcItemTouch,
+                                                    {
+                                                        backgroundColor: selected ? ThemeStyle.ThemeColor : '#f8f8f8',
+                                                    }
+                                                ]}
                                             >
                                                 <Text
-                                                    style={[{
-                                                        color: selected > -1 ? '#fff' : '#333',
-                                                    },styles.sepcItemText]}
+                                                    style={[
+                                                        styles.sepcItemText,
+                                                        {
+                                                            color: selected ? '#fff' : '#333',
+                                                        }
+                                                    ]}
                                                 >
                                                     {
-                                                        specValueItem.name
+                                                        spec_value_list_item.name
                                                     }
                                                 </Text>
                                             </TouchableOpacity>
@@ -151,14 +113,14 @@ export default class GoodsSpecList extends Component{
                         </View>
                     ))
                 }
-                <View style={[PublicStyles.rowBetweenCenter,styles.SpecListNumView]}>
+                <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
                     <Text>数量</Text>
                     <Stepper
-                        stock={stock}
-                        defaultValue={selectNum}
+                        stock={current_sku ? current_sku.stock : 1}
+                        defaultValue={quantity}
                         onChange={(e) => {
                             this.setState({
-                                selectNum: e
+                                quantity: e
                             })
                         }}
                     />
@@ -167,31 +129,19 @@ export default class GoodsSpecList extends Component{
             <SafeAreaView>
                 <Button
                     type='primary'
-                    disabled={spec.length !== specList.length || !selectNum}
+                    disabled={spec_value_sign.length !== spec_list.length || !quantity}
                     style={{
-                        borderRadius: 0
+                        borderRadius: 0,
+                        margin: 15
                     }}
                     onClick={() => {
                         closeModal()
-                        if (if_cart === 0) {
-                            // navigation.navigate("OrderAction",{
-                            //     cart_buy_items: [
-                            //         {
-                            //             goods_id: data.id,
-                            //             quantity: selectNum,
-                            //             goods_data: data
-                            //         },
-                            //         {
-                            //             goods_id: data.id,
-                            //             quantity: selectNum,
-                            //             goods_data: data
-                            //         }
-                            //     ],
-                            //     if_cart
-                            // })
-                        }
-                        if (if_cart === 1) {
-                            this.changeCart(currentSku, selectNum)
+                        if (if_cart) {
+                            this.changeCart()
+                        } else {
+                            navigation.navigate("CartOrderFill",{
+                                way: "buy_now"
+                            })
                         }
                     }}
                 >
@@ -200,20 +150,21 @@ export default class GoodsSpecList extends Component{
             </SafeAreaView>
         </View>
     }
-    changeCart = async (currentSku, selectNum) => {
+    changeCart = async () => {
+        const { current_sku, quantity } = this.state
         const params = {
-            goods_sku_id: currentSku.id,
-            quantity: selectNum
+            goods_sku_id: current_sku.id,
+            quantity
         }
         const e = await exist({
             params: {
-                goods_sku_id: currentSku.id
+                goods_sku_id: current_sku.id
             }
         })
         if(e){
-            edit({ params });
+            edit({params});
         }else{
-            add({ params });
+            add({params});
         }
     }
 }

@@ -21,7 +21,9 @@ import {
     BodyText
 } from '../../components/body'
 import SpecList from '../../components/goods/specList'
+import SpecModal from "../../components/goods/specModal";
 import GoodsCollectModel from "../../models/goodsCollect";
+import Badge from "@react-native-component/react-native-smart-badge";
 
 const goodsCollectModel = new GoodsCollectModel()
 
@@ -93,27 +95,27 @@ export default class GoodsDetail extends Component {
             {
                 this.botView()
             }
-            <Modal
-                closable={true}
-                popup={true}
+            <SpecModal
                 visible={specVisible}
-                onClose={() => {
+                hide={() => {
                     this.setState({
                         specVisible: false
                     })
                 }}
-                animationType="slide-up"
+                ref={e => this.SpecModal = e}
             >
                 <SpecList
-                    navigation={navigation}
-                    if_cart={if_cart}
-                    data={data}
-                    skuList={data.sku_list ? data.sku_list : []}
+                    spec_list={data.spec_list ? data.spec_list : []}
                     skus={data.skus ? data.skus : []}
-                    specList={data.spec_list ? data.spec_list : []}
-                    closeModal={this.closeModal}
+                    if_cart={if_cart}
+                    navigation={navigation}
+                    closeModal={()=>{
+                        this.setState({
+                            specVisible: false
+                        })
+                    }}
                 />
-            </Modal>
+            </SpecModal>
         </View> : null
     }
 
@@ -206,6 +208,8 @@ export default class GoodsDetail extends Component {
     }
 
     botView() {
+        const { screenProps, navigation } = this.props;
+        const { cartNum } = screenProps;
         const leftText = [PublicStyles.descTwo9, { fontSize: 10, marginTop: 6 }]
         return (
             <SafeAreaView style={{ backgroundColor: '#fff' }}>
@@ -231,10 +235,19 @@ export default class GoodsDetail extends Component {
                             activeOpacity={.8}
                             style={styles.botItem}
                             onPress={() => {
+                                navigation.navigate('Cart')
                             }}
                         >
                             <Image source={require('../../images/goodsDetail/cart.png')} />
                             <Text style={leftText}>购物车</Text>
+                            {
+                                cartNum ? <Badge
+                                    textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
+                                    style={{ position: 'absolute', right: 4, top: -1 }}
+                                >
+                                    {cartNum}
+                                </Badge> : null
+                            }
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.botRight]}>
