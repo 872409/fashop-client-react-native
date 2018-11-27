@@ -37,7 +37,6 @@ cd dist
 ## 即将推出功能
 - 拼团
 - 分销
-- 原生APP
 - 自定义个人中心
 - 还有....如果您有什么需求，可以进群提出，说不定我们会优先处理， QQ交流群：632466687
 
@@ -62,8 +61,3 @@ cd dist
 <img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fvex15ecmdj31kw0tbdmd.jpg" width="260px">
 </p>
 
-## 命令行介绍
-```bash
-php fashop build fashop-v1.0.1
-// build后跟fashop-v会自动生成压缩包fashop-v1.0.1.tar.gz，由于github远程下载比较卡，所以升级包是放在国内的服务器，这个命令是方便创建生产环境的压缩包。
-```

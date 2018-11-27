@@ -1,6 +1,6 @@
 import { env } from '../index';
 
-const ROOT_URL = `${env.domain}/server/`;
+const ROOT_URL = `${env.apiHost}/server/`;
 export const OrderApi = {
     stateNum: {
         url: `${ROOT_URL}order/stateNum`,

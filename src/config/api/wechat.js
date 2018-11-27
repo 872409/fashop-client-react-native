@@ -1,6 +1,6 @@
 import { env } from '../index';
 
-const ROOT_URL = `${env.domain}/server/`;
+const ROOT_URL = `${env.apiHost}/server/`;
 export const WechatApi = {
     buildConfig: {
         url: `${ROOT_URL}wechat/buildConfig`,

@@ -107,7 +107,7 @@ export default class ThemeVideoUpload extends Component {
             name: filename
         })
         formData.append("dog_type", 'breed_dog')
-        // const e = await Fetch.formData(`${env.domain}/Api/Upload/videos`,formData)
+        // const e = await Fetch.formData(`${env.apiHost}/Api/Upload/videos`,formData)
         // console.log('handleChange',e);
         // if(e.code===0){
         //     // uploadFunc(e.result)
@@ -124,7 +124,7 @@ export default class ThemeVideoUpload extends Component {
             //         ...getHeaders(),
             //         'Content-Type': 'multipart/form-data',
             //     },
-            //     url: `${env.domain}/Api/Upload/videos`,
+            //     url: `${env.apiHost}/Api/Upload/videos`,
             //     data: formData,
             //     onUploadProgress:  (progressEvent)=>{
             //         const progressNumber = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
