@@ -94,7 +94,7 @@ export default class Category extends Component {
                                 })
                             }}
                         >
-                            <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}></NetworkImage>
+                            <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}/>
                             <Text style={[PublicStyles.title, { fontSize: 14 }]} numberOfLines={1}>{item.name}</Text>
                         </TouchableOpacity>
                     ))
@@ -106,7 +106,7 @@ export default class Category extends Component {
     empty({ content }) {
         return (
             <View style={styles.emptyWarp}>
-                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}></Image>
+                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}/>
                 <Text style={PublicStyles.descFour9}>{content}</Text>
             </View>
         )

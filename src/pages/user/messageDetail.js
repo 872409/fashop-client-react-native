@@ -6,7 +6,7 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
-import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
+import { ListView, ListEmptyView } from '../../utils/view'
 
 export default class UserMessageDetail extends Component{
     render(){

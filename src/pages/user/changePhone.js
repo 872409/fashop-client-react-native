@@ -14,7 +14,7 @@ import {
 import { InputItem } from 'antd-mobile-rn';
 import { Button } from "../../components/theme";
 import { Toast } from "../../utils/function";
-import { CountdownButton } from "../../utils/PublicViewModule";
+import { CountdownButton } from "../../utils/view";
 
 @connect(
 	({ app: { user: {

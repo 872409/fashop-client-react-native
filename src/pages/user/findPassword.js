@@ -12,7 +12,7 @@ import {Toast} from '../../utils/function';
 import {Fetch} from '../../utils';
 import { PublicStyles } from '../../utils/style';
 import { connect } from "react-redux";
-import {CountdownButton} from '../../utils/PublicViewModule';
+import {CountdownButton} from '../../utils/view';
 import {
 	Button,
 } from 'antd-mobile-rn';
