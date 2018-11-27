@@ -1,5 +1,5 @@
 import ImagePicker from 'react-native-image-picker'
-import { Toast } from './publicFuncitonModule';
+import { Toast } from './function';
 import { Fetch } from './index';
 
 var options = {

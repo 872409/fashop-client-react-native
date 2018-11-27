@@ -7,13 +7,13 @@ import {
     Image,
     SafeAreaView
 } from 'react-native';
-import { PublicStyles } from '../../../utils/publicStyleModule';
+import { PublicStyles } from '../../../utils/style';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import { Modal, Button } from 'antd-mobile-rn';
 import {  AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
-import { ListView } from "../../../utils/publicViewModule";
+import { ListView } from "../../../utils/view";
 
 const addressModel = new AddressModel()
 

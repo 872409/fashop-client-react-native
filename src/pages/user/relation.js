@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
 import { connect } from "react-redux";

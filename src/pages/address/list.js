@@ -8,9 +8,9 @@ import {
     SafeAreaView
 } from 'react-native';
 import { Button } from 'antd-mobile-rn';
-import { ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/view";
 import { AddressApi } from "../../config/api/address";
-import { PublicStyles } from '../../utils/publicStyleModule';
+import { PublicStyles } from '../../utils/style';
 import { AddressCard } from "../../components";
 
 export default class AddressList extends Component {

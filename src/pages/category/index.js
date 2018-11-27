@@ -7,10 +7,10 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
+import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/style";
 import { Image as NetworkImage } from "../../components/theme";
 import Fetch from "../../utils/fetch";
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 
 export default class Category extends Component {

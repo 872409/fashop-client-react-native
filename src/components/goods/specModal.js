@@ -5,7 +5,7 @@ import{
     View,
     Animated,
 } from 'react-native';
-import { windowHeight } from '../../utils/publicStyleModule'
+import { windowHeight } from '../../utils/style'
 
 export default class FilterModal extends Component {
     state = {

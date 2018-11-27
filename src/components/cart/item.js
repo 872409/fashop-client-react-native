@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { Stepper } from "antd-mobile-rn";
-import { windowWidth } from "../../utils/publicStyleModule";
+import { windowWidth } from "../../utils/style";
 import CartCheckbox from "./checkbox"
 
 export default class CartItem extends Component {

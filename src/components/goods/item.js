@@ -6,7 +6,7 @@ import {
     Image,
     View
 } from 'react-native';
-import { ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
+import { ThemeStyle, windowWidth } from '../../utils/style';
 
 export default class GoodsItem extends Component {
     render() {

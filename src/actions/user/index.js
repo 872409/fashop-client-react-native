@@ -2,7 +2,7 @@ import types from '../../constants';
 import { store } from "../../utils";
 import Fetch from "../../utils/fetch";
 import {  storageModule } from "moji-react-native-utils";
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import { UserApi } from "../../config/api/user";
 import { OrderApi } from '../../config/api/order';
 import { CartApi } from '../../config/api/cart';
@@ -49,7 +49,7 @@ export const initUserInfoStorage = (userInfoData) => {
         // userSignOutFunc({dispatch})
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
-        
+
         if (userInfoData) {
             const userInfo = JSON.parse(userInfoData)
 

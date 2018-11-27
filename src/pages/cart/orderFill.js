@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
-import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, windowWidth } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
 import CartModel from "../../models/cart";
@@ -8,7 +8,7 @@ import BuyModel from "../../models/buy";
 import AddressModel from "../../models/address";
 import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 
 const cartModel = new CartModel()
 const buyModel = new BuyModel()

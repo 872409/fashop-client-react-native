@@ -17,7 +17,7 @@ import {
 } from '../../components'
 import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()

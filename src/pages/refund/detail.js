@@ -7,7 +7,7 @@ import fa from '../../utils/fa'
 import RefundModel from '../../models/refund'
 import { Modal } from 'antd-mobile-rn';
 import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo } from '../../components'
-import { PublicStyles } from "../../utils/publicStyleModule";
+import { PublicStyles } from "../../utils/style";
 import { StackActions } from "react-navigation";
 
 const refundModel = new RefundModel()

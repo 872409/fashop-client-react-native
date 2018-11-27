@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
-import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/publicStyleModule";
+import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
 import fa from "../../utils/fa"
 import { Button, SwipeAction } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";

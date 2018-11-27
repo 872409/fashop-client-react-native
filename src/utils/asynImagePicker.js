@@ -1,7 +1,7 @@
 import SYImagePicker from "react-native-syan-image-picker";
-import { Toast } from './publicFuncitonModule';
+import { Toast } from './function';
 import Fetch from './fetch';
-import { windowWidth } from "./publicStyleModule";
+import { windowWidth } from "./style";
 import { UploadApi } from "../config/api/upload";
 
 /**

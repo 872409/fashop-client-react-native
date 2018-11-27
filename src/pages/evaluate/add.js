@@ -10,7 +10,7 @@ import GoodsEvaluateModel from '../../models/goodsEvaluate'
 import OrderModel from '../../models/order'
 import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
-import { PublicStyles } from "../../utils/publicStyleModule";
+import { PublicStyles } from "../../utils/style";
 import { StackActions } from 'react-navigation';
 
 const goodsEvaluateModel = new GoodsEvaluateModel()

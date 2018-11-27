@@ -11,7 +11,7 @@ import {
 import { Button, List } from 'antd-mobile-rn';
 import { userSignOut } from '../../actions/user';
 import { Button } from "../../components/theme";
-import { PublicStyles } from '../../utils/publicStyleModule'
+import { PublicStyles } from '../../utils/style'
 
 const Item = List.Item;
 

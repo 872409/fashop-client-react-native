@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { windowWidth } from '../../utils/publicStyleModule';
+import { windowWidth } from '../../utils/style';
 
 export default class PageImageNav extends Component {
     render() {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 //     TouchableOpacity,
 //     Image
 // } from 'react-native';
-// import { windowWidth } from '../../utils/publicStyleModule';
+// import { windowWidth } from '../../utils/style';
 
 // export default class Index extends Component {
 //     render() {

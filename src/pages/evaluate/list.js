@@ -6,8 +6,8 @@ import {
     Image
 } from 'react-native';
 import { EvaluateCard } from '../../components'
-import { ListView } from "../../utils/publicViewModule";
-import { PublicStyles, ThemeStyle, windowWidth } from "../../utils/publicStyleModule";
+import { ListView } from "../../utils/view";
+import { PublicStyles, ThemeStyle, windowWidth } from "../../utils/style";
 import { GoodsEvaluateApi } from "../../config/api/goodsEvaluate";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 

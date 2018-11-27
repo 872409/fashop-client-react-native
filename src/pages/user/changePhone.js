@@ -10,10 +10,10 @@ import {
 import { connect } from 'react-redux'
 import {
 	PublicStyles, ThemeStyle,
-} from '../../utils/publicStyleModule';
+} from '../../utils/style';
 import { InputItem } from 'antd-mobile-rn';
 import { Button } from "../../components/theme";
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import { CountdownButton } from "../../utils/PublicViewModule";
 
 @connect(

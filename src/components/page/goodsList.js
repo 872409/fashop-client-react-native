@@ -6,7 +6,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import { windowWidth, ThemeStyle } from '../../utils/style';
 
 export default class PageGoodsList extends Component {
     render() {

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { windowWidth } from '../utils/publicStyleModule';
+import { windowWidth } from '../utils/style';
 
 /**
  *  images item example

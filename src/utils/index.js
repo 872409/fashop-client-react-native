@@ -1,5 +1,5 @@
 import stateHoc from "./stateHoc";
-import { Toast } from './publicFuncitonModule';
+import { Toast } from './function';
 import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-react-native-utils";
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import { setIsShowFetchLoading } from "../actions/app";

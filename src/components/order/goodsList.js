@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import OrderButton from './button'
-import { windowWidth } from "../../utils/publicStyleModule";
+import { windowWidth } from "../../utils/style";
 
 export default class OrderGoodsList extends Component {
     static propTypes = {

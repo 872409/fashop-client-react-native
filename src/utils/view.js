@@ -14,11 +14,11 @@ import {
     Keyboard,
     ViewPropTypes
 } from 'react-native';
-import { Toast } from './publicFuncitonModule';
-import { windowWidth, ThemeStyle } from './publicStyleModule';
+import { Toast } from './function';
+import { windowWidth, ThemeStyle } from './style';
 import Fetch from '../utils/fetch';
 import { Button } from 'antd-mobile-rn';
-import { removeEmpty } from "./publicFuncitonModule";
+import { removeEmpty } from "./function";
 
 
 /**
