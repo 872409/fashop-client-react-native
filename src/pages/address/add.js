@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Image
+    SafeAreaView
 } from 'react-native';
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
@@ -125,7 +125,7 @@ export default class UserAddressAdd extends Component {
             areaList,
             onLoaded
         } = this.state
-        return onLoaded ? <View>
+        return onLoaded ? [<View style={{flex:1}}>
             <View style={{backgroundColor:'#fff'}}>
                 <Field
                     title="收货人："
@@ -177,14 +177,13 @@ export default class UserAddressAdd extends Component {
                     }}
                 >
                 </Field>
-                <View style={styles.buttonArea}>
-                    <Button style={{ borderRadius: 0, flex: 1 }} type={'warning'} size="large" onClick={() => {
-                        this.onSubmit()
-                    }}>保存</Button>
-
-                </View>
             </View>
-        </View> : null
+        </View>,<SafeAreaView style={styles.buttonArea}>
+            <Button style={{ borderRadius: 0, flex: 1 }} type={'warning'} size="large" onClick={() => {
+                this.onSubmit()
+            }}>保存</Button>
+
+        </SafeAreaView>] : null
     }
 }
 const styles = StyleSheet.create({
