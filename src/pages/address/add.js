@@ -7,8 +7,8 @@ import {
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
 import AreaModel from '../../models/area'
-import { Field, FixedBottom } from '../../components'
-import { List, Button } from 'antd-mobile-rn'
+import { Field } from '../../components'
+import { Button } from 'antd-mobile-rn'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
 

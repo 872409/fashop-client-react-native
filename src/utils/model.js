@@ -1,5 +1,4 @@
 import Exception from "./exception";
-
 /**
  * 只要返回错误抛出异常
  * 不同模型多次实例化

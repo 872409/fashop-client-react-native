@@ -15,12 +15,7 @@ import { sendWechatAuthRequest, wechatBind } from '../../actions/app/wechat';
 import { updateUserInfo } from '../../actions/user';
 import { UserApi } from '../../config/api/user';
 
-
-
 const Item = List.Item;
-
-
-
 @connect(
     ({ app: { user: {
         userInfo,

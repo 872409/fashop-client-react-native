@@ -9,8 +9,8 @@ import {
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
 import AreaModel from '../../models/area'
-import { List,Modal,Button } from 'antd-mobile-rn';
-import { Field ,FixedBottom} from '../../components'
+import { Modal,Button } from 'antd-mobile-rn';
+import { Field } from '../../components'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
 const addressModel = new AddressModel()

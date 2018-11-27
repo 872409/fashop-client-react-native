@@ -15,7 +15,7 @@ import {
     ViewPropTypes
 } from 'react-native';
 import { Toast } from './publicFuncitonModule';
-import { windowWidth, windowHeight, ThemeStyle } from './publicStyleModule';
+import { windowWidth, ThemeStyle } from './publicStyleModule';
 import Fetch from '../utils/fetch';
 import { Button } from 'antd-mobile-rn';
 import { removeEmpty } from "./publicFuncitonModule";

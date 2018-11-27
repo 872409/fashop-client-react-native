@@ -1,19 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import {
-    // Platform,
-    // ToastAndroid,
-    // Dimensions,
-    // Navigator,
-    // View,
     Linking,
-    // CameraRoll
 } from "react-native";
 import RootSiblings from "react-native-root-siblings";
 import DropdownAlert from "react-native-dropdownalert";
-import { windowWidth, windowHeight, ThemeStyle } from './publicStyleModule';
+import { ThemeStyle } from './publicStyleModule';
 import moment from "moment";
 // import RNFS from "react-native-fs";
-
 export const getPickerText = (list, values) => {
     const one = list.find((e) => e.value === values[0])
     const two = one.children.find((e) => e.value === values[1])

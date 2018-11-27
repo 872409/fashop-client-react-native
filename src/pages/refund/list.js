@@ -7,7 +7,7 @@ import { RefundCard } from '../../components'
 
 import RefundModel from '../../models/refund'
 import { ListView } from "../../utils/publicViewModule";
-import { PublicStyles, windowHeight } from "../../utils/publicStyleModule";
+import { PublicStyles } from "../../utils/publicStyleModule";
 import { RefundApi } from "../../config/api/refund";
 
 const refundModel = new RefundModel()

@@ -211,14 +211,6 @@ export default class GoodsDetail extends Component {
             <SafeAreaView style={{ backgroundColor: '#fff' }}>
                 <View style={styles.bot}>
                     <View style={[PublicStyles.rowCenter, styles.botLeft]}>
-                        {/* <TouchableOpacity
-                            activeOpacity={.8}
-                            style={styles.botItem}
-                            onPress={() => { }}
-                        >
-                            <Image source={require('../../images/goodsDetail/im.png')}/>
-                            <Text style={leftText}>客服</Text>
-                        </TouchableOpacity> */}
                         <TouchableOpacity
                             activeOpacity={.8}
                             style={styles.botItem}

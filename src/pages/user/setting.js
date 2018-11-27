@@ -14,7 +14,6 @@ import { Button } from "../../components/theme";
 import { PublicStyles } from '../../utils/publicStyleModule'
 
 const Item = List.Item;
-const Brief = Item.Brief;
 
 @connect(
     ({

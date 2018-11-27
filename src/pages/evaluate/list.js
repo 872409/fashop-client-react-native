@@ -47,21 +47,6 @@ export default class EvaluateList extends Component {
     // 更新某条
     updateListRow = (id) => {
         this.ListView.manuallyRefresh()
-        // todo 单条刷新
-        // let { list } = this.state
-        // const listIndex = list.findIndex((row) => row.id === id)
-        // if (listIndex !== -1) {
-        //     let requestParam = { page: 1, rows: 1, id: list[listIndex].id }
-        //     const result = await goodsEvaluateModel.mine(requestParam)
-        //     if (result) {
-        //         if (result.list.length === 0) {
-        //             list = list.splice(listIndex, 1)
-        //         } else {
-        //             list[listIndex] = result.list[0]
-        //         }
-        //         this.setState({ list })
-        //     }
-        // }
     }
 
 

@@ -87,12 +87,6 @@ export default createBottomTabNavigator(
                         normalImage={require("../../images/tab/tab3.png")}
                         selectedImage={require("../../images/tab/tabActive3.png")}
                     />
-                    // <TabBarItem
-                    //     tintColor={tintColor}
-                    //     focused={focused}
-                    //     normalImage={require("../../images/tab/tab3.png")}
-                    //     selectedImage={require("../../images/tab/tabActive3.png")}
-                    // />
                 ),
             })
         },

@@ -18,8 +18,6 @@ import { ListView } from "../../../utils/publicViewModule";
 const addressModel = new AddressModel()
 
 export default class UserAddressList extends Component {
-
-
     async onDelete(id) {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },

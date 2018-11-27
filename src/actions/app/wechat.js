@@ -1,15 +1,10 @@
 import types from '../../constants';
 import Fetch from "../../utils/fetch";
-import { fetchStatus, storageModule } from "moji-react-native-utils";
 import { Toast } from "../../utils/publicFuncitonModule";
 import * as WeChat from 'react-native-wechat';
 import { userLogin, updateUserInfo } from '../../actions/user';
 import { UserApi } from "../../config/api/user";
-
-const AppID = "wx1a76ca32a2015cda";
-const AppSecret = "047eae21f5bc3f7972bacb9b4a5ceaf5";
-const debugSignature = "7b27e420d2289e0a845fb36cf7597fb0";
-const releaseSignature = "c9b5ae6301d861909168b53c19db9498";
+import {AppID,AppSecret} from "../../config/wechat"
 
 export const initWechat = ()=>{
     return async dispatch=>{
@@ -147,7 +142,7 @@ const addAuth = (e)=>{
                 grant_type:'authorization_code',
             }
             const tokenData = await Fetch.externalLinkFetch(`https://api.weixin.qq.com/sns/oauth2/access_token?${toQueryString(tokenParams)}`)
-            if(tokenData.errcode!=40029){
+            if(tokenData.errcode!==40029){
                 const openidParams = {
                     appid:AppID,
                     access_token:tokenData.access_token,

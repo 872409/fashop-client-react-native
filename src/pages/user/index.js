@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-import { PublicStyles, windowHeight, windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
@@ -16,8 +16,8 @@ import Badge from "@react-native-component/react-native-smart-badge";
 const Item = List.Item
 
 @connect(
-({ 
-    app: { 
+({
+    app: {
         user: {
             login,
             userInfo,
@@ -127,9 +127,9 @@ export default class User extends Component {
         return (
             <View style={{ marginVertical: 10 }}>
                 <List>
-                    <Item 
-                        extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)} 
-                        arrow="horizontal" 
+                    <Item
+                        extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)}
+                        arrow="horizontal"
                         onClick={() => {
                             this.goOrderList()
                         }}
@@ -148,7 +148,7 @@ export default class User extends Component {
                                 }}
                             >
                                 {
-                                    item.num ? 
+                                    item.num ?
                                     <Badge
                                         textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
                                         style={{ position: 'absolute', right: 10, top: -10 }}

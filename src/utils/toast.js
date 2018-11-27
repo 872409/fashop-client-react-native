@@ -1,5 +1,4 @@
 import RootSiblings from "react-native-root-siblings";
-import { ThemeStyle } from "./publicStyleModule";
 import React from "react";
 import DropdownAlert from "react-native-dropdownalert";
 

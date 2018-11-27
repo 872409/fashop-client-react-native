@@ -44,16 +44,6 @@ export default class EvaluateDetail extends Component {
         })
     }
 
-    // updateListRow() {
-    //     // todo
-    //     const { id } = this.state.evaluate
-    //     if (id > 0) {
-    //         const pages = getCurrentPages();
-    //         const prevPage = pages[pages.length - 2];
-    //         prevPage.updateListRow(id);
-    //     }
-    // }
-
     render() {
         const {
             evaluate

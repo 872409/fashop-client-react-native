@@ -38,10 +38,8 @@ import {
 @stateHoc()
 export default class Home extends Component {
     static navigationOptions = {
-        title: 'Welcome',//设置标题内容
+        title: '',//设置标题内容
     };
-
-
     hocComponentDidMount() {
         this.props.dispatch(getHomeView())
     }
@@ -67,10 +65,6 @@ export default class Home extends Component {
     }
 
     handelLink = (link) => {
-        // link.action = portal 首页
-        // link.action = goods 商品 param { id: 10000 }
-        // link.action = page 页面 param { id: 'slfkf2dc' }
-        // link.action = url 页面 param { url: 'http://fashop.cn' }
         const { navigation } = this.props
         switch (link.action) {
             case "portal":

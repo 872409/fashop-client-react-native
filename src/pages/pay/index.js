@@ -13,16 +13,11 @@ import{
     InteractionManager,
 } from 'react-native';
 import Fetch from '../../utils/fetch';
-import { NavigationActions } from "react-navigation";
 import { Toast } from "../../utils/publicFuncitonModule";
 import {
     PublicStyles,
-    windowWidth,
-    windowHeight,
-    ThemeStyle
 } from '../../utils/publicStyleModule'
-import { List, NoticeBar } from "antd-mobile-rn";
-// import Alipay from 'react-native-yunpeng-alipay';
+import { List } from "antd-mobile-rn";
 import * as WeChat from 'react-native-wechat';
 import { BuyApi } from '../../config/api/buy'
 
@@ -63,9 +58,7 @@ export default class Pay extends Component{
     }
     render() {
         const {
-            navigation,
             isWXAppInstalled,
-            nav
         } = this.props
         const { payment_list } = this.state
         // console.log('pay',nav);

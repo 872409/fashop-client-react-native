@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{
+import {
     StyleSheet,
     Text,
     View,
@@ -9,10 +9,19 @@ import Gallery from 'react-native-image-gallery';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { windowWidth } from '../utils/publicStyleModule';
 
-export default class PhotoGallery extends Component{
+/**
+ *  images item example
+ {
+    caption: 'Remote image with supplied dimensions',
+    source: { uri: 'http://i.imgur.com/gSmWCJF.jpg' },
+    dimensions: { width: 1200, height: 800 }
+ }
+ */
+export default class PhotoGallery extends Component {
     state = {
         index: this.props.index
     }
+
     caption() {
         const { index } = this.state;
         const { images } = this.props.navigation.state.params;
@@ -38,6 +47,7 @@ export default class PhotoGallery extends Component{
             </View>
         );
     }
+
     render() {
         const {
             navigation
@@ -46,18 +56,13 @@ export default class PhotoGallery extends Component{
             images,
             index,
         } = navigation.state.params
-        // images item example
-        // {
-        //     caption: 'Remote image with supplied dimensions',
-        //     source: { uri: 'http://i.imgur.com/gSmWCJF.jpg' },
-        //     dimensions: { width: 1200, height: 800 }
-        // }
+
         return (
             <View style={styles.viewMax}>
                 <Gallery
-                    style={{flex: 1, backgroundColor: 'black'}}
-                    initialPage = {index}
-                    onPageSelected={(index)=>{
+                    style={{ flex: 1, backgroundColor: 'black' }}
+                    initialPage={index}
+                    onPageSelected={(index) => {
                         this.setState({ index });
                     }}
                     images={images}
@@ -65,7 +70,7 @@ export default class PhotoGallery extends Component{
                 <View style={styles.TopBar}>
                     <TouchableOpacity
                         style={styles.BackButton}
-                        onPress={()=>{
+                        onPress={() => {
                             navigation.goBack()
                         }}
                         activeOpacity={1}
@@ -73,7 +78,7 @@ export default class PhotoGallery extends Component{
                         <MaterialIcon
                             name={'chevron-left'}
                             color={'#fff'}
-                            size = {30}
+                            size={30}
                         />
                         <Text style={styles.BackButtonText}>返回</Text>
                     </TouchableOpacity>
@@ -90,31 +95,30 @@ export default class PhotoGallery extends Component{
 }
 
 
-
 var styles = StyleSheet.create({
-    viewMax:{
-        flex:1,
-        backgroundColor:'#000',
+    viewMax: {
+        flex: 1,
+        backgroundColor: '#000',
     },
-    BackButton:{
-        height:40,
-        flexDirection :'row',
-        alignItems :'center',
+    BackButton: {
+        height: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    BackButtonText:{
-        color:'#fff',
-        fontSize:17,
+    BackButtonText: {
+        color: '#fff',
+        fontSize: 17,
     },
-    TopBar:{
-        backgroundColor:'rgba(0,0,0,0)',
-        flexDirection :'row',
-        paddingHorizontal :10,
-        justifyContent:'space-between',
-        alignItems:'center',
-        position:'absolute',
-        width:windowWidth,
-        top:40,
-        left:0,
+    TopBar: {
+        backgroundColor: 'rgba(0,0,0,0)',
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'absolute',
+        width: windowWidth,
+        top: 40,
+        left: 0,
     },
     galleryCount: {
         top: 30,
