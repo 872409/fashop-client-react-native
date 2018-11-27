@@ -6,6 +6,7 @@
 期待您的加入~ ,欢迎大家踊跃提交代码。
 
 开发问题欢迎一起交流 ： QQ交流群：632466687
+
 接口项目地址：[https://github.com/mojisrc/fashop](https://github.com/mojisrc/fashop)
 
 小程序项目地址：[https://github.com/mojisrc/wechat-mini-shop](https://github.com/mojisrc/wechat-mini-shop)
@@ -15,7 +16,6 @@
 App项目地址：[https://github.com/mojisrc/fashop-client-react-native](https://github.com/mojisrc/fashop-client-react-native)
 
 
-- 可用项目代码会在dist文件夹里
 ## 文档地址
 [https://www.fashop.cn](https://www.fashop.cn)
 ## 最新功能
