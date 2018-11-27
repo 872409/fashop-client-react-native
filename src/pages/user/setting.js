@@ -9,7 +9,7 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { Button, List } from 'antd-mobile-rn';
-import { userSignOut } from '../../actions/user';
+import { userLogout } from '../../actions/user';
 import { Button } from "../../components/theme";
 import { PublicStyles } from '../../utils/style'
 
@@ -68,7 +68,7 @@ export default class UserSetting extends Component {
                         borderWidth: 0,
                     }}
                     onClick={() => {
-                        dispatch(userSignOut());
+                        dispatch(userLogout());
                     }}
                 >
                     <Text style={{ color: '#FB3030' }}>
