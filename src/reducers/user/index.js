@@ -3,6 +3,7 @@ import types from '../../constants';
 const initialState = {
     login : false,
     userInfo : null,
+    userToken : null,
     couponNum : 0,
     refreshing : false,
     orderNum : {
@@ -24,6 +25,10 @@ const initialState = {
 export default (state = initialState, action)=> {
     switch (action.type) {
         case types.user.USER_STATUS_CHANGE:
+            return Object.assign({}, state, {
+                userToken: action.userToken,
+            })
+        case types.user.USER_TOKEN_CHANGE:
             return Object.assign({}, state, {
                 login: action.login,
                 userInfo: action.userInfo,

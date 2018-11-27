@@ -45,20 +45,16 @@ initLibraryConfig({
         store.dispatch(setIsShowFetchLoading(false))
     },
     getHeaders: () => {
-        // const {
-        //     user,
-        // } = store.getState().app
-        // const {
-        //     userInfo
-        // } = user
-        let token = null
-        storageModule.get("user_token")
-        .then((e)=>{
-            token = JSON.parse(e)
-        })
+        const {
+            user,
+        } = store.getState().app
+        const {
+            userToken
+        } = user
+        console.log('userToken', userToken);
         return {
-            'Access-Token': token ? token.access_token : null,
-            // 'Access-Token': userInfo ? userInfo.access_token : null,
+            // 'Access-Token': userToken ? userToken.access_token : null,
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMDI2IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDMzMDYwMzUsImV4cCI6MTU0MzkxMDgzNX0.Kk2G2-cqF6LQF5SVyQxMDpvxe0yC-BX8iUxHCranfq0",
             'Source': 'app',
         }
     },

@@ -44,17 +44,14 @@ export const initUserInfoStorage = () => {
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
         const user_token_data = await storageModule.get("user_token");
-        
-        if (userInfoData) {
+        if (userInfoData || user_token_data) {
             const userInfo = JSON.parse(userInfoData)
             const user_token = JSON.parse(user_token_data)
-            console.log('userInfo',userInfo);
-            console.log('user_token',user_token);
-            
 
-            await dispatch(setUserStatus(true, userInfo))
+            // await dispatch(setUserStatus(true, userInfo))
+            await dispatch(setUserToken(user_token))
 
-            userLoginOutFunc({ user_token, dispatch })
+            // userLoginOutFunc({ user_token, dispatch })
 
         } else {
             //没有用户信息缓存
@@ -162,6 +159,19 @@ const setUserStatus = (login, userInfo) => {
                 type: types.user.USER_STATUS_CHANGE,
                 login,
                 userInfo
+            })
+            resolve()
+        })
+    }
+}
+
+// 设置用户状态
+const setUserToken = (userToken) => {
+    return dispatch => {
+        return new Promise(resolve => {
+            dispatch({
+                type: types.user.USER_TOKEN_CHANGE,
+                userToken
             })
             resolve()
         })
