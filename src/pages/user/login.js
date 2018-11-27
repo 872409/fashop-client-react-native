@@ -63,6 +63,7 @@ export default class UserLogin extends Component {
 								onChangeText={(e) => {
 									this.state.username = e
 								}}
+								value={this.state.username}
 								underlineColorAndroid={'transparent'}
 								placeholderTextColor={'#CCCCCC'}
 							/>
@@ -70,7 +71,8 @@ export default class UserLogin extends Component {
 						<View style={styles.view1}>
 							<TextInput
 								style={styles.textInput1}
-								placeholder={'密码'}
+                                value={this.state.password}
+                                placeholder={'密码'}
 								secureTextEntry={true}
 								onChangeText={(e) => {
 									this.state.password = e
@@ -166,7 +168,6 @@ export default class UserLogin extends Component {
 			username,
 			password,
 		} = this.state
-		const { navigation } = this.props
 
 		if (!username) {
 			return Toast.warn('请输入用户名')

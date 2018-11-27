@@ -4,8 +4,7 @@ import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-reac
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
-import NavigationService from "../containers/navigationService";
-
+import { NavigationActions } from "react-navigation";
 initLibraryConfig({
     ToastInfo: (content) => {
         Toast.info(content)
@@ -27,7 +26,8 @@ initLibraryConfig({
         return login
     },
     pushLogin: () => {
-        NavigationService.navigate("UserLogin");
+        const resetAction = NavigationActions.navigate({ routeName: 'UserLogin' })
+        store.dispatch(resetAction)
     },
     APP_ROOT_CONFIG: {
         AppName,
@@ -45,20 +45,16 @@ initLibraryConfig({
         store.dispatch(setIsShowFetchLoading(false))
     },
     getHeaders: () => {
-        // const {
-        //     user,
-        // } = store.getState().app
-        // const {
-        //     userInfo
-        // } = user
-        let token = null
-        storageModule.get("user_token")
-        .then((e)=>{
-            token = JSON.parse(e)
-        })
+        const {
+            user,
+        } = store.getState().app
+        const {
+            userInfo
+        } = user
+        console.log(userInfo)
         return {
-            'Access-Token': token ? token.access_token : null,
-            // 'Access-Token': userInfo ? userInfo.access_token : null,
+            'User-Id': userInfo ? userInfo.user_id : null,
+            'Access-Token': userInfo ? userInfo.access_token : null,
             'Source': 'app',
         }
     },
