@@ -17,7 +17,7 @@ import {
 } from '../../utils/publicStyleModule';
 import { connect } from "react-redux";
 import { userLogin, updateUserInfo } from "../../actions/user";
-import { env } from "../../config/root";
+import { env } from "../../config";
 import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
 import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
