@@ -13,6 +13,7 @@ import NavigationService from "../../containers/navigationService";
  **/
 export const userLogin = ({ user_token } = {}) => {
     return async dispatch => {
+
         //登陆后需要处理的方法
         userLoginOutFunc({ dispatch, user_token });
 
@@ -43,15 +44,14 @@ export const initUserInfoStorage = () => {
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
         const user_token_data = await storageModule.get("user_token");
-
-        if (userInfoData) {
+        if (userInfoData || user_token_data) {
             const userInfo = JSON.parse(userInfoData)
             const user_token = JSON.parse(user_token_data)
-            console.log('userInfo',userInfo);
-            console.log('user_token',user_token);
-            await dispatch(setUserStatus(true, userInfo))
 
-            userLoginOutFunc({ user_token, dispatch })
+            // await dispatch(setUserStatus(true, userInfo))
+            await dispatch(setUserToken(user_token))
+
+            // userLoginOutFunc({ user_token, dispatch })
 
         } else {
             //没有用户信息缓存
@@ -128,7 +128,8 @@ export const passiveModifyUserInfo = ({ data, callback }) => {
 
 //登陆后需要处理的方法
 const userLoginOutFunc = ({ dispatch, user_token }) => {
-    storageModule.set("user_token", JSON.stringify(user_token)).then( ()=>{
+    storageModule.set("user_token", JSON.stringify(user_token))
+    .then(()=>{
         dispatch(updateUserInfo())
         dispatch(getOrderStateNum())
         dispatch(getCartTotalNum())
@@ -158,6 +159,19 @@ const setUserStatus = (login, userInfo) => {
                 type: types.user.USER_STATUS_CHANGE,
                 login,
                 userInfo
+            })
+            resolve()
+        })
+    }
+}
+
+// 设置用户状态
+const setUserToken = (userToken) => {
+    return dispatch => {
+        return new Promise(resolve => {
+            dispatch({
+                type: types.user.USER_TOKEN_CHANGE,
+                userToken
             })
             resolve()
         })
@@ -219,6 +233,23 @@ export const getCartTotalNum = ()=>{
     }
 }
 
+
+// 查询用户是否签到和是否领取可领积分
+// export const getUserPointsSigninfo = ()=>{
+//     return dispatch => {
+//         Fetch.fetch({ apiName:'USERPOINTSSIGNINFO' })
+//         .then((e)=>{
+//             if(e.code===0){
+//                 dispatch({
+//                     type: types.user.GET_USER_POINTS_SIGNINFO,
+//                     pointsSigninfo : e.data,
+//                 })
+//             }else {
+//                 Message.offline(e.errmsg)
+//             }
+//         })
+//     }
+// }
 
 
 // 更新全部未读消息

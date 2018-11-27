@@ -1,4 +1,5 @@
 export const USER_STATUS_CHANGE = 'USER_STATUS_CHANGE'; // 用户状态改变
+export const USER_TOKEN_CHANGE = 'USER_TOKEN_CHANGE'; // 用户token改变
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO'; // 更新用户信息
 export const GET_USER_SHOP_DATA = 'GET_USER_SHOP_DATA'; // 获取用户店铺数据
 export const GET_FAQ_DATA = 'GET_FAQ_DATA'; // 获取常见问题数据

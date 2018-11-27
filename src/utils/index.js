@@ -4,7 +4,8 @@ import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-reac
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import { setIsShowFetchLoading } from "../actions/app";
 import store from "../store";
-import { NavigationActions } from "react-navigation";
+import NavigationService from "../containers/navigationService";
+
 initLibraryConfig({
     ToastInfo: (content) => {
         Toast.info(content)
@@ -26,8 +27,7 @@ initLibraryConfig({
         return login
     },
     pushLogin: () => {
-        const resetAction = NavigationActions.navigate({ routeName: 'UserLogin' })
-        store.dispatch(resetAction)
+        NavigationService.navigate("UserLogin");
     },
     APP_ROOT_CONFIG: {
         AppName,
@@ -49,12 +49,12 @@ initLibraryConfig({
             user,
         } = store.getState().app
         const {
-            userInfo
+            userToken
         } = user
-        console.log(userInfo)
+        console.log('userToken', userToken);
         return {
-            'User-Id': userInfo ? userInfo.user_id : null,
-            'Access-Token': userInfo ? userInfo.access_token : null,
+            // 'Access-Token': userToken ? userToken.access_token : null,
+            'Access-Token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMDI2IiwiaXNzIjoiYXBpLmZhc2hvcC5jbiIsInN1YiI6NTYzLCJpYXQiOjE1NDMzMDYwMzUsImV4cCI6MTU0MzkxMDgzNX0.Kk2G2-cqF6LQF5SVyQxMDpvxe0yC-BX8iUxHCranfq0",
             'Source': 'app',
         }
     },
