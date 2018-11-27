@@ -14,12 +14,7 @@
 
 App项目地址：[https://github.com/mojisrc/fashop-client-react-native](https://github.com/mojisrc/fashop-client-react-native)
 
-## 编译项目
-```bash
-php fashop build
-cd dist
-# .... 请走各种安装流程，官方文档有介绍
-```
+
 - 可用项目代码会在dist文件夹里
 ## 文档地址
 [https://www.fashop.cn](https://www.fashop.cn)
