@@ -24,11 +24,11 @@ const initialState = {
 
 export default (state = initialState, action)=> {
     switch (action.type) {
-        case types.user.USER_STATUS_CHANGE:
+        case types.user.USER_TOKEN_CHANGE:
             return Object.assign({}, state, {
                 userToken: action.userToken,
             })
-        case types.user.USER_TOKEN_CHANGE:
+        case types.user.USER_STATUS_CHANGE:
             return Object.assign({}, state, {
                 login: action.login,
                 userInfo: action.userInfo,
