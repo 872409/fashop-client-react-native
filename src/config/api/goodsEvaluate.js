@@ -1,4 +1,4 @@
-import { env } from '../root';
+import { env } from '../index';
 
 const ROOT_URL = `${env.domain}/server/`;
 export const GoodsEvaluateApi = {

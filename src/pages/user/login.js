@@ -10,14 +10,14 @@ import {
 	TouchableOpacity,
 	SafeAreaView
 } from 'react-native';
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 import {
 	PublicStyles,
 	ThemeStyle
-} from '../../utils/publicStyleModule';
+} from '../../utils/style';
 import { connect } from "react-redux";
 import { userLogin, updateUserInfo } from "../../actions/user";
-import { env } from "../../config/root";
+import { env } from "../../config";
 import { UserApi } from "../../config/api/user";
 import Fetch from "../../utils/fetch";
 import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';

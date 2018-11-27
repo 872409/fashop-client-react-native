@@ -7,10 +7,10 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/publicStyleModule";
+import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/style";
 import { Image as NetworkImage } from "../../components/theme";
 import Fetch from "../../utils/fetch";
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 
 export default class Category extends Component {
@@ -94,7 +94,7 @@ export default class Category extends Component {
                                 })
                             }}
                         >
-                            <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}></NetworkImage>
+                            <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}/>
                             <Text style={[PublicStyles.title, { fontSize: 14 }]} numberOfLines={1}>{item.name}</Text>
                         </TouchableOpacity>
                     ))
@@ -106,7 +106,7 @@ export default class Category extends Component {
     empty({ content }) {
         return (
             <View style={styles.emptyWarp}>
-                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}></Image>
+                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}/>
                 <Text style={PublicStyles.descFour9}>{content}</Text>
             </View>
         )

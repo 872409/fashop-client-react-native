@@ -5,7 +5,7 @@ import {
     Text,
     Image
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import { windowWidth, ThemeStyle } from '../../utils/style';
 
 export default class PageGoods extends Component {
     render() {

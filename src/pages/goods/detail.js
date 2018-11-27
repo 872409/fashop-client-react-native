@@ -11,8 +11,8 @@ import {
 import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
 import { stateHoc } from "../../utils";
-import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
-import { Carousel, Modal, Toast } from 'antd-mobile-rn'
+import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
+import { Carousel, Toast } from 'antd-mobile-rn'
 import {
     Goods,
     Separator,

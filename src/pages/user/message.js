@@ -7,8 +7,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { List } from 'antd-mobile-rn';
-import { ListView, ListEmptyView } from '../../utils/PublicViewModule'
-import { PublicStyles } from '../../utils/publicStyleModule'
+import { ListView, ListEmptyView } from '../../utils/view'
+import { PublicStyles } from '../../utils/style'
 import { Fetch } from '../../utils'
 
 const Item = List.Item;

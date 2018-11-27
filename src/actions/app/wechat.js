@@ -1,6 +1,6 @@
 import types from '../../constants';
 import Fetch from "../../utils/fetch";
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import * as WeChat from 'react-native-wechat';
 import { userLogin, updateUserInfo } from '../../actions/user';
 import { UserApi } from "../../config/api/user";

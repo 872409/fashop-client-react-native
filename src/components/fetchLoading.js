@@ -5,7 +5,7 @@ import{
     Text,
     ActivityIndicator,
 } from 'react-native';
-import { ThemeStyle } from '../utils/publicStyleModule';
+import { ThemeStyle } from '../utils/style';
 import { connect } from "react-redux";
 
 class FetchLoading extends Component{

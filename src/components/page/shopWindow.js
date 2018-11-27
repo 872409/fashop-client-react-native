@@ -5,7 +5,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import { windowWidth } from '../../utils/publicStyleModule';
+import { windowWidth } from '../../utils/style';
 
 export default class PageShopWindow extends Component {
     render() {

@@ -8,15 +8,15 @@ import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
 import BuyModel from '../../models/buy'
 import { Modal } from "antd-mobile-rn";
-import { PublicStyles, ThemeStyle } from '../../utils/publicStyleModule';
+import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
-import { ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/view";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 
 const orderModel = new OrderModel()
 const buyModel = new BuyModel()

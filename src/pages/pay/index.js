@@ -13,10 +13,10 @@ import{
     InteractionManager,
 } from 'react-native';
 import Fetch from '../../utils/fetch';
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import {
     PublicStyles,
-} from '../../utils/publicStyleModule'
+} from '../../utils/style'
 import { List } from "antd-mobile-rn";
 import * as WeChat from 'react-native-wechat';
 import { BuyApi } from '../../config/api/buy'

@@ -7,7 +7,7 @@ import {
     ImageBackground,
     Platform
 } from 'react-native';
-import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/publicStyleModule';
+import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { getHeaders } from "../../utils";

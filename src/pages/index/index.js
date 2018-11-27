@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, View } from "react-native";
-import { ThemeStyle } from "../../utils/publicStyleModule";
+import { ThemeStyle } from "../../utils/style";
 import { createBottomTabNavigator } from 'react-navigation';
 import Badge from "@react-native-component/react-native-smart-badge";
 

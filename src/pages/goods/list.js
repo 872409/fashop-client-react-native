@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import GoodsItem from "../../components/goods/item";
-import { PublicStyles } from '../../utils/publicStyleModule';
-import { ListView } from "../../utils/publicViewModule";
+import { PublicStyles } from '../../utils/style';
+import { ListView } from "../../utils/view";
 import { GoodsApi } from '../../config/api/goods'
 import { SearchBar } from 'antd-mobile-rn'
 

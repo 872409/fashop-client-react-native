@@ -1,4 +1,4 @@
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import { CartApi } from "../../config/api/cart";
 import Fetch from '../../utils/fetch'
 

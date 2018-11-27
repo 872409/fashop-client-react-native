@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import { getHomeView } from "../../actions/home";
 import { stateHoc } from "../../utils";
-import { PublicStyles } from '../../utils/publicStyleModule';
+import { PublicStyles } from '../../utils/style';
 import {
     Goods,
     GoodsList,

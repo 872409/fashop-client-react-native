@@ -6,7 +6,7 @@ import {
     Image
 } from 'react-native';
 import { Carousel } from "antd-mobile-rn";
-import { windowWidth, ThemeStyle } from '../../utils/publicStyleModule';
+import { windowWidth, ThemeStyle } from '../../utils/style';
 
 export default class PageImageAds extends Component {
     render() {

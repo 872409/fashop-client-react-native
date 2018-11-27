@@ -1,5 +1,5 @@
 import types from '../../constants';
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import { AddressApi } from "../../config/api/address";
 import {
     fetchStatus

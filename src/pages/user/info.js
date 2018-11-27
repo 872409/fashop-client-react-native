@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import { List } from "antd-mobile-rn";
 import { modifyUserInfo, updateUserInfo } from "../../actions/user";
-import { PublicStyles } from '../../utils/publicStyleModule';
+import { PublicStyles } from '../../utils/style';
 import { imagePicker } from '../../utils/imagePickerModule';
 import { Button } from "../../components/theme";
 import Avatar from "../../components/public/avatar";
 import { Fetch } from '../../utils';
-import { Toast } from '../../utils/publicFuncitonModule';
+import { Toast } from '../../utils/function';
 
 const Item = List.Item;
 

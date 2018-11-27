@@ -1,6 +1,4 @@
 import CartModel from '../models/cart'
-
-
 export default class Cart {
     cartModel = new CartModel()
 

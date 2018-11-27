@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-import { PublicStyles, windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, windowWidth } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";

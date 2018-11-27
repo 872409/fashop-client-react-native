@@ -8,13 +8,13 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView
 } from "react-native";
-import { Toast } from "../../utils/publicFuncitonModule";
+import { Toast } from "../../utils/function";
 import { Fetch } from "../../utils";
 import {
     PublicStyles,
-} from "../../utils/publicStyleModule";
+} from "../../utils/style";
 import { connect } from "react-redux";
-import { CountdownButton } from "../../utils/PublicViewModule";
+import { CountdownButton } from "../../utils/view";
 import { Button, InputItem } from "antd-mobile-rn";
 import { Button } from "../../components/theme";
 import {updateUserInfo} from '../../actions/user';

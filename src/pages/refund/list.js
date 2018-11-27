@@ -6,8 +6,8 @@ import {
 import { RefundCard } from '../../components'
 
 import RefundModel from '../../models/refund'
-import { ListView } from "../../utils/publicViewModule";
-import { PublicStyles } from "../../utils/publicStyleModule";
+import { ListView } from "../../utils/view";
+import { PublicStyles } from "../../utils/style";
 import { RefundApi } from "../../config/api/refund";
 
 const refundModel = new RefundModel()

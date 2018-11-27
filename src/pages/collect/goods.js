@@ -7,9 +7,9 @@ import {
     Image,
     SafeAreaView, TouchableOpacity
 } from 'react-native';
-import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/style';
 import { GoodsCollectApi } from "../../config/api/goodsCollect";
-import { ListView } from "../../utils/publicViewModule";
+import { ListView } from "../../utils/view";
 
 export default class GoodsCollect extends Component {
     small({ item, index }) {

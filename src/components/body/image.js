@@ -4,7 +4,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import { windowWidth } from '../../utils/publicStyleModule';
+import { windowWidth } from '../../utils/style';
 
 export default class BodyImage extends Component {
     state = {
@@ -46,5 +46,5 @@ export default class BodyImage extends Component {
 }
 
 const styles = StyleSheet.create({
-    
+
 });

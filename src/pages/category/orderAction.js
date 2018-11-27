@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import {  Button, List } from "antd-mobile-rn";
 import { getDefaultAddress } from "../../actions/address";
-import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/publicStyleModule';
+import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/style';
 
 const Item = List.Item
 
