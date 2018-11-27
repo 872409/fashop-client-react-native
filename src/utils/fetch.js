@@ -9,7 +9,7 @@ export default class Fetch {
             params,
         })
             .then((e) => {
-                console.log(api, params, e, config.getHeaders())
+                // console.log(api, params, e, config.getHeaders())
                 return e
             })
 
@@ -29,14 +29,14 @@ export default class Fetch {
      */
     static request(api, options = { params: {} }) {
         const { params } = options
-        console.log(api, params, e, config.getHeaders())
+        // console.log(api, params, e, config.getHeaders())
 
         return fetchData.fetch({
             api,
             params,
         })
             .then((e) => {
-                console.log(api, params, e, config.getHeaders())
+                // console.log(api, params, e, config.getHeaders())
                 if (e.code === 0) {
                     return e
                 } else {

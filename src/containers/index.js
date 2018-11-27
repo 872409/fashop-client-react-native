@@ -10,6 +10,7 @@ import { initUserInfoStorage } from "../actions/user";
 import { initWechat } from '../actions/app/wechat';
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
+import NavigationService from "./navigationService";
 
 class App extends Component {
     componentDidMount() {
@@ -49,6 +50,9 @@ class App extends Component {
                 <Navigator 
                     screenProps={{
                         cartNum
+                    }}
+                    ref={navigatorRef => {
+                        NavigationService.setTopLevelNavigator(navigatorRef);
                     }}
                 />
             </View>

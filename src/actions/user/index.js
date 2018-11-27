@@ -1,27 +1,21 @@
 import types from '../../constants';
 import { store } from "../../utils";
 import Fetch from "../../utils/fetch";
-import {  storageModule } from "moji-react-native-utils";
+import { storageModule } from "moji-react-native-utils";
 import { Toast } from "../../utils/publicFuncitonModule";
 import { UserApi } from "../../config/api/user";
 import { OrderApi } from '../../config/api/order';
 import { CartApi } from '../../config/api/cart';
+import NavigationService from "../../containers/navigationService";
 
 /**
  * 登陆方法
  **/
-export const userLogin = ({ userInfoData, func } = {}) => {
+export const userLogin = ({ user_token } = {}) => {
     return async dispatch => {
-        //整理用户信息
-        const userInfo = manageUserInfo(userInfoData)
-
-        //设置登陆状态
-        await dispatch(setUserStatus(true, userInfo))
-
-        func && func()
 
         //登陆后需要处理的方法
-        userLoginOutFunc({ dispatch, userInfo })
+        userLoginOutFunc({ dispatch, user_token });
 
     }
 }
@@ -44,20 +38,24 @@ export const userSignOut = ({ func, exception } = {}) => {
 /**
  * 初始化检查用户登陆
  **/
-export const initUserInfoStorage = (userInfoData) => {
+export const initUserInfoStorage = () => {
     return async dispatch => {
         // userSignOutFunc({dispatch})
         //获取本地缓存用户信息数据
         const userInfoData = await storageModule.getUserInfo()
+        const user_token_data = await storageModule.get("user_token");
         
         if (userInfoData) {
             const userInfo = JSON.parse(userInfoData)
+            const user_token = JSON.parse(user_token_data)
+            console.log('userInfo',userInfo);
+            console.log('user_token',user_token);
+            
 
             await dispatch(setUserStatus(true, userInfo))
 
-            userLoginOutFunc({ userInfo, dispatch })
+            userLoginOutFunc({ user_token, dispatch })
 
-            // dispatch(updateUserInfo())
         } else {
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑
@@ -74,7 +72,7 @@ export const initUserInfoStorage = (userInfoData) => {
 /**
  * 更新用户信息
  **/
-export const updateUserInfo = ({ callback } = {}) => {
+export const updateUserInfo = () => {
     return dispatch => {
         dispatch({
             type: types.user.UPDATE_USER_INFO_LOADING,
@@ -86,7 +84,6 @@ export const updateUserInfo = ({ callback } = {}) => {
         .then((e) => {
             if (e.code === 0) {
                 dispatch(updateUserInfoFunc(e.result.info))
-                callback && callback()
             } else {
                 Toast.warn("获取用户最新数据异常");
                 dispatch({
@@ -133,55 +130,14 @@ export const passiveModifyUserInfo = ({ data, callback }) => {
 
 
 //登陆后需要处理的方法
-const userLoginOutFunc = async ({ dispatch, userInfo }) => {
-    storageModule.setUserInfo(userInfo)
-    storageModule.set('userHistory', JSON.stringify({
-        user_id: userInfo.id,
-        phone: userInfo.phone,
-        avatar: userInfo.avatar,
-    }))
-    dispatch(getOrderStateNum())
-    dispatch(getCartTotalNum())
-    // const {
-    //     index,
-    //     routes
-    // } = store.getState().navigation
-    // const goBackAction = (()=>{
-    //     if(routes[index].routeName==='UserRegistered'){
-    //         return NavigationActions.back({key:routes[1].key})
-    //     }else {
-    //         return NavigationActions.back()
-    //     }
-    // })()
-    // dispatch(goBackAction)
-    // const imData = await Fetch.fetch({
-    //     apiName: 'IMTOKEN'
-    // })
-    // if (imData.errcode === 0) {
-    //     initializeSDKWithOptions({
-    //         access_token: imData.data.access_token,
-    //         getNavigation: () => {
-    //             return store.getState().navigation
-    //         },
-    //         getStore: () => {
-    //             return store
-    //         },
-    //         unreadMessageNumberChange: (e) => {
-    //             let number = 0
-    //             Object.keys(e).forEach(key => {
-    //                 number += e[key]
-    //             })
-    //             // const {
-    //             //     unreadMessageNumber
-    //             // } = store.getState().app.user
-    //             // if (unreadMessageNumber !== number) {
-    //             //     dispatch(setUnreadMessageNumber(number))
-    //             // }
-    //         },
-    //     })
-    // } else {
-    //     Toast.warn(imData.errmsg)
-    // }
+const userLoginOutFunc = ({ dispatch, user_token }) => {
+    storageModule.set("user_token", JSON.stringify(user_token))
+    .then(()=>{
+        dispatch(updateUserInfo())
+        dispatch(getOrderStateNum())
+        dispatch(getCartTotalNum())
+        NavigationService.goBack()
+    })
 
     // JPushModule.SetAlias({
     //     userInfo
@@ -195,40 +151,6 @@ const userSignOutFunc = ({ dispatch }) => {
     // const resetAction = NavigationActions.back()
     // dispatch(resetAction)
     // JPushModule.RemoveListener()
-}
-
-
-//管理用户数据
-const manageUserInfo = (e) => {
-    // console.log('manageUserInfo',e);
-    // { id: 563,
-    //     username: 'wechat_mini_oX3Qk0RaO1SPqT-KQNKx6rjdts_I_d1e99fc9',
-    //     phone: null,
-    //     email: null,
-    //     state: 1,
-    //     salt: '56ea1c760da8314aab01504529eda896',
-    //     is_discard: 0,
-    //     create_time: 1534994779,
-    //     delete_time: null,
-    //     profile:
-    //      { id: 2,
-    //        user_id: 563,
-    //        name: null,
-    //        nickname: '韩文博😊',
-    //        avatar: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep7piaSYcwom3S1gouQ2nMxpXm2WwJuEA15qEXtkibRBXm7bc9BEuWuABP53ibrMWkJImTTIynzGfjTQ/132',
-    //        sex: 1,
-    //        birthday: 0,
-    //        qq: null,
-    //        delete_time: null },
-    //     assets:
-    //      { id: 2,
-    //        user_id: 563,
-    //        points: 0,
-    //        balance: '0.00',
-    //        delete_time: null } }
-    return {
-        ...e
-    }
 }
 
 
@@ -249,16 +171,14 @@ const setUserStatus = (login, userInfo) => {
 
 // 更新用户信息方法
 export const updateUserInfoFunc = (e) => {
-    const userInfo = manageUserInfo(e)
-    storageModule.setUserInfo(userInfo)
-    storageModule.set('userHistory', JSON.stringify({
-        user_id: userInfo.id,
-        phone: userInfo.phone,
-        avatar: userInfo.avatar,
+    storageModule.setUserInfo(e)
+    storageModule.set('user_token', JSON.stringify({
+        access_token: e.access_token,
+        expires_in: e.expires_in,
     }))
     return {
         type: types.user.UPDATE_USER_INFO,
-        userInfo: userInfo,
+        userInfo: e,
         refreshing: false,
     }
 }

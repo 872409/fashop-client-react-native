@@ -31,8 +31,10 @@ import fa from '../../utils/fa'
 }))
 export default class UserLogin extends Component {
 	state = {
-		username: null,
-		password: null,
+		username: '13502176003',
+		password: '123456',
+		// username: null,
+		// password: null,
 	}
 	render() {
 		const {
@@ -188,11 +190,7 @@ export default class UserLogin extends Component {
 			} = this.props;
 			dispatch(
 				userLogin({
-					userInfoData: e.result,
-					func: ()=>{
-						navigation.goBack()
-						dispatch(updateUserInfo())
-					}
+					user_token: e.result
 				})
 			)
 		} else {
