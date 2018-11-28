@@ -22,10 +22,6 @@ export const UserApi = {
         url: `${ROOT_URL}server/user/editPassword`,
         method: 'POST'
     },
-    findPassword: {
-        url: `${ROOT_URL}server/user/findPassword`,
-        method: 'POST'
-    },
     verifyCode: {
         url: `${ROOT_URL}server/Verifycode/add`,
         method: 'POST'

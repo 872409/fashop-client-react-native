@@ -84,7 +84,7 @@ export default class UserLogin extends Component {
 						<View style={styles.View5}>
 							<Text
 								style={styles.text5}
-								onPress={() => navigation.navigate('UserRetrievePassword')}
+								onPress={() => navigation.navigate('UserFindPassword')}
 							>
 								忘记密码
 							</Text>

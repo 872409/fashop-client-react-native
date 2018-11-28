@@ -13,6 +13,7 @@ import Pay from "../pages/pay";
 import UserLogin from "../pages/user/login";
 import UserInfo from "../pages/user/info";
 import UserRegister from "../pages/user/register";
+import UserFindPassword from "../pages/user/findPassword";
 import UserAddressAdd from "../pages/user/address/add";
 import UserAddressEdit from "../pages/user/address/edit";
 import UserAddressList from "../pages/user/address/list";
@@ -124,6 +125,12 @@ export default createStackNavigator(
             screen: UserRegister,
             navigationOptions: {
                 title: '注册'
+            }
+        },
+        UserFindPassword: {
+            screen: UserFindPassword,
+            navigationOptions: {
+                title: '找回密码'
             }
         },
         UserAddressAdd: {

@@ -199,17 +199,6 @@ export default class UserRegister extends Component {
 }
 
 const styles = StyleSheet.create({
-	importview: {
-		marginTop: 52,
-		paddingHorizontal: 30
-	},
-	inputItemcss: {
-		padding: 0,
-		borderBottomColor: '#eaeaea',
-		borderBottomWidth: 1,
-		height: 45,
-		marginTop: 15
-	},
 	textInput1: {
 		flex: 1,
 		padding: 0,
