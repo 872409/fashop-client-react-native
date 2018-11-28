@@ -161,12 +161,12 @@ export default class OrderDetail extends Component {
         if (payResult) {
             // todo
             const payOptions = {
-                partnerId: `${payResult.partnerid}`,
-                prepayId: `${payResult.prepayid}`,
-                nonceStr: `${payResult.noncestr}`,
-                timeStamp: `${payResult.timestamp}`,
-                package: `${payResult.packagestr}`,
-                sign: `${payResult.sign}`
+                partnerId: payResult.partnerId, /*商家向财付通申请的商家id*/
+                prepayId: payResult.prepayId, /*预支付订单*/
+                nonceStr: payResult.nonceStr, /*随机串，防重发*/
+                timeStamp: payResult.timeStamp, /*时间戳，防重发*/
+                package: payResult.package, /*商家根据财付通文档填写的数据和签名*/
+                sign: payResult.sign, /*商家根据微信开放平台文档对数据做的签名*/
             };
             try {
                 const a = await WeChat.pay(payOptions)
