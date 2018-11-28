@@ -26,7 +26,8 @@ export default class Buy extends Model {
     async pay(params) {
         try {
             const { result } = await Fetch.request(BuyApi.pay,{  params })
-            return new BuyPayResultInterface(result)
+            // return new BuyPayResultInterface(result)
+            return result
         } catch (e) {
             this.setException(e)
             return false
