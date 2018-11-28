@@ -152,10 +152,10 @@ export default class OrderDetail extends Component {
         const { userInfo } = this.props
         const { orderInfo } = this.state;
         const payResult = await buyModel.pay({
-            'order_type': 'goods_buy',
-            'pay_sn': orderInfo.pay_sn,
-            'payment_code': 'wechat',
-            'openid': userInfo.wechat_openid,
+            order_type: 'goods_buy',
+            pay_sn: orderInfo.pay_sn,
+            payment_code: 'wechat',
+            openid: userInfo.wechat_openid,
             payment_channel: 'wechat_app'
         })
         if (payResult) {
