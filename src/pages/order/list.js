@@ -99,36 +99,38 @@ export default class OrderList extends Component {
 
     async onPay(orderInfo) {
         const { userInfo } = this.props
-        // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
+        console.log(userInfo);
         const payResult = await buyModel.pay({
             order_type: 'goods_buy',
             pay_sn: orderInfo.pay_sn,
             payment_code: 'wechat',
             openid: 'oy0Ue1N9xdbCCdSByzCNj8VjLBNM',
             // openid: userInfo.wechat_openid,
-            payment_channel: 'wechat_app'
+            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         })
-        if (payResult) {
-            // todo
-            const payOptions = {
-                partnerId: `${payResult.partnerid}`,     // 商家向财付通申请的商家id
-                prepayId: `${payResult.prepayid}`,     // 预支付订单
-                nonceStr: `${payResult.noncestr}`,     // 随机串，防重发
-                timeStamp: `${payResult.timestamp}`,     // 时间戳，防重发
-                package: `${payResult.packagestr}`,     // 商家根据财付通文档填写的数据和签名
-                sign: `${payResult.sign}`     // 商家根据微信开放平台文档对数据做的签名
-            };
-            try {
-                const a = await WeChat.pay(payOptions)
-                // this.paySuccess()
-                Toast.info('支付成功');
-            } catch (err) {
-                console.log(err)
-                Toast.warn('支付失败1');
-            }
-        } else {
-            Toast.warn('支付失败2');
-        }
+        console.log('payResult', payResult);
+        // if (payResult) {
+            
+        //     // todo
+        //     const payOptions = {
+        //         partnerId: payResult.partnerId, /*商家向财付通申请的商家id*/
+        //         prepayId: payResult.prepayId, /*预支付订单*/
+        //         nonceStr: payResult.nonceStr, /*随机串，防重发*/
+        //         timeStamp: payResult.timeStamp, /*时间戳，防重发*/
+        //         package: payResult.package, /*商家根据财付通文档填写的数据和签名*/
+        //         sign: payResult.sign, /*商家根据微信开放平台文档对数据做的签名*/
+        //     };
+        //     try {
+        //         const a = await WeChat.pay(payOptions)
+        //         // this.paySuccess()
+        //         Toast.info('支付成功');
+        //     } catch (err) {
+        //         console.log(err)
+        //         Toast.warn('支付失败1');
+        //     }
+        // } else {
+        //     Toast.warn('支付失败2');
+        // }
     }
 
     updateListRow = async (id) => {

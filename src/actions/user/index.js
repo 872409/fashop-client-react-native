@@ -38,6 +38,7 @@ export const userLogout = ({ func } = {}) => {
  **/
 export const initUserInfoStorage = () => {
     return async dispatch => {
+        // dispatch(userLogout())
         //获取本地缓存用户信息数据
         const userInfoCache = await storageModule.getUserInfo()
         const userTokenCache = await storageModule.get("user_token");
@@ -138,6 +139,7 @@ const userLoginSuccessAfter = ({ dispatch, user_token }) => {
 //退出登陆后需要处理的方法
 const userLogoutAfter = () => {
     storageModule.removeUserInfo()
+    storageModule.remove("user_token")
 }
 
 

@@ -38,6 +38,9 @@ export const sendWechatAuthRequest=async()=>{
 }
 
 export const wechatLogin = ({tokenData,userData, func})=>{
+    console.log('tokenData',tokenData);
+    console.log('userData',userData);
+    
     return async dispatch=>{
         const e = await Fetch.fetch({
             api: UserApi.login,

@@ -133,12 +133,12 @@ export default class Pay extends Component{
     async wxpay(e){
         const {app_response} = e.data
         const payOptions = {
-            partnerId: `${app_response.partnerid}`,
-            prepayId: `${app_response.prepayid}`,
-            nonceStr: `${app_response.noncestr}`,
-            timeStamp: `${app_response.timestamp}`,
-            package: `${app_response.packagestr}`,
-            sign: `${app_response.sign}`
+            partnerId: app_response.partnerId, /*商家向财付通申请的商家id*/
+            prepayId: app_response.prepayId, /*预支付订单*/
+            nonceStr: app_response.nonceStr, /*随机串，防重发*/
+            timeStamp: app_response.timeStamp, /*时间戳，防重发*/
+            package: app_response.package, /*商家根据财付通文档填写的数据和签名*/
+            sign: app_response.sign, /*商家根据微信开放平台文档对数据做的签名*/
         };
         try {
             const a = await WeChat.pay(payOptions)
