@@ -1,6 +1,7 @@
 import { Toast } from "../../utils/function";
 import { CartApi } from "../../config/api/cart";
 import Fetch from '../../utils/fetch'
+import { getCartTotalNum } from "../user";
 
 export const list = async ({ params } = {}) => {
     try {
@@ -18,31 +19,39 @@ export const list = async ({ params } = {}) => {
     }
 }
 
-export const add = async ({ params }) => {
-    try {
-        const e = await Fetch.fetch({
-            api: CartApi.add,
-            params
-        })
-        if (e.code === 0) {
-            return true
-        } else {
-            return false
+export const add = ({ params }) => {
+    return async dispatch => {
+        try {
+            const e = await Fetch.fetch({
+                api: CartApi.add,
+                params
+            })
+            if (e.code === 0) {
+                dispatch(getCartTotalNum())
+                return true
+            } else {
+                return false
+            }
+        } catch (err) {
+            Toast.warn(err)
         }
-    } catch (err) {
-        Toast.warn(err)
     }
 }
 
-export const edit = async ({ params = {} }) => {
-    try {
-        const e = await Fetch.fetch({
-            api: CartApi.edit,
-            params
-        })
-        return e.code === 0;
-    } catch (err) {
-        Toast.warn(err)
+export const edit = ({ params = {} }) => {
+    return async dispatch => {
+        try {
+            const e = await Fetch.fetch({
+                api: CartApi.edit,
+                params
+            })
+            console.log('222222222222');
+            
+            dispatch(getCartTotalNum())
+            return e.code === 0;
+        } catch (err) {
+            Toast.warn(err)
+        }
     }
 }
 
@@ -63,7 +72,7 @@ export const exist = async ({ params = {} }) => {
             api: CartApi.exist,
             params
         })
-        return e.code === 0;
+        return e.result.state
     }catch (err) {
         Toast.warn(err)
     }

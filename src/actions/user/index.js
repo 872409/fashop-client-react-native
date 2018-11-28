@@ -14,6 +14,7 @@ import NavigationService from "../../containers/navigationService";
 export const userLogin = ({ user_token } = {}) => {
     return async dispatch => {
         //登陆后需要处理的方法
+        await dispatch(setUserToken(user_token));
         userLoginSuccessAfter({ dispatch, user_token });
     }
 }
@@ -22,13 +23,12 @@ export const userLogin = ({ user_token } = {}) => {
 /**
  * 退出登陆方法
  **/
-export const userLogout = ({ func } = {}) => {
+export const userLogout = () => {
     return async dispatch => {
         //设置退出登陆状态
         dispatch(setUserStatus(false, null))
         //退出登陆后需要处理的方法
         userLogoutAfter({ dispatch })
-        func && func()
     }
 }
 
@@ -48,6 +48,8 @@ export const initUserInfoStorage = () => {
 
             await dispatch(setUserStatus(true, userInfo))
             await dispatch(setUserToken(userToken))
+            await dispatch(getOrderStateNum());
+            await dispatch(getCartTotalNum());
 
         } else {
             //没有用户信息缓存
@@ -91,10 +93,7 @@ export const updateUserInfo = () => {
 /**
  * 修改用户信息
  **/
-export const modifyUserInfo = ({
-                                   params, func = () => {
-    }
-                               }) => {
+export const modifyUserInfo = ({params}) => {
     return dispatch => {
         Fetch.fetch({
             api: UserApi.editProfile,
@@ -104,7 +103,6 @@ export const modifyUserInfo = ({
                 if (e.code === 0) {
                     Toast.info('保存成功')
                     dispatch(updateUserInfoFunc(e.data))
-                    func && func()
                 } else {
                     Toast.error(e.errmsg)
                 }
@@ -127,19 +125,29 @@ export const passiveModifyUserInfo = ({ data, callback }) => {
 //登陆后需要处理的方法
 const userLoginSuccessAfter = ({ dispatch, user_token }) => {
     storageModule.set("user_token", JSON.stringify(user_token))
-        .then(() => {
-            dispatch(updateUserInfo())
-            dispatch(getOrderStateNum())
-            dispatch(getCartTotalNum())
+        .then(async () => {
+            await dispatch(updateUserInfo())
+            await dispatch(getOrderStateNum())
+            await dispatch(getCartTotalNum())
             NavigationService.goBack()
         })
 }
 
 
 //退出登陆后需要处理的方法
-const userLogoutAfter = () => {
+const userLogoutAfter = ({ dispatch}) => {
     storageModule.removeUserInfo()
     storageModule.remove("user_token")
+    dispatch(changeOrderStateNum({
+        state_new: 0,
+        state_send: 0,
+        state_success: 0,
+        state_close: 0,
+        state_unevaluate: 0,
+        state_refund: 0,
+    }))
+    dispatch(changeCartTotalNum(0))
+    NavigationService.goBack()
 }
 
 
@@ -190,19 +198,24 @@ export const getOrderStateNum = () => {
         })
             .then((e) => {
                 if (e.code === 0) {
-                    dispatch({
-                        type: types.user.GET_ORDER_STATE_NUM,
-                        orderNum: e.result
-                    })
+                    dispatch(changeOrderStateNum(e.result))
                 } else {
                     Toast.warn(e.msg)
                 }
             })
     }
 }
+export const changeOrderStateNum = (orderNum) =>{
+    return dispatch => {
+        dispatch({
+            type: types.user.GET_ORDER_STATE_NUM,
+            orderNum
+        })
+    }
+}
 
 
-// 更新订单状态数量
+// 更新购物车商品数量
 export const getCartTotalNum = () => {
     return dispatch => {
         Fetch.fetch({
@@ -210,11 +223,16 @@ export const getCartTotalNum = () => {
         })
             .then((e) => {
                 if (e.code === 0) {
-                    dispatch({
-                        type: types.user.GET_CART_TOTAL_NUM,
-                        cartNum: e.result.total_num
-                    })
+                    dispatch(changeCartTotalNum(e.result.total_num))
                 }
             })
+    }
+}
+export const changeCartTotalNum = (cartNum) =>{
+    return dispatch => {
+        dispatch({
+            type: types.user.GET_CART_TOTAL_NUM,
+            cartNum
+        })
     }
 }

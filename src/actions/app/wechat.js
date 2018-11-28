@@ -5,6 +5,7 @@ import * as WeChat from 'react-native-wechat';
 import { userLogin, updateUserInfo } from '../../actions/user';
 import { UserApi } from "../../config/api/user";
 import {AppID,AppSecret} from "../../config/wechat"
+import { BuyApi } from '../../config/api/buy';
 
 export const initWechat = ()=>{
     return async dispatch=>{
@@ -40,26 +41,42 @@ export const sendWechatAuthRequest=async()=>{
 export const wechatLogin = ({tokenData,userData, func})=>{
     console.log('tokenData',tokenData);
     console.log('userData',userData);
-    
     return async dispatch=>{
-        const e = await Fetch.fetch({
-            api: UserApi.login,
-            params: {
+        try{
+            const params = {
                 login_type: 'wechat_openid',
                 wechat_openid: userData.openid
             }
-        })
-        if(e){
-            if(e.code===0){
-                dispatch(userLogin({
-                    userInfoData: e.result.info,
-                    func
-                }))
-            }else {
-                Toast.warn(e.msg)
-            }
-        }else{
-            dispatch(wechatRegister({ tokenData, userData, func }))
+            console.log('000000000000',params);
+            const e = await Fetch.request(UserApi.login,{
+                params
+            })
+            // const e = await Fetch.fetch({
+            //     api: UserApi.login,
+            //     params: {
+            //         login_type: 'wechat_openid',
+            //         wechat_openid: userData.openid
+            //     }
+            // })
+            console.log('wechatLogin1');
+            console.log(e);
+            // if(e){
+            //     console.log("wechatLogin2");
+            //     if(e.code===0){
+            //         dispatch(userLogin({
+            //             userInfoData: e.result.info,
+            //             func
+            //         }))
+            //     }else {
+            //         Toast.warn(e.msg)
+            //     }
+            // }else{
+            //     console.log("wechatLogin3");
+            //     dispatch(wechatRegister({ tokenData, userData, func }))
+            // }
+        }catch(err){
+            console.log('err',err);
+            
         }
     }
 }
@@ -74,6 +91,8 @@ export const wechatRegister = ({tokenData, userData, func})=>{
                 wechat: userData
             }
         })
+        console.log('wechatLogin4');
+        console.log(e);
         if(e.code===0){
             dispatch(userLogin({
                 userInfoData: e.result.info,
@@ -129,6 +148,26 @@ export const wechatBind=({tokenData,userData})=>{
     }
 }
 
+export const wechatPay=({params})=>{
+    return async dispatch=>{
+        const { result } = await Fetch.request(BuyApi.pay,{params})
+        const payOptions = {
+            partnerId: result.partnerid,    // 商家向财付通申请的商家id
+            prepayId: result.prepayid,    // 预支付订单
+            nonceStr: result.noncestr,    // 随机串，防重发
+            timeStamp: result.timestamp,    // 时间戳，防重发
+            package: result.package,    // 商家根据财付通文档填写的数据和签名
+            sign: result.sign,    // 商家根据微信开放平台文档对数据做的签名
+        };
+        try {
+            const a = await WeChat.pay(payOptions)
+            console.log(a);
+            Toast.info('支付成功');
+        } catch (err) {
+            Toast.warn('支付失败');
+        }
+    }
+}
 
 
 const addAuth = (e)=>{

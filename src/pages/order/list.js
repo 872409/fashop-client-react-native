@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
-import BuyModel from '../../models/buy'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
@@ -14,12 +13,10 @@ import { ListView } from "../../utils/view";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
-import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/function';
+import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 
 const orderModel = new OrderModel()
-const buyModel = new BuyModel()
 
 @connect(
     ({
@@ -98,39 +95,16 @@ export default class OrderList extends Component {
     }
 
     async onPay(orderInfo) {
-        const { userInfo } = this.props
-        console.log(userInfo);
-        const payResult = await buyModel.pay({
+        const { dispatch } = this.props
+        const { tokenData } = await sendWechatAuthRequest()
+        const params = {
             order_type: 'goods_buy',
             pay_sn: orderInfo.pay_sn,
             payment_code: 'wechat',
-            openid: 'oy0Ue1N9xdbCCdSByzCNj8VjLBNM',
-            // openid: userInfo.wechat_openid,
+            openid: tokenData.openid,
             payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
-        })
-        console.log('payResult', payResult);
-        // if (payResult) {
-            
-        //     // todo
-        //     const payOptions = {
-        //         partnerId: payResult.partnerId, /*商家向财付通申请的商家id*/
-        //         prepayId: payResult.prepayId, /*预支付订单*/
-        //         nonceStr: payResult.nonceStr, /*随机串，防重发*/
-        //         timeStamp: payResult.timeStamp, /*时间戳，防重发*/
-        //         package: payResult.package, /*商家根据财付通文档填写的数据和签名*/
-        //         sign: payResult.sign, /*商家根据微信开放平台文档对数据做的签名*/
-        //     };
-        //     try {
-        //         const a = await WeChat.pay(payOptions)
-        //         // this.paySuccess()
-        //         Toast.info('支付成功');
-        //     } catch (err) {
-        //         console.log(err)
-        //         Toast.warn('支付失败1');
-        //     }
-        // } else {
-        //     Toast.warn('支付失败2');
-        // }
+        }
+        dispatch(wechatPay({params}))
     }
 
     updateListRow = async (id) => {

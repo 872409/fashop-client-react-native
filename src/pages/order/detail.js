@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import OrderModel from '../../models/order'
-import BuyModel from "../../models/buy";
 import React, { Component } from 'react';
 import { Modal, WhiteSpace } from "antd-mobile-rn";
 import {
@@ -15,12 +14,10 @@ import {
     OrderCostList,
     OrderFooterAction
 } from '../../components'
-import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/function';
+import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 
 const orderModel = new OrderModel()
-const buyModel = new BuyModel()
 
 @connect(
     ({
@@ -149,35 +146,17 @@ export default class OrderDetail extends Component {
     }
 
     async onPay() {
-        const { userInfo } = this.props
+        const { dispatch } = this.props;
         const { orderInfo } = this.state;
-        const payResult = await buyModel.pay({
+        const { tokenData } = await sendWechatAuthRequest()
+        const params = {
             order_type: 'goods_buy',
             pay_sn: orderInfo.pay_sn,
             payment_code: 'wechat',
-            openid: userInfo.wechat_openid,
-            payment_channel: 'wechat_app'
-        })
-        if (payResult) {
-            // todo
-            const payOptions = {
-                partnerId: payResult.partnerId, /*商家向财付通申请的商家id*/
-                prepayId: payResult.prepayId, /*预支付订单*/
-                nonceStr: payResult.nonceStr, /*随机串，防重发*/
-                timeStamp: payResult.timeStamp, /*时间戳，防重发*/
-                package: payResult.package, /*商家根据财付通文档填写的数据和签名*/
-                sign: payResult.sign, /*商家根据微信开放平台文档对数据做的签名*/
-            };
-            try {
-                const a = await WeChat.pay(payOptions)
-                // this.paySuccess()
-                Toast.info('支付成功');
-            } catch (e) {
-                Toast.warn('支付失败');
-            }
-        } else {
-            Toast.warn('支付失败');
+            openid: tokenData.openid,
+            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         }
+        dispatch(wechatPay({ params }))
     }
 
     updateListRow = () => {

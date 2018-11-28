@@ -6,9 +6,9 @@ import fa from "../../utils/fa";
 import CartModel from "../../models/cart";
 import BuyModel from "../../models/buy";
 import AddressModel from "../../models/address";
-import * as WeChat from "react-native-wechat";
 import { connect } from "react-redux";
 import { Toast } from '../../utils/function';
+import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 
 const cartModel = new CartModel()
 const buyModel = new BuyModel()
@@ -317,51 +317,25 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
-        const { navigation, userInfo } = this.props
-        console.log(userInfo);
-        
+        const { dispatch } = this.props;
         if (!this.state.addressId) {
             return Toast.info("请选择收货地址");
         }
-        const result = await buyModel.create({
+        const orderInfo = await buyModel.create({
             'way': this.state.way,
             'address_id': this.state.addressId,
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
         })
-        if (result) {
-            const payResult = await buyModel.pay({
-                order_type: 'goods_buy',
-                pay_sn: result.pay_sn,
-                payment_code: 'wechat',
-                openid: userInfo.wechat_openid,
-                payment_channel: 'wechat_app'
-            })
-            if (payResult) {
-                // todo
-                const payOptions = {
-                    partnerId: payResult.partnerId, /*商家向财付通申请的商家id*/
-                    prepayId: payResult.prepayId, /*预支付订单*/
-                    nonceStr: payResult.nonceStr, /*随机串，防重发*/
-                    timeStamp: payResult.timeStamp, /*时间戳，防重发*/
-                    package: payResult.package, /*商家根据财付通文档填写的数据和签名*/
-                    sign: payResult.sign, /*商家根据微信开放平台文档对数据做的签名*/
-                };
-                try {
-                    const a = await WeChat.pay(payOptions)
-                    // this.paySuccess()
-                    Toast.info('支付成功');
-                } catch (err) {
-                    console.log(err)
-                    Toast.warn('支付失败1');
-                }
-            } else {
-                Toast.warn('支付失败2');
-            }
-        } else {
-            Toast.warn('支付失败');
+        const { tokenData } = await sendWechatAuthRequest()
+        const params = {
+            order_type: 'goods_buy',
+            pay_sn: orderInfo.pay_sn,
+            payment_code: 'wechat',
+            openid: tokenData.openid,
+            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         }
-
+        dispatch(wechatPay({ params }))
     }
 
 }

@@ -22,7 +22,7 @@ export default class GoodsList extends Component {
                         keywords: value
                     })
                 }}
-                styles={{}} />
+            />
             <ListView
                 ref={e => this.ListView = e}
                 keyExtractor={e => String(e.id)}

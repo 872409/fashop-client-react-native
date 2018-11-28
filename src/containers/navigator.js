@@ -7,7 +7,6 @@ import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/goods/list";
 import GoodsDetail from "../pages/goods/detail";
-import OrderAction from "../pages/category/orderAction";
 
 import Pay from "../pages/pay";
 
@@ -100,12 +99,6 @@ export default createStackNavigator(
             screen: GoodsDetail,
             navigationOptions: {
                 title: '商品详情'
-            }
-        },
-        OrderAction: {
-            screen: OrderAction,
-            navigationOptions: {
-                title: '提交订单'
             }
         },
         Pay: {

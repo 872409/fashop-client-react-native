@@ -5,7 +5,7 @@ import{
     View,
     ViewPropTypes,
 } from 'react-native';
-import { Image as NewworkImage } from '../theme'
+import { NetworkImage } from '../theme'
 
 export default class PublicAvatar extends Component{
     static propTypes = {
@@ -44,7 +44,7 @@ export default class PublicAvatar extends Component{
                     otherStyle
                 ]}
             >
-                <NewworkImage
+                <NetworkImage
                     errImg={require('../../images/default-avatar.png')}
                     style={{
                         width: size,

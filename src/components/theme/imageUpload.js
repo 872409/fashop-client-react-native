@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';
-import NetworkImage from "./image";
+import NetworkImage from "./networkImage";
 import { asynImagePicker } from "../../utils/asynImagePicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";

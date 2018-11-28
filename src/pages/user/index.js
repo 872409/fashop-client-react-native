@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
+// import { updateUserInfo } from '../../actions/user';
 import { PublicStyles, windowWidth } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -32,10 +33,15 @@ const Item = List.Item
     }
 ))
 export default class User extends Component {
+    // componentDidCatch(){
+    //     const { login, dispatch } = this.props
+    //     if(login){
+    //         dispatch(updateUserInfo())
+    //     }
+    // }
     goOrderList() {
         this.props.navigation.navigate('OrderList')
     }
-
     render() {
         return <View style={PublicStyles.ViewMax}>
             {

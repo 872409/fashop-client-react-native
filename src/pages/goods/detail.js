@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
+import { getCartTotalNum } from "../../actions/user";
 import { stateHoc } from "../../utils";
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
 import { Carousel, Toast } from 'antd-mobile-rn'
@@ -77,7 +78,7 @@ export default class GoodsDetail extends Component {
 
     render() {
         const { specVisible, if_cart } = this.state;
-        const { navigation } = this.props;
+        const { navigation, dispatch } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
         return data ? <View style={PublicStyles.ViewMax}>
@@ -113,6 +114,9 @@ export default class GoodsDetail extends Component {
                         this.setState({
                             specVisible: false
                         })
+                    }}
+                    addCartCallBack={()=>{
+                        dispatch(getCartTotalNum())
                     }}
                 />
             </SpecModal>
@@ -167,7 +171,7 @@ export default class GoodsDetail extends Component {
                 <View style={styles.titleTop}>
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
-                        <Text style={styles.price}>￥ {data.price}</Text>
+                        <Text style={[PublicStyles.boldTitle,styles.price]}>￥{data.price}</Text>
                         <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
                     </View>
                 </View>
@@ -314,7 +318,9 @@ const styles = StyleSheet.create({
     title: {
         marginBottom: 15
     },
-    price: {},
+    price: {
+        color: ThemeStyle.ThemeColor
+    },
     share: {},
     titleBot: {
         height: 36
