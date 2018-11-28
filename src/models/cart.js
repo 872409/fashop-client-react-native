@@ -2,6 +2,8 @@ import Model from '../utils/model'
 import { CartListInfoInterface, CartListInterface } from '../interface/cart'
 import { CartApi } from '../config/api/cart'
 import Fetch from "../utils/fetch";
+import store from "../store";
+import { getCartTotalNum } from '../actions/user';
 
 export default class Cart extends Model {
     async list(params = {}) {
@@ -27,6 +29,7 @@ export default class Cart extends Model {
     async add(params) {
         try {
             await Fetch.request(CartApi.add, { params })
+            store.dispatch(getCartTotalNum())
             return true
         } catch (e) {
             this.setException(e)
@@ -37,6 +40,7 @@ export default class Cart extends Model {
     async edit(params) {
         try {
             await Fetch.request(CartApi.edit, { params })
+            store.dispatch(getCartTotalNum())
             return true
         } catch (e) {
             this.setException(e)
@@ -77,6 +81,7 @@ export default class Cart extends Model {
     async del(params) {
         try {
             await Fetch.request(CartApi.del, { params })
+            store.dispatch(getCartTotalNum())
             return true
         } catch (e) {
             this.setException(e)

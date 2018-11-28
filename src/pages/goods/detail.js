@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { connect } from "react-redux";
 import { getGoodsDetail } from "../../actions/category";
-import { getCartTotalNum } from "../../actions/user";
 import { stateHoc } from "../../utils";
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
 import { Carousel, Toast } from 'antd-mobile-rn'
@@ -110,13 +109,11 @@ export default class GoodsDetail extends Component {
                     skus={data.skus ? data.skus : []}
                     if_cart={if_cart}
                     navigation={navigation}
+                    dispatch={dispatch}
                     closeModal={()=>{
                         this.setState({
                             specVisible: false
                         })
-                    }}
-                    addCartCallBack={()=>{
-                        dispatch(getCartTotalNum())
                     }}
                 />
             </SpecModal>
@@ -300,7 +297,7 @@ const styles = StyleSheet.create({
         backgroundColor: ThemeStyle.ThemeColor
     },
     dot: {
-        marginHorizontal: 10,
+        marginHorizontal: 6,
         backgroundColor: '#fff',
         height: 7,
         width: 7

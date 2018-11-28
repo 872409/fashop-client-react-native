@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: ThemeStyle.ThemeColor
     },
     dot:{
-        marginHorizontal: 10,
+        marginHorizontal: 6,
         backgroundColor: '#fff',
         height: 7,
         width: 7

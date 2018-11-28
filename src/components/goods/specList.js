@@ -33,7 +33,7 @@ export default class GoodsSpecList extends Component{
     }
     render() {
         const { spec_sign, spec_value_sign, quantity, current_sku } = this.state;
-        const { spec_list, skus, closeModal, if_cart, navigation } = this.props;
+        const { spec_list, skus, if_cart, navigation } = this.props;
         return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
@@ -157,7 +157,6 @@ export default class GoodsSpecList extends Component{
                         margin: 15
                     }}
                     onClick={() => {
-                        closeModal()
                         if (if_cart) {
                             this.changeCart()
                         } else {
@@ -174,6 +173,7 @@ export default class GoodsSpecList extends Component{
     }
     changeCart = async () => {
         const { current_sku, quantity } = this.state
+        const { dispatch, closeModal } = this.props;
         const params = {
             goods_sku_id: current_sku.id,
             quantity
@@ -184,10 +184,11 @@ export default class GoodsSpecList extends Component{
             }
         })
         if(e){
-            edit({params});
+            dispatch(edit({params}))
         }else{
-            add({params});
+            dispatch(add({params}))
         }
+        closeModal()
     }
 }
 

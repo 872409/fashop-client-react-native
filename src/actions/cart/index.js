@@ -38,15 +38,13 @@ export const add = ({ params }) => {
     }
 }
 
-export const edit = ({ params = {} }) => {
+export const edit = ({params}) => {
     return async dispatch => {
         try {
             const e = await Fetch.fetch({
                 api: CartApi.edit,
                 params
             })
-            console.log('222222222222');
-            
             dispatch(getCartTotalNum())
             return e.code === 0;
         } catch (err) {
