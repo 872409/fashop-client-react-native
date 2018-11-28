@@ -56,7 +56,7 @@ class UserFindPassword extends Component{
 					/>
 					<CountdownButton
 						api = {'USERVERIFYFINDPASSWORDPHONE'}
-						getParamsFunc = {()=>{
+						getParams = {()=>{
 							return {
 								phone: this.state.phone
 							}

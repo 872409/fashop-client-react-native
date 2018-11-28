@@ -64,6 +64,13 @@ export default class GoodsSpecList extends Component{
                             <View style={styles.itemView}>
                                 {
                                     spec_list_item.value_list.map((spec_value_list_item, j) => {
+                                        const brother_selected_data = spec_list_item.value_list.find((brotherItem)=>{
+                                            if ((brotherItem.id!==spec_value_list_item.id)&&spec_value_sign.indexOf(brotherItem.id)>-1){
+                                                return {
+                                                    selected_index: spec_value_sign.indexOf(brotherItem.id),
+                                                }
+                                            }
+                                        })
                                         const selected_index = spec_value_sign.indexOf(spec_value_list_item.id)
                                         const selected = selected_index>-1
                                         return (
@@ -72,16 +79,21 @@ export default class GoodsSpecList extends Component{
                                                 activeOpacity={.8}
                                                 onPress={() => {
                                                     let new_spec_value_sign = spec_value_sign.concat()
-                                                    if(selected){
-                                                        new_spec_value_sign.splice(selected_index,1)
-                                                    }else{
-                                                        new_spec_value_sign.push(spec_value_list_item.id)
+                                                    if (brother_selected_data){
+                                                        const brother_selected_index = spec_value_sign.indexOf(brother_selected_data.id)
+                                                        new_spec_value_sign.splice(brother_selected_index, 1, spec_value_list_item.id)
+                                                    }else {
+                                                        if(selected){
+                                                            new_spec_value_sign.splice(selected_index,1)
+                                                        }else{
+                                                            new_spec_value_sign.push(spec_value_list_item.id)
+                                                        }
                                                     }
                                                     const current_skus = skus.find((item, index) => {
-                                                        return item.spec_value_sign === JSON.stringify(new_spec_value_sign.sort())
+                                                        return item.spec_value_sign === JSON.stringify(new_spec_value_sign.sort((a, b)=>{return a - b}))
                                                     })
                                                     this.setState({
-                                                        spec_value_sign: new_spec_value_sign.sort(), // 升序
+                                                        spec_value_sign: new_spec_value_sign.sort((a, b)=>{return a - b}), // 升序
                                                         quantity: 1, // 每次选择要把数量变为1
                                                         current_sku: current_skus
                                                     })

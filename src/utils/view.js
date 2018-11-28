@@ -404,9 +404,9 @@ export class ModalComponent extends Component {
 export class CountdownButton extends Component {
     static propTypes = {
         getData: PropTypes.func,
-        getParamsFunc: PropTypes.func,
+        getParams: PropTypes.func,
         text: PropTypes.string,
-        api: PropTypes.string,
+        api: PropTypes.object,
         style: ViewPropTypes.style,
         textStyle: Text.propTypes.style,
     };
@@ -414,11 +414,11 @@ export class CountdownButton extends Component {
         getData: () => {
             console.warn('未设置获得数据属性');
         },
-        getParamsFunc: () => {
+        getParams: () => {
             return {}
         },
         text: '获取验证码',
-        api: 'NULL',
+        api: {},
         style: {},
         textStyle: {},
     };
@@ -458,7 +458,7 @@ export class CountdownButton extends Component {
     render() {
         const {
             api,
-            getParamsFunc,
+            getParams,
             style,
             textStyle,
         } = this.props
@@ -467,7 +467,7 @@ export class CountdownButton extends Component {
                 disabled={!this.state.ready}
                 onClick={async () => {
                     Keyboard.dismiss()
-                    const params = getParamsFunc()
+                    const params = getParams()
                     this.setState({
                         ready: false
                     })
@@ -478,7 +478,7 @@ export class CountdownButton extends Component {
                     if (e.code === 0) {
                         this.intervalFunc()
                     } else {
-                        Toast.warn(e.errmsg)
+                        Toast.warn(e.msg)
                         this.setState({
                             ready: true
                         })

@@ -89,7 +89,7 @@ export default class UserChangePhone extends Component {
 								extra={(
 									<CountdownButton
 										api={'REPLACNEWPHONE'}
-										getParamsFunc={() => {
+										getParams={() => {
 											return {
 												phone: new_phone
 											}

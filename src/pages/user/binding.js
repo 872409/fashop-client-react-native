@@ -56,7 +56,7 @@ export default class UserBinding extends Component {
                         extra={
                             <CountdownButton
                                 api={"USERVERIFYREGISTERPHONE"}
-                                getParamsFunc={() => {
+                                getParams={() => {
                                     return {
                                         phone
                                     }

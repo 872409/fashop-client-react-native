@@ -26,6 +26,10 @@ export const UserApi = {
         url: `${ROOT_URL}server/user/findPassword`,
         method: 'POST'
     },
+    verifyCode: {
+        url: `${ROOT_URL}server/Verifycode/add`,
+        method: 'POST'
+    },
     self: {
         url: `${ROOT_URL}server/user/self`,
         method: 'GET'
