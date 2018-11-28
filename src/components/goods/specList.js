@@ -56,74 +56,84 @@ export default class GoodsSpecList extends Component{
             </View>
             <ScrollView style={styles.SpecListView}>
                 {
-                    spec_list.map((spec_list_item, i) => (
-                        <View key={i} style={[styles.specItemView, { borderTopWidth: i === 0 ? 0 : .5 }]}>
-                            <Text style={[PublicStyles.descFour9, { marginBottom: 18 }]}>
-                                {spec_list_item.name}
-                            </Text>
-                            <View style={styles.itemView}>
-                                {
-                                    spec_list_item.value_list.map((spec_value_list_item, j) => {
-                                        const brother_selected_data = spec_list_item.value_list.find((brotherItem)=>{
-                                            if ((brotherItem.id!==spec_value_list_item.id)&&spec_value_sign.indexOf(brotherItem.id)>-1){
-                                                return {
-                                                    selected_index: spec_value_sign.indexOf(brotherItem.id),
-                                                }
-                                            }
-                                        })
-                                        const selected_index = spec_value_sign.indexOf(spec_value_list_item.id)
-                                        const selected = selected_index>-1
-                                        return (
-                                            <TouchableOpacity
-                                                key={j}
-                                                activeOpacity={.8}
-                                                onPress={() => {
-                                                    let new_spec_value_sign = spec_value_sign.concat()
-                                                    if (brother_selected_data){
-                                                        const brother_selected_index = spec_value_sign.indexOf(brother_selected_data.id)
-                                                        new_spec_value_sign.splice(brother_selected_index, 1, spec_value_list_item.id)
-                                                    }else {
-                                                        if(selected){
-                                                            new_spec_value_sign.splice(selected_index,1)
-                                                        }else{
-                                                            new_spec_value_sign.push(spec_value_list_item.id)
+                    spec_list.map((spec_list_item, i) => {
+                        const family_selected_data = spec_list_item.value_list.find((brotherItem) => {
+                            if (spec_value_sign.indexOf(brotherItem.id) > -1) {
+                                return {
+                                    selected_index: spec_value_sign.indexOf(brotherItem.id),
+                                }
+                            }
+                        })
+                        return (
+                            <View key={i} style={[styles.specItemView, { borderTopWidth: i === 0 ? 0 : .5 }]}>
+                                <View style={[PublicStyles.rowCenter, { marginBottom: 18 }]}>
+                                    <Text style={PublicStyles.descFour9}>
+                                        {spec_list_item.name}
+                                    </Text>
+                                    {
+                                        family_selected_data ? null :
+                                        <Text style={[PublicStyles.descTwo6, { marginLeft: 10, color: ThemeStyle.ThemeColor }]}>
+                                            请选择{spec_list_item.name}
+                                        </Text>
+                                    }
+                                </View>
+                                <View style={styles.itemView}>
+                                    {
+                                        spec_list_item.value_list.map((spec_value_list_item, j) => {
+                                            const selected_index = spec_value_sign.indexOf(spec_value_list_item.id)
+                                            const selected = selected_index > -1
+                                            return (
+                                                <TouchableOpacity
+                                                    key={j}
+                                                    activeOpacity={.8}
+                                                    onPress={() => {
+                                                        let new_spec_value_sign = spec_value_sign.concat()
+                                                        if (family_selected_data&&!selected) {
+                                                            const brother_selected_index = spec_value_sign.indexOf(family_selected_data.id)
+                                                            new_spec_value_sign.splice(brother_selected_index, 1, spec_value_list_item.id)
+                                                        } else {
+                                                            if (selected) {
+                                                                new_spec_value_sign.splice(selected_index, 1)
+                                                            } else {
+                                                                new_spec_value_sign.push(spec_value_list_item.id)
+                                                            }
                                                         }
-                                                    }
-                                                    const current_skus = skus.find((item, index) => {
-                                                        return item.spec_value_sign === JSON.stringify(new_spec_value_sign.sort((a, b)=>{return a - b}))
-                                                    })
-                                                    this.setState({
-                                                        spec_value_sign: new_spec_value_sign.sort((a, b)=>{return a - b}), // 升序
-                                                        quantity: 1, // 每次选择要把数量变为1
-                                                        current_sku: current_skus
-                                                    })
-                                                }}
-                                                style={[
-                                                    styles.sepcItemTouch,
-                                                    {
-                                                        backgroundColor: selected ? ThemeStyle.ThemeColor : '#f8f8f8',
-                                                    }
-                                                ]}
-                                            >
-                                                <Text
+                                                        const current_skus = skus.find((item, index) => {
+                                                            return item.spec_value_sign === JSON.stringify(new_spec_value_sign.sort((a, b) => { return a - b }))
+                                                        })
+                                                        this.setState({
+                                                            spec_value_sign: new_spec_value_sign.sort((a, b) => { return a - b }), // 升序
+                                                            quantity: 1, // 每次选择要把数量变为1
+                                                            current_sku: current_skus
+                                                        })
+                                                    }}
                                                     style={[
-                                                        styles.sepcItemText,
+                                                        styles.sepcItemTouch,
                                                         {
-                                                            color: selected ? '#fff' : '#333',
+                                                            backgroundColor: selected ? ThemeStyle.ThemeColor : '#f8f8f8',
                                                         }
                                                     ]}
                                                 >
-                                                    {
-                                                        spec_value_list_item.name
-                                                    }
-                                                </Text>
-                                            </TouchableOpacity>
-                                        )
-                                    })
-                                }
+                                                    <Text
+                                                        style={[
+                                                            styles.sepcItemText,
+                                                            {
+                                                                color: selected ? '#fff' : '#333',
+                                                            }
+                                                        ]}
+                                                    >
+                                                        {
+                                                            spec_value_list_item.name
+                                                        }
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            )
+                                        })
+                                    }
+                                </View>
                             </View>
-                        </View>
-                    ))
+                        )
+                    })
                 }
                 <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
                     <Text>数量</Text>
