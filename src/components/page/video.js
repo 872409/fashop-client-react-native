@@ -5,10 +5,11 @@ import {
     TouchableOpacity,
     View,
     Button,
-    BackHandler
+    BackHandler,
+    Image
 } from 'react-native';
 import Video from 'react-native-video';
-import { windowWidth } from "../../utils/style";
+import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
 
 function formatTime(second) {
     let h = 0, i = 0, s = parseInt(second);
@@ -58,7 +59,7 @@ export default class PageVideo extends Component {
     };
     onEnd = () => {
         this.setState({ paused: true })
-        this.video.seek(0)
+        // this.video.seek(0) // 重新开始播放
     };
     onAudioBecomingNoisy = () => {
         this.setState({ paused: true })
@@ -112,45 +113,70 @@ export default class PageVideo extends Component {
         const flexCompleted = this.getCurrentTimePercentage() * 100;
         const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
         const { data } = this.props.data;
+        const {
+            rate,
+            volume,
+            muted,
+            resizeMode,
+            paused,
+            duration,
+            currentTime,
+        } = this.state
         return (
             <View style={styles.container}>
-                <TouchableOpacity
+                <Video
+                    ref={ref => this.video = ref}
+                    /* For ExoPlayer */
+                    source={{ uri: data.url }}
                     style={styles.fullScreen}
-                    onPress={() => this.setState({ paused: !this.state.paused })}>
-                    <Video
-                        ref={ref => this.video = ref}
-                        /* For ExoPlayer */
-                        source={{ uri: data.url }}
-                        style={styles.fullScreen}
-                        rate={this.state.rate}
-                        paused={this.state.paused}
-                        volume={this.state.volume}
-                        muted={this.state.muted}
-                        resizeMode={this.state.resizeMode}
-                        onLoad={this.onLoad}
-                        onProgress={this.onProgress}
-                        onEnd={this.onEnd}
-                        onAudioBecomingNoisy={this.onAudioBecomingNoisy}
-                        onAudioFocusChanged={this.onAudioFocusChanged}
-                        repeat={false}
-                    />
-                </TouchableOpacity>
-                <View style={styles.textStyle}>
-                    <Text style={styles.volumeControl}>
-                        {formatTime(this.state.duration - this.state.currentTime)}
-                    </Text>
-                </View>
-                <View style={styles.controls}>
-                    <View style={styles.generalControls}>
-
+                    rate={rate}
+                    paused={paused}
+                    volume={volume}
+                    muted={muted}
+                    resizeMode={resizeMode}
+                    onLoad={this.onLoad}
+                    onProgress={this.onProgress}
+                    onEnd={this.onEnd}
+                    onAudioBecomingNoisy={this.onAudioBecomingNoisy}
+                    onAudioFocusChanged={this.onAudioFocusChanged}
+                    repeat={false}
+                />
+                {
+                    paused ? 
+                    <TouchableOpacity
+                        style={styles.midStopView}
+                        onPress={() => {
+                            this.video.seek(0)
+                            this.setState({ paused: !paused })
+                        }}
+                    >
+                        <Image source={require('../../images/video/stop1.png')}/>
+                    </TouchableOpacity> : null
+                }
+                <View style={[PublicStyles.rowBetweenCenter,styles.controls]}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.video.seek(0)
+                            this.setState({ paused: !paused })
+                        }}
+                    >
+                        {
+                            paused ? 
+                            <Image source={require('../../images/video/stop2.png')} /> :
+                            <Image source={require('../../images/video/play.png')} />
+                        }
+                    </TouchableOpacity>
+                    <Text style={[PublicStyles.boldTitle,styles.timeText]}>{formatTime(currentTime)}</Text>
+                    <View style={styles.progress}>
+                        <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+                        <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
                     </View>
-
-                    <View style={styles.trackingControls}>
-                        <View style={styles.progress}>
-                            <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-                            <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
-                        </View>
-                    </View>
+                    <Text style={[PublicStyles.boldTitle,styles.timeText]}>{formatTime(duration)}</Text>
+                    <TouchableOpacity
+                        // onPress={() => this.setState({ paused: !paused })}
+                    >
+                        <Image source={require('../../images/video/full.png')} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -160,22 +186,10 @@ export default class PageVideo extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: windowWidth*0.6,
+        height: windowWidth*0.56,
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'black',
-    },
-    textStyle: {
-        paddingLeft: 10,
-        paddingTop: 25,
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-    },
-    btnStyle: {
-        paddingRight: 10,
-        paddingTop: 25,
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
     },
     fullScreen: {
         position: 'absolute',
@@ -188,30 +202,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderRadius: 5,
         position: 'absolute',
-        bottom: 20,
-        left: 20,
-        right: 20,
+        bottom: 10,
+        left: 10,
+        right: 10,
     },
     progress: {
         flex: 1,
         flexDirection: 'row',
-        borderRadius: 3,
         overflow: 'hidden',
     },
     innerProgressCompleted: {
-        height: 6,
-        backgroundColor: '#cccccc',
+        height: 2,
+        backgroundColor: ThemeStyle.ThemeColor,
     },
     innerProgressRemaining: {
-        height: 6,
-        backgroundColor: '#2C2C2C',
-    },
-    generalControls: {
-        flex: 1,
-        flexDirection: 'row',
-        borderRadius: 4,
-        overflow: 'hidden',
-        paddingTop: 10,
+        height: 2,
+        backgroundColor: '#D7D9D9',
     },
     rateControl: {
         flex: 1,
@@ -239,4 +245,15 @@ const styles = StyleSheet.create({
         paddingRight: 2,
         lineHeight: 12,
     },
+    midStopView: {
+        position: 'absolute',
+        left: (windowWidth-44)/2,
+        top: (windowWidth*0.56-44)/2,
+    },
+    timeText: {
+        color: '#fff',
+        marginLeft: 10,
+        marginRight: 15,
+        fontSize: 12
+    }
 });

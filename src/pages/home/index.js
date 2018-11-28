@@ -25,13 +25,13 @@ import {
 } from "../../components/page"
 
 @connect(({
-              view: {
-                  home: {
-                      homeView,
-                      homeViewFetchStatus,
-                  }
-              }
-          }) => ({
+    view: {
+        home: {
+            homeView,
+            homeViewFetchStatus,
+        }
+    }
+}) => ({
     homeView,
     fetchStatus: homeViewFetchStatus,
 }))
