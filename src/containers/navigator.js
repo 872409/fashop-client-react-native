@@ -56,9 +56,9 @@ function getCurrentRouteName(navigationState) {
     return route.routeName;
 }
 
-const indexNavigationOptions = ({ navigation }) => ({
+const indexNavigationOptions = ({ navigation, screenProps }) => ({
     'Home': {
-        title: '首页'
+        title: screenProps.homeTitle
     },
     'Category': {
         title: '分类'
@@ -75,8 +75,8 @@ export default createStackNavigator(
     {
         Index: {
             screen: Index,
-            navigationOptions:({ navigation }) => {
-                return indexNavigationOptions({navigation})[getCurrentRouteName(navigation.state)]
+            navigationOptions:({ navigation, screenProps }) => {
+                return indexNavigationOptions({navigation, screenProps})[getCurrentRouteName(navigation.state)]
             }
         },
         PageDetail: {

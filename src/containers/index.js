@@ -6,11 +6,13 @@ import {
     Alert,
 } from "react-native";
 import Navigator from './navigator';
+import NavigationService from "./navigationService";
 import { initUserInfoStorage } from "../actions/user";
 import { initWechat } from '../actions/app/wechat';
+import { getHomeView } from '../actions/home';
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
-import NavigationService from "./navigationService";
+import { fetchStatus } from "../utils";
 
 class App extends Component {
     componentDidMount() {
@@ -20,6 +22,7 @@ class App extends Component {
         } = this.props
         dispatch(initUserInfoStorage())
         dispatch(initWechat())
+        dispatch(getHomeView())
         SplashScreen.hide();
     }
     componentWillUnmount() {
@@ -44,12 +47,16 @@ class App extends Component {
         }
     }
     render() {
-        const { cartNum } = this.props
+        const { cartNum, homeView, homeViewFetchStatus } = this.props;
+        if (homeViewFetchStatus !== fetchStatus.s){
+            return null
+        }
         return (
             <View style={{ flex: 1 }}>
                 <Navigator 
                     screenProps={{
-                        cartNum
+                        cartNum,
+                        homeTitle: homeView.name
                     }}
                     ref={navigatorRef => {
                         NavigationService.setTopLevelNavigator(navigatorRef);
@@ -65,12 +72,14 @@ class App extends Component {
 const mapStateToProps = store => {
     const {
         user: { login, cartNum },
-        initial: { showBootPage },
+        initial: { showBootPage }
     } = store.app
     return {
         login,
         cartNum,
         showBootPage,
+        homeView: store.view.home.homeView,
+        homeViewFetchStatus: store.view.home.homeViewFetchStatus
     };
 };
 

@@ -37,18 +37,12 @@ import {
 }))
 @stateHoc()
 export default class Home extends Component {
-    static navigationOptions = {
-        title: '',//设置标题内容
-    };
     hocComponentDidMount() {
         this.props.dispatch(getHomeView())
     }
-
     render() {
-
         const { homeView } = this.props
         const { background_color, body } = homeView
-
         return <View
             style={[
                 PublicStyles.ViewMax, {
