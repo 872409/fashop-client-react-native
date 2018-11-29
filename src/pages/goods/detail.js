@@ -197,7 +197,7 @@ export default class GoodsDetail extends Component {
                             case "image":
                                 return <BodyImage key={index} url={item.value.url} navigation={navigation}/>;
                             case "video":
-                                return <Video key={index} data={item} />;
+                                return <Video key={index} data={item} navigation={navigation}/>;
                             case "text":
                                 return <BodyText key={index} content={item.value.content} />;
                             default:

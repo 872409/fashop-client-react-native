@@ -6,10 +6,11 @@ import {
     View,
     Button,
     BackHandler,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 import Video from 'react-native-video';
-import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
+import { PublicStyles, ThemeStyle } from "./style";
 
 function formatTime(second) {
     let h = 0, i = 0, s = parseInt(second);
@@ -26,7 +27,26 @@ function formatTime(second) {
     // return zero(s);
 }
 
-export default class PageVideo extends Component {
+export default class FullScreenVideo extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { title } = navigation.state.params || {}
+        return {
+            headerBackTitle: null,
+            gesturesEnabled: true,
+            headerStyle: {
+                backgroundColor: "#000",
+                elevation: 0,//去掉安卓阴影
+                borderBottomWidth: 0,
+            },
+            headerTintColor: '#000',
+            headerLeft: <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={styles.closeView}
+            >
+                <Image source={require('../images/video/close.png')} />
+            </TouchableOpacity>
+        }
+    }
     state = {
         rate: 1,
         volume: 1,
@@ -46,7 +66,6 @@ export default class PageVideo extends Component {
     };
     onEnd = () => {
         console.log("结束了");
-        
         this.setState({ paused: true })
         // this.video.seek(0) // 重新开始播放
     };
@@ -102,7 +121,7 @@ export default class PageVideo extends Component {
         const flexCompleted = this.getCurrentTimePercentage() * 100;
         const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
         const { navigation } = this.props;
-        const { data } = this.props.data;
+        const { uri } = navigation.state.params
         const {
             rate,
             volume,
@@ -113,72 +132,70 @@ export default class PageVideo extends Component {
             currentTime,
         } = this.state
         return (
-            <View style={styles.container}>
-                <Video
-                    ref={ref => this.video = ref}
-                    /* For ExoPlayer */
-                    source={{ uri: data.url }}
-                    style={styles.fullScreen}
-                    rate={rate}
-                    paused={paused}
-                    volume={volume}
-                    muted={muted}
-                    resizeMode={resizeMode}
-                    onLoad={this.onLoad}
-                    onProgress={this.onProgress}
-                    onEnd={this.onEnd}
-                    onAudioBecomingNoisy={this.onAudioBecomingNoisy}
-                    onAudioFocusChanged={this.onAudioFocusChanged}
-                    repeat={false}
-                />
-                {
-                    paused ? 
-                    <TouchableOpacity
-                        style={styles.midStopView}
-                        onPress={() => {
-                            if(formatTime(currentTime)===formatTime(duration)){
-                                this.video.seek(0)
-                            }
-                            this.setState({ paused: !paused })
-                        }}
-                    >
-                        <Image source={require('../../images/video/stop1.png')}/>
-                    </TouchableOpacity> : null
-                }
-                <View style={[PublicStyles.rowBetweenCenter,styles.controls]}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            if(formatTime(currentTime)===formatTime(duration)){
-                                this.video.seek(0)
-                            }
-                            this.setState({ paused: !paused })
-                        }}
-                        style={{
-                            paddingHorizontal: 10
-                        }}
-                    >
-                        {
-                            paused ? 
-                            <Image source={require('../../images/video/stop2.png')} /> :
-                            <Image source={require('../../images/video/play.png')} />
-                        }
-                    </TouchableOpacity>
-                    <Text style={[PublicStyles.boldTitle,styles.timeText,{marginLeft:0}]}>{formatTime(currentTime)}</Text>
-                    <View style={styles.progress}>
-                        <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-                        <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
-                    </View>
-                    <Text style={[PublicStyles.boldTitle,styles.timeText]}>{formatTime(duration)}</Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("FullScreenVideo",{
-                                uri: data.url
-                            });
-                        }}
-                    >
-                        <Image source={require('../../images/video/full.png')} />
-                    </TouchableOpacity>
+            <View style={{flex: 1}}>
+                <View style={styles.container}>
+                    <Video
+                        ref={ref => this.video = ref}
+                        source={{ uri }}
+                        style={styles.fullScreen}
+                        rate={rate}
+                        paused={paused}
+                        volume={volume}
+                        muted={muted}
+                        resizeMode={resizeMode}
+                        onLoad={this.onLoad}
+                        onProgress={this.onProgress}
+                        onEnd={this.onEnd}
+                        onAudioBecomingNoisy={this.onAudioBecomingNoisy}
+                        onAudioFocusChanged={this.onAudioFocusChanged}
+                        repeat={false}
+                    />
+                    {
+                        paused ?
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (formatTime(currentTime) === formatTime(duration)) {
+                                        this.video.seek(0)
+                                    }
+                                    this.setState({ paused: !paused })
+                                }}
+                            >
+                                <Image source={require('../images/video/stop1.png')} />
+                            </TouchableOpacity> : null
+                    }
                 </View>
+                <SafeAreaView style={{ backgroundColor: 'black', paddingVertical: 15,}}>
+                    <View style={[PublicStyles.rowBetweenCenter, styles.controls]}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                if (formatTime(currentTime) === formatTime(duration)) {
+                                    this.video.seek(0)
+                                }
+                                this.setState({ paused: !paused })
+                            }}
+                            style={{
+                                paddingHorizontal: 10
+                            }}
+                        >
+                            {
+                                paused ?
+                                    <Image source={require('../images/video/stop2.png')} /> :
+                                    <Image source={require('../images/video/play.png')} />
+                            }
+                        </TouchableOpacity>
+                        <Text style={[PublicStyles.boldTitle, styles.timeText, { marginLeft: 0 }]}>{formatTime(currentTime)}</Text>
+                        <View style={styles.progress}>
+                            <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+                            <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+                        </View>
+                        <Text style={[PublicStyles.boldTitle, styles.timeText]}>{formatTime(duration)}</Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Image source={require('../images/video/cancelFull.png')} />
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
             </View>
         );
     }
@@ -187,9 +204,9 @@ export default class PageVideo extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: windowWidth*0.56,
-        justifyContent: 'flex-start',
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: 'black',
     },
     fullScreen: {
@@ -203,7 +220,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderRadius: 5,
         position: 'absolute',
-        bottom: 10,
+        top: -10,
         left: 0,
         right: 10,
     },
@@ -246,15 +263,13 @@ const styles = StyleSheet.create({
         paddingRight: 2,
         lineHeight: 12,
     },
-    midStopView: {
-        position: 'absolute',
-        left: (windowWidth-44)/2,
-        top: (windowWidth*0.56-44)/2,
-    },
     timeText: {
         color: '#fff',
         marginLeft: 10,
         marginRight: 15,
         fontSize: 12
+    },
+    closeView: {
+        marginLeft: 15
     }
 });

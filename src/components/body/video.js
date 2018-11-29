@@ -22,14 +22,11 @@ function formatTime(second) {
         return (v >> 0) < 10 ? "0" + v : v;
     };
     // console.log([zero(h), zero(i), zero(s)].join(":"));
-    // return [zero(h), zero(i), zero(s)].join(":");
-    return zero(s);
+    return [zero(h), zero(i), zero(s)].join(":");
+    // return zero(s);
 }
 
 export default class BodyVideo extends Component {
-    // static navigationOptions = {
-    //     header: null
-    // };
     state = {
         rate: 1,
         volume: 1,
@@ -38,16 +35,6 @@ export default class BodyVideo extends Component {
         duration: 0.0,
         currentTime: 0.0,
         paused: true,
-    };
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-    onBackAndroid = () => {
-        this.props.navigation.goBack();
-        return true;
     };
     onLoad = (data) => {
         this.setState({ duration: data.duration });
@@ -58,6 +45,8 @@ export default class BodyVideo extends Component {
         // console.log(data.currentTime + "hhh");
     };
     onEnd = () => {
+        console.log("结束了");
+
         this.setState({ paused: true })
         // this.video.seek(0) // 重新开始播放
     };
@@ -112,6 +101,7 @@ export default class BodyVideo extends Component {
     render() {
         const flexCompleted = this.getCurrentTimePercentage() * 100;
         const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
+        const { navigation } = this.props;
         const { data } = this.props.data;
         const {
             rate,
@@ -146,7 +136,9 @@ export default class BodyVideo extends Component {
                         <TouchableOpacity
                             style={styles.midStopView}
                             onPress={() => {
-                                this.video.seek(0)
+                                if (formatTime(currentTime) === formatTime(duration)) {
+                                    this.video.seek(0)
+                                }
                                 this.setState({ paused: !paused })
                             }}
                         >
@@ -156,8 +148,13 @@ export default class BodyVideo extends Component {
                 <View style={[PublicStyles.rowBetweenCenter, styles.controls]}>
                     <TouchableOpacity
                         onPress={() => {
-                            this.video.seek(0)
+                            if (formatTime(currentTime) === formatTime(duration)) {
+                                this.video.seek(0)
+                            }
                             this.setState({ paused: !paused })
+                        }}
+                        style={{
+                            paddingHorizontal: 10
                         }}
                     >
                         {
@@ -166,14 +163,18 @@ export default class BodyVideo extends Component {
                                 <Image source={require('../../images/video/play.png')} />
                         }
                     </TouchableOpacity>
-                    <Text style={[PublicStyles.boldTitle, styles.timeText]}>{formatTime(currentTime)}</Text>
+                    <Text style={[PublicStyles.boldTitle, styles.timeText, { marginLeft: 0 }]}>{formatTime(currentTime)}</Text>
                     <View style={styles.progress}>
                         <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
                         <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
                     </View>
                     <Text style={[PublicStyles.boldTitle, styles.timeText]}>{formatTime(duration)}</Text>
                     <TouchableOpacity
-                    // onPress={() => this.setState({ paused: !paused })}
+                        onPress={() => {
+                            navigation.navigate("FullScreenVideo", {
+                                uri: data.url
+                            });
+                        }}
                     >
                         <Image source={require('../../images/video/full.png')} />
                     </TouchableOpacity>
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         position: 'absolute',
         bottom: 10,
-        left: 10,
+        left: 0,
         right: 10,
     },
     progress: {

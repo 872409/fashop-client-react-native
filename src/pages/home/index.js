@@ -104,7 +104,7 @@ export default class Home extends Component {
             case "shop_window":
                 return <ShopWindow key={index} data={item} handelLink={this.handelLink} />;
             case "video":
-                return <Video key={index} data={item} />;
+                return <Video key={index} data={item} navigation={navigation} />;
             case "top_menu":
                 return <TopMenu key={index} data={item} handelLink={this.handelLink} />;
             case "title":

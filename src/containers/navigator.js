@@ -3,6 +3,7 @@ import { createStackNavigator } from "react-navigation";
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import Index from "../pages/index";
 import PhotoGallery from "../utils/photoGallery";
+import FullScreenVideo from "../utils/fullScreenVideo";
 import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/goods/list";
@@ -41,7 +42,8 @@ import EvaluateList from "../pages/evaluate/list"
 import CollectGoods from "../pages/collect/goods"
 
 const modalStyleStackNames = [
-    // 'UserLogin',
+    'UserLogin',
+    'FullScreenVideo',
 ]
 
 function getCurrentRouteName(navigationState) {
@@ -88,6 +90,9 @@ export default createStackNavigator(
             navigationOptions: {
                 header: null,
             }
+        },
+        FullScreenVideo: {
+            screen: FullScreenVideo
         },
         // category
         GoodsList: {
@@ -255,7 +260,6 @@ export default createStackNavigator(
     },
     {
         navigationOptions: ({ navigation }) => ({
-            // headerTintColor: ThemeStyle.ThemeColor,
             headerBackTitle: null,
             gesturesEnabled: true,
             headerStyle: {
