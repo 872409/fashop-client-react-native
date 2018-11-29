@@ -8,6 +8,7 @@ import {
 import OrderModel from '../../models/order'
 import { List } from 'antd-mobile-rn';
 import { Cell } from '../../components'
+import { NetworkImage } from "../../components/theme"
 
 const orderModel = new OrderModel()
 
@@ -40,7 +41,7 @@ export default class ServiceType extends Component {
                     <View style={styles.item}>
                         <View style={styles.content}>
                             <View style={styles.image}>
-                                <Image source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
+                                <NetworkImage source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
                                     width: 60,
                                     height: 60,
                                 }} />

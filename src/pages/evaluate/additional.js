@@ -11,6 +11,7 @@ import {
 import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
 import { StackActions } from "react-navigation";
+import { NetworkImage } from "../../components/theme"
 
 const goodsEvaluateModel = new GoodsEvaluateModel()
 const orderModel = new OrderModel()
@@ -105,7 +106,7 @@ export default class EvaluateAdditional extends Component {
                         <View style={styles.item}>
                             <View style={styles.content}>
                                 <View style={styles.image}>
-                                    <Image
+                                    <NetworkImage
                                         style={{ width: 80, height: 80 }}
                                         source={{ uri: goodsInfo.goods_img }}
                                         resizeMode={'cover'}

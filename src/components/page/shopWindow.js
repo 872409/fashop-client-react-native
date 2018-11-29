@@ -6,6 +6,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { windowWidth } from '../../utils/style';
+import { NetworkImage } from "../theme"
 
 export default class PageShopWindow extends Component {
     render() {
@@ -55,7 +56,7 @@ export default class PageShopWindow extends Component {
                     handelLink(link)
                 }}
             >
-                <Image style={style} source={{ uri: img.url }} />
+                <NetworkImage style={style} source={{ uri: img.url }} />
             </TouchableOpacity>
         )
     }

@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
+import { NetworkImage } from "../theme"
 // todo 废弃 没用到
 export default class OrderLogistics extends Component {
     static propTypes = {
@@ -31,7 +32,7 @@ export default class OrderLogistics extends Component {
                     backgroundColor: dataSource.options.background_color
                 }}
             >
-                <Image style={styles.image} source={{ uri: dataSource.options.leading_image.url }} resizeMode="aspectFit" />
+                <NetworkImage style={styles.image} source={{ uri: dataSource.options.leading_image.url }} resizeMode="aspectFit" />
                 <Text style={
                     { color: dataSource.options.font_color }
                 }>{dataSource.options.title}</Text>

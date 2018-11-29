@@ -9,6 +9,7 @@ import AddressModel from "../../models/address";
 import { connect } from "react-redux";
 import { Toast } from '../../utils/function';
 import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
+import { NetworkImage } from "../../components/theme"
 
 const cartModel = new CartModel()
 const buyModel = new BuyModel()
@@ -97,7 +98,7 @@ export default class CartOrderFill extends Component {
                                     >
                                         <View style={styles.oneItem}>
                                             <View>
-                                                <Image style={styles.oneItemImage}
+                                                <NetworkImage style={styles.oneItemImage}
                                                        source={{ uri: item.goods_sku_img }} />
                                             </View>
                                             <View style={styles.oneItemBody}>

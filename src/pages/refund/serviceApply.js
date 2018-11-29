@@ -13,6 +13,7 @@ import OrderModel from '../../models/order'
 import { Button } from 'antd-mobile-rn';
 import { Field } from '../../components'
 import { StackActions } from "react-navigation";
+import { NetworkImage } from "../../components/theme"
 
 const refundModel = new RefundModel()
 const orderModel = new OrderModel()
@@ -162,7 +163,7 @@ export default class ServiceApply extends Component {
                 <View style={styles.item}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
+                            <NetworkImage source={{ uri: goodsInfo.goods_img }} resizeMode={'cover'} style={{
                                 width: 60,
                                 height: 60,
                             }} />

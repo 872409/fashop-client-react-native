@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Carousel } from "antd-mobile-rn";
 import { windowWidth, ThemeStyle } from '../../utils/style';
+import { NetworkImage } from "../theme"
 
 export default class PageImageAds extends Component {
     render() {
@@ -37,7 +38,7 @@ export default class PageImageAds extends Component {
                             }}
                             key={i}
                         >
-                            <Image
+                            <NetworkImage
                                 source={{
                                     uri: item.img.url
                                 }}
@@ -62,7 +63,7 @@ export default class PageImageAds extends Component {
                             }}
                             key={i}
                         >
-                            <Image
+                            <NetworkImage
                                 source={{
                                     uri: item.img.url
                                 }}

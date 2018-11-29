@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
+import { NetworkImage } from "../theme"
 
 export default class RefundGoodsInfo extends Component {
     static propTypes = {
@@ -34,7 +35,7 @@ export default class RefundGoodsInfo extends Component {
                 }}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: refundInfo.goods_img }} resizeMode={'cover'} style={{
+                            <NetworkImage source={{ uri: refundInfo.goods_img }} resizeMode={'cover'} style={{
                                 width: 60,
                                 height: 60
                             }} />

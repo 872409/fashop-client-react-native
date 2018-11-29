@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import OrderButton from '../order/button'
+import { NetworkImage } from "../theme";
 
 export default class EvaluateCard extends Component {
     static propTypes = {
@@ -50,7 +51,7 @@ export default class EvaluateCard extends Component {
                     <TouchableOpacity style={styles.image} onPress={() => {
                         this.onGoods()
                     }}>
-                        <Image source={{
+                        <NetworkImage source={{
                             uri: goodsInfo.goods_img
                         }} resizeMode={'cover'}
                                style={{

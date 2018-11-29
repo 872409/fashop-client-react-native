@@ -8,6 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
+import { NetworkImage } from "../theme"
 
 export default class OrderCardGoods extends Component {
     static propTypes = {
@@ -35,7 +36,7 @@ export default class OrderCardGoods extends Component {
                         {
                             goodsList.length > 0 ? goodsList.map((item) => {
                                 return <View style={styles.item} key={item.id}>
-                                    <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
+                                    <NetworkImage style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
                                 </View>
                             }) : null}
                 </ScrollView>
@@ -46,7 +47,7 @@ export default class OrderCardGoods extends Component {
                 <View style={styles.orderCardGoodsOne}>
                     {goodsList.map((item) => {
                         return <View style={styles.oneItem} key={item.id}>
-                            <Image style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'cover'} />
+                            <NetworkImage style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'cover'} />
                             <View style={styles.oneBody}>
                                 <Text style={styles.oneText}>{item.goods_title}</Text>
                                 <View style={styles.oneDesc}>

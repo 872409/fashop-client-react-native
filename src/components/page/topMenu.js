@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
+import { NetworkImage } from "../theme"
 
 export default class PageTopMenu extends Component {
     render() {
@@ -29,7 +30,7 @@ export default class PageTopMenu extends Component {
                     >
                         {
                             menu_format===2 ?
-                            <Image style={styles.img} source={{uri:item.img.url}}/> : null
+                            <NetworkImage style={styles.img} source={{uri:item.img.url}}/> : null
                         }
                         <Text style={[styles.title,{color: item.font_color}]}>{item.title}</Text>
                     </TouchableOpacity>

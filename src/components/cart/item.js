@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { Stepper } from "antd-mobile-rn";
 import { windowWidth } from "../../utils/style";
 import CartCheckbox from "./checkbox"
+import { NetworkImage } from "../theme";
 
 export default class CartItem extends Component {
     constructor(props, context) {
@@ -62,7 +63,7 @@ export default class CartItem extends Component {
             <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
             <View style={styles.cartCard}>
                 <TouchableOpacity onPress={this.onImageClick} activeOpacity={0.5}>
-                    <Image style={styles.cartCardImage} source={{ uri: cover }} />
+                    <NetworkImage style={styles.cartCardImage} source={{ uri: cover }} />
                 </TouchableOpacity>
                 <View style={styles.cartCardTitleSpec}>
                     <TouchableOpacity onPress={this.onTitleClick} activeOpacity={0.5}>

@@ -10,6 +10,7 @@ import {
 import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/style';
 import { GoodsCollectApi } from "../../config/api/goodsCollect";
 import { ListView } from "../../utils/view";
+import { NetworkImage } from "../../components/theme"
 
 export default class GoodsCollect extends Component {
     small({ item, index }) {
@@ -28,7 +29,7 @@ export default class GoodsCollect extends Component {
                     }
                 }
             >
-                <Image style={styles.smallImg} source={{ uri: item.img }} />
+                <NetworkImage style={styles.smallImg} source={{ uri: item.img }} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{item.title}</Text>
                     <View>

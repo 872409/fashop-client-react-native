@@ -9,6 +9,7 @@ import {
 import PropTypes from "prop-types";
 import OrderButton from './button'
 import { windowWidth } from "../../utils/style";
+import { NetworkImage } from "../theme"
 
 export default class OrderGoodsList extends Component {
     static propTypes = {
@@ -44,7 +45,7 @@ export default class OrderGoodsList extends Component {
                     this.onGoodsDetail(item)
                 }}>
                     <View style={styles.content}>
-                        <Image style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
+                        <NetworkImage style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
                         <View style={styles.body}>
                             <Text style={styles.bodyText}>{item.goods_title}</Text>
                         </View>

@@ -7,6 +7,7 @@ import {
     Image
 } from 'react-native';
 import { windowWidth } from '../../utils/style';
+import { NetworkImage } from "../theme"
 
 export default class PageImageNav extends Component {
     render() {
@@ -27,7 +28,7 @@ export default class PageImageNav extends Component {
                             handelLink(item.link)
                         }}
                     >
-                        <Image
+                        <NetworkImage
                             style={styles.img}
                             source={{ uri: item.img.url }}
                         />

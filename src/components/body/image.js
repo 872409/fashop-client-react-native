@@ -5,6 +5,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { windowWidth } from '../../utils/style';
+import { NetworkImage } from "../theme";
 
 export default class BodyImage extends Component {
     state = {
@@ -32,7 +33,7 @@ export default class BodyImage extends Component {
                 })
             }}
         >
-            <Image
+            <NetworkImage
                 source={{
                     uri: url
                 }}

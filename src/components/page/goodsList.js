@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/style';
+import { NetworkImage } from "../theme"
 
 export default class PageGoodsList extends Component {
     render() {
@@ -45,7 +46,7 @@ export default class PageGoodsList extends Component {
                 style={styles.bigWarp}
                 onPress={() => this.goDetail(item.id)}
             >
-                <Image style={styles.bigImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.bigImg} source={{uri: item.img}} />
                 <View style={styles.bigBot}>
                     <Text style={styles.bigTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
@@ -73,7 +74,7 @@ export default class PageGoodsList extends Component {
                     }
                 }
             >
-                <Image style={styles.smallImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.smallImg} source={{uri: item.img}} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
@@ -97,7 +98,7 @@ export default class PageGoodsList extends Component {
                     marginBottom: 10
                 }}
             >
-                <Image style={[styles.smallImg,{ width, height }]} source={{uri: item.img}} />
+                <NetworkImage style={[styles.smallImg,{ width, height }]} source={{uri: item.img}} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
@@ -115,7 +116,7 @@ export default class PageGoodsList extends Component {
                 style={styles.listWarp}
                 onPress={() => this.goDetail(item.id)}
             >
-                <Image style={styles.listImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.listImg} source={{uri: item.img}} />
                 <View style={styles.listRight}>
                     <Text style={styles.listTitle} numberOfLines={3} >{showTitle ? item.title : ''}</Text>
                     <View>

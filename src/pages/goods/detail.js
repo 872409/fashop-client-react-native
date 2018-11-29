@@ -24,6 +24,7 @@ import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
 import GoodsCollectModel from "../../models/goodsCollect";
 import Badge from "@react-native-component/react-native-smart-badge";
+import { NetworkImage } from "../../components/theme"
 
 const goodsCollectModel = new GoodsCollectModel()
 
@@ -169,7 +170,7 @@ export default class GoodsDetail extends Component {
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <Text style={[PublicStyles.boldTitle,styles.price]}>￥{data.price}</Text>
-                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
+                        <NetworkImage style={styles.share} source={require('../../images/goodsDetail/share.png')} />
                     </View>
                 </View>
                 <View style={[styles.titleBot, PublicStyles.rowBetweenCenter]}>

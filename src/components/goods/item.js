@@ -7,6 +7,7 @@ import {
     View
 } from 'react-native';
 import { ThemeStyle, windowWidth } from '../../utils/style';
+import { NetworkImage } from "../theme";
 
 export default class GoodsItem extends Component {
     render() {
@@ -17,7 +18,7 @@ export default class GoodsItem extends Component {
                 marginRight: index % 2 === 0 ? 10 : 0
             }]}
         >
-            <Image style={styles.img} source={{ uri: data.img }} />
+            <NetworkImage style={styles.img} source={{ uri: data.img }} />
             <View style={styles.bot}>
                 <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
                 <Text style={styles.price}>￥{data.price}</Text>

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import GoodsEvaluate from '../../models/goodsEvaluate'
 import { TimeFormat, Rater } from '../../components'
+import { NetworkImage } from "../../components/theme"
 
 const goodsEvaluateModel = new GoodsEvaluate()
 export default class EvaluateDetail extends Component {
@@ -52,7 +53,7 @@ export default class EvaluateDetail extends Component {
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
-                        <Image source={{ uri: evaluate.avatar }} resizeMode={'cover'} style={styles.avatarImage} />
+                        <NetworkImage source={{ uri: evaluate.avatar }} resizeMode={'cover'} style={styles.avatarImage} />
                         <View style={styles.nickname}>
                             <Text style={styles.nicknameText}>{evaluate.nickname}</Text>
                             <TimeFormat value={evaluate.create_time} style={{ color: '#999' }} />
@@ -77,7 +78,7 @@ export default class EvaluateDetail extends Component {
                                             index
                                         })
                                     }}
-                                ><Image
+                                ><NetworkImage
                                     source={{ uri: item }}
                                     resizeMode={'cover'}
                                 /></TouchableOpacity>
@@ -113,7 +114,7 @@ export default class EvaluateDetail extends Component {
                                             index
                                         })
                                     }}
-                                ><Image
+                                ><NetworkImage
                                     source={{ uri: item }}
                                     resizeMode={'cover'}
                                     style={styles.photoListImage}

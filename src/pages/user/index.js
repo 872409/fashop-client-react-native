@@ -255,8 +255,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     fashopCopyrightBody: {
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: 15
     },
     fashopCopyrightImg: {
         height: 16,
@@ -267,7 +269,5 @@ const styles = StyleSheet.create({
         color: '#cccccc',
         fontSize: 12,
         lineHeight: 12,
-        paddingBottom: 15,
-        marginTop: 5
     }
 });

@@ -11,7 +11,8 @@ import {
 import { Button } from "antd-mobile-rn";
 import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/style';
 // import SafeAreaView from "react-native-safe-area-view";
-import Stepper from "../../components/goods/stepper";
+import Stepper from "./stepper";
+import { NetworkImage } from "../theme";
 import { add, edit, exist } from "../../actions/cart";
 
 export default class GoodsSpecList extends Component{
@@ -37,7 +38,7 @@ export default class GoodsSpecList extends Component{
         return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
-                    current_sku ? <Image
+                    current_sku ? <NetworkImage
                         source={{ uri: current_sku.img }}
                         style={styles.popModalTitleLeft}
                     /> : <View style={styles.popModalTitleLeft} />

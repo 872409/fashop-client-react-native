@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/style';
+import { NetworkImage } from '../theme';
 
 export default class BodyGoods extends Component {
     render() {
@@ -37,7 +38,7 @@ export default class BodyGoods extends Component {
                 style={styles.bigWarp}
                 onPress={() => this.goDetail(item.id)}
             >
-                <Image style={styles.bigImg} source={{ uri: item.img }} />
+                <NetworkImage style={styles.bigImg} source={{ uri: item.img }} />
                 <View style={styles.bigBot}>
                     <Text style={styles.bigTitle} numberOfLines={2}>{item.title}</Text>
                     <Text style={styles.bigPriceText}>{item.price}</Text>
@@ -62,7 +63,7 @@ export default class BodyGoods extends Component {
                         }
                 }
             >
-                <Image style={styles.smallImg} source={{ uri: item.img }} />
+                <NetworkImage style={styles.smallImg} source={{ uri: item.img }} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{item.title}</Text>
                     <Text style={styles.smallPriceText}>{item.price}</Text>
@@ -83,7 +84,7 @@ export default class BodyGoods extends Component {
                     marginBottom: 10
                 }}
             >
-                <Image style={[styles.smallImg, { width, height }]} source={{ uri: item.img }} />
+                <NetworkImage style={[styles.smallImg, { width, height }]} source={{ uri: item.img }} />
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{item.title}</Text>
                     <Text style={styles.smallPriceText}>{item.price}</Text>
@@ -98,7 +99,7 @@ export default class BodyGoods extends Component {
                 key={index}
                 onPress={() => this.goDetail(item.id)}
             >
-                <Image style={styles.listImg} source={{ uri: item.img }} />
+                <NetworkImage style={styles.listImg} source={{ uri: item.img }} />
                 <View style={styles.listRight}>
                     <Text style={styles.listTitle} numberOfLines={3} >{item.title}</Text>
                     <Text style={styles.listPriceText}>{item.price}</Text>

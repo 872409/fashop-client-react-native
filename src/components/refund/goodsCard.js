@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
+import { NetworkImage } from "../theme"
 
 export default class RefundGoodsCard extends Component {
     static propTypes = {
@@ -39,7 +40,7 @@ export default class RefundGoodsCard extends Component {
                 <View style={styles.item}>
                     <View style={styles.content}>
                         <View style={styles.image}>
-                            <Image source={{ uri: goodsImg }} resizeMode={'cover'} style={
+                            <NetworkImage source={{ uri: goodsImg }} resizeMode={'cover'} style={
                                 {
                                     width: 60,
                                     height: 60,
