@@ -14,7 +14,7 @@ import NavigationService from "../../containers/navigationService";
 export const userLogin = ({ user_token } = {}) => {
     return async dispatch => {
         //登陆后需要处理的方法
-        await dispatch(setUserToken(user_token));
+        await dispatch(setUserToken(true,user_token));
         userLoginSuccessAfter({ dispatch, user_token });
     }
 }
@@ -47,7 +47,7 @@ export const initUserInfoStorage = () => {
             const userToken = JSON.parse(userTokenCache)
 
             await dispatch(setUserStatus(true, userInfo))
-            await dispatch(setUserToken(userToken))
+            await dispatch(setUserToken(true,userToken))
             await dispatch(getOrderStateNum());
             await dispatch(getCartTotalNum());
 
@@ -166,12 +166,13 @@ const setUserStatus = (login, userInfo) => {
 }
 
 // 设置用户状态
-const setUserToken = (userToken) => {
+const setUserToken = (login,userToken) => {
     return dispatch => {
         return new Promise(resolve => {
             dispatch({
                 type: types.user.USER_TOKEN_CHANGE,
-                userToken
+                userToken,
+                login
             })
             resolve()
         })

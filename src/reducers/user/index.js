@@ -27,6 +27,7 @@ export default (state = initialState, action)=> {
         case types.user.USER_TOKEN_CHANGE:
             return Object.assign({}, state, {
                 userToken: action.userToken,
+                login: action.login,
             })
         case types.user.USER_STATUS_CHANGE:
             return Object.assign({}, state, {
