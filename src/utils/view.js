@@ -475,6 +475,9 @@ export class CountdownButton extends Component {
                         api,
                         params,
                     })
+                    console.log(params);
+                    console.log(e);
+                    
                     if (e.code === 0) {
                         this.intervalFunc()
                     } else {

@@ -160,9 +160,10 @@ export default class GoodsSpecList extends Component{
                         if (if_cart) {
                             this.changeCart()
                         } else {
-                            navigation.navigate("CartOrderFill",{
-                                way: "buy_now"
-                            })
+                            console.log('立即购买');
+                            // navigation.navigate("CartOrderFill",{
+                            //     way: "buy_now"
+                            // })
                         }
                     }}
                 >

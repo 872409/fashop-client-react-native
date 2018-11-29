@@ -38,65 +38,51 @@ export const sendWechatAuthRequest=async()=>{
     }
 }
 
-export const wechatLogin = ({tokenData,userData, func})=>{
-    console.log('tokenData',tokenData);
-    console.log('userData',userData);
+export const wechatLogin = ({tokenData, userData})=>{
     return async dispatch=>{
         try{
             const params = {
-                login_type: 'wechat_openid',
+                login_type: 'wechat_app',
                 wechat_openid: userData.openid
             }
-            console.log('000000000000',params);
-            const e = await Fetch.request(UserApi.login,{
+            const e = await Fetch.fetch({
+                api: UserApi.login,
                 params
             })
-            // const e = await Fetch.fetch({
-            //     api: UserApi.login,
-            //     params: {
-            //         login_type: 'wechat_openid',
-            //         wechat_openid: userData.openid
-            //     }
-            // })
-            console.log('wechatLogin1');
-            console.log(e);
-            // if(e){
-            //     console.log("wechatLogin2");
-            //     if(e.code===0){
-            //         dispatch(userLogin({
-            //             userInfoData: e.result.info,
-            //             func
-            //         }))
-            //     }else {
-            //         Toast.warn(e.msg)
-            //     }
-            // }else{
-            //     console.log("wechatLogin3");
-            //     dispatch(wechatRegister({ tokenData, userData, func }))
-            // }
+            if(e.code===10014){
+                dispatch(wechatRegister({ tokenData, userData }))
+            }else{
+                if(e.code===0){
+                    dispatch(
+                        userLogin({
+                            user_token: e.result
+                        })
+                    )
+                }else {
+                    Toast.warn(e.msg)
+                }
+            }
         }catch(err){
             console.log('err',err);
-            
         }
     }
 }
 
-export const wechatRegister = ({tokenData, userData, func})=>{
+export const wechatRegister = ({tokenData, userData})=>{
+    const params = {
+        register_type: 'wechat_app',
+        wechat_openid: userData.openid,
+        wechat: userData
+    }
     return async dispatch=>{
         const e = await Fetch.fetch({
             api: UserApi.register,
-            params: {
-                register_type: 'wechat_openid',
-                wechat_openid: userData.openid,
-                wechat: userData
-            }
+            params
         })
-        console.log('wechatLogin4');
-        console.log(e);
         if(e.code===0){
-            dispatch(userLogin({
-                userInfoData: e.result.info,
-                func
+            dispatch(wechatLogin({
+                tokenData,
+                userData,
             }))
         }else {
             Toast.warn(e.msg)

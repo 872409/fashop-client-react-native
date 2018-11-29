@@ -123,7 +123,6 @@ export default class UserLogin extends Component {
 													dispatch(wechatLogin({
 														tokenData,
 														userData,
-														func: () => navigation.goBack()
 													}))
 												} catch (e) {
 													console.log(e);
