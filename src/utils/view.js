@@ -190,14 +190,16 @@ export class ListView extends Component {
                 numColumns={numColumns}
                 refreshControl={
                     <RefreshControl
+                        title="加载中..."
                         colors={['#fff']}
                         progressBackgroundColor={ThemeStyle.ThemeColor}
+                        tintColor={ThemeStyle.ThemeColor}
+                        titleColor={ThemeStyle.ThemeColor}
                         refreshing={this.state.isRefreshing}
                         onRefresh={() => {
                             this.onRefresh()
                             onRefresh()
                         }}
-                        tintColor={ThemeStyle.ThemeColor}
                         progressViewOffset={30}
                     />
                 }

@@ -1,6 +1,5 @@
 import { fetchData } from "moji-react-native-utils";
 import exceptionUtil from '../utils/exception'
-import { config } from '../utils'
 
 export default class Fetch {
     static fetch({ api, params = {} }) {
@@ -30,7 +29,6 @@ export default class Fetch {
     static request(api, options = { params: {} }) {
         const { params } = options
         // console.log(api, params, e, config.getHeaders())
-
         return fetchData.fetch({
             api,
             params,
@@ -43,7 +41,6 @@ export default class Fetch {
                     console.log(`接口：${api.url} 请求fail`)
                     throw new exceptionUtil(e.msg, e.code)
                 }
-
             })
     }
 

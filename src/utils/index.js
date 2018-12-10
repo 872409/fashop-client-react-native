@@ -3,6 +3,7 @@ import { Toast } from './function';
 import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-react-native-utils";
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import { setIsShowFetchLoading } from "../actions/app";
+import { userLogout } from "../actions/user";
 import store from "../store";
 import NavigationService from "../containers/navigationService";
 
@@ -36,7 +37,7 @@ initLibraryConfig({
         env,
     },
     removeUserInfo: () => {
-        // store.dispatch(userLogout({ exception: true }))
+        store.dispatch(userLogout())
     },
     showLoading: () => {
         store.dispatch(setIsShowFetchLoading(true))

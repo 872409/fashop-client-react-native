@@ -1,5 +1,4 @@
 import types from '../../constants';
-import { store } from "../../utils";
 import Fetch from "../../utils/fetch";
 import { storageModule } from "moji-react-native-utils";
 import { Toast } from "../../utils/function";
