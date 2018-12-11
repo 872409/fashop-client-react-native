@@ -13,14 +13,20 @@ import {
     StatusBar,
     Keyboard,
     ViewPropTypes,
-    Platform
+    Platform,
 } from 'react-native';
 import { Toast } from './function';
 import { windowWidth, ThemeStyle } from './style';
 import Fetch from '../utils/fetch';
 import { Button } from 'antd-mobile-rn';
 import { removeEmpty } from "./function";
-import { NomalRefreshControl, LottieRefreshControl } from "../components/refreshControl";
+import { 
+    NomalAndroidRefreshControl, 
+    NomalIosRefreshControl, 
+    LottieAndroidRefreshControl, 
+    LottieIosRefreshControl 
+} from "../components/refreshControl";
+import { ScrollView } from 'react-native-mjrefresh'
 
 /**
  * 通用ListView
@@ -189,9 +195,23 @@ export class ListView extends Component {
                 }}
                 contentContainerStyle={[dataSource.length ? {} : { flex: 1 }, contentContainerStyle]}
                 numColumns={numColumns}
+                // renderScrollComponent={props => <ScrollView
+                //     style={{ flex: 1 }}
+                //     refreshControl={
+                //         <LottieIosRefreshControl
+                //             ref={ref => this.lottieRefresh = ref}
+                //             onRefresh={()=>{
+                //                 this.onRefresh();
+                //                 onRefresh();
+                //                 this.lottieRefresh && this.lottieRefresh.finishRefresh();
+                //             }}
+                //         />
+                //     }
+                //     {...props}
+                // />}
                 refreshControl={
                     Platform.OS==='android' ? 
-                    <LottieRefreshControl
+                    <LottieAndroidRefreshControl
                         ref={ref => this.lottieRefresh = ref}
                         onRefresh={()=>{
                             this.onRefresh();
@@ -199,14 +219,6 @@ export class ListView extends Component {
                             this.lottieRefresh && this.lottieRefresh.finishRefresh();
                         }}
                     /> :
-                    // <NomalRefreshControl
-                    //     ref={ref => this.nomalRefresh = ref}
-                    //     onRefresh={()=>{
-                    //         this.onRefresh();
-                    //         onRefresh();
-                    //         this.nomalRefresh && this.nomalRefresh.finishRefresh();
-                    //     }}
-                    // /> :
                     <RefreshControl
                         title="加载中..."
                         colors={['#fff']}

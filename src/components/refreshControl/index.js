@@ -1,7 +1,11 @@
-import NomalRefreshControl from './nomal'
-import LottieRefreshControl from './lottie'
+import NomalAndroidRefreshControl from './nomalAndroid'
+import NomalIosRefreshControl from './nomalIos'
+import LottieAndroidRefreshControl from './lottieAndroid'
+import LottieIosRefreshControl from './lottieIos'
 
 export {
-    NomalRefreshControl,
-    LottieRefreshControl,
+    NomalAndroidRefreshControl,
+    NomalIosRefreshControl,
+    LottieAndroidRefreshControl,
+    LottieIosRefreshControl,
 }

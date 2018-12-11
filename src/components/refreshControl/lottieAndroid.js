@@ -44,7 +44,10 @@ export default class LottieRefreshControl extends Component {
                     <AnyHeader>
                         <Animated.View 
                             style={{
-                                height: 100, justifyContent: 'center', alignItems: 'center', transform: [{
+                                height: 100, 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                transform: [{
                                     scale: this.state.scale.interpolate({
                                         inputRange: [0, 1, 2],
                                         outputRange: [0.1, 1, 1],
