@@ -84,7 +84,8 @@ export const info = async ({ params = {} }) => {
         if (e.code === 0) {
             return e.result
         } else {
-            Toast.warn(e.msg)
+            return null
+            // Toast.warn(e.msg)
         }
     } catch (err) {
         Toast.warn(err)

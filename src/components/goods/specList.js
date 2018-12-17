@@ -13,7 +13,7 @@ import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/style';
 // import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "./stepper";
 import { NetworkImage } from "../theme";
-import { add, edit, exist } from "../../actions/cart";
+import { add, edit, exist, info } from "../../actions/cart";
 
 export default class GoodsSpecList extends Component{
     state = {
@@ -34,7 +34,7 @@ export default class GoodsSpecList extends Component{
     }
     render() {
         const { spec_sign, spec_value_sign, quantity, current_sku } = this.state;
-        const { spec_list, skus, if_cart, navigation } = this.props;
+        const { spec_list, skus, if_cart } = this.props;
         return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
@@ -161,10 +161,7 @@ export default class GoodsSpecList extends Component{
                         if (if_cart) {
                             this.changeCart()
                         } else {
-                            console.log('立即购买');
-                            // navigation.navigate("CartOrderFill",{
-                            //     way: "buy_now"
-                            // })
+                            this.buyNow()
                         }
                     }}
                 >
@@ -176,19 +173,54 @@ export default class GoodsSpecList extends Component{
     changeCart = async () => {
         const { current_sku, quantity } = this.state
         const { dispatch, closeModal } = this.props;
-        const params = {
-            goods_sku_id: current_sku.id,
-            quantity
-        }
-        const e = await exist({
+        const e = await info({
             params: {
                 goods_sku_id: current_sku.id
             }
         })
-        if(e){
+        const params = {
+            goods_sku_id: current_sku.id,
+            quantity: e ? e.info.goods_num+quantity : quantity
+        }
+        const if_exist = await exist({
+            params: {
+                goods_sku_id: current_sku.id
+            }
+        })
+        if(if_exist){
             dispatch(edit({params}))
         }else{
             dispatch(add({params}))
+        }
+        closeModal()
+    }
+    buyNow = async () => {
+        const { current_sku, quantity } = this.state
+        const { dispatch, closeModal, navigation } = this.props;
+        const params = {
+            goods_sku_id: current_sku.id,
+            quantity
+        }
+        const if_exist = await exist({
+            params: {
+                goods_sku_id: current_sku.id
+            }
+        })
+        if (if_exist) {
+            dispatch(edit({ params }))
+        } else {
+            dispatch(add({ params }))
+        }
+        const e = await info({
+            params: {
+                goods_sku_id: current_sku.id
+            }
+        })
+        if (e) {
+            navigation.navigate("CartOrderFill", {
+                way: "buy_now",
+                cart_ids: [e.info.id]
+            })
         }
         closeModal()
     }

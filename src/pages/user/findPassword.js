@@ -67,7 +67,7 @@ export default class UserFindPassword extends Component{
 								getParams={() => {
 									return {
 										channel_type: "sms",
-										behavior: "register", // register注册 findPassword找回密码 editPassword修改密码 bindPhone绑定手机
+										behavior: "findPassword", // register注册 findPassword找回密码 editPassword修改密码 bindPhone绑定手机
 										phone,
 									}
 								}}
