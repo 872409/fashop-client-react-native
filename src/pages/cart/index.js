@@ -8,6 +8,8 @@ import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
 import CartModel from "../../models/cart";
 import CartLogic from "../../logics/cart";
+import store from "../../store";
+import { getCartTotalNum } from "../../actions/user";
 
 const cartModel = new CartModel()
 const cartLogic = new CartLogic()
@@ -40,6 +42,7 @@ export default class CartIndex extends Component {
             'didFocus',
             async () => {
                 await this.initCartList()
+                store.dispatch(getCartTotalNum());
             }
         );
     }
@@ -52,42 +55,46 @@ export default class CartIndex extends Component {
         const { cartList } = this.state
         return <View style={PublicStyles.ViewMax}>
             {
-                Array.isArray(cartList) && cartList.length > 0 ? cartList.map((item, index) => (
-                    <SwipeAction
-                        key={index}
-                        autoClose
-                        style={{ backgroundColor: 'transparent' }}
-                        right={[
-                            {
-                                text: '删除',
-                                onPress: () => this.delete(item.goods_sku_id),
-                                style: { backgroundColor: 'red', color: 'white' },
-                            },
-                        ]}
-                    >
-                        <CartItem
-                            key={index}
-                            title={item.goods_title}
-                            price={item.goods_price}
-                            spec={item.goods_spec_string}
-                            cover={item.goods_sku_img}
-                            checked={item.is_check === 1}
-                            number={item.goods_num}
-                            onStepperChange={(value) => {
-                                this.onStepperChange(item, value, index)
-                            }}
-                            onCheckboxClick={(value) => {
-                                this.onChecked(item, value, index)
-                            }}
-                            onImageClick={() => {
-                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
-                            }}
-                            onTitleClick={() => {
-                                this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
-                            }}
-                        />
-                    </SwipeAction>
-                )) : <CartEmpty />
+                Array.isArray(cartList) && cartList.length > 0 ? <ScrollView>
+                    {
+                        cartList.map((item, index) => (
+                            <SwipeAction
+                                key={index}
+                                autoClose
+                                style={{ backgroundColor: 'transparent' }}
+                                right={[
+                                    {
+                                        text: '删除',
+                                        onPress: () => this.delete(item.goods_sku_id),
+                                        style: { backgroundColor: 'red', color: 'white' },
+                                    },
+                                ]}
+                            >
+                                <CartItem
+                                    key={index}
+                                    title={item.goods_title}
+                                    price={item.goods_price}
+                                    spec={item.goods_spec_string}
+                                    cover={item.goods_sku_img}
+                                    checked={item.is_check === 1}
+                                    number={item.goods_num}
+                                    onStepperChange={(value) => {
+                                        this.onStepperChange(item, value, index)
+                                    }}
+                                    onCheckboxClick={(value) => {
+                                        this.onChecked(item, value, index)
+                                    }}
+                                    onImageClick={() => {
+                                        this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
+                                    }}
+                                    onTitleClick={() => {
+                                        this.props.navigation.navigate('GoodsDetail', { id: item.goods_id })
+                                    }}
+                                />
+                            </SwipeAction>
+                        ))
+                    }
+                </ScrollView> : <CartEmpty />
             }
         </View>
     }
