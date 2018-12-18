@@ -151,7 +151,7 @@ export default class UserLogin extends Component {
 						onPress={() => {
 							navigation.navigate('PublicWebView', {
 								title: '用户协议',
-								url: `${env.demain}/agreement.html`
+								url: "https://www.fashop.cn/agreement.html"
 							})
 						}}
 					>

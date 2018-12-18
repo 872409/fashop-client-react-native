@@ -14,7 +14,6 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* fashopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fashopTests.m */; };
 		040242F021BE4B040044C8E0 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427021BE48AB0044C8E0 /* Lottie.framework */; };
-		0402433E21BE52010044C8E0 /* libRCTMJRefreshHeader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402433D21BE4FB00044C8E0 /* libRCTMJRefreshHeader.a */; };
 		04558160219BB656005B54DC /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455815F219BB655005B54DC /* TZImagePickerController.bundle */; };
 		0492F94921ABF5B5008E455C /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0492F94521ABF0D3008E455C /* libRCTVideo.a */; };
 		04AEBA242195287D0057C2DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEBA232195287D0057C2DF /* SystemConfiguration.framework */; };
@@ -538,7 +537,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0402433E21BE52010044C8E0 /* libRCTMJRefreshHeader.a in Frameworks */,
 				040242F021BE4B040044C8E0 /* Lottie.framework in Frameworks */,
 				0492F94921ABF5B5008E455C /* libRCTVideo.a in Frameworks */,
 				04AEBA2C219528B10057C2DF /* libz.tbd in Frameworks */,
@@ -1023,6 +1021,10 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 8FH5R2GNEK;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1751,8 +1753,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 8FH5R2GNEK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1774,6 +1778,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.fashop;
 				PRODUCT_NAME = fashop;
+				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 fashop 开发环境描述文件";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1783,7 +1788,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8FH5R2GNEK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1805,6 +1813,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.fashop;
 				PRODUCT_NAME = fashop;
+				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 fashop 生产环境描述文件";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

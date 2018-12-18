@@ -106,7 +106,7 @@ export default class UserRegister extends Component {
 										return {
 											channel_type: "sms",
 											behavior: "register", // register注册 findPassword找回密码 editPassword修改密码 bindPhone绑定手机
-											phone: username,
+											receiver: username,
 										}
 									}}
 									getData={(e) => {
@@ -185,7 +185,7 @@ export default class UserRegister extends Component {
 						onPress={() => {
 							navigation.navigate('PublicWebView', {
 								title: '用户协议',
-								url: `${env.demain}/agreement.html`
+								url: "https://www.fashop.cn/agreement.html"
 							})
 						}}
 					>
