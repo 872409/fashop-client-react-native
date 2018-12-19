@@ -1816,6 +1816,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.fashop;
 				PRODUCT_NAME = fashop;
 				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 fashop 开发环境描述文件";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1852,6 +1853,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.fashop;
 				PRODUCT_NAME = fashop;
 				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 fashop 生产环境描述文件";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

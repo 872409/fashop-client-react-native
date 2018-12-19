@@ -21,7 +21,7 @@ const developmentConfig =  {
 
 // 生产环境基础配置
 const productionConfig =  {
-    domain : 'https://demo.fashop.cn', // api域名
+    apiHost : 'https://demo.fashop.cn', // api域名
     log : false, // 是否开启输出日志
     showLog : false, // 是否显示输出日志
     showNetWorkErrorInfo : false, // 是否显示接口错误信息
