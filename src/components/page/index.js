@@ -1,4 +1,5 @@
 import Goods from './goods'
+import GoodsGroup from './goodsGroup'
 import GoodsList from './goodsList'
 import GoodsSearch from './goodsSearch'
 import Separator from './separator'
@@ -13,6 +14,7 @@ import TextNav from './textNav'
 
 export {
     Goods,
+    GoodsGroup,
     GoodsList,
     GoodsSearch,
     Separator,

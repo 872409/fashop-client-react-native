@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import { windowWidth, ThemeStyle } from '../../utils/style';
 import { NetworkImage } from "../theme"

@@ -11,6 +11,7 @@ import { stateHoc } from "../../utils";
 import { PublicStyles } from '../../utils/style';
 import {
     Goods,
+    GoodsGroup,
     GoodsList,
     GoodsSearch,
     Separator,
@@ -136,6 +137,8 @@ export default class PageDetail extends Component {
                 return <Title key={index} data={item} />;
             case "text_nav":
                 return <TextNav key={index} data={item} handelLink={this.handelLink} />;
+            case "goods_group":
+                return <GoodsGroup key={index} data={item} navigation={navigation} />;
             default:
                 return <Text key={index}>NULL</Text>;
         }
