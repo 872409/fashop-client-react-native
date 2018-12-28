@@ -130,7 +130,7 @@ export default class OrderDetail extends Component {
         if (e) {
             this.props.navigation.navigate('PublicWebView', {
                 title: '物流信息',
-                url: e.url
+                url: e.info.url
             })
         } else {
             fa.toast.show({
