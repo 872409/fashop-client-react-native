@@ -54,12 +54,19 @@ export default class OrderFooterAction extends Component {
         }
     }
 
+    onLogistics() {
+        if (this.props.onLogistics) {
+            this.props.onLogistics();
+        }
+    }
+
     render() {
         const {
             showReceiveBtn,
             showCancelBtn,
             showEvaluateBtn,
             showPayBtn,
+            showLogisticsBtn
         } = this.props
         return <View style={styles.orderFooterAction}>
             <View style={styles.footer}>
@@ -77,6 +84,9 @@ export default class OrderFooterAction extends Component {
                     }} /> : null}
                     {showEvaluateBtn === true ? <OrderButton text="评价" onClick={() => {
                         this.onEvaluate()
+                    }} /> : null}
+                    {showLogisticsBtn === true ? <OrderButton text="查看物流" onClick={() => {
+                        this.onLogistics()
                     }} /> : null}
 
                 </View>

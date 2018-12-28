@@ -26,6 +26,10 @@ export const OrderApi = {
         url: `${ROOT_URL}order/deliverInfo`,
         method: 'GET'
     },
+    logistics: {
+        url: `${ROOT_URL}order/logistics`,
+        method: 'GET'
+    },
     goodsList: {
         url: `${ROOT_URL}order/goodsList`,
         method: 'GET'

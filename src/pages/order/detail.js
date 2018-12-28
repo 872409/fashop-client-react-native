@@ -122,6 +122,22 @@ export default class OrderDetail extends Component {
             order_id: orderInfo.id,
         })
     }
+    
+    async onLogistics(orderInfo) {
+        const e = await orderModel.logistics({
+            id: orderInfo.id
+        })
+        if (e) {
+            this.props.navigation.navigate('PublicWebView', {
+                title: '物流信息',
+                url: e.url
+            })
+        } else {
+            fa.toast.show({
+                title: fa.code.parse(orderModel.getException().getCode())
+            })
+        }
+    }
 
     async onReceive() {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
@@ -227,7 +243,7 @@ export default class OrderDetail extends Component {
                         showDelBtn={false}
                         showEvaluateBtn={orderInfo.if_evaluate}
                         showPayBtn={orderInfo.if_pay}
-                        showLogisticsBtn={orderInfo.showLogisticsBtn}
+                        showLogisticsBtn={orderInfo.if_deliver}
                         showReceiveBtn={orderInfo.if_receive}
                         onPay={() => {
                             this.onPay()
@@ -240,6 +256,9 @@ export default class OrderDetail extends Component {
                         }}
                         onEvaluate={() => {
                             this.onEvaluate()
+                        }}
+                        onLogistics={() => {
+                            this.onLogistics()
                         }}
                     />
                 </View>

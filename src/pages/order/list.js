@@ -107,6 +107,22 @@ export default class OrderList extends Component {
         dispatch(wechatPay({params}))
     }
 
+    async onLogistics(orderInfo) {
+        const e = await orderModel.logistics({
+            id: orderInfo.id
+        })
+        if (e) {
+            this.props.navigation.navigate('PublicWebView', {
+                title: '物流信息',
+                url: e.url
+            })
+        } else {
+            fa.toast.show({
+                title: fa.code.parse(orderModel.getException().getCode())
+            })
+        }
+    }
+
     updateListRow = async (id) => {
         this.ListView.manuallyRefresh()
     }
@@ -223,7 +239,7 @@ export default class OrderList extends Component {
                                 showEvaluateBtn={item.if_evaluate}
                                 showPayBtn={item.if_pay}
                                 showReceiveBtn={item.if_receive}
-                                showLogisticsBtn={item.showLogisticsBtn}
+                                showLogisticsBtn={item.if_deliver}
                                 showCancelBtn={item.if_cancel}
                                 onPay={() => {
                                     this.onPay(item)
@@ -236,6 +252,9 @@ export default class OrderList extends Component {
                                 }}
                                 onEvaluate={() => {
                                     this.onEvaluate(item)
+                                }}
+                                onLogistics={() => {
+                                    this.onLogistics(item)
                                 }}
                             />
                         </OrderCard>

@@ -56,6 +56,12 @@ export default class OrderCardFooter extends Component {
             this.props.onEvaluate();
         }
     }
+    
+    onLogistics() {
+        if (this.props.onLogistics) {
+            this.props.onLogistics();
+        }
+    }
 
     render() {
         const {
@@ -64,7 +70,8 @@ export default class OrderCardFooter extends Component {
             showEvaluateBtn,
             showPayBtn,
             showReceiveBtn,
-            showCancelBtn
+            showCancelBtn,
+            showLogisticsBtn
         } = this.props
 
         return <View style={styles.orderCardFooter}>
@@ -73,7 +80,7 @@ export default class OrderCardFooter extends Component {
                 <Text style={styles.priceDesc}>实付款：</Text>
                 <Text style={styles.price}>¥{totalCost}</Text>
             </View>
-            {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn ?
+            {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn || showLogisticsBtn ?
                 <View style={styles.footer}>
                     {showCancelBtn === true ?
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
@@ -91,6 +98,10 @@ export default class OrderCardFooter extends Component {
                         <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
                             this.onReceive()
                         }}><Text style={{color:"#ff4400"}}>确认收货</Text></TouchableOpacity> : null}
+                    {showLogisticsBtn === true ?
+                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
+                            this.onLogistics()
+                        }}><Text style={{color:"#ff4400"}}>查看物流</Text></TouchableOpacity> : null}
                 </View> : null}
         </View>
     }

@@ -64,6 +64,16 @@ export default class Order extends Model {
         }
     }
 
+    async logistics(params) {
+        try {
+            const { result } = await Fetch.request(OrderApi.logistics,{  params })
+            return result
+        } catch (e) {
+            this.setException(e)
+            return false
+        }
+    }
+
     async goodsList(params) {
         try {
             const { result } = await Fetch.request(OrderApi.goodsList,{  params })

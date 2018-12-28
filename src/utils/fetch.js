@@ -1,5 +1,7 @@
 import { fetchData } from "moji-react-native-utils";
 import exceptionUtil from '../utils/exception'
+// import store from "../store";
+// import { userLogout } from "../actions/user"
 
 export default class Fetch {
     static fetch({ api, params = {} }) {
@@ -37,7 +39,11 @@ export default class Fetch {
                 // console.log(api, params, e, config.getHeaders())
                 if (e.code === 0) {
                     return e
-                } else {
+                } 
+                // else if(e.code===10005){
+                //     store.dispatch(userLogout())
+                // } 
+                else {
                     console.log(`接口：${api.url} 请求fail`)
                     throw new exceptionUtil(e.msg, e.code)
                 }

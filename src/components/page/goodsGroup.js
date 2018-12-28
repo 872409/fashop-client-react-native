@@ -13,23 +13,23 @@ import { Button, Carousel } from "antd-mobile-rn";
 export default class PageGoodsGroup extends Component {
     render() {
         const { data, options } = this.props.data
-        const { layout_type } = options
+        const { layout_style } = options
         // 展示形式：大图 1、小图 2、一大两小 3、列表 4、轮播 5
-        const warpStyle = layout_type === 4 ? {
+        const warpStyle = layout_style === 4 ? {
             paddingHorizontal: 0,
             paddingLeft: 15,
-        } : layout_type === 5 ? {
+        } : layout_style === 5 ? {
             paddingHorizontal: 0,
         } : {}
         return <View style={[styles.goodsListWarp, warpStyle]}>
             {
-                layout_type===5 ? this.carousel(data) :
+                layout_style===5 ? this.carousel(data) :
                 data.map((item, index) => {
                     const params = {
                         item,
                         index,
                     }
-                    switch (layout_type) {
+                    switch (layout_style) {
                         case 1: return this.big(params);
                         case 2: return this.small(params);
                         case 3: return this.oneBigTwoSmall(params);
