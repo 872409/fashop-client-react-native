@@ -4268,6 +4268,10 @@ react-native-wechat@^1.9.10:
   dependencies:
     events "1.0.2"
 
+react-native-yunpeng-alipay@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/react-native-yunpeng-alipay/-/react-native-yunpeng-alipay-2.0.0.tgz#a9d3d68a5eef2e5c75bb66c460384e1288d9aaad"
+
 react-native@^0.57.5:
   version "0.57.6"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.57.6.tgz#517a5df8a635e9f465abec1e47d7d66b0e206c06"

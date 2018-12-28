@@ -12,6 +12,7 @@
 #import <React/RCTLinkingManager.h>
 #import "RNSplashScreen.h"
 #import <AVFoundation/AVFoundation.h> 
+#import "AlipayModule.h"
 
 @implementation AppDelegate
 
@@ -42,6 +43,7 @@
 {
   [RCTLinkingManager application:application openURL:url
                sourceApplication:sourceApplication annotation:annotation];
+  [AlipayModule handleCallback:url];
   return YES;
 }
 

@@ -4,87 +4,137 @@ import{
     StyleSheet,
     Text,
     View,
-    Image,
-    ImageBackground,
-    Linking,
-    ScrollView,
-    TouchableOpacity,
-    Alert,
-    InteractionManager,
 } from 'react-native';
 import Fetch from '../../utils/fetch';
 import { Toast } from "../../utils/function";
 import {
-    PublicStyles,
+    PublicStyles, ThemeStyle,
 } from '../../utils/style'
-import { List } from "antd-mobile-rn";
-import * as WeChat from 'react-native-wechat';
-import { BuyApi } from '../../config/api/buy'
+import { List, NoticeBar } from "antd-mobile-rn";
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
+import Alipay from "react-native-yunpeng-alipay";
+import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
+// import { BuyApi } from '../../config/api/buy'
 
 const Item = List.Item;
 
 @connect(({
-    app:{wechat:{isWXAppInstalled}},
-    navigation,
+    app: {
+        wechat: {
+            isWXAppInstalled
+        }
+    },
 })=>({
     isWXAppInstalled,
-    nav:navigation,
 }))
 export default class Pay extends Component{
     state = {
-        payment_list:[],
-        pay_amount:0,
-        order_id:''
+        // payment_list:[],
+        // pay_amount:0,
+        // order_id:''
+        center: "",
+        wait: 7200
     }
-    async componentDidMount(){
-        const { navigation } = this.props
-        const { pay_sn } = navigation.state.params
-        const e = await Fetch.fetch({
-            api: BuyApi.info,
-            params:{
-                pay_sn,
+    // async componentDidMount(){
+    //     const { navigation } = this.props
+    //     const { pay_sn } = navigation.state.params
+    //     const e = await Fetch.fetch({
+    //         api: BuyApi.info,
+    //         params:{
+    //             pay_sn,
+    //         }
+    //     })
+    //     console.log(e);
+    //     if (e.code === 0) {
+    //         this.setState({
+    //             payment_list: e.result.payment_list,
+    //             pay_amount: e.result.pay_amount,
+    //             order_id:e.result.order_info.id
+    //         });
+    //     } else {
+    //         Toast.info(e.msg, 1);
+    //     }
+    // }
+    componentDidMount(){
+        let { wait } = this.state
+        this.timer = window.setInterval(() => {
+            let hour = 0
+            let minute = 0
+            let second = 0
+            if (wait > 0) {
+                let day = Math.floor(wait / (60 * 60 * 24))
+                hour = Math.floor(wait / (60 * 60)) - (day * 24);
+                minute = Math.floor(wait / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(wait) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
             }
-        })
-        console.log(e);
-        if (e.code === 0) {
-            this.setState({
-                payment_list: e.result.payment_list,
-                pay_amount: e.result.pay_amount,
-                order_id:e.result.order_info.id
-            });
-        } else {
-            Toast.info(e.msg, 1);
-        }
+            if (hour <= 9) hour = '0' + hour;
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            if (wait === 0) {
+                window.clearInterval(this.timer)
+                this.setState({
+                    center: '超时',
+                });
+            }else {
+                --wait;
+                this.setState({
+                    center: `${hour}小时${minute}分钟${second}秒`
+                });
+            }
+        }, 1000)
+    }
+    componentWillUnmount() {
+        this.timer && window.clearInterval(this.timer)
     }
     render() {
-        const {
-            isWXAppInstalled,
-        } = this.props
-        const { payment_list } = this.state
-        // console.log('pay',nav);
+        const { isWXAppInstalled } = this.props
+        const { 
+            center, 
+            // payment_list 
+        } = this.state;
+        const payment_list = [
+            {type: "wechat",name: "微信支付"},
+            {type: "alipay",name: "支付宝支付"},
+        ]
         return (
-            <View style={[PublicStyles.ViewMax]}>
-                {/* <NoticeBar
-                    mode="closable"
+            <View style={PublicStyles.ViewMax}>
+                <NoticeBar
+                    icon={
+                        <AntDesignIcon
+                            color="#FE7C04"
+                            size={16}
+                            name="exclamationcircleo"
+                        />
+                    }
+                    style={{backgroundColor: '#FFF7E7'}}
                 >
-                    订单超过15分钟未支付，将会被取消！！！
-                </NoticeBar> */}
-                <List>
+                    <Text style={{ color: "#FE7C04" }}>
+                        请在 {center} 内完成支付
+                    </Text>
+                </NoticeBar>
+                <View style={styles.totalView}>
+                    <Text style={[PublicStyles.boldTitle, { fontSize: 14, marginBottom: 10 }]}>此次订单共需支付</Text>
+                    <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>
+                        ￥
+                        <Text style={{fontSize: 25}}>108.00</Text>
+                    </Text>
+                </View>
+                <List renderHeader={() => "选择支付方式" }>
                     {
                         payment_list.map((item,index)=>{
-                            const disabled = item.code==='wxpayapp'&&isWXAppInstalled===false
+                            const disabled = item.type==='wechat'&&isWXAppInstalled===false
                             return(
                                 <Item
                                     key={index}
                                     thumb={item.logo}
                                     arrow="horizontal"
-                                    onClick={() => {
-                                        // if(!disabled){
-                                        //     this.orderPay(item.code)
-                                        // }
-                                    }}
                                     disabled={disabled}
                                     extra={disabled&&<Text style={{fontSize:14,color:'red'}}>不支持此支付方式</Text>}
+                                    onClick={() => {
+                                        if(!disabled){
+                                            this.orderPay(item.type)
+                                        }
+                                    }}
                                 >
                                     {item.name}
                                 </Item>
@@ -95,77 +145,39 @@ export default class Pay extends Component{
             </View>
         )
     }
-    async orderPay(payment_code) {
-        const { navigation } = this.props
-        const { pay_sn } = navigation.state.params;
-        // return this.paySuccess()
+    async wxPay(){
+        const { dispatch, navigation } = this.props
+        const { orderInfo } = navigation.state.params
+        const { tokenData } = await sendWechatAuthRequest()
         const params = {
-            order_type: 'house_reserve',
-            pay_sn,
-            payment_code,
+            order_type: 'goods_buy',
+            pay_sn: orderInfo.pay_sn,
+            payment_code: 'wechat',
+            openid: tokenData.openid,
+            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         }
-        const e = await Fetch.fetch({
-            apiName:"PAYMENTTOPAY",
-            params
-        })
-        if (e.errcode === 0) {
-            switch (payment_code) {
-                case 'alipay':
-                    this.alipay(e)
-                    break;
-                case 'wxpayapp':
-                    this.wxpay(e)
-                    break;
-                default:
-                    Toast.warn('选择的方式用户端暂未支持')
-            }
-        } else {
-            Toast.info(e.errmsg,1)
-        }
+        dispatch(wechatPay({ params }))
     }
     alipay(e){
-        // Alipay.pay(e.data.ios).then((AlipayData)=>{
-		// 	this.paySuccess()
-        // },(err)=> {
-        //     Toast.warn('支付失败');
-        // });
-    }
-    async wxpay(e){
-        const {app_response} = e.data
-        const payOptions = {
-            partnerId: app_response.partnerId, /*商家向财付通申请的商家id*/
-            prepayId: app_response.prepayId, /*预支付订单*/
-            nonceStr: app_response.nonceStr, /*随机串，防重发*/
-            timeStamp: app_response.timeStamp, /*时间戳，防重发*/
-            package: app_response.package, /*商家根据财付通文档填写的数据和签名*/
-            sign: app_response.sign, /*商家根据微信开放平台文档对数据做的签名*/
-        };
-        try {
-            const a = await WeChat.pay(payOptions)
-            this.paySuccess()
-        } catch (e) {
+        Alipay.pay(e.data.ios)
+        .then((AlipayData)=>{
+			this.paySuccess()
+        },(err)=> {
             Toast.warn('支付失败');
-        }
-    }
-    paySuccess() {
-        const {
-            nav,
-            navigation,
-        } = this.props
-        const { order_id } = this.state;
-        Toast.info('支付成功')
-        navigation.goBack(nav.routes[1].key)
-        InteractionManager.runAfterInteractions(() => {
-            navigation.navigate('OrderDetail', {
-                id: order_id
-            })
         })
     }
-    payFailure() {
-
+    paySuccess() {
+        this.props.navigation.replace('PaySuccess')
     }
+    // payFailure() {
+
+    // }
 }
 
 const styles = StyleSheet.create({
-
+    totalView: {
+        backgroundColor: '#fff',
+        paddingVertical: 24,
+        alignItems: 'center',
+    }
 })

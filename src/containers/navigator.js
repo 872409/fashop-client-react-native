@@ -10,6 +10,7 @@ import GoodsList from "../pages/goods/list";
 import GoodsDetail from "../pages/goods/detail";
 
 import Pay from "../pages/pay";
+import PaySuccess from "../pages/pay/success";
 
 import UserLogin from "../pages/user/login";
 import UserInfo from "../pages/user/info";
@@ -111,6 +112,12 @@ export default createStackNavigator(
             screen: Pay,
             navigationOptions: {
                 title: '收银台'
+            }
+        },
+        PaySuccess: {
+            screen: PaySuccess,
+            navigationOptions: {
+                title: '支付成功'
             }
         },
         // user

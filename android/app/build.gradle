@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-yunpeng-alipay')
     compile project(':lottie-react-native')
     compile project(':react-native-smartrefreshlayout')
     compile project(':react-native-video')
