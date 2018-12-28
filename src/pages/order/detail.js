@@ -243,7 +243,7 @@ export default class OrderDetail extends Component {
                         showDelBtn={false}
                         showEvaluateBtn={orderInfo.if_evaluate}
                         showPayBtn={orderInfo.if_pay}
-                        showLogisticsBtn={orderInfo.if_deliver}
+                        showLogisticsBtn={orderInfo.state === 30 || orderInfo.state === 40}
                         showReceiveBtn={orderInfo.if_receive}
                         onPay={() => {
                             this.onPay()

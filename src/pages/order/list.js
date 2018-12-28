@@ -239,7 +239,7 @@ export default class OrderList extends Component {
                                 showEvaluateBtn={item.if_evaluate}
                                 showPayBtn={item.if_pay}
                                 showReceiveBtn={item.if_receive}
-                                showLogisticsBtn={item.if_deliver}
+                                showLogisticsBtn={item.state === 30 || item.state === 40}
                                 showCancelBtn={item.if_cancel}
                                 onPay={() => {
                                     this.onPay(item)
