@@ -12,28 +12,49 @@ import { NetworkImage } from "../../components/theme";
 import Fetch from "../../utils/fetch";
 import { Toast } from '../../utils/function';
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
+import { ShopApi } from "../../config/api/shop";
+import GoodsItem from "../../components/goods/item";
+import { ListView } from "../../utils/view";
+import { GoodsApi } from "../../config/api/goods";
 
 export default class Category extends Component {
     state = {
         current: 0,
-        categoryList: []
+        categoryList: [],
+        goods_category_style: 1,
     }
 
-    async componentDidMount() {
-        const e = await Fetch.fetch({
-            api: GoodsCategoryApi.list,
-        })
-        if (e.code === 0) {
-            this.setState({
-                categoryList: e.result.list,
-                current: e.result.list[0].id
-            })
-        } else {
-            Toast.warn(e.msg)
-        }
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus', async () => {
+                const shopInfo = await Fetch.fetch({
+                    api: ShopApi.info,
+                })
+                const goodsCategory = await Fetch.fetch({
+                    api: GoodsCategoryApi.list,
+                })
+                if (goodsCategory.code === 0 && shopInfo.code === 0) {
+                    this.setState({
+                        categoryList: goodsCategory.result.list,
+                        current: goodsCategory.result.list[0].id,
+                        goods_category_style: shopInfo.result.info.goods_category_style+1
+                    })
+                }
+            }
+        )
     }
 
     render() {
+        const { goods_category_style } = this.state;
+        if(goods_category_style===1){
+            return this.PageOne()
+        } else if (goods_category_style === 2) {
+            return this.PageTwo()
+        } else if (goods_category_style === 3) {
+            return this.PageThree()
+        }
+    }
+    PageOne = () => {
         const { current, categoryList } = this.state;
         const currentList = categoryList.filter(item => item.id === current)
         const _child = currentList.length ? currentList[0]._child : []
@@ -103,17 +124,120 @@ export default class Category extends Component {
         )
     }
 
-    empty({ content }) {
+    empty({content}) {
         return (
             <View style={styles.emptyWarp}>
-                <Image style={styles.emptyImg} source={require('../../images/fetchStatus/searchNullData.png')}/>
+                <Image 
+                    style={styles.emptyImg} 
+                    source={require('../../images/fetchStatus/searchNullData.png')}
+                />
                 <Text style={PublicStyles.descFour9}>{content}</Text>
             </View>
         )
     }
+
+    PageTwo = () => {
+        const { categoryList } = this.state;
+        const { navigation } = this.props
+        return <View style={[PublicStyles.ViewMax, { flexDirection: 'row' }]}>
+            <ScrollView>
+                {
+                    categoryList.map((item,i)=>(
+                        <View key={i} style={styles.item}>
+                            <Text style={styles.itemName}><Text style={{color: '#ccc'}}>— </Text> {item.name} <Text style={{color: '#ccc'}}>— </Text></Text>
+                            <View style={styles.childView}>
+                                {
+                                    item._child.map((childItem,j)=>(
+                                        <TouchableOpacity 
+                                            key={j} 
+                                            style={styles.childItem}
+                                            onPress={() => {
+                                                navigation.navigate("GoodsList", {
+                                                    category_id: item.id,
+                                                })
+                                            }}
+                                        >
+                                            <NetworkImage style={styles.childImg} source={{ uri: childItem.icon }} />
+                                            <Text style={styles.childName} numberOfLines={1}>{childItem.name}</Text>
+                                        </TouchableOpacity>
+                                    ))
+                                }
+                            </View>
+                        </View>
+                    ))
+                }
+            </ScrollView>
+        </View>;
+    }
+
+    PageThree = () => {
+        const { current, categoryList } = this.state;
+        const { navigation } = this.props
+        return <View style={PublicStyles.ViewMax}>
+            <View style={styles.btnWarp}>
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}  // 隐藏水平指示器
+                >
+                    <TouchableOpacity
+                        style={[styles.btnItem, !current ? styles.btnItemActive : {}]}
+                        activeOpacity={.8}
+                        onPress={() => {
+                            this.setState({
+                                current: 0
+                            }, () => this.ListView.setFetchParams({
+                                category_ids: null
+                            }))
+                        }}
+                    >
+                        <Text style={[styles.btnItemText, !current ? styles.btnItemTextActive : {}]}>全部</Text>
+                    </TouchableOpacity>
+                    {
+                        categoryList.map((item, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={[styles.btnItem, current === item.id ? styles.btnItemActive : {}]}
+                                activeOpacity={.8}
+                                onPress={() => {
+                                    this.setState({
+                                        current: item.id
+                                    }, () => this.ListView.setFetchParams({
+                                        category_ids: [item.id]
+                                    }))
+                                }}
+                            >
+                                <Text style={[styles.btnItemText, current === item.id ? styles.btnItemTextActive : {}]}>{item.name}</Text>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </ScrollView>
+            </View>
+            <ListView
+                ref={e => this.ListView = e}
+                keyExtractor={e => String(e.id)}
+                numColumns={2}
+                renderItem={({ item, index }) => (
+                    <GoodsItem
+                        data={item}
+                        index={index}
+                        onPress={() => {
+                            navigation.navigate("GoodsDetail", {
+                                id: item.id
+                            });
+                        }}
+                    />
+                )}
+                api={GoodsApi.list}
+                fetchParams={{
+                    category_ids: current ? [parseInt(current)] : null,
+                }}
+            />
+        </View>;
+    }
 }
 
 const styles = StyleSheet.create({
+    // pageone
     left: {
         width: windowWidth * 0.33,
         backgroundColor: '#fff',
@@ -152,5 +276,66 @@ const styles = StyleSheet.create({
     },
     emptyImg: {
         marginBottom: 10
+    },
+    // pagetwo
+    item: {
+        backgroundColor: '#fff',
+        marginBottom: 10
+    },
+    itemName: {
+        fontSize: 16,
+        color: '#333',
+        lineHeight: 60,
+        textAlign: 'center'
+    },
+    childView: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    childItem: {
+        width: windowWidth/4,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    childImg: {
+        width: 52,
+        height: 52
+    },
+    childName: {
+        color: '#666',
+        fontSize: 14,
+        lineHeight: 14,
+        marginVertical: 15,
+    },
+    // pagethree
+    btnWarp: { 
+        backgroundColor: '#fff', 
+        height: 48,
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        overflow: 'scroll',
+        marginBottom: 10
+    },
+    btnItem: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        height: 24,
+        marginRight: 10,
+        borderRadius: 12,
+        overflow: 'hidden',
+        paddingHorizontal: 20,
+        backgroundColor: '#f8f8f8'
+    },
+    btnItemActive: {
+        backgroundColor: '#ffffff',
+        borderColor: ThemeStyle.ThemeColor,
+        borderWidth: 0.5,
+    },
+    btnItemText: {
+        fontSize: 14, 
+        color: '#333333'
+    },
+    btnItemTextActive: {
+        color: ThemeStyle.ThemeColor
     },
 });
