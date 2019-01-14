@@ -14,6 +14,7 @@ export default class PageGoodsGroup extends Component {
     render() {
         const { data, options } = this.props.data
         const { layout_style } = options
+        console.log(data);
         // 展示形式：大图 1、小图 2、一大两小 3、列表 4、轮播 5
         const warpStyle = layout_style === 4 ? {
             paddingHorizontal: 0,
@@ -55,10 +56,10 @@ export default class PageGoodsGroup extends Component {
                     <Text style={styles.bigTitle} numberOfLines={2}>{item.title}</Text>
                     <View style={[PublicStyles.rowBetweenCenter,{ marginBottom: 6 }]}>
                         <View style={PublicStyles.rowCenter}>
-                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>2人团 ￥</Text>
-                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.price}</Text>
+                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>{item.limit_buy_num}人团 ￥</Text>
+                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.group_price}</Text>
                         </View>
-                        <Text style={PublicStyles.descTwo9}>已拼8888件</Text>
+                        <Text style={PublicStyles.descTwo9}>已拼{item.group_sale_num}件</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -86,10 +87,10 @@ export default class PageGoodsGroup extends Component {
                     <Text style={styles.smallTitle} numberOfLines={2}>{item.title}</Text>
                     <View style={{ marginBottom: 6 }}>
                         <View style={PublicStyles.rowCenter}>
-                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>2人团 ￥</Text>
-                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.price}</Text>
+                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>{item.limit_buy_num}人团 ￥</Text>
+                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.group_price}</Text>
                         </View>
-                        <Text style={PublicStyles.descTwo9}>已拼8888件</Text>
+                        <Text style={PublicStyles.descTwo9}>已拼{item.group_sale_num}件</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -113,10 +114,10 @@ export default class PageGoodsGroup extends Component {
                     <Text style={styles.smallTitle} numberOfLines={2}>{item.title}</Text>
                     <View style={{ marginBottom: 6 }}>
                         <View style={PublicStyles.rowCenter}>
-                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>2人团 ￥</Text>
-                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.price}</Text>
+                            <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>{item.limit_buy_num}人团 ￥</Text>
+                            <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.group_price}</Text>
                         </View>
-                        <Text style={PublicStyles.descTwo9}>已拼8888件</Text>
+                        <Text style={PublicStyles.descTwo9}>已拼{item.group_sale_num}件</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -134,11 +135,11 @@ export default class PageGoodsGroup extends Component {
                     <Text style={styles.listTitle} numberOfLines={3} >{item.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <View>
-                            <Text style={PublicStyles.descTwo9}>2人团 已拼8888件</Text>
+                            <Text style={PublicStyles.descTwo9}>{item.limit_buy_num}人团 已拼{item.group_sale_num}件</Text>
                             <View style={PublicStyles.rowCenter}>
                                 <Text style={[PublicStyles.descTwo9, { color: ThemeStyle.ThemeColor }]}>￥</Text>
-                                <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.price}</Text>
-                                <Text style={[PublicStyles.descTwo9,{textDecorationColor: '#999', textDecorationLine: 'line-through'}]}> ￥{item.market_price}</Text>
+                                <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>{item.group_price}</Text>
+                                <Text style={[PublicStyles.descTwo9,{textDecorationColor: '#999', textDecorationLine: 'line-through'}]}> ￥{item.price}</Text>
                             </View>
                         </View>
                         <Button
@@ -191,12 +192,12 @@ export default class PageGoodsGroup extends Component {
                                                             }}
                                                         >
                                                             <View style={styles.carouselGroup}>
-                                                                <Text style={styles.carouselGroupText}>2人团</Text>
+                                                                <Text style={styles.carouselGroupText}>{item.limit_buy_num}人团</Text>
                                                             </View>
                                                         </ImageBackground>
                                                         <View style={styles.carouselGroupBot}>
                                                             <Text style={[PublicStyles.descTwo9,{ color: ThemeStyle.ThemeColor, paddingVertical: 4 }]}>
-                                                                ￥ <Text style={{fontSize: 16, fontWeight: '500'}}>{childItem.price}</Text>
+                                                                ￥ <Text style={{fontSize: 16, fontWeight: '500'}}>{childItem.group_price}</Text>
                                                             </Text>
                                                             <Text  numberOfLines={1}>{childItem.title}</Text>
                                                         </View>
