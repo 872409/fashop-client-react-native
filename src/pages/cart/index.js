@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
 import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
 import fa from "../../utils/fa"
@@ -6,6 +7,7 @@ import { Button, SwipeAction } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";
 import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
+import CartLogin from "../../components/cart/login";
 import CartModel from "../../models/cart";
 import CartLogic from "../../logics/cart";
 import store from "../../store";
@@ -13,6 +15,18 @@ import { getCartTotalNum } from "../../actions/user";
 
 const cartModel = new CartModel()
 const cartLogic = new CartLogic()
+
+@connect((
+    { 
+        app: { 
+            user: {
+                login,
+            } 
+        } 
+    }
+)=> ({
+    login,
+}))
 export default class CartIndex extends Component {
     state = {
         refreshing: true,
@@ -38,11 +52,20 @@ export default class CartIndex extends Component {
         userInfo: null,
     }
     componentDidMount() {
+        
         this.props.navigation.addListener(
             'didFocus',
             async () => {
-                await this.initCartList()
-                store.dispatch(getCartTotalNum());
+                const { login } = this.props
+                console.log("login", login);
+                if(login){
+                    await this.initCartList()
+                    store.dispatch(getCartTotalNum());
+                }else {
+                    this.setState({
+                        refreshing: false
+                    })
+                }
             }
         );
     }
@@ -53,9 +76,10 @@ export default class CartIndex extends Component {
 
     renderCartList() {
         const { cartList } = this.state
+        const { login, navigation } = this.props
         return <View style={PublicStyles.ViewMax}>
             {
-                Array.isArray(cartList) && cartList.length > 0 ? <ScrollView>
+                !login ? <CartLogin navigation={navigation} /> : Array.isArray(cartList) && cartList.length > 0 ? <ScrollView>
                     {
                         cartList.map((item, index) => (
                             <SwipeAction
@@ -101,6 +125,7 @@ export default class CartIndex extends Component {
 
     render() {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
+        const { login } = this.props
         return <View style={PublicStyles.ViewMax}>
             <ScrollView
                 contentContainerStyle={{ flex: 1 }}
@@ -123,7 +148,7 @@ export default class CartIndex extends Component {
                     this.renderInit()
                 }
             </ScrollView>
-            {cartList.length > 0 ? <View style={styles.footer}>
+            {cartList.length > 0&&login ? <View style={styles.footer}>
                 <View style={styles.footerLeft}>
                     <View style={styles.footerAllAction}>
                         <CartCheckbox
@@ -359,6 +384,7 @@ export default class CartIndex extends Component {
     }
 
 }
+
 // 占位图，登陆提示
 const styles = StyleSheet.create({
     cartCardItem: {
