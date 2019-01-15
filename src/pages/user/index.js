@@ -33,15 +33,6 @@ const Item = List.Item
     }
 ))
 export default class User extends Component {
-    // componentDidCatch(){
-    //     const { login, dispatch } = this.props
-    //     if(login){
-    //         dispatch(updateUserInfo())
-    //     }
-    // }
-    goOrderList() {
-        this.props.navigation.navigate('OrderList')
-    }
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
@@ -92,7 +83,7 @@ export default class User extends Component {
     }
 
     mid() {
-        const { orderNum, navigation } = this.props;
+        const { orderNum, navigation, login } = this.props;
         const orderList = [
             {
                 img: require('../../images/user/state_new.png'),
@@ -136,9 +127,7 @@ export default class User extends Component {
                     <Item
                         extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)}
                         arrow="horizontal"
-                        onClick={() => {
-                            this.goOrderList()
-                        }}
+                        onClick={() => navigation.navigate(login ? 'OrderList' : 'UserLogin')}
                     >
                         <Text style={PublicStyles.boldTitle}>我的订单</Text>
                     </Item>
@@ -150,7 +139,11 @@ export default class User extends Component {
                                 key={index}
                                 style={styles.midItem}
                                 onPress={() => {
-                                    navigation.navigate(item.path, item.params)
+                                    if(login){
+                                        navigation.navigate(item.path, item.params)
+                                    }else {
+                                        navigation.navigate('UserLogin')
+                                    }
                                 }}
                             >
                                 {
@@ -175,19 +168,16 @@ export default class User extends Component {
     }
 
     bot() {
+        const { navigation, login } = this.props;
         const botList = [
             {
                 img: require('../../images/user/address.png'),
                 title: '地址管理',
-                path: () => {
-                    this.props.navigation.navigate('UserAddressList')
-                }
+                path: "UserAddressList"
             }, {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
-                path: () => {
-                    this.props.navigation.navigate('CollectGoods')
-                }
+                path: "CollectGoods"
             }
         ]
         return (
@@ -198,9 +188,7 @@ export default class User extends Component {
                             <Item
                                 key={index}
                                 arrow="horizontal"
-                                onClick={() => {
-                                    item.path()
-                                }}
+                                onClick={() => navigation.navigate(login ? item.path : 'UserLogin')}
                             >
                                 <View style={PublicStyles.rowCenter}>
                                     <Image style={styles.botImg} source={item.img} />
