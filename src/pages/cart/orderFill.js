@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { PublicStyles, windowWidth } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
@@ -78,17 +78,25 @@ export default class CartOrderFill extends Component {
                                 </View>
                                 <Image source={require('../../images/cart/address-footer-line.png')}
                                        style={styles.addressFooterLine} />
-                            </View> : <View style={styles.address} onClick={() => {
-                                this.goAddressAdd()
-                            }}>
+                            </View> : <TouchableOpacity 
+                                style={styles.address} 
+                                activeOpacity={.8}
+                                onPress={() => {
+                                    this.goAddressAdd()
+                                }}
+                            >
                                 <View style={styles.unSelect}>
-                                    <Image style={styles.unSelectImage}
-                                           source={require('../../images/cart/address.png')} />
+                                    <Image 
+                                        style={styles.unSelectImage}
+                                        source={require('../../images/cart/address.png')} 
+                                    />
                                     <Text style={styles.unSelectText}>添加地址</Text>
                                 </View>
-                                <Image style={styles.addressFooterLine}
-                                       source={require('../../images/cart/address-footer-line.png')} />
-                            </View>
+                                <Image 
+                                    style={styles.addressFooterLine}
+                                    source={require('../../images/cart/address-footer-line.png')} 
+                                />
+                            </TouchableOpacity>
                         }
                         <View>
                             {
@@ -318,6 +326,7 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
+        // const { navigation } = this.props;
         const { dispatch } = this.props;
         if (!this.state.addressId) {
             return Toast.info("请选择收货地址");
@@ -328,6 +337,7 @@ export default class CartOrderFill extends Component {
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
         })
+        // navigation.navigate('Pay', { orderInfo })
         const { tokenData } = await sendWechatAuthRequest()
         const params = {
             order_type: 'goods_buy',
