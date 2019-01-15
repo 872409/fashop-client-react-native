@@ -68,7 +68,6 @@ export default class OrderDetail extends Component {
         this.setState({
             id: this.props.navigation.getParam('id')
         }, () => {
-            console.log('set ok')
             this.props.navigation.addListener(
                 'didFocus', async () => {
                     this.init()
@@ -162,17 +161,11 @@ export default class OrderDetail extends Component {
     }
 
     async onPay() {
-        const { dispatch } = this.props;
         const { orderInfo } = this.state;
-        const { tokenData } = await sendWechatAuthRequest()
-        const params = {
-            order_type: 'goods_buy',
-            pay_sn: orderInfo.pay_sn,
-            payment_code: 'wechat',
-            openid: tokenData.openid,
-            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
-        }
-        dispatch(wechatPay({ params }))
+        this.props.navigation.navigate('Pay', {
+            orderInfo,
+            pay_amount: parseFloat(orderInfo.amount)
+        })
     }
 
     updateListRow = () => {
