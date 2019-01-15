@@ -34,7 +34,7 @@ export default class UserAddressEdit extends Component {
     async componentWillMount() {
         const id = this.props.navigation.getParam('id')
         const areaCache = await fa.cache.get('area_list_level2')
-        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
+        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2, tree: 1 })
         const info = await addressModel.info({ id })
         this.setState({
             id,

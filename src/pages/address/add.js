@@ -33,7 +33,7 @@ export default class UserAddressAdd extends Component {
 
     async componentWillMount() {
         const areaCache = await fa.cache.get('area_list_level2')
-        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2 })
+        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2, tree: 1 })
         this.setState({
             areaList: fa.getAntAreaList(areaResult.list),
             onLoaded: true
