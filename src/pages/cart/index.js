@@ -57,7 +57,6 @@ export default class CartIndex extends Component {
             'didFocus',
             async () => {
                 const { login } = this.props
-                console.log("login", login);
                 if(login){
                     await this.initCartList()
                     store.dispatch(getCartTotalNum());

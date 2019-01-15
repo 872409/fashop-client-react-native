@@ -37,6 +37,7 @@ export default class PaySuccess extends Component {
     }
     render() {
         const { navigation } = this.props
+        const { pay_amount, pay_type } = navigation.state.params
         return (
             <View style={PublicStyles.ViewOut}>
                 <View style={styles.top}>
@@ -48,15 +49,15 @@ export default class PaySuccess extends Component {
                     <Text style={PublicStyles.boldTitle}>支付成功</Text>
                     <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>
                         ￥
-                        <Text style={{ fontSize: 25 }}>108.00</Text>
+                        <Text style={{ fontSize: 25 }}>{pay_amount}</Text>
                     </Text>
-                    <Text style={PublicStyles.descFour9}>微信支付</Text>
+                    <Text style={PublicStyles.descFour9}>{pay_type}</Text>
                 </View>
                 <View style={styles.bot}>
                     <Button 
                         type="primary"
                         onClick={()=>{}}
-                        style={{marginBottom: 15}}
+                        style={{ marginBottom: 15 }}
                     >
                         返回首页
                     </Button>

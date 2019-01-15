@@ -157,9 +157,7 @@ export default class UserInfo extends Component {
                             (birthday === null)
                         }
                         style={{ margin: 15 }}
-                        onClick={()=>{
-                            this.submit()
-                        }}
+                        onClick={this.submit}
                     >
                         保 存
                     </Button>
@@ -175,7 +173,7 @@ export default class UserInfo extends Component {
             this.props.dispatch(userLogout())
         }
     }
-    submit(){
+    submit = () => {
         const { avatar, nickname, sex, birthday } = this.state;
         const { dispatch } = this.props
         dispatch(modifyUserInfo({

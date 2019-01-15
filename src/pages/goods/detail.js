@@ -1,3 +1,6 @@
+// 普通商品列表点进商品详情时，如果为多规格，则默认展示第一个规格，规格中如果有参与拼团的，则切换至该规格时刷新出拼团详情
+// 从拼团商品列表点进商品详情时，如果为多规格，则默认展示拼团规格中的第一个
+
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -367,3 +370,4 @@ const styles = StyleSheet.create({
         color: ThemeStyle.ThemeColor,
     },
 });
+

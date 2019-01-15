@@ -95,17 +95,10 @@ export default class OrderList extends Component {
     }
 
     async onPay(orderInfo) {
-        // this.props.navigation.navigate('Pay',{ orderInfo })
-        const { dispatch } = this.props
-        const { tokenData } = await sendWechatAuthRequest()
-        const params = {
-            order_type: 'goods_buy',
-            pay_sn: orderInfo.pay_sn,
-            payment_code: 'wechat',
-            openid: tokenData.openid,
-            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
-        }
-        dispatch(wechatPay({params}))
+        this.props.navigation.navigate('Pay',{ 
+            orderInfo,
+            pay_amount: parseFloat(orderInfo.amount)
+        })
     }
 
     async onLogistics(orderInfo) {

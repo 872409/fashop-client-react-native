@@ -147,10 +147,15 @@ export default class CartOrderFill extends Component {
                                 运费
                             </Item> : null}
                             <Item
-                                  extra={
-                                      <View slot="footer"><Text
-                                          style={styles.totalPrice}>¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}</Text></View>
-                                  }
+                                extra={
+                                    <View slot="footer">
+                                        <Text
+                                            style={styles.totalPrice}
+                                        >
+                                            ¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}
+                                        </Text>
+                                    </View>
+                                }
                             >
                                 小计
                             </Item>
@@ -326,8 +331,8 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
-        // const { navigation } = this.props;
-        const { dispatch } = this.props;
+        const { calculate, total } = this.state
+        const { navigation } = this.props;
         if (!this.state.addressId) {
             return Toast.info("请选择收货地址");
         }
@@ -337,16 +342,10 @@ export default class CartOrderFill extends Component {
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
         })
-        // navigation.navigate('Pay', { orderInfo })
-        const { tokenData } = await sendWechatAuthRequest()
-        const params = {
-            order_type: 'goods_buy',
-            pay_sn: orderInfo.pay_sn,
-            payment_code: 'wechat',
-            openid: tokenData.openid,
-            payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
-        }
-        dispatch(wechatPay({ params }))
+        navigation.replace('Pay', { 
+            orderInfo,
+            pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total) 
+        })
     }
 
 }

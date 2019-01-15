@@ -101,7 +101,8 @@ export const modifyUserInfo = ({params}) => {
             .then((e) => {
                 if (e.code === 0) {
                     Toast.info('保存成功')
-                    dispatch(updateUserInfoFunc(e.data))
+                    dispatch(updateUserInfo())
+                    // dispatch(updateUserInfoFunc(e.data))
                 } else {
                     Toast.error(e.errmsg)
                 }

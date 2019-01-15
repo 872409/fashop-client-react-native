@@ -134,7 +134,7 @@ export const wechatBind=({tokenData,userData})=>{
     }
 }
 
-export const wechatPay=({params})=>{
+export const wechatPay=({params, successCallback}={})=>{
     return async dispatch=>{
         const { result } = await Fetch.request(BuyApi.pay,{params})
         const payOptions = {
@@ -147,8 +147,8 @@ export const wechatPay=({params})=>{
         };
         try {
             const a = await WeChat.pay(payOptions)
-            console.log(a);
             Toast.info('支付成功');
+            successCallback && successCallback()
         } catch (err) {
             Toast.warn('支付失败');
         }
