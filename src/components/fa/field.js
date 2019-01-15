@@ -49,7 +49,7 @@ export default class Field extends Component {
         disabled: false,
         loading: false,
         checked: false,
-        inputType: 'numeric',
+        inputType: 'default',
         pickerMode: 'selector',
         placeholder: null,
         focus: false,
@@ -160,7 +160,7 @@ export default class Field extends Component {
                     desc={desc}
                     right={
                         <TextInput
-                            keyboardType={inputType || 'default'}
+                            keyboardType={inputType}
                             editable={!disabled}
                             autoFocus={focus}
                             value={`${value}`}
