@@ -117,7 +117,13 @@ export default createStackNavigator(
         PaySuccess: {
             screen: PaySuccess,
             navigationOptions: {
-                title: '支付成功'
+                title: '支付成功',
+                headerLeft: null,
+                headerStyle: {
+                    backgroundColor: "#fff",
+                    elevation: 0,//去掉安卓阴影
+                    borderBottomWidth: 0,
+                },
             }
         },
         // user
