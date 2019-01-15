@@ -11,22 +11,24 @@ export default class GoodsList extends Component {
         const { navigation } = this.props;
         const { category_id, keywords, autoFocus } = navigation.state.params;
         return <View style={PublicStyles.ViewMax}>
-            <SearchBar
-                placeholder='搜索'
-                returnKeyType='search'
-                autoFocus={autoFocus}
-                showCancelButton={false}
-                defaultValue={keywords}
-                onSubmit={value => {
-                    this.ListView.setFetchParams({
-                        keywords: value
-                    })
-                }}
-            />
             <ListView
                 ref={e => this.ListView = e}
                 keyExtractor={e => String(e.id)}
                 numColumns={2}
+                ListHeaderComponent={(
+                    <SearchBar
+                        placeholder='搜索'
+                        returnKeyType='search'
+                        autoFocus={autoFocus}
+                        showCancelButton={false}
+                        defaultValue={keywords}
+                        onSubmit={value => {
+                            this.ListView.setFetchParams({
+                                keywords: value
+                            })
+                        }}
+                    />
+                )}
                 renderItem={({ item, index }) => (
                     <GoodsItem
                         data={item}
