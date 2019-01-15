@@ -160,16 +160,18 @@ export default class Pay extends Component{
         .then((AlipayData)=>{
 			this.paySuccess()
         },(err)=> {
+			this.paySuccess()
             Toast.warn('支付失败');
         })
     }
     paySuccess = () => {
         const { payment_code } = this.state;
         const { navigation } = this.props;
-        const { pay_amount } = navigation.state.params;
+        const { pay_amount, orderInfo } = navigation.state.params;
         navigation.replace('PaySuccess',{
             pay_amount,
             pay_type: payment_code === 'wechat' ? `微信支付` : payment_code === 'alipay' ? `支付宝支付` : ``,
+            id: orderInfo.order_id || orderInfo.id
         })
     }
     // payFailure() {

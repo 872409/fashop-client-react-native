@@ -14,30 +14,12 @@ import {
 } from 'antd-mobile-rn'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
+import { NavigationActions } from "react-navigation";
 
 export default class PaySuccess extends Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerLeft: (
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => {
-                        navigation.goBack()
-                    }}
-                >
-                    <Icon
-                        size={28}
-                        color='#666'
-                        name='close'
-                        style={styles.headerLeftIcon}
-                    />
-                </TouchableOpacity>
-            )
-        }
-    }
     render() {
         const { navigation } = this.props
-        const { pay_amount, pay_type } = navigation.state.params
+        const { pay_amount, pay_type, id } = navigation.state.params
         return (
             <View style={PublicStyles.ViewOut}>
                 <View style={styles.top}>
@@ -56,13 +38,19 @@ export default class PaySuccess extends Component {
                 <View style={styles.bot}>
                     <Button 
                         type="primary"
-                        onClick={()=>{}}
+                        onClick={()=>{
+                            navigation.reset([NavigationActions.navigate({ routeName: 'Index' })], 0)
+                        }}
                         style={{ marginBottom: 15 }}
                     >
                         返回首页
                     </Button>
                     <Button
-                        onClick={()=>{}}
+                        onClick={()=>{
+                            navigation.replace('OrderDetail',{
+                                id
+                            })
+                        }}
                     >
                         查看订单
                     </Button>
