@@ -81,7 +81,7 @@ export default class GoodsDetail extends Component {
 
     render() {
         const { specVisible, if_cart } = this.state;
-        const { navigation, dispatch } = this.props;
+        const { navigation, dispatch, login } = this.props;
         const { id } = navigation.state.params
         const data = this.props.data[id]
         return data ? <View style={PublicStyles.ViewMax}>
@@ -114,6 +114,8 @@ export default class GoodsDetail extends Component {
                     if_cart={if_cart}
                     navigation={navigation}
                     dispatch={dispatch}
+                    title={data.title}
+                    login={login}
                     closeModal={()=>{
                         this.setState({
                             specVisible: false
@@ -213,7 +215,7 @@ export default class GoodsDetail extends Component {
     }
 
     botView() {
-        const { screenProps, navigation } = this.props;
+        const { screenProps, navigation, login } = this.props;
         const { cartNum } = screenProps;
         const leftText = [PublicStyles.descTwo9, { fontSize: 10, marginTop: 6 }]
         return (
@@ -232,7 +234,7 @@ export default class GoodsDetail extends Component {
                             activeOpacity={.8}
                             style={styles.botItem}
                             onPress={() => {
-                                navigation.navigate('Cart')
+                                navigation.navigate(login ? 'Cart' : 'UserLogin')
                             }}
                         >
                             <Image source={require('../../images/goodsDetail/cart.png')} />
@@ -288,6 +290,8 @@ export default class GoodsDetail extends Component {
             if (result !== false) {
                 Toast.info('成功收藏', 1)
             }
+        }else {
+            navigation.navigate('UserLogin')
         }
     }
 }

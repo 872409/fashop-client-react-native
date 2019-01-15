@@ -34,7 +34,7 @@ export default class GoodsSpecList extends Component{
     }
     render() {
         const { spec_sign, spec_value_sign, quantity, current_sku } = this.state;
-        const { spec_list, skus, if_cart } = this.props;
+        const { spec_list, skus, if_cart, title, login, navigation } = this.props;
         return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
@@ -48,16 +48,16 @@ export default class GoodsSpecList extends Component{
                     <Text style={[PublicStyles.descTwo9]}>
                         已选：
                         {
-                            current_sku ? current_sku.spec.map((item) => {
+                            current_sku && current_sku.spec && current_sku.spec[0].id ? current_sku.spec.map((item) => {
                                 return `${item.value_name} `;
-                            }) : null
+                            }) : title
                         }
                     </Text>
                 </View>
             </View>
             <ScrollView style={styles.SpecListView}>
                 {
-                    spec_list.map((spec_list_item, i) => {
+                    spec_list && spec_list.length &&spec_list[0].id ? spec_list.map((spec_list_item, i) => {
                         const family_selected_data = spec_list_item.value_list.find((brotherItem) => {
                             if (spec_value_sign.indexOf(brotherItem.id) > -1) {
                                 return {
@@ -134,7 +134,7 @@ export default class GoodsSpecList extends Component{
                                 </View>
                             </View>
                         )
-                    })
+                    }) : null
                 }
                 <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
                     <Text>数量</Text>
@@ -158,10 +158,14 @@ export default class GoodsSpecList extends Component{
                         margin: 15
                     }}
                     onClick={() => {
-                        if (if_cart) {
-                            this.changeCart()
-                        } else {
-                            this.buyNow()
+                        if(login){
+                            if (if_cart) {
+                                this.changeCart()
+                            } else {
+                                this.buyNow()
+                            }
+                        }else {
+                            navigation.navigate('UserLogin')
                         }
                     }}
                 >
