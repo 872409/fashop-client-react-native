@@ -15,7 +15,6 @@ import {
     OrderFooterAction
 } from '../../components'
 import { connect } from "react-redux";
-import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 
 const orderModel = new OrderModel()
 

@@ -8,7 +8,6 @@ import BuyModel from "../../models/buy";
 import AddressModel from "../../models/address";
 import { connect } from "react-redux";
 import { Toast } from '../../utils/function';
-import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 import { NetworkImage } from "../../components/theme"
 
 const cartModel = new CartModel()

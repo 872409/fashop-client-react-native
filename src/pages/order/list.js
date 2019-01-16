@@ -14,7 +14,6 @@ import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import { connect } from "react-redux";
-import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
 
 const orderModel = new OrderModel()
 
