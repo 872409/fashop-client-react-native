@@ -15,7 +15,7 @@ export default class GoodsItem extends Component {
         return <TouchableOpacity
             onPress={onPress}
             style={[styles.item,{
-                marginLeft: index % 2 === 0 ? 6 : 0,
+                marginLeft: index % 2 === 0 ? 5 : 0,
             }]}
         >
             <NetworkImage style={styles.img} source={{ uri: data.img }} />
@@ -27,13 +27,13 @@ export default class GoodsItem extends Component {
     }
 }
 
-const itemWidth = (windowWidth - (6*3)) / 2;
+const itemWidth = (windowWidth - (5*3)) / 2;
 
 const styles = StyleSheet.create({
     item: {
         width: itemWidth,
-        marginTop: 6,
-        marginRight: 6
+        marginTop: 5,
+        marginRight: 5
     },
     img: {
         width: itemWidth,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     title: {
-        marginVertical: 6,
+        marginVertical: 5,
         fontSize: 12,
         fontWeight: '400',
         lineHeight: 20,
