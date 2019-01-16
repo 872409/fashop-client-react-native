@@ -37,11 +37,11 @@ export default class Fa {
             return {
                 value: `${item.id}`,
                 label: `${item.name}`,
-                children: typeof item['childs'] !== 'undefined' && Array.isArray(item.childs) && item.childs.length > 0 ? item.childs.map((sub) => {
+                children: typeof item['_child'] !== 'undefined' && Array.isArray(item._child) && item._child.length > 0 ? item._child.map((sub) => {
                     return {
                         value: `${sub.id}`,
                         label: `${sub.name}`,
-                        children: typeof sub['childs'] !== 'undefined' && Array.isArray(sub.childs) && sub.childs.length > 0 ? sub.childs.map((area) => {
+                        children: typeof sub['_child'] !== 'undefined' && Array.isArray(sub._child) && sub._child.length > 0 ? sub._child.map((area) => {
                             return {
                                 value: `${area.id}`,
                                 label: `${area.name}`

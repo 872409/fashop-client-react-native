@@ -7,16 +7,24 @@ import {
 } from 'react-native';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
-import AreaModel from '../../../models/area'
 import { Button } from 'antd-mobile-rn';
 import { Field } from '../../../components'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
 import { PublicStyles } from '../../../utils/style';
+import { connect } from 'react-redux'
 
 const addressModel = new AddressModel()
-const areaModel = new AreaModel()
 
+@connect(({
+    view: {
+        address: {
+            areaList
+        }
+    }
+})=>({
+    areaList
+}))
 export default class UserAddressAdd extends Component {
     state = {
         truename: '',
@@ -26,24 +34,12 @@ export default class UserAddressAdd extends Component {
         address: '',
         is_default: 1,
 
-        onLoaded: false,
         checked: true,
-        areaList: [],
         combine_detail: null,
-
-    }
-
-    async componentWillMount() {
-        const areaCache = await fa.cache.get('area_list_level2')
-        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2, tree: 1 })
-        this.setState({
-            areaList: fa.getAntAreaList(areaResult.list),
-            onLoaded: true
-        })
     }
 
     onAreaChange({ value }) {
-        const { areaList } = this.state
+        const { areaList } = this.props
         const treeChildren = arrayTreeFilter(
             areaList, (item, level) => item.value === value[level]
         );
@@ -124,10 +120,9 @@ export default class UserAddressAdd extends Component {
             address,
             is_default,
             combine_detail,
-            areaList,
-            onLoaded
         } = this.state
-        if (!onLoaded){
+        const { areaList } = this.props
+        if (!areaList){
             return null
         }
         return <View style={PublicStyles.ViewMax}>

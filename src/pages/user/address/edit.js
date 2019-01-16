@@ -2,18 +2,29 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    SafeAreaView
+    SafeAreaView,
+    ScrollView
 } from 'react-native';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
-import AreaModel from '../../../models/area'
 import { Modal, Button } from 'antd-mobile-rn';
 import { Field } from '../../../components'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
+import { connect } from 'react-redux'
+import { PublicStyles } from '../../../utils/style';
 
 const addressModel = new AddressModel()
-const areaModel = new AreaModel()
+
+@connect(({
+    view: {
+        address: {
+            areaList
+        }
+    }
+})=>({
+    areaList
+}))
 export default class UserAddressEdit extends Component {
     state = {
         id: null,
@@ -25,16 +36,12 @@ export default class UserAddressEdit extends Component {
         is_default: 1,
         combine_detail: null,
 
-        onLoaded: false,
         checked: true,
-        areaList: [],
 
     }
 
     async componentWillMount() {
         const id = this.props.navigation.getParam('id')
-        const areaCache = await fa.cache.get('area_list_level2')
-        const areaResult = areaCache ? areaCache : await areaModel.list({ level: 2, tree: 1 })
         const info = await addressModel.info({ id })
         this.setState({
             id,
@@ -45,13 +52,11 @@ export default class UserAddressEdit extends Component {
             address: info.address,
             is_default: info.is_default,
             combine_detail: info.combine_detail,
-            areaList: fa.getAntAreaList(areaResult.list),
-            onLoaded: true
         })
     }
 
     onAreaChange({ value }) {
-        const { areaList } = this.state
+        const { areaList } = this.props
         const treeChildren = arrayTreeFilter(
             areaList, (item, level) => item.value === value[level]
         );
@@ -155,73 +160,83 @@ export default class UserAddressEdit extends Component {
             address,
             is_default,
             combine_detail,
-            areaList,
-            onLoaded
         } = this.state
-        return onLoaded ? [<View style={{ flex: 1 }}>
-            <View style={{ backgroundColor: '#fff' }}>
-                <Field
-                    title="收货人："
-                    placeholder="请输入姓名"
-                    focus={true}
-                    value={truename}
-                    onChange={(e) => {
-                        this.onTruenameChange(e)
+        const { areaList } = this.props
+        if (!areaList||!id) {
+            return null
+        }
+        return <View style={PublicStyles.ViewMax}>
+            <ScrollView>
+                <View style={{ backgroundColor: '#fff' }}>
+                    <Field
+                        title="收货人："
+                        placeholder="请输入姓名"
+                        focus={true}
+                        value={truename}
+                        onChange={(e) => {
+                            this.onTruenameChange(e)
+                        }}
+                    />
+                    <Field
+                        title="联系方式："
+                        inputType="numeric"
+                        placeholder="请输入手机号"
+                        value={mobile_phone}
+                        onChange={(e) => {
+                            this.onMobilePhoneChange(e)
+                        }}
+                    />
+                    <Field
+                        title="所在地区："
+                        type={'area'}
+                        areaList={areaList}
+                        value={[]}
+                        areaNames={combine_detail ? combine_detail : '请选择地区'}
+                        onChange={(e) => {
+                            this.onAreaChange(e)
+                        }}
+                    />
+                    <Field
+                        title="详细地址："
+                        value={address}
+                        placeholder="填写楼栋楼层或房间号信息"
+                        onChange={(e) => {
+                            this.onAddressChange(e)
+                        }}
+                    />
+                    <Field
+                        title="设置默认地址："
+                        desc="注：每次下单时会使用该地址"
+                        type={'switch'}
+                        checked={is_default === 1}
+                        onChange={(e) => {
+                            this.onIsDefaultChange(e)
+                        }}
+                    />
+                </View>
+            </ScrollView>
+            <SafeAreaView style={styles.buttonArea}>
+                <Button 
+                    style={{ borderRadius: 0, flex: 1 }} 
+                    size="large" 
+                    onClick={() => {
+                        this.onDelete(id)
                     }}
                 >
-                </Field>
-                <Field
-                    title="联系方式："
-                    inputType="numeric"
-                    placeholder="请输入手机号"
-                    value={mobile_phone}
-                    onChange={(e) => {
-                        this.onMobilePhoneChange(e)
-                    }}
-                >2
-                </Field>
-                <Field
-                    title="所在地区："
-                    type={'area'}
-                    areaList={areaList}
-                    value={[]}
-                    areaNames={combine_detail ? combine_detail : '请选择地区'}
-                    onChange={(e) => {
-                        this.onAreaChange(e)
+                    删除地址
+                </Button>
+                <Button 
+                    style={{ borderRadius: 0, flex: 1 }} 
+                    type='primary'
+                    size="large" 
+                    onClick={() => {
+                        this.onSubmit()
                     }}
                 >
-                </Field>
-                <Field
-                    title="详细地址："
-                    value={address}
-                    placeholder="填写楼栋楼层或房间号信息"
-                    onChange={(e) => {
-                        this.onAddressChange(e)
-                    }}
-                >
-                </Field>
-                <Field
-                    title="设置默认地址："
-                    desc="注：每次下单时会使用该地址"
-                    type={'switch'}
-                    checked={is_default === 1}
-                    onChange={(e) => {
-                        this.onIsDefaultChange(e)
-                    }}
-                >
-                </Field>
-
-            </View>
-
-        </View>, <SafeAreaView style={styles.buttonArea}>
-            <Button style={{ borderRadius: 0, flex: 1 }} type={'default'} size="large" onClick={() => {
-                this.onDelete(id)
-            }}>删除地址</Button>
-
-            <Button style={{ borderRadius: 0, flex: 1 }} type={'warning'} size="large" onClick={() => {
-                this.onSubmit()
-            }}>保存</Button>
-        </SafeAreaView>] : null
+                    保存
+                </Button>
+            </SafeAreaView>
+        </View>
     }
 }
 const styles = StyleSheet.create({

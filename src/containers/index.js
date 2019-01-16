@@ -10,6 +10,7 @@ import NavigationService from "./navigationService";
 import { initUserInfoStorage } from "../actions/user";
 import { initWechat } from '../actions/app/wechat';
 import { getHomeView } from '../actions/home';
+import { getAreaList } from '../actions/address';
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
 import { fetchStatus } from "../utils";
@@ -23,6 +24,9 @@ class App extends Component {
         dispatch(initUserInfoStorage())
         dispatch(initWechat())
         dispatch(getHomeView())
+        dispatch(getAreaList({
+            params: { level: 2, tree: 1 }
+        }))
         SplashScreen.hide();
     }
     componentWillUnmount() {
@@ -72,14 +76,19 @@ class App extends Component {
 const mapStateToProps = store => {
     const {
         user: { login, cartNum },
-        initial: { showBootPage }
+        initial: { showBootPage },
     } = store.app
+    const {
+        home: { homeView, homeViewFetchStatus }, 
+        address: { areaList }
+    } = store.view
     return {
         login,
         cartNum,
         showBootPage,
-        homeView: store.view.home.homeView,
-        homeViewFetchStatus: store.view.home.homeViewFetchStatus
+        areaList,
+        homeView,
+        homeViewFetchStatus,
     };
 };
 

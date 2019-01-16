@@ -1,10 +1,12 @@
 import types from '../../constants';
 import { Toast } from "../../utils/function";
 import { AddressApi } from "../../config/api/address";
+import { AreaApi } from "../../config/api/area";
 import {
     fetchStatus
 } from '../../utils';
 import Fetch from '../../utils/fetch'
+import fa from '../../utils/fa';
 
 export const getDefaultAddress = () => {
     return async dispatch => {
@@ -184,5 +186,32 @@ const updateAddressTypeList = (data, fetchStatus) => {
         type: types.address.GET_ADDRESS_TYPES_LIST,
         addressTypeList: data,
         addressTypeListFetchStatus: fetchStatus,
+    }
+}
+
+export const getAreaList = ({params}) => {
+    return async dispatch => {
+        try {
+            const e = await Fetch.fetch({
+                api: AreaApi.list,
+                params
+            })
+            if (e.code === 0) {
+                dispatch(updateAreaList(fa.getAntAreaList(e.result.list), fetchStatus.s));
+            } else {
+                Toast.warn(e.msg)
+                dispatch(updateAreaList(null, fetchStatus.e))
+            }
+        } catch (err) {
+            dispatch(updateAreaList(null, fetchStatus.f))
+        }
+    }
+}
+
+const updateAreaList = (data, fetchStatus) => {
+    return {
+        type: types.address.GET_AERA_LIST,
+        areaList: data,
+        areaListFetchStatus: fetchStatus,
     }
 }
