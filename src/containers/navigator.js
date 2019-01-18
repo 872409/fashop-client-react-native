@@ -1,6 +1,12 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation";
+import {
+    createStackNavigator,
+    createSwitchNavigator
+} from "react-navigation";
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+
+import Ad from "../pages/ad";
+
 import Index from "../pages/index";
 import PhotoGallery from "../utils/photoGallery";
 import FullScreenVideo from "../utils/fullScreenVideo";
@@ -74,7 +80,7 @@ const indexNavigationOptions = ({ navigation, screenProps }) => ({
     },
 })
 
-export default createStackNavigator(
+const AppStack = createStackNavigator(
     {
         Index: {
             screen: Index,
@@ -295,5 +301,23 @@ export default createStackNavigator(
                 return StackViewStyleInterpolator.forHorizontal(sceneProps);
             }
         })
+    }
+)
+
+const AdStack = createStackNavigator({ 
+    Ad: {
+        screen: Ad,
+        navigationOptions: {
+            header: null
+        }
+    }
+})
+
+export default createSwitchNavigator(
+    {
+        Ad: AdStack,
+        App: AppStack,
+    }, {
+        initialRouteName: 'Ad',
     }
 )
