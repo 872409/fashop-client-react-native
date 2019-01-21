@@ -10,11 +10,11 @@ import {
 
 export default class Ad extends Component {
     state = {
-        wait: 3,
+        wait: 5,
     }
     componentDidMount() {
         this.timer = window.setInterval(() => {
-            if (this.state.wait == 0) {
+            if (this.state.wait == 1) {
                 this.props.navigation.navigate("App");
             } else {
                 this.setState({
