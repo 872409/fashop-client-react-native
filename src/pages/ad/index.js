@@ -3,14 +3,14 @@ import {
     View,
     Text,
     ImageBackground,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     StyleSheet
 } from 'react-native'
-// import SafeAreaView from "react-native-safe-area-view";
+import SafeAreaView from "react-native-safe-area-view";
 
 export default class Ad extends Component {
     state = {
-        wait: 5,
+        wait: 6,
     }
     componentDidMount() {
         this.timer = window.setInterval(() => {
@@ -35,15 +35,18 @@ export default class Ad extends Component {
                     style={styles.launchImage}
                     source={require('../../images/ad.png')}
                 >
-                    <TouchableWithoutFeedback 
-                        onPress={() => {
-                            navigation.navigate('App')
-                        }}
-                    >
-                        <View style={styles.buttonContainer}>
-                            <Text style={styles.buttonTitle}>{wait}s跳过</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <SafeAreaView>
+                        <TouchableOpacity 
+                            activeOpacity={.9}
+                            onPress={() => {
+                                navigation.navigate('App')
+                            }}
+                        >
+                            <View style={styles.buttonContainer}>
+                                <Text style={styles.buttonTitle}>{wait}s跳过</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </SafeAreaView>
                 </ImageBackground>
             </View>
         )
@@ -67,9 +70,8 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 15,
         backgroundColor: '#ccc',
-        right: 20,
-        top: 50
-        // top: getStatusBarHeight() + 10
+        right: 15,
+        top: 15
     },
     buttonTitle: {
         fontSize: 14,
