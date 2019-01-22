@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* fashopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fashopTests.m */; };
+		0434255421F6A52000C9FFFE /* libRCTMJRefreshHeader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402433D21BE4FB00044C8E0 /* libRCTMJRefreshHeader.a */; };
 		04558160219BB656005B54DC /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0455815F219BB655005B54DC /* TZImagePickerController.bundle */; };
 		045D5F9621C9DF2B007912A2 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CAC1D82185B8800079F644 /* libRNVectorIcons.a */; };
 		045D5F9721C9DF39007912A2 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABA35E219A9BF8001E2518 /* libRNImagePicker.a */; };
@@ -572,6 +573,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0434255421F6A52000C9FFFE /* libRCTMJRefreshHeader.a in Frameworks */,
 				04AF1FD421D6087C005A19E2 /* CoreMotion.framework in Frameworks */,
 				04AF1FD221D6070A005A19E2 /* libAlipayModule.a in Frameworks */,
 				045D5F9B21C9DF75007912A2 /* libSplashScreen.a in Frameworks */,

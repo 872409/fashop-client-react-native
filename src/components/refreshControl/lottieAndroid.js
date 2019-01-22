@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    View,
-    Text,
     Animated,
-    Easing
 } from 'react-native';
-import PropTypes from 'prop-types';
-import LottieView from 'lottie-react-native'
 import { SmartRefreshControl, AnyHeader } from 'react-native-smartrefreshlayout';
+import LottieView from 'lottie-react-native'
 
 export default class LottieRefreshControl extends Component {
     state = {
@@ -39,12 +34,12 @@ export default class LottieRefreshControl extends Component {
                 ref={ref => this._refreshc = ref}
                 children={this.props.children}
                 onRefresh={this._onRefresh}
-                headerHeight={100}
+                headerHeight={80}
                 HeaderComponent={
                     <AnyHeader>
                         <Animated.View 
                             style={{
-                                height: 100, 
+                                height: 80, 
                                 justifyContent: 'center', 
                                 alignItems: 'center', 
                                 transform: [{
@@ -58,12 +53,10 @@ export default class LottieRefreshControl extends Component {
                             <LottieView 
                                 speed={2} 
                                 ref={obj => this.lottieView = obj} 
-                                style={{ width: 100, height: 100 }} 
+                                style={{ width: 40, height: 40 }} 
                                 hardwareAccelerationAndroid 
                                 progress={this.state.scale} 
-                                // source={require('../../images/animates/Plane.json')} 
-                                // source={require('../../images/animates/preloader.json')} 
-                                source={lottieSource ? lottieSource : require('../../images/animates/cycle_animation.json')} 
+                                source={lottieSource ? lottieSource : require('../../images/animates/fashop_loading.json')} 
                             />
                         </Animated.View>
                     </AnyHeader>

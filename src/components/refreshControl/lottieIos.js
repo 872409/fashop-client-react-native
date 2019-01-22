@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Animated, Easing, Dimensions, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Animated } from 'react-native';
 import MJRefresh from 'react-native-mjrefresh';
 import LottieView from 'lottie-react-native'
 
@@ -32,16 +32,15 @@ export default class LottieRefreshControl extends Component {
                 ref={ref => this._mjrefresh = ref}
                 onRefresh={this._onRefresh}
                 onPulling={this._onPulling}
-            // style={{backgroundColor:'transparent'}}
             >
                 <View style={{
-                    height: 100,
+                    height: 80,
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
                     <Animated.View style={{
-                        height: 100, justifyContent: 'center', alignItems: 'center', transform: [{
+                        height: 80, justifyContent: 'center', alignItems: 'center', transform: [{
                             scale: this.state.scale.interpolate({
                                 inputRange: [0, 1, 2],
                                 outputRange: [0.1, 1, 1],
@@ -51,12 +50,10 @@ export default class LottieRefreshControl extends Component {
                         <LottieView 
                             speed={2} 
                             ref={obj => this.lottieView = obj} 
-                            style={{ width: 100, height: 100 }} 
+                            style={{ width: 40, height: 40 }} 
                             hardwareAccelerationAndroid 
                             progress={this.state.scale} 
-                            // source={require('../../images/animates/Plane.json')} 
-                            // source={require('../../images/animates/preloader.json')} 
-                            source={lottieSource ? lottieSource : require('../../images/animates/cycle_animation.json')} 
+                            source={lottieSource ? lottieSource : require('../../images/animates/fashop_loading.json')} 
                         />
                     </Animated.View>
                 </View>
