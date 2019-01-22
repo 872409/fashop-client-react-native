@@ -10,11 +10,10 @@ import {
 import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/style";
 import { NetworkImage } from "../../components/theme";
 import Fetch from "../../utils/fetch";
-import { Toast } from '../../utils/function';
 import { GoodsCategoryApi } from "../../config/api/goodsCategory";
 import { ShopApi } from "../../config/api/shop";
 import GoodsItem from "../../components/goods/item";
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import { GoodsApi } from "../../config/api/goods";
 
 export default class Category extends Component {
@@ -185,7 +184,7 @@ export default class Category extends Component {
                         onPress={() => {
                             this.setState({
                                 current: 0
-                            }, () => this.ListView.setFetchParams({
+                            }, () => this.FlatList.setFetchParams({
                                 category_ids: null
                             }))
                         }}
@@ -201,7 +200,7 @@ export default class Category extends Component {
                                 onPress={() => {
                                     this.setState({
                                         current: item.id
-                                    }, () => this.ListView.setFetchParams({
+                                    }, () => this.FlatList.setFetchParams({
                                         category_ids: [item.id]
                                     }))
                                 }}
@@ -212,8 +211,8 @@ export default class Category extends Component {
                     }
                 </ScrollView>
             </View>
-            <ListView
-                ref={e => this.ListView = e}
+            <FlatList
+                ref={e => this.FlatList = e}
                 keyExtractor={e => String(e.id)}
                 numColumns={2}
                 renderItem={({ item, index }) => (

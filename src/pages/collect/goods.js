@@ -5,15 +5,15 @@ import {
 } from 'react-native';
 import { PublicStyles } from '../../utils/style';
 import { GoodsCollectApi } from "../../config/api/goodsCollect";
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import GoodsItem from "../../components/goods/item";
 
 export default class GoodsCollect extends Component {
     render() {
         const { navigation } = this.props
         return <View style={PublicStyles.ViewMax}>
-            <ListView
-                ref={e => this.ListView = e}
+            <FlatList
+                ref={e => this.FlatList = e}
                 keyExtractor={e => String(e.id)}
                 api={GoodsCollectApi.list}
                 numColumns={2}

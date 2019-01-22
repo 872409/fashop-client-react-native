@@ -1,20 +1,17 @@
 import React,{Component} from 'react';
 import {
     StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
 } from 'react-native';
-import { ListView, ListEmptyView } from '../../utils/view'
+import FlatList from "../../components/flatList";
+import { ListEmptyView } from '../../utils/view'
 
 export default class UserMessageDetail extends Component{
     render(){
         const { navigation } = this.props;
         const { type_id } = navigation.state.params
         return(
-            <ListView
-                ref={e=>this.ListView=e}
+            <FlatList
+                ref={e=>this.FlatList=e}
                 keyExtractor={e => String(e.id)}
                 renderItem={ data => (
                     <MessageItem

@@ -7,9 +7,9 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { List } from 'antd-mobile-rn';
-import { ListView, ListEmptyView } from '../../utils/view'
+import FlatList from "../../components/flatList";
+import { ListEmptyView } from '../../utils/view'
 import { PublicStyles } from '../../utils/style'
-import { Fetch } from '../../utils'
 
 const Item = List.Item;
 
@@ -18,8 +18,8 @@ export default class UserMessage extends Component{
         const { navigation } = this.props
         return(
             <View style={PublicStyles.ViewMax}>
-                <ListView
-                    ref={e => this.ListView = e}
+                <FlatList
+                    ref={e => this.FlatList = e}
                     keyExtractor={e => String(e.id)}
                     renderItem={data => (
                         <MessageItem

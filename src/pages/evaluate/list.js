@@ -6,7 +6,7 @@ import {
     Image
 } from 'react-native';
 import { EvaluateCard } from '../../components'
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import { PublicStyles, ThemeStyle, windowWidth } from "../../utils/style";
 import { GoodsEvaluateApi } from "../../config/api/goodsEvaluate";
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
@@ -46,7 +46,7 @@ export default class EvaluateList extends Component {
 
     // 更新某条
     updateListRow = (id) => {
-        this.ListView.manuallyRefresh()
+        this.FlatList.manuallyRefresh()
     }
 
 
@@ -91,11 +91,11 @@ export default class EvaluateList extends Component {
                     tabBarTextStyle={{}}
                     onChangeTab={({ i }) => {
                         if (i === 0) {
-                            this.ListView.setFetchParams({
+                            this.FlatList.setFetchParams({
                                 evaluate_state: 'un_evaluate',
                             })
                         } else if (i === 1) {
-                            this.ListView.setFetchParams({
+                            this.FlatList.setFetchParams({
                                 evaluate_state: 'is_evaluate',
                             })
                         }
@@ -110,8 +110,8 @@ export default class EvaluateList extends Component {
                         ))
                     }
                 </ScrollableTabView>
-                <ListView
-                    ref={e => this.ListView = e}
+                <FlatList
+                    ref={e => this.FlatList = e}
                     keyExtractor={e => String(e.id)}
                     api={GoodsEvaluateApi.mine}
                     fetchParams={params}

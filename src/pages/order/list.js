@@ -9,7 +9,7 @@ import OrderModel from '../../models/order'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
@@ -117,7 +117,7 @@ export default class OrderList extends Component {
     }
 
     updateListRow = async (id) => {
-        this.ListView.manuallyRefresh()
+        this.FlatList.manuallyRefresh()
     }
 
     render() {
@@ -173,27 +173,9 @@ export default class OrderList extends Component {
                     }}
                     tabBarTextStyle={{}}
                     onChangeTab={({ i }) => {
-                        if (i === 0) {
-                            this.ListView.setFetchParams({
-                                state_type: null,
-                            })
-                        } else if (i === 1) {
-                            this.ListView.setFetchParams({
-                                state_type: 'state_new',
-                            })
-                        } else if (i === 2) {
-                            this.ListView.setFetchParams({
-                                state_type: 'state_pay',
-                            })
-                        } else if (i === 3) {
-                            this.ListView.setFetchParams({
-                                state_type: 'state_send',
-                            })
-                        } else if (i === 4) {
-                            this.ListView.setFetchParams({
-                                state_type: 'state_success',
-                            })
-                        }
+                        this.FlatList.setFetchParams({
+                            state_type: i===0 ? null : tabList[i].state_type,
+                        })
                     }}
                 >
                     {
@@ -205,8 +187,8 @@ export default class OrderList extends Component {
                         ))
                     }
                 </ScrollableTabView>
-                <ListView
-                    ref={e => this.ListView = e}
+                <FlatList
+                    ref={e => this.FlatList = e}
                     keyExtractor={e => String(e.id)}
                     api={OrderApi.list}
                     fetchParams={params}

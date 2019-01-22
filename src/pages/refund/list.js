@@ -4,13 +4,13 @@ import {
     View
 } from 'react-native';
 import { RefundCard } from '../../components'
-
 import RefundModel from '../../models/refund'
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import { PublicStyles } from "../../utils/style";
 import { RefundApi } from "../../config/api/refund";
 
 const refundModel = new RefundModel()
+
 export default class RefundList extends Component {
     componentDidMount() {
         this.props.navigation.addListener(
@@ -24,7 +24,7 @@ export default class RefundList extends Component {
     }
 
     // 更新某条
-     updateListRow = async(id) =>{
+    updateListRow = async(id) =>{
         // todo
         let { list } = this.state
         const listIndex = list.findIndex((row) => row.id === id)
@@ -43,24 +43,22 @@ export default class RefundList extends Component {
     }
 
     render() {
-        return <View style={[PublicStyles.ViewMax]}>
-            <ListView
-                ref={e => this.ListView = e}
+        return <View style={PublicStyles.ViewMax}>
+            <FlatList
+                ref={e => this.FlatList = e}
                 keyExtractor={e => String(e.id)}
                 api={RefundApi.list}
                 renderItem={({ item }) => (
                     <View style={{marginBottom: 8}}>
                         <RefundCard
                             refundInfo={item}
-                            onClick={
-                                () => {
-                                    this.onDetail(item.id)
-                                }}
+                            onClick={() => {
+                                this.onDetail(item.id)
+                            }}
                         />
                     </View>
                 )}
-            >
-            </ListView>
+            />
         </View>
     }
 }

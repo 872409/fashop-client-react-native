@@ -8,7 +8,7 @@ import {
     SafeAreaView
 } from 'react-native';
 import { Button } from 'antd-mobile-rn';
-import { ListView } from "../../utils/view";
+import FlatList from "../../components/flatList";
 import { AddressApi } from "../../config/api/address";
 import { PublicStyles } from '../../utils/style';
 import { AddressCard } from "../../components";
@@ -32,13 +32,13 @@ export default class AddressList extends Component {
 
     // todo id
     updateListRow = (id) => {
-        this.ListView.manuallyRefresh()
+        this.FlatList.manuallyRefresh()
     }
 
     render() {
         return <View style={[PublicStyles.ViewMax]}>
-            <ListView
-                ref={e => this.ListView = e}
+            <FlatList
+                ref={e => this.FlatList = e}
                 api={AddressApi.list}
                 keyExtractor={e => String(e.id)}
                 renderItem={({ item }) => <AddressCard

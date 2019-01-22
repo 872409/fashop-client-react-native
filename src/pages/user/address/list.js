@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image,
     SafeAreaView
 } from 'react-native';
 import { PublicStyles } from '../../../utils/style';
 import fa from '../../../utils/fa'
 import AddressModel from '../../../models/address'
 import { Modal, Button } from 'antd-mobile-rn';
-import {  AddressCard } from '../../../components'
+import { AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
-import { ListView } from "../../../utils/view";
+import FlatList from "../../../components/flatList";
 
 const addressModel = new AddressModel()
 
@@ -46,13 +43,13 @@ export default class UserAddressList extends Component {
 
     // todo id
     updateListRow = (id) => {
-        this.ListView.manuallyRefresh()
+        this.FlatList.manuallyRefresh()
     }
 
     render() {
         return <View style={[PublicStyles.ViewMax]}>
-            <ListView
-                ref={e => this.ListView = e}
+            <FlatList
+                ref={e => this.FlatList = e}
                 api={AddressApi.list}
                 keyExtractor={e => String(e.id)}
                 renderItem={({ item }) => <AddressCard
