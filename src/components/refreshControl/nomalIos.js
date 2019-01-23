@@ -6,7 +6,6 @@ import MJRefresh from 'react-native-mjrefresh';
 import { SkypeIndicator } from 'react-native-indicators'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
-const { width } = Dimensions.get('window');
 
 export default class NomalRefreshControl extends Component {
     state = {
@@ -66,28 +65,31 @@ export default class NomalRefreshControl extends Component {
                 onRefresh={this._onRefresh}
                 onPulling={this._onPulling}
             >
-                <View style={{
-                    height: 100,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    {/* <Image style={{
-                        position: 'absolute',
-                        width,
-                        left: 0, right: 0, bottom: 0, height: width * 1436 / 1024,
+                <View 
+                    style={{
+                        height: 100,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
-                        source={require('./93K58PICGPs_1024.jpg')}
-                    /> */}
-                    {this.state.refreshing ? <SkypeIndicator style={{ flex: 0 }} size={24} color={'#2783cf'} /> :
-                        <AnimatedIcon style={{
-                            transform: [{
-                                rotate: this.state.rotate.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: ['180deg', '0deg']
-                                })
-                            }]
-                        }} name="md-arrow-up" color="#2783cf" size={24} />}
+                >
+                    {
+                        this.state.refreshing ? 
+                        <SkypeIndicator style={{ flex: 0 }} size={24} color={'#2783cf'} /> :
+                        <AnimatedIcon 
+                            style={{
+                                transform: [{
+                                    rotate: this.state.rotate.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: ['180deg', '0deg']
+                                    })
+                                }]
+                            }} 
+                            name="md-arrow-up" 
+                            color="#2783cf" 
+                            size={24} 
+                        />
+                    }
                     <Text style={{ marginLeft: 15 }}>{this.state.text}</Text>
                 </View>
             </MJRefresh>

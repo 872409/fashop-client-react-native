@@ -56,7 +56,7 @@ export default class LottieRefreshControl extends Component {
                                 style={{ width: 40, height: 40 }} 
                                 hardwareAccelerationAndroid 
                                 progress={this.state.scale} 
-                                source={lottieSource ? lottieSource : require('../../images/animates/fashop_loading.json')} 
+                                source={lottieSource ? lottieSource : require('../../images/animates/fashop_refreshing.json')} 
                             />
                         </Animated.View>
                     </AnyHeader>

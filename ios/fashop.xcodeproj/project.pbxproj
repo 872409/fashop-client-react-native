@@ -19,7 +19,6 @@
 		045D5F9721C9DF39007912A2 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABA35E219A9BF8001E2518 /* libRNImagePicker.a */; };
 		045D5F9821C9DF4A007912A2 /* libRNSyanImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0455815E219BB55F005B54DC /* libRNSyanImagePicker.a */; };
 		045D5F9921C9DF60007912A2 /* libLottie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427621BE48AB0044C8E0 /* libLottie.a */; };
-		045D5F9A21C9DF66007912A2 /* libLottieReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427921BE48AB0044C8E0 /* libLottieReactNative.a */; };
 		045D5F9B21C9DF75007912A2 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045581A0219BC288005B54DC /* libSplashScreen.a */; };
 		045D5F9C21C9E410007912A2 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427021BE48AB0044C8E0 /* Lottie.framework */; };
 		045D5F9D21C9E410007912A2 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427021BE48AB0044C8E0 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -31,6 +30,7 @@
 		04AEBA2C219528B10057C2DF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AEBA2B219528B10057C2DF /* libz.tbd */; };
 		04AF1FD221D6070A005A19E2 /* libAlipayModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AF1FD121D60636005A19E2 /* libAlipayModule.a */; };
 		04AF1FD421D6087C005A19E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04AF1FD321D6087B005A19E2 /* CoreMotion.framework */; };
+		04B9E7C121F80B3E000192A5 /* libLottieReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0402427921BE48AB0044C8E0 /* libLottieReactNative.a */; };
 		04CAC1A0218560560079F644 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		076AF7368EAC43D681BB1C48 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81522804D2E7494B866ED242 /* Entypo.ttf */; };
 		0E8DE80D9E934AEAB7EF67DD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B86F74DF09E4D589F6C20E8 /* MaterialCommunityIcons.ttf */; };
@@ -573,11 +573,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B9E7C121F80B3E000192A5 /* libLottieReactNative.a in Frameworks */,
 				0434255421F6A52000C9FFFE /* libRCTMJRefreshHeader.a in Frameworks */,
 				04AF1FD421D6087C005A19E2 /* CoreMotion.framework in Frameworks */,
 				04AF1FD221D6070A005A19E2 /* libAlipayModule.a in Frameworks */,
 				045D5F9B21C9DF75007912A2 /* libSplashScreen.a in Frameworks */,
-				045D5F9A21C9DF66007912A2 /* libLottieReactNative.a in Frameworks */,
 				045D5F9921C9DF60007912A2 /* libLottie.a in Frameworks */,
 				045D5F9821C9DF4A007912A2 /* libRNSyanImagePicker.a in Frameworks */,
 				045D5F9721C9DF39007912A2 /* libRNImagePicker.a in Frameworks */,
