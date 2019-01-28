@@ -1,11 +1,10 @@
 import area from "../services/area";
+import fa from "../utils/fa"
 
 export default {
     namespace: "area",
     state: {
-        list: {
-            result: { list: [], total_number: 0 }
-        },
+        list: [],
         info: { result: { info: {} } }
     },
 
@@ -14,8 +13,9 @@ export default {
             const response = yield call(area.list, payload);
             yield put({
                 type: "_list",
-                payload: response
+                payload: fa.getAntAreaList(response.result.list)
             });
+            
             if (callback) callback(response);
         },
         * info({ payload, callback }, { call, put }) {

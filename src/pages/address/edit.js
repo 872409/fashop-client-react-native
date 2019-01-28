@@ -16,14 +16,8 @@ import { PublicStyles } from '../../utils/style';
 
 const addressModel = new AddressModel()
 
-@connect(({
-    view: {
-        address: {
-            areaList
-        }
-    }
-})=>({
-    areaList
+@connect(({ area }) => ({
+    areaList: area.list
 }))
 export default class UserAddressEdit extends Component {
     state = {

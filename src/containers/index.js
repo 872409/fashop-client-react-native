@@ -12,10 +12,9 @@ import SplashScreen from "react-native-splash-screen";
 import { fetchStatus } from "../utils";
 // import { initUserInfoStorage } from "../actions/user";
 // import { initWechat } from '../actions/app/wechat';
-// import { getAreaList } from '../actions/address';
 
 @connect(({ page }) => ({
-    pageData: page.portal.result.info
+    pageData: page.portal.result.info,
 }))
 class App extends Component {
     async componentDidMount() {
@@ -26,9 +25,10 @@ class App extends Component {
         })
         // dispatch(initUserInfoStorage())
         // dispatch(initWechat())
-        // dispatch(getAreaList({
-        //     params: { level: 2, tree: 1 }
-        // }))
+        dispatch({
+            type: "area/list",
+            payload: { level: 2, tree: 1 }
+        })
         SplashScreen.hide();
     }
     componentWillUnmount() {

@@ -50,15 +50,6 @@ export default (state = initialState, action) => {
                 addressTypeList: action.addressTypeList,
                 addressTypeListFetchStatus: action.addressTypeListFetchStatus
             }
-        case types.address.GET_AERA_LIST:
-            return {
-                ...{
-                    areaList: [],
-                    areaListFetchStatus: fetchStatus.l,
-                },
-                areaList: action.areaList,
-                areaListFetchStatus: action.areaListFetchStatus
-            }
         default:
             return state;
     }
