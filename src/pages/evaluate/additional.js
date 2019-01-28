@@ -1,6 +1,6 @@
 import fa from '../../utils/fa'
-import GoodsEvaluateModel from '../../models/goodsEvaluate'
-import OrderModel from '../../models/order'
+import goodsEvaluateModel from '../../services/goodsEvaluate'
+import orderModel from '../../services/order'
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -12,9 +12,6 @@ import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
 import { StackActions } from "react-navigation";
 import { NetworkImage } from "../../components/theme"
-
-const goodsEvaluateModel = new GoodsEvaluateModel()
-const orderModel = new OrderModel()
 
 export default class EvaluateAdditional extends Component {
     state = {

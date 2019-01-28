@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
-    Image
 } from 'react-native';
 import { EvaluateCard } from '../../components'
 import FlatList from "../../components/flatList";
@@ -45,7 +43,7 @@ export default class EvaluateList extends Component {
     }
 
     // 更新某条
-    updateListRow = (id) => {
+    updateListRow = () => {
         this.FlatList.manuallyRefresh()
     }
 

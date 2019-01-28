@@ -6,11 +6,10 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import GoodsEvaluate from '../../models/goodsEvaluate'
+import goodsEvaluate from '../../services/goodsEvaluate'
 import { TimeFormat, Rater } from '../../components'
 import { NetworkImage } from "../../components/theme"
 
-const goodsEvaluateModel = new GoodsEvaluate()
 export default class EvaluateDetail extends Component {
     state = {
         order_goods_id: null,
@@ -24,7 +23,7 @@ export default class EvaluateDetail extends Component {
             this.props.navigation.addListener(
                 'didFocus', async () => {
                     const { order_goods_id } = this.state
-                    const evaluate = await goodsEvaluateModel.info({
+                    const evaluate = await goodsEvaluate.info({
                         order_goods_id
                     })
                     this.setState({
