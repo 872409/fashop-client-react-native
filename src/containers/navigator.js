@@ -12,7 +12,7 @@ import Index from "../pages/index";
 // import FullScreenVideo from "../utils/fullScreenVideo";
 import PageDetail from "../pages/page/detail";
 
-// import GoodsList from "../pages/goods/list";
+import GoodsList from "../pages/goods/list";
 // import GoodsDetail from "../pages/goods/detail";
 
 // import Pay from "../pages/pay";
@@ -72,12 +72,12 @@ const indexNavigationOptions = ({ navigation, screenProps }) => ({
     'Category': {
         title: '分类'
     },
-    // 'Cart': {
-    //     title: '购物车',
-    // },
-    // 'User': {
-    //     title: '我的',
-    // },
+    'Cart': {
+        title: '购物车',
+    },
+    'User': {
+        title: '我的',
+    },
 })
 
 const AppStack = createStackNavigator(
@@ -101,13 +101,13 @@ const AppStack = createStackNavigator(
         // FullScreenVideo: {
         //     screen: FullScreenVideo
         // },
-        // // category
-        // GoodsList: {
-        //     screen: GoodsList,
-        //     navigationOptions: {
-        //         title: '商品搜索'
-        //     }
-        // },
+        // category
+        GoodsList: {
+            screen: GoodsList,
+            navigationOptions: {
+                title: '商品搜索'
+            }
+        },
         // GoodsDetail: {
         //     screen: GoodsDetail,
         //     navigationOptions: {

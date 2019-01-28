@@ -6,8 +6,8 @@ import Badge from "@react-native-component/react-native-smart-badge";
 
 import Home from '../home';
 import Category from "../category";
-// import Cart from "../cart";
-// import User from '../user';
+import Cart from "../cart";
+import User from '../user';
 
 class TabBarItem extends Component {
     render() {
@@ -75,35 +75,35 @@ export default createBottomTabNavigator(
                 ),
             }),
         },
-        // Cart: {
-        //     screen: Cart,
-        //     navigationOptions: ({ navigation, screenProps }) => ({
-        //         tabBarLabel: "购物车",
-        //         tabBarIcon: ({ focused, tintColor }) => (
-        //             <BadgeItem
-        //                 screenProps={screenProps}
-        //                 tintColor={tintColor}
-        //                 focused={focused}
-        //                 normalImage={require("../../images/tab/tab3.png")}
-        //                 selectedImage={require("../../images/tab/tabActive3.png")}
-        //             />
-        //         ),
-        //     })
-        // },
-        // User: {
-        //     screen: User,
-        //     navigationOptions: ({ navigation }) => ({
-        //         tabBarLabel: "我的",
-        //         tabBarIcon: ({ focused, tintColor }) => (
-        //             <TabBarItem
-        //                 tintColor={tintColor}
-        //                 focused={focused}
-        //                 normalImage={require("../../images/tab/tab4.png")}
-        //                 selectedImage={require("../../images/tab/tabActive4.png")}
-        //             />
-        //         ),
-        //     })
-        // }
+        Cart: {
+            screen: Cart,
+            navigationOptions: ({ navigation, screenProps }) => ({
+                tabBarLabel: "购物车",
+                tabBarIcon: ({ focused, tintColor }) => (
+                    <BadgeItem
+                        screenProps={screenProps}
+                        tintColor={tintColor}
+                        focused={focused}
+                        normalImage={require("../../images/tab/tab3.png")}
+                        selectedImage={require("../../images/tab/tabActive3.png")}
+                    />
+                ),
+            })
+        },
+        User: {
+            screen: User,
+            navigationOptions: ({ navigation }) => ({
+                tabBarLabel: "我的",
+                tabBarIcon: ({ focused, tintColor }) => (
+                    <TabBarItem
+                        tintColor={tintColor}
+                        focused={focused}
+                        normalImage={require("../../images/tab/tab4.png")}
+                        selectedImage={require("../../images/tab/tabActive4.png")}
+                    />
+                ),
+            })
+        }
     },
     {
         initialRouteName: 'Home',

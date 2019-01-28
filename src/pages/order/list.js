@@ -5,7 +5,7 @@ import {
     Text
 } from 'react-native';
 import fa from '../../utils/fa'
-import OrderModel from '../../models/order'
+import orderModel from '../../models/order'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
@@ -13,23 +13,7 @@ import FlatList from "../../components/flatList";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
-import { connect } from "react-redux";
 
-const orderModel = new OrderModel()
-
-@connect(
-    ({
-         app: {
-             user: {
-                 login,
-                 userInfo,
-             }
-         }
-     }) => ({
-        login,
-        userInfo,
-    }),
-)
 export default class OrderList extends Component {
     state = {
         state_type: null,

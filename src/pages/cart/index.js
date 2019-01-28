@@ -8,25 +8,22 @@ import CartItem from "../../components/cart/item";
 import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
 import CartLogin from "../../components/cart/login";
-import CartModel from "../../models/cart";
-import CartLogic from "../../logics/cart";
+import cartModel from "../../models/cart";
+import cartLogic from "../../logics/cart";
 import store from "../../store";
 import { getCartTotalNum } from "../../actions/user";
 
-const cartModel = new CartModel()
-const cartLogic = new CartLogic()
-
-@connect((
-    { 
-        app: { 
-            user: {
-                login,
-            } 
-        } 
-    }
-)=> ({
-    login,
-}))
+// @connect((
+//     { 
+//         app: { 
+//             user: {
+//                 login,
+//             } 
+//         } 
+//     }
+// )=> ({
+//     login,
+// }))
 export default class CartIndex extends Component {
     state = {
         refreshing: true,

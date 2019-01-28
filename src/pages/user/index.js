@@ -16,22 +16,19 @@ import Badge from "@react-native-component/react-native-smart-badge";
 
 const Item = List.Item
 
-@connect(
-({
-    app: {
-        user: {
-            login,
-            userInfo,
-            orderNum,
-        }
-    }
-}) => (
-    {
-        login,
-        userInfo,
-        orderNum,
-    }
-))
+// @connect(({
+//     app: {
+//         user: {
+//             login,
+//             userInfo,
+//             orderNum,
+//         }
+//     }
+// }) => ({
+//     login,
+//     userInfo,
+//     orderNum,
+// }))
 export default class User extends Component {
     render() {
         return <View style={PublicStyles.ViewMax}>
@@ -83,7 +80,7 @@ export default class User extends Component {
     }
 
     mid() {
-        const { orderNum, navigation, login } = this.props;
+        let { orderNum = {}, navigation, login } = this.props;
         const orderList = [
             {
                 img: require('../../images/user/state_new.png'),

@@ -3,7 +3,7 @@ import {
     View,
 } from 'react-native';
 import fa from '../../utils/fa'
-import OrderModel from '../../models/order'
+import orderModel from '../../models/order'
 import React, { Component } from 'react';
 import { Modal, WhiteSpace } from "antd-mobile-rn";
 import {
@@ -14,23 +14,7 @@ import {
     OrderCostList,
     OrderFooterAction
 } from '../../components'
-import { connect } from "react-redux";
 
-const orderModel = new OrderModel()
-
-@connect(
-    ({
-         app: {
-             user: {
-                 login,
-                 userInfo,
-             }
-         }
-     }) => ({
-        login,
-        userInfo,
-    }),
-)
 export default class OrderDetail extends Component {
     state = {
         id: null,
