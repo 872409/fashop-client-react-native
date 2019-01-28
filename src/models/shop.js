@@ -1,15 +1,27 @@
-import Model from '../utils/model'
-import { ShopApi } from '../config/api/shop'
-import Fetch from "../utils/fetch";
+import shop from "../services/shop";
 
-export default class Shop extends Model {
-    async info(params) {
-        try {
-            const { result } = await Fetch.request(ShopApi.info,{  params })
-            return result
-        } catch (e) {
-            this.setException(e)
-            return false
+export default {
+    namespace: "shop",
+    state: {
+        info: { result: { info: {} } }
+    },
+
+    effects: {
+        * info({ payload, callback }, { call, put }) {
+            const response = yield call(shop.info, payload);
+            yield put({
+                type: "_info",
+                payload: response
+            });
+            if (callback) callback(response);
+        }
+    },
+    reducers: {
+        _info(state, action) {
+            return {
+                ...state,
+                info: action.payload
+            };
         }
     }
-}
+};

@@ -6,8 +6,6 @@ import {
     Text
 } from 'react-native';
 import { connect } from "react-redux";
-import { getHomeView } from "../../actions/home";
-import { stateHoc } from "../../utils";
 import { PublicStyles } from '../../utils/style';
 import {
     Goods,
@@ -25,25 +23,26 @@ import {
     TextNav,
 } from "../../components/page"
 
-@connect(({
-    view: {
-        home: {
-            homeView,
-            homeViewFetchStatus,
-        }
-    }
-}) => ({
-    homeView,
-    fetchStatus: homeViewFetchStatus,
-}))
-@stateHoc()
+@connect(({ page, loading }) => {
+    console.log('loading', loading);
+    
+    return ({
+        data: page.portal.result.info
+    })
+})
 export default class Home extends Component {
-    hocComponentDidMount() {
-        this.props.dispatch(getHomeView())
+    async componentDidMount(){
+        const { dispatch, navigation, data } = this.props
+        await dispatch({
+            type: "page/portal"
+        })
+        navigation.setParams({
+            title: data.name
+        })
     }
     render() {
-        const { homeView } = this.props
-        const { background_color, body } = homeView
+        const { data } = this.props
+        const { background_color, body } = data
         return <View
             style={[
                 PublicStyles.ViewMax, {
@@ -121,14 +120,5 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-    titleWarp: {
-        backgroundColor: '#fff'
-    },
-    title: {
-        lineHeight: 44,
-        fontSize: 17,
-        color: '#000',
-        fontWeight: '700',
-        textAlign: 'center'
-    },
-});
+    
+})

@@ -1,6 +1,11 @@
+import { fetchData } from "moji-react-native-utils";
+import exceptionUtil from "./exception";
 import Code from './code'
 import Toast from './toast';
 import Cache from './cache';
+import { env } from "../config/";
+
+const ROOT_URL = `${env.apiHost}/server/`;
 
 export default class Fa {
     static code = new Code()
@@ -51,5 +56,29 @@ export default class Fa {
                 }) : []
             }
         }) : []
+    }
+
+    /**
+     * 请求
+     * 注意：当返回code就抛出错误是为了日后完善错误编码国际化
+     * @param api
+     * @param options
+     * @returns {*|Promise<*>|PromiseLike<T | never>|Promise<T | never>}
+     */
+    static request = async (api, options = { params: {} }) => {
+        const { params } = options
+        const e = await fetchData.fetch({
+            api: {
+                ...api,
+                url: `${ROOT_URL}${api.url}`
+            },
+            params,
+        })
+        if (e.code === 0) {
+            return e
+        }else {
+            console.log(`接口：${api.url} 请求fail`)
+            throw new exceptionUtil(e.msg, e.code)
+        }
     }
 }

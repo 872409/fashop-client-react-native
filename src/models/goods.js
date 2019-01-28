@@ -1,26 +1,44 @@
-import Model from '../utils/model'
-import { GoodsListInterface} from '../interface/goods'
-import { GoodsInterface } from '../interface/goodsDetail'
-import { GoodsApi } from '../config/api/goods'
-import Fetch from "../utils/fetch";
+import goods from "../services/goods";
 
-export default class Goods extends Model {
-    async list(params) {
-        try {
-            const { result } = await Fetch.request(GoodsApi.list,{  params })
-            return new GoodsListInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
+export default {
+    namespace: "goods",
+    state: {
+        list: {
+            result: { list: [], total_number: 0 }
+        },
+        info: { result: { info: {} } }
+    },
+
+    effects: {
+        * list({ payload, callback }, { call, put }) {
+            const response = yield call(goods.list, payload);
+            yield put({
+                type: "_list",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * info({ payload, callback }, { call, put }) {
+            const response = yield call(goods.info, payload);
+            yield put({
+                type: "_info",
+                payload: response
+            });
+            if (callback) callback(response);
+        }
+    },
+    reducers: {
+        _list(state, action) {
+            return {
+                ...state,
+                list: action.payload
+            };
+        },
+        _info(state, action) {
+            return {
+                ...state,
+                info: action.payload
+            };
         }
     }
-    async info(params) {
-        try {
-            const { result } = await Fetch.request(GoodsApi.info,{  params })
-            return new GoodsInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-}
+};

@@ -1,34 +1,59 @@
-import Model from '../utils/model'
-import {GoodsCollectListInterface } from '../interface/goodsCollect'
-import { GoodsCollectApi } from '../config/api/goodsCollect'
-import Fetch from "../utils/fetch";
+import goodsCollect from "../services/goodsCollect";
 
-export default class GoodsCollect extends Model {
-    async list(params) {
-        try {
-            const { result } = await Fetch.request(GoodsCollectApi.mine,{  params })
-            return new GoodsCollectListInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
+export default {
+    namespace: "goodsCollect",
+    state: {
+        list: {
+            result: { list: [], total_number: 0 }
+        },
+        add: {},
+        del: {},
+    },
+
+    effects: {
+        * list({ payload, callback }, { call, put }) {
+            const response = yield call(goodsCollect.list, payload);
+            yield put({
+                type: "_list",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * add({ payload, callback }, { call, put }) {
+            const response = yield call(goodsCollect.add, payload);
+            yield put({
+                type: "_add",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * del({ payload, callback }, { call, put }) {
+            const response = yield call(goodsCollect.del, payload);
+            yield put({
+                type: "_del",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+    },
+    reducers: {
+        _list(state, action) {
+            return {
+                ...state,
+                list: action.payload
+            };
+        },
+        _add(state, action) {
+            return {
+                ...state,
+                add: action.payload
+            };
+        },
+        _del(state, action) {
+            return {
+                ...state,
+                del: action.payload
+            };
+        },
     }
-    async add(params) {
-        try {
-            await Fetch.request(GoodsCollectApi.add,{  params })
-            return true
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-    async del(params) {
-        try {
-            await Fetch.request(GoodsCollectApi.del,{  params })
-            return true
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-}
+};

@@ -1,26 +1,46 @@
-import Model from '../utils/model'
-import { PageApi } from '../config/api/page'
-import Fetch from "../utils/fetch";
+import page from "../services/page";
 
-export default class Order extends Model {
+export default {
+    namespace: "page",
+    state: {
+        portal: {
+            result: { info: { body: [], background_color: '#f8f8f8' } }
+        },
+        info: {
+            result: { info: { body: [], background_color: '#f8f8f8' } }
+        }
+    },
 
-    async info(params) {
-        try {
-            const { result } = await Fetch.request(PageApi.info,{  params })
-            return result.info
-        } catch (e) {
-            this.setException(e)
-            return false
+    effects: {
+        * portal({ payload, callback }, { call, put }) {
+            const response = yield call(page.portal, payload);
+            yield put({
+                type: "_portal",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * info({ payload, callback }, { call, put }) {
+            const response = yield call(page.info, payload);
+            yield put({
+                type: "_info",
+                payload: response
+            });
+            if (callback) callback(response);
+        }
+    },
+    reducers: {
+        _portal(state, action) {
+            return {
+                ...state,
+                portal: action.payload
+            };
+        },
+        _info(state, action) {
+            return {
+                ...state,
+                info: action.payload
+            };
         }
     }
-    async portal(params) {
-        try {
-            const { result } = await Fetch.request(PageApi.portal,{  params })
-            return result.info
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-}
+};

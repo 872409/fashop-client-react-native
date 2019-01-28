@@ -4,7 +4,7 @@ import { Toast } from "../../utils/function";
 import * as WeChat from 'react-native-wechat';
 import { userLogin, updateUserInfo } from '../../actions/user';
 import { UserApi } from "../../config/api/user";
-import {AppID,AppSecret} from "../../config/wechat"
+import { AppID, AppSecret } from "../../config/wechat"
 import { BuyApi } from '../../config/api/buy';
 
 export const initWechat = ()=>{
@@ -164,8 +164,8 @@ const addAuth = (e)=>{
         } = e
         if(errCode===0){
             const tokenParams = {
-                appid:AppID,
-                secret:AppSecret,
+                appid: AppID,
+                secret: AppSecret,
                 code,
                 grant_type:'authorization_code',
             }

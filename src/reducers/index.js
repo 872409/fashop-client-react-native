@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
 import user from "./user";
 import appInitial from "./app";
-import home from "./home";
-import page from "./page";
 import category from "./category";
 import address from "./address";
 import location from "./app/location";
@@ -16,8 +14,6 @@ const rootReducer = combineReducers({
         wechat,
     }),
     view: combineReducers({
-        home,
-        page,
         category,
         address,
     }),

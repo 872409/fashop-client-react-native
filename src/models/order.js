@@ -1,96 +1,151 @@
-import Model from '../utils/model'
-import { OrderStateNumInterface, OrderListInterface ,OrderGoodsInfoInterface} from '../interface/order'
-import { OrderInfoInterface } from '../interface/orderDetail'
-import { OrderApi } from '../config/api/order'
-import Fetch from "../utils/fetch";
+import order from "../services/order";
 
-export default class Order extends Model {
-    async list(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.list,{  params })
-            return new OrderListInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
+export default {
+    namespace: "order",
+    state: {
+        stateNum: {
+            result: { list: [], total_number: 0 }
+        },
+        list: { result: { info: {} } },
+        info: {},
+        cancel: {},
+        confirmReceipt: {},
+        deliverInfo: {
+            result: { list: [], total_number: 0 }
+        },
+        logistics: { result: { info: {} } },
+        goodsList: {},
+        goodsInfo: {},
+    },
 
-    async detail(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.detail,{  params })
-            return new OrderInfoInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
+    effects: {
+        * stateNum({ payload, callback }, { call, put }) {
+            const response = yield call(order.stateNum, payload);
+            yield put({
+                type: "_stateNum",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * list({ payload, callback }, { call, put }) {
+            const response = yield call(order.list, payload);
+            yield put({
+                type: "_list",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * info({ payload, callback }, { call, put }) {
+            const response = yield call(order.info, payload);
+            yield put({
+                type: "_info",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * cancel({ payload, callback }, { call, put }) {
+            const response = yield call(order.cancel, payload);
+            yield put({
+                type: "_cancel",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * confirmReceipt({ payload, callback }, { call, put }) {
+            const response = yield call(order.confirmReceipt, payload);
+            yield put({
+                type: "_confirmReceipt",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * deliverInfo({ payload, callback }, { call, put }) {
+            const response = yield call(order.deliverInfo, payload);
+            yield put({
+                type: "_deliverInfo",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * logistics({ payload, callback }, { call, put }) {
+            const response = yield call(order.logistics, payload);
+            yield put({
+                type: "_logistics",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * goodsList({ payload, callback }, { call, put }) {
+            const response = yield call(order.goodsList, payload);
+            yield put({
+                type: "_goodsList",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * goodsInfo({ payload, callback }, { call, put }) {
+            const response = yield call(order.goodsInfo, payload);
+            yield put({
+                type: "_goodsInfo",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+    },
+    reducers: {
+        _stateNum(state, action) {
+            return {
+                ...state,
+                stateNum: action.payload
+            };
+        },
+        _list(state, action) {
+            return {
+                ...state,
+                list: action.payload
+            };
+        },
+        _info(state, action) {
+            return {
+                ...state,
+                info: action.payload
+            };
+        },
+        _cancel(state, action) {
+            return {
+                ...state,
+                cancel: action.payload
+            };
+        },
+        _confirmReceipt(state, action) {
+            return {
+                ...state,
+                confirmReceipt: action.payload
+            };
+        },
+        _deliverInfo(state, action) {
+            return {
+                ...state,
+                deliverInfo: action.payload
+            };
+        },
+        _logistics(state, action) {
+            return {
+                ...state,
+                logistics: action.payload
+            };
+        },
+        _goodsList(state, action) {
+            return {
+                ...state,
+                goodsList: action.payload
+            };
+        },
+        _goodsInfo(state, action) {
+            return {
+                ...state,
+                goodsInfo: action.payload
+            };
+        },
     }
-
-    async stateNum() {
-        try {
-            const { result } = await Fetch.request(OrderApi.stateNum)
-            return new OrderStateNumInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-    async cancel(params) {
-        try {
-            await Fetch.request(OrderApi.cancel,{  params })
-            return true
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-    async confirmReceipt(params) {
-        try {
-            await Fetch.request(OrderApi.confirmReceipt,{  params })
-            return true
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-    async deliverInfo(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.deliverInfo,{  params })
-            return result
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-    async logistics(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.logistics,{  params })
-            return result
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-    async goodsList(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.goodsList,{  params })
-            return new OrderGoodsListInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-
-    async goodsInfo(params) {
-        try {
-            const { result } = await Fetch.request(OrderApi.goodsInfo,{  params })
-            return new OrderGoodsInfoInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-}
+};

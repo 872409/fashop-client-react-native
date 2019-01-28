@@ -7,26 +7,28 @@ import {
 } from "react-native";
 import Navigator from './navigator';
 import NavigationService from "./navigationService";
-import { initUserInfoStorage } from "../actions/user";
-import { initWechat } from '../actions/app/wechat';
-import { getHomeView } from '../actions/home';
-import { getAreaList } from '../actions/address';
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
 import { fetchStatus } from "../utils";
+// import { initUserInfoStorage } from "../actions/user";
+// import { initWechat } from '../actions/app/wechat';
+// import { getAreaList } from '../actions/address';
 
+@connect(({ page }) => ({
+    pageData: page.portal.result.info
+}))
 class App extends Component {
-    componentDidMount() {
+    async componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
-        const {
-            dispatch
-        } = this.props
-        dispatch(initUserInfoStorage())
-        dispatch(initWechat())
-        dispatch(getHomeView())
-        dispatch(getAreaList({
-            params: { level: 2, tree: 1 }
-        }))
+        const { dispatch } = this.props
+        dispatch({
+            type: "page/portal"
+        })
+        // dispatch(initUserInfoStorage())
+        // dispatch(initWechat())
+        // dispatch(getAreaList({
+        //     params: { level: 2, tree: 1 }
+        // }))
         SplashScreen.hide();
     }
     componentWillUnmount() {
@@ -51,16 +53,13 @@ class App extends Component {
         }
     }
     render() {
-        const { cartNum, homeView, homeViewFetchStatus } = this.props;
-        if (homeViewFetchStatus !== fetchStatus.s){
-            return null
-        }
+        const { cartNum, pageData } = this.props;
         return (
             <View style={{ flex: 1 }}>
                 <Navigator 
                     screenProps={{
                         cartNum,
-                        homeTitle: homeView.name
+                        homeTitle: pageData.name
                     }}
                     ref={navigatorRef => {
                         NavigationService.setTopLevelNavigator(navigatorRef);
@@ -73,23 +72,24 @@ class App extends Component {
 
 }
 
-const mapStateToProps = store => {
-    const {
-        user: { login, cartNum },
-        initial: { showBootPage },
-    } = store.app
-    const {
-        home: { homeView, homeViewFetchStatus }, 
-        address: { areaList }
-    } = store.view
-    return {
-        login,
-        cartNum,
-        showBootPage,
-        areaList,
-        homeView,
-        homeViewFetchStatus,
-    };
-};
+export default App;
+// const mapStateToProps = store => {
+//     const {
+//         user: { login, cartNum },
+//         initial: { showBootPage },
+//     } = store.app
+//     const {
+//         home: { homeView, homeViewFetchStatus }, 
+//         address: { areaList }
+//     } = store.view
+//     return {
+//         login,
+//         cartNum,
+//         showBootPage,
+//         areaList,
+//         homeView,
+//         homeViewFetchStatus,
+//     };
+// };
 
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App);

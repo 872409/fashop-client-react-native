@@ -6,8 +6,7 @@ import {
     Text
 } from 'react-native';
 import { connect } from "react-redux";
-import { getPageInfo } from "../../actions/page";
-import { stateHoc } from "../../utils";
+// import { stateHoc } from "../../utils";
 import { PublicStyles } from '../../utils/style';
 import {
     Goods,
@@ -25,18 +24,10 @@ import {
     TextNav,
 } from "../../components/page"
 
-@connect(({
-              view: {
-                  page: {
-                      pageInfo,
-                      pageInfoFetchStatus,
-                  }
-              }
-          }) => ({
-    pageInfo,
-    fetchStatus: pageInfoFetchStatus,
+@connect(({ page }) => ({
+    pageInfo: page.info.result.info,
 }))
-@stateHoc()
+// @stateHoc()
 export default class PageDetail extends Component {
     static navigationOptions = ({ navigation }) => {
         const { title } = navigation.state.params || {}
@@ -45,29 +36,21 @@ export default class PageDetail extends Component {
         }
     }
 
-    hocComponentDidMount() {
-        const { id } = this.props.navigation.state.params
-        this.props.dispatch(
-            getPageInfo({ params: { id } })
-        );
-
-    }
-
-    hocDetailKey() {
-        return this.props.navigation.state.params.id
-    }
-
-    componentDidMount() {
-        const { pageInfo, navigation } = this.props;
-        const { name } = pageInfo;
+    async componentDidMount() {
+        const { dispatch, pageInfo, navigation } = this.props;
+        const { id } = navigation.state.params
+        await dispatch({
+            type: "page/info",
+            payload: { id }
+        })
         navigation.setParams({
-            title: name
+            title: pageInfo.name
         })
     }
 
     render() {
         const { pageInfo } = this.props
-        const { background_color, name, body } = pageInfo
+        const { background_color, body } = pageInfo
         return <View
             style={[
                 PublicStyles.ViewMax, {
@@ -146,14 +129,5 @@ export default class PageDetail extends Component {
 }
 
 const styles = StyleSheet.create({
-    titleWarp: {
-        backgroundColor: '#fff'
-    },
-    title: {
-        lineHeight: 44,
-        fontSize: 17,
-        color: '#000',
-        fontWeight: '700',
-        textAlign: 'center'
-    },
+    
 });

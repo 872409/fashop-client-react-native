@@ -1,25 +1,44 @@
-import Model from '../utils/model'
-import { AreaListInterface,AreaInfoInterface } from '../interface/area'
-import { AreaApi } from '../config/api/area'
-import Fetch from "../utils/fetch";
+import area from "../services/area";
 
-export default class Area extends Model {
-    async list(params) {
-        try {
-            const { result } = await Fetch.request(AreaApi.list,{  params })
-            return new AreaListInterface(result)
-        } catch (e) {
-            this.setException(e)
-            return false
+export default {
+    namespace: "area",
+    state: {
+        list: {
+            result: { list: [], total_number: 0 }
+        },
+        info: { result: { info: {} } }
+    },
+
+    effects: {
+        * list({ payload, callback }, { call, put }) {
+            const response = yield call(area.list, payload);
+            yield put({
+                type: "_list",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
+        * info({ payload, callback }, { call, put }) {
+            const response = yield call(area.info, payload);
+            yield put({
+                type: "_info",
+                payload: response
+            });
+            if (callback) callback(response);
+        }
+    },
+    reducers: {
+        _list(state, action) {
+            return {
+                ...state,
+                list: action.payload
+            };
+        },
+        _info(state, action) {
+            return {
+                ...state,
+                info: action.payload
+            };
         }
     }
-    async info(params) {
-        try {
-            const { result } = await Fetch.request(AreaApi.info,{  params })
-            return new AreaInfoInterface(result.info)
-        } catch (e) {
-            this.setException(e)
-            return false
-        }
-    }
-}
+};
