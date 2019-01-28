@@ -24,10 +24,9 @@ import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
 import fa from '../../utils/fa'
-@connect(({ app: { wechat: {
-	isWXAppInstalled,
-} } }) => ({
-	isWXAppInstalled,
+
+@connect(({ wechat }) => ({
+	isWXAppInstalled: wechat.isWXAppInstalled,
 }))
 export default class UserLogin extends Component {
 	state = {
@@ -175,27 +174,31 @@ export default class UserLogin extends Component {
 			return Toast.warn('请输入密码')
 		}
 
-		const params = {
+		const payload = {
 			username,
 			password,
 			login_type: "password"
 		}
-		const e = await Fetch.fetch({
-			api: UserApi.login,
-			params
+		this.props.dispatch({
+			type: "user/login",
+			payload
 		})
-		if (e.code === 0) {
-			const {
-				dispatch
-			} = this.props;
-			dispatch(
-				userLogin({
-					user_token: e.result
-				})
-			)
-		} else {
-			Toast.warn(fa.code.parse(e.code,e.msg))
-		}
+		// const e = await Fetch.fetch({
+		// 	api: UserApi.login,
+		// 	params
+		// })
+		// if (e.code === 0) {
+		// 	const {
+		// 		dispatch
+		// 	} = this.props;
+		// 	dispatch(
+		// 		userLogin({
+		// 			user_token: e.result
+		// 		})
+		// 	)
+		// } else {
+		// 	Toast.warn(fa.code.parse(e.code,e.msg))
+		// }
 
 	}
 }

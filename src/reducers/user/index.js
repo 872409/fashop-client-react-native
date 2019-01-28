@@ -4,7 +4,6 @@ const initialState = {
     login : false,
     userInfo : null,
     userToken : null,
-    couponNum : 0,
     refreshing : false,
     orderNum : {
         state_new : 0,

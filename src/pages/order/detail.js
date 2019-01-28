@@ -3,7 +3,7 @@ import {
     View,
 } from 'react-native';
 import fa from '../../utils/fa'
-import orderModel from '../../models/order'
+import orderModel from '../../services/order'
 import React, { Component } from 'react';
 import { Modal, WhiteSpace } from "antd-mobile-rn";
 import {
@@ -61,7 +61,7 @@ export default class OrderDetail extends Component {
     }
 
     async init() {
-        const result = await orderModel.detail({ id: this.state.id })
+        const result = await orderModel.info({ id: this.state.id })
         if (result) {
             this.setState({
                 orderInfo: result.info,

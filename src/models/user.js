@@ -3,7 +3,8 @@ import user from "../services/user";
 export default {
     namespace: "user",
     state: {
-        login: {},
+        login: false,
+        userToken: null,
         register: {},
         logout: {},
         token: {},
@@ -24,7 +25,11 @@ export default {
             const response = yield call(user.login, payload);
             yield put({
                 type: "_login",
-                payload: response
+                payload: true
+            });
+            yield put({
+                type: "_userToken",
+                payload: response.result
             });
             if (callback) callback(response);
         },
@@ -138,6 +143,12 @@ export default {
             return {
                 ...state,
                 login: action.payload
+            };
+        },
+        _userToken(state, action) {
+            return {
+                ...state,
+                _userToken: action.payload
             };
         },
         _register(state, action) {

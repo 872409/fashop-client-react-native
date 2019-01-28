@@ -24,7 +24,7 @@ import {
 } from "../../components/page"
 
 @connect(({ page, loading }) => {
-    console.log('loading', loading);
+    // console.log('loading', loading);
     
     return ({
         data: page.portal.result.info

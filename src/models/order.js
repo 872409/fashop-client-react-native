@@ -4,7 +4,14 @@ export default {
     namespace: "order",
     state: {
         stateNum: {
-            result: { list: [], total_number: 0 }
+            result: {
+                state_new: 0,
+                state_send: 0,
+                state_success: 0,
+                state_close: 0,
+                state_unevaluate: 0,
+                state_refund: 0,
+            }
         },
         list: { result: { info: {} } },
         info: {},
