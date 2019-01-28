@@ -8,8 +8,8 @@ import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/Sta
 import Ad from "../pages/ad";
 
 import Index from "../pages/index";
-// import PhotoGallery from "../utils/photoGallery";
-// import FullScreenVideo from "../utils/fullScreenVideo";
+import PhotoGallery from "../pages/photoGallery";
+import FullScreenVideo from "../pages/fullScreenVideo";
 import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/goods/list";
@@ -91,16 +91,16 @@ const AppStack = createStackNavigator(
         PageDetail: {
             screen: PageDetail,
         },
-        // // 点击查看大图
-        // PhotoGallery: {
-        //     screen: PhotoGallery,
-        //     navigationOptions: {
-        //         header: null,
-        //     }
-        // },
-        // FullScreenVideo: {
-        //     screen: FullScreenVideo
-        // },
+        // 点击查看大图
+        PhotoGallery: {
+            screen: PhotoGallery,
+            navigationOptions: {
+                header: null,
+            }
+        },
+        FullScreenVideo: {
+            screen: FullScreenVideo
+        },
         // category
         GoodsList: {
             screen: GoodsList,

@@ -13,7 +13,7 @@ import {
 import { List, Modal, DatePicker } from "antd-mobile-rn";
 import { modifyUserInfo, updateUserInfo, userLogout } from "../../actions/user";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
-import { imagePicker } from '../../utils/imagePickerModule';
+import { imagePicker } from '../../utils/imagePicker';
 import { Button } from "../../components/theme";
 import Avatar from "../../components/public/avatar";
 import Fetch from '../../utils/fetch';

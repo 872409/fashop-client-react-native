@@ -5,8 +5,10 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import { Steps } from 'antd-mobile-rn';
-import Time from "../../utils/time"
+import moment from 'moment';
+
 const Step = Steps.Step
+
 export default class RefundStateSteps extends Component {
     static propTypes = {
         refundInfo: PropTypes.object,
@@ -24,22 +26,22 @@ export default class RefundStateSteps extends Component {
             {
                 done: true,
                 text: '买家退款',
-                desc: Time.format('Y/M/D h:m', refundInfo.create_time)
+                desc: moment(refundInfo.create_time,'X').format('YYYY-MM-DD HH:mm:ss')
             },
             {
                 done: true,
                 text: '商家受理',
-                desc: Time.format('Y/M/D h:m', refundInfo.handle_time)
+                desc: moment(refundInfo.handle_time,'X').format('YYYY-MM-DD HH:mm:ss')
             },
             {
                 done: true,
                 text: '退款成功',
-                desc: Time.format('Y/M/D h:m', refundInfo.handle_time)
+                desc: moment(refundInfo.handle_time,'X').format('YYYY-MM-DD HH:mm:ss')
             }
         ]
         return <View style={styles.refundSteps}>
             <Steps current={2} size={'small'}>
-                {steps.map((item: any, index: any) => (
+                {steps.map((item, index) => (
                     <Step
                         key={index}
                         title={item.text}

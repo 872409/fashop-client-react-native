@@ -10,7 +10,7 @@ import {
     SafeAreaView
 } from 'react-native';
 import Video from 'react-native-video';
-import { PublicStyles, ThemeStyle } from "./style";
+import { PublicStyles, ThemeStyle } from "../utils/style";
 
 function formatTime(second) {
     let h = 0, i = 0, s = parseInt(second);
