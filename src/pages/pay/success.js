@@ -3,7 +3,6 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
 } from 'react-native';
 import {
     PublicStyles,
@@ -12,7 +11,6 @@ import {
 import {
     Button
 } from 'antd-mobile-rn'
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { NavigationActions } from "react-navigation";
 

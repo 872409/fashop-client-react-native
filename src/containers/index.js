@@ -9,9 +9,7 @@ import Navigator from './navigator';
 import NavigationService from "./navigationService";
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
-import { fetchStatus } from "../utils";
 // import { initUserInfoStorage } from "../actions/user";
-// import { initWechat } from '../actions/app/wechat';
 
 @connect(({ page }) => ({
     pageData: page.portal.result.info,
@@ -24,7 +22,9 @@ class App extends Component {
             type: "page/portal"
         })
         // dispatch(initUserInfoStorage())
-        // dispatch(initWechat())
+        dispatch({
+            type: "wechat/isWXAppInstalled"
+        })
         dispatch({
             type: "area/list",
             payload: { level: 2, tree: 1 }

@@ -1,4 +1,6 @@
 import wechat from "../services/wechat";
+import * as WeChat from "react-native-wechat";
+import { AppID } from "../config/wechat";
 
 export default {
     namespace: "wechat",
@@ -6,9 +8,19 @@ export default {
         buildConfig: {},
         code: {},
         userinfo: {},
+        isWXAppInstalled: false
     },
 
     effects: {
+        * isWXAppInstalled({ payload, callback }, { call, put }) {
+            const registered = yield call(WeChat.registerApp, AppID)
+            const response = yield call(WeChat.isWXAppInstalled)
+            yield put({
+                type: "_isWXAppInstalled",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
         * buildConfig({ payload, callback }, { call, put }) {
             const response = yield call(wechat.infobuildConfigpayload);
             yield put({
@@ -35,6 +47,12 @@ export default {
         },
     },
     reducers: {
+        _isWXAppInstalled(state, action) {
+            return {
+                ...state,
+                isWXAppInstalled: action.payload
+            };
+        },
         _buildConfig(state, action) {
             return {
                 ...state,

@@ -19,14 +19,8 @@ import { BuyApi } from '../../config/api/buy'
 const Item = List.Item;
 const RadioItem = Radio.RadioItem;
 
-@connect(({
-    app: {
-        wechat: {
-            isWXAppInstalled
-        }
-    },
-})=>({
-    isWXAppInstalled,
+@connect(({ wechat })=>({
+    isWXAppInstalled: wechat.isWXAppInstalled,
 }))
 export default class Pay extends Component{
     state = {
