@@ -12,8 +12,6 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { connect } from "react-redux";
-import { getGoodsDetail } from "../../actions/category";
-import { stateHoc } from "../../utils";
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
 import { Carousel, Toast } from 'antd-mobile-rn'
 import {
@@ -25,12 +23,11 @@ import {
 } from '../../components/body'
 import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
-import GoodsCollectModel from "../../models/goodsCollect";
+import goodsCollectModel from "../../services/goodsCollect";
 import Badge from "@react-native-component/react-native-smart-badge";
 import { NetworkImage } from "../../components/theme"
 // import WebHtmlView from "../../components/public/webHtmlView";
 
-const goodsCollectModel = new GoodsCollectModel()
 // const htmlContent = `
 //     <div class="cap-richtext" color="#f9f9f9" content="" fullscreen="0" type="rich_text" __zent-design-uuid__="3d7cd6d3-ae9b-4a84-8af6-867c029f32a3" style="background-color: #ffffff;">
 //     <p>点此编辑『富文本』内容 ——&gt;</p><p>你可以对文字进行<strong>加粗</strong>、<em>斜体</em>、<span style="text-decoration: underline;">下划线</span>、<span style="text-decoration: line-through;">删除线</span>、文字<span style="color: rgb(0, 176, 240);">颜色</span>、<span style="background-color: rgb(255, 192, 0); color: rgb(255, 255, 255);">背景色</span>、以及字号<span style="font-size: 20px;">大</span><span style="font-size: 14px;">小</span>等简单排版操作。</p><p>还可以在这里加入表格了</p><table><tbody><tr><td width="93" valign="top" style="word-break: break-all;">中奖客户</td><td width="93" valign="top" style="word-break: break-all;">发放奖品</td><td width="93" valign="top" style="word-break: break-all;">备注</td></tr><tr><td width="93" valign="top" style="word-break: break-all;">猪猪</td><td width="93" valign="top" style="word-break: break-all;">内测码</td><td width="93" valign="top" style="word-break: break-all;"><em><span style="color: rgb(255, 0, 0);">已经发放</span></em></td></tr><tr><td width="93" valign="top" style="word-break: break-all;">大麦</td><td width="93" valign="top" style="word-break: break-all;">积分</td><td width="93" valign="top" style="word-break: break-all;"><a href="javascript: void(0);" target="_blank">领取地址</a></td></tr></tbody></table><p style="text-align: left;"><span style="text-align: left;">也可在这里插入图片、并对图片加上超级链接，方便用户点击。</span></p>
@@ -38,59 +35,51 @@ const goodsCollectModel = new GoodsCollectModel()
 //     </div>
 // `
 
-@connect(({
-    view: {
-        category: {
-            goodsDetailData,
-            goodsDetailFetchStatus,
-        }
-    },
-    app: {
-        user: {
-            login,
-            userInfo
-        }
-    }
-}) => ({
-    data: goodsDetailData,
-    fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
-    login,
-    userInfo
+// @connect(({
+//     view: {
+//         category: {
+//             goodsDetailData,
+//             goodsDetailFetchStatus,
+//         }
+//     },
+//     app: {
+//         user: {
+//             login,
+//             userInfo
+//         }
+//     }
+// }) => ({
+//     data: goodsDetailData,
+//     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
+//     login,
+//     userInfo
+// }))
+// @stateHoc({
+//     detail: true,
+// })
+@connect(({ goods }) => ({
+    data: goods.info.result.info,
 }))
-@stateHoc({
-    detail: true,
-})
 export default class GoodsDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,
     }
 
-    hocComponentDidMount() {
+    componentDidMount() {
         const {
             navigation,
-            fetchStatus
         } = this.props
         const { id } = navigation.state.params
-        this.props.dispatch(
-            getGoodsDetail({
-                params: {
-                    id
-                },
-                fetchStatus: fetchStatus ? fetchStatus[id] : null,
-            })
-        );
-    }
-
-    hocDetailKey() {
-        return this.props.navigation.state.params.id
+        this.props.dispatch({
+            type: 'goods/info',
+            payload: { id }
+        });
     }
 
     render() {
         const { specVisible, if_cart } = this.state;
-        const { navigation, dispatch, login } = this.props;
-        const { id } = navigation.state.params
-        const data = this.props.data[id]
+        const { navigation, dispatch, login, data } = this.props;
         return data ? <View style={PublicStyles.ViewMax}>
             <ScrollView>
                 {

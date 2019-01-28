@@ -13,7 +13,7 @@ import Index from "../pages/index";
 import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/goods/list";
-// import GoodsDetail from "../pages/goods/detail";
+import GoodsDetail from "../pages/goods/detail";
 
 // import Pay from "../pages/pay";
 // import PaySuccess from "../pages/pay/success";
@@ -108,12 +108,12 @@ const AppStack = createStackNavigator(
                 title: '商品搜索'
             }
         },
-        // GoodsDetail: {
-        //     screen: GoodsDetail,
-        //     navigationOptions: {
-        //         title: '商品详情'
-        //     }
-        // },
+        GoodsDetail: {
+            screen: GoodsDetail,
+            navigationOptions: {
+                title: '商品详情'
+            }
+        },
         // Pay: {
         //     screen: Pay,
         //     navigationOptions: {
