@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/style";
 import { NetworkImage } from "../../components/theme";
-import Fetch from "../../utils/fetch";
-import { GoodsCategoryApi } from "../../config/api/goodsCategory";
-import { ShopApi } from "../../config/api/shop";
+import goodsCategory from '../../services/goodsCategory'
+import shop from '../../services/shop'
 import GoodsItem from "../../components/goods/item";
 import FlatList from "../../components/flatList";
 import { GoodsApi } from "../../config/api/goods";
@@ -26,16 +25,12 @@ export default class Category extends Component {
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus', async () => {
-                const shopInfo = await Fetch.fetch({
-                    api: ShopApi.info,
-                })
-                const goodsCategory = await Fetch.fetch({
-                    api: GoodsCategoryApi.list,
-                })
-                if (goodsCategory.code === 0 && shopInfo.code === 0) {
+                const shopInfo = await shop.info()
+                const categoryData = await goodsCategory.list()
+                if (categoryData.code === 0 && shopInfo.code === 0) {
                     this.setState({
-                        categoryList: goodsCategory.result.list,
-                        current: goodsCategory.result.list[0].id,
+                        categoryList: categoryData.result.list,
+                        current: categoryData.result.list[0].id,
                         goods_category_style: shopInfo.result.info.goods_category_style+1
                     })
                 }
