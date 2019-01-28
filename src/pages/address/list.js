@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text,
-    Image,
     SafeAreaView
 } from 'react-native';
 import { Button } from 'antd-mobile-rn';
@@ -30,8 +27,8 @@ export default class AddressList extends Component {
         this.props.navigation.navigate('UserAddressAdd', { updateListRow: this.updateListRow })
     }
 
-    // todo id
-    updateListRow = (id) => {
+    // todo
+    updateListRow = () => {
         this.FlatList.manuallyRefresh()
     }
 
@@ -41,18 +38,19 @@ export default class AddressList extends Component {
                 ref={e => this.FlatList = e}
                 api={AddressApi.list}
                 keyExtractor={e => String(e.id)}
-                renderItem={({ item }) => <AddressCard
-                    name={item.truename}
-                    phone={item.phone}
-                    id={item.id}
-                    address={item.combine_detail}
-                    onEdit={(id) => {
-                        this.onEdit(id)
-                    }}
-                    onAddressChecked={() => {
-                        this.onAddressChecked(item.id)
-                    }}
-                />
+                renderItem={({ item }) => 
+                    <AddressCard
+                        name={item.truename}
+                        phone={item.phone}
+                        id={item.id}
+                        address={item.combine_detail}
+                        onEdit={(id) => {
+                            this.onEdit(id)
+                        }}
+                        onAddressChecked={() => {
+                            this.onAddressChecked(item.id)
+                        }}
+                    />
                 }
             />
             <SafeAreaView>
