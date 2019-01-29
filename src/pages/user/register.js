@@ -24,14 +24,8 @@ import SafeAreaView from 'react-native-safe-area-view';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { UserApi } from '../../config/api/user';
 
-@connect(({ 
-	app: { 
-		user: {
-			login,
-		} 
-	} 
-})=> ({
-	login,
+@connect(({ user }) => ({
+	login: user.login,
 }))
 export default class UserRegister extends Component {
 	state = {

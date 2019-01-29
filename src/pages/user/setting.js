@@ -15,19 +15,10 @@ import { PublicStyles } from '../../utils/style'
 
 const Item = List.Item;
 
-@connect(
-    ({
-         app: {
-             user: {
-                 login,
-                 userInfo,
-             }
-         }
-     }) => ({
-        login,
-        userInfo,
-    }),
-)
+@connect(({ user }) => ({
+    login: user.login,
+    userInfo: user.self,
+}))
 export default class UserSetting extends Component {
     render() {
         const { navigation, dispatch } = this.props;

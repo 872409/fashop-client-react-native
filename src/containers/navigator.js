@@ -18,8 +18,8 @@ import GoodsDetail from "../pages/goods/detail";
 // import Pay from "../pages/pay";
 // import PaySuccess from "../pages/pay/success";
 
-// import UserLogin from "../pages/user/login";
-// import UserInfo from "../pages/user/info";
+import UserLogin from "../pages/user/login";
+import UserInfo from "../pages/user/info";
 // import UserRegister from "../pages/user/register";
 // import UserFindPassword from "../pages/user/findPassword";
 // import UserAddressAdd from "../pages/user/address/add";
@@ -132,19 +132,19 @@ const AppStack = createStackNavigator(
         //         },
         //     }
         // },
-        // // user
-        // UserLogin: {
-        //     screen: UserLogin,
-        //     navigationOptions: {
-        //         title: '登录'
-        //     }
-        // },
-        // UserInfo: {
-        //     screen: UserInfo,
-        //     navigationOptions: {
-        //         title: '个人中心'
-        //     }
-        // },
+        // user
+        UserLogin: {
+            screen: UserLogin,
+            navigationOptions: {
+                title: '登录'
+            }
+        },
+        UserInfo: {
+            screen: UserInfo,
+            navigationOptions: {
+                title: '个人中心'
+            }
+        },
         // UserRegister: {
         //     screen: UserRegister,
         //     navigationOptions: {

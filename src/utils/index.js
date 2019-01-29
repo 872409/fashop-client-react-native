@@ -4,8 +4,8 @@ import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-reac
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import { setIsShowFetchLoading } from "../actions/app";
 import { userLogout } from "../actions/user";
-import store from "../store";
 import NavigationService from "../containers/navigationService";
+import { store } from '../index'
 
 initLibraryConfig({
     ToastInfo: (content) => {
@@ -21,7 +21,7 @@ initLibraryConfig({
     getLogin: () => {
         const {
             user
-        } = store.getState().app
+        } = store.getState()
         const {
             login
         } = user
@@ -37,21 +37,22 @@ initLibraryConfig({
         env,
     },
     removeUserInfo: () => {
-        store.dispatch(userLogout())
+        // store.dispatch(userLogout())
     },
     showLoading: () => {
-        store.dispatch(setIsShowFetchLoading(true))
+        // store.dispatch(setIsShowFetchLoading(true))
     },
     hideLoading: () => {
-        store.dispatch(setIsShowFetchLoading(false))
+        // store.dispatch(setIsShowFetchLoading(false))
     },
     getHeaders: () => {
         const {
             user,
-        } = store.getState().app
+        } = store.getState()
         const {
             userToken
         } = user
+        // console.log('userToken', userToken);
         return {
             'Access-Token': userToken ? userToken.access_token : null,
             'Source': 'app',

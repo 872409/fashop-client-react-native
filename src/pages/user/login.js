@@ -16,24 +16,19 @@ import {
 	ThemeStyle
 } from '../../utils/style';
 import { connect } from "react-redux";
-import { userLogin, updateUserInfo } from "../../actions/user";
-import { env } from "../../config";
-import { UserApi } from "../../config/api/user";
-import Fetch from "../../utils/fetch";
 import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
-import fa from '../../utils/fa'
 
 @connect(({ wechat }) => ({
 	isWXAppInstalled: wechat.isWXAppInstalled,
 }))
 export default class UserLogin extends Component {
 	state = {
-		// username: '13502176003',
-		// password: '123456',
-		username: null,
-		password: null,
+		username: '13502176003',
+		password: '123456',
+		// username: null,
+		// password: null,
 	}
 	render() {
 		const {
@@ -166,14 +161,12 @@ export default class UserLogin extends Component {
 			username,
 			password,
 		} = this.state
-
 		if (!username) {
 			return Toast.warn('请输入用户名')
 		}
 		if (!password) {
 			return Toast.warn('请输入密码')
 		}
-
 		const payload = {
 			username,
 			password,
@@ -183,23 +176,6 @@ export default class UserLogin extends Component {
 			type: "user/login",
 			payload
 		})
-		// const e = await Fetch.fetch({
-		// 	api: UserApi.login,
-		// 	params
-		// })
-		// if (e.code === 0) {
-		// 	const {
-		// 		dispatch
-		// 	} = this.props;
-		// 	dispatch(
-		// 		userLogin({
-		// 			user_token: e.result
-		// 		})
-		// 	)
-		// } else {
-		// 	Toast.warn(fa.code.parse(e.code,e.msg))
-		// }
-
 	}
 }
 

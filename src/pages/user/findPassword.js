@@ -16,14 +16,8 @@ import { CountdownButton } from '../../utils/view';
 import { Button } from 'antd-mobile-rn';
 import { UserApi } from '../../config/api/user';
 
-@connect(({
-	app: {
-		user: {
-			login,
-		}
-	}
-}) => ({
-	login,
+@connect(({ user }) => ({
+	login: user.login,
 }))
 export default class UserFindPassword extends Component{
 	state = {

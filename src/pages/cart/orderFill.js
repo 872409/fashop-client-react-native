@@ -16,19 +16,10 @@ const addressModel = new AddressModel()
 
 const Item = List.Item;
 
-@connect(
-    ({
-         app: {
-             user: {
-                 login,
-                 userInfo,
-             }
-         }
-     }) => ({
-        login,
-        userInfo,
-    }),
-)
+@connect(({ user }) => ({
+    login: user.login,
+    userInfo: user.self,
+}))
 export default class CartOrderFill extends Component {
     state = {
         delta: 1,

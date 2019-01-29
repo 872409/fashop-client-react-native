@@ -21,7 +21,9 @@ class App extends Component {
         dispatch({
             type: "page/portal"
         })
-        // dispatch(initUserInfoStorage())
+        dispatch({
+            type: "user/initUserinfoStorage"
+        })
         dispatch({
             type: "wechat/isWXAppInstalled"
         })

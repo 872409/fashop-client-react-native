@@ -13,17 +13,9 @@ import cartLogic from "../../logics/cart";
 import store from "../../store";
 import { getCartTotalNum } from "../../actions/user";
 
-// @connect((
-//     { 
-//         app: { 
-//             user: {
-//                 login,
-//             } 
-//         } 
-//     }
-// )=> ({
-//     login,
-// }))
+@connect(({ user })=> ({
+    login: user.login,
+}))
 export default class CartIndex extends Component {
     state = {
         refreshing: true,

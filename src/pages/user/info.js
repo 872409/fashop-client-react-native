@@ -23,15 +23,10 @@ import moment from "moment";
 
 const Item = List.Item;
 
-@connect(
-    ({ app: { user: {
-        login,
-        userInfo,
-    }}}) => ({
-        login,
-        userInfo,
-    }),
-)
+@connect(({ user }) => ({
+    login: user.login,
+    userInfo: user.self,
+}))
 export default class UserInfo extends Component {
     static navigationOptions = ({ navigation }) => {
         const { onPress } = navigation.state.params || {};
@@ -52,15 +47,19 @@ export default class UserInfo extends Component {
         birthday: null,
     }
     componentDidMount(){
-        const { navigation, dispatch } = this.props
+        const { navigation, dispatch, userInfo } = this.props;
         navigation.setParams({
             onPress: this.logout,
         })
-        dispatch(updateUserInfo());
+        if (!userInfo){
+            dispatch({
+                type: 'user/self'
+            });
+        }
     }
     render() {
         const { userInfo, navigation } = this.props
-        const { profile } = userInfo || { profile: {} }
+        const { profile } = userInfo
         const { avatar, nickname, sex, birthday } = this.state;
         return (
             <View style={PublicStyles.ViewMax}>
@@ -166,12 +165,9 @@ export default class UserInfo extends Component {
         )
     }
     logout = async() => {
-        const e = await Fetch.fetch({
-            api: UserApi.logout
+        this.props.dispatch({
+            type: 'user/logout'
         })
-        if(e.code===0){
-            this.props.dispatch(userLogout())
-        }
     }
     submit = () => {
         const { avatar, nickname, sex, birthday } = this.state;

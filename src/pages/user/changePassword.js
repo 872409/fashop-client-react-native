@@ -14,15 +14,10 @@ import { List, InputItem, Button } from "antd-mobile-rn";
 import { passiveModifyUserInfo } from "../../actions/user";
 import { UserApi } from "../../config/api/user";
 
-@connect(
-    ({ app: { user: {
-        login,
-        userInfo,
-    } } }) => ({
-        login,
-        userInfo,
-    }),
-)
+@connect(({ user }) => ({
+    login: user.login,
+    userInfo: user.self,
+}))
 export default class UserChangePassword extends Component {
     state = {
         oldpassword : null,

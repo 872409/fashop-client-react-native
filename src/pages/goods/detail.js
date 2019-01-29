@@ -57,8 +57,9 @@ import { NetworkImage } from "../../components/theme"
 // @stateHoc({
 //     detail: true,
 // })
-@connect(({ goods }) => ({
+@connect(({ goods, user }) => ({
     data: goods.info.result.info,
+    login: user.login
 }))
 export default class GoodsDetail extends Component {
     state = {

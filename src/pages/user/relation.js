@@ -16,13 +16,10 @@ import { updateUserInfo } from '../../actions/user';
 import { UserApi } from '../../config/api/user';
 
 const Item = List.Item;
-@connect(
-    ({ app: { user: {
-        userInfo,
-    } } }) => ({
-        userInfo,
-    })
-)
+
+@connect(({ user }) => ({
+    userInfo: user.self,
+}))
 export default class UserRelation extends Component {
     render() {
         const { navigation } = this.props;

@@ -1,4 +1,6 @@
 import user from "../services/user";
+import storage from "../services/storage";
+import NavigationService from "../containers/navigationService";
 
 export default {
     namespace: "user",
@@ -10,7 +12,7 @@ export default {
         token: {},
         editPassword: {},
         verifyCode: {},
-        self: {},
+        self: { profile: {} },
         editPasswordByFind: {},
         editProfile: {},
         bindPhone: {},
@@ -21,6 +23,36 @@ export default {
     },
 
     effects: {
+        * initUserinfoStorage({ payload, callback }, { call, put }) {
+            let userInfoCache = yield call(storage.getUserInfo)
+            let userTokenCache = yield call(storage.get, { key: 'user_token' })
+            console.log('userInfoCache',userInfoCache);
+            console.log('userTokenCache',userTokenCache);
+            
+            if (userInfoCache || userTokenCache) {
+                const userInfo = JSON.parse(userInfoCache)
+                const userToken = JSON.parse(userTokenCache)
+
+                yield put({
+                    type: "_login",
+                    payload: true
+                });
+                yield put({
+                    type: "_userToken",
+                    payload: userToken
+                });
+                yield put({
+                    type: "_self",
+                    payload: userInfo
+                });
+                yield put({ type: 'order/stateNum' })
+                yield put({ type: 'cart/totalNum' })
+
+            } else {
+                //没有用户信息缓存
+                //未来邀请注册什么的放在这里写逻辑
+            }
+        },
         * login({ payload, callback }, { call, put }) {
             const response = yield call(user.login, payload);
             yield put({
@@ -31,6 +63,11 @@ export default {
                 type: "_userToken",
                 payload: response.result
             });
+            yield call(storage.set, { key: 'user_token', value: response.result })
+            yield put({type: 'user/self'})
+            yield put({type: 'order/stateNum'})
+            yield put({type: 'cart/totalNum'})
+            NavigationService.goBack()
             if (callback) callback(response);
         },
         * register({ payload, callback }, { call, put }) {
@@ -43,10 +80,21 @@ export default {
         },
         * logout({ payload, callback }, { call, put }) {
             const response = yield call(user.logout, payload);
+            yield call(storage.removeUserInfo)
+            yield call(storage.remove, { key: 'user_token' })
+            yield put({
+                type: "_login",
+                payload: false
+            });
+            yield put({
+                type: "_userToken",
+                payload: {}
+            });
             yield put({
                 type: "_logout",
                 payload: response
             });
+            NavigationService.goBack()
             if (callback) callback(response);
         },
         * token({ payload, callback }, { call, put }) {
@@ -75,6 +123,7 @@ export default {
         },
         * self({ payload, callback }, { call, put }) {
             const response = yield call(user.self, payload);
+            yield call(storage.setUserInfo,{ value: response.result.info })
             yield put({
                 type: "_self",
                 payload: response
@@ -148,7 +197,7 @@ export default {
         _userToken(state, action) {
             return {
                 ...state,
-                _userToken: action.payload
+                userToken: action.payload
             };
         },
         _register(state, action) {

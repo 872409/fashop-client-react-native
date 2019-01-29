@@ -7,7 +7,6 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-// import { updateUserInfo } from '../../actions/user';
 import { PublicStyles, windowWidth } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -16,19 +15,11 @@ import Badge from "@react-native-component/react-native-smart-badge";
 
 const Item = List.Item
 
-// @connect(({
-//     app: {
-//         user: {
-//             login,
-//             userInfo,
-//             orderNum,
-//         }
-//     }
-// }) => ({
-//     login,
-//     userInfo,
-//     orderNum,
-// }))
+@connect(({ user, order }) => ({
+    login: user.login,
+    userInfo: user.self,
+    orderNum: order.stateNum.result,
+}))
 export default class User extends Component {
     render() {
         return <View style={PublicStyles.ViewMax}>
