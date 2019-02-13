@@ -5,7 +5,6 @@ import {
     Text
 } from 'react-native';
 import fa from '../../utils/fa'
-import orderModel from '../../models/order'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
@@ -13,14 +12,17 @@ import FlatList from "../../components/flatList";
 import { OrderApi } from "../../config/api/order";
 import { DefaultTabBar } from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
+import { connect } from 'react-redux';
 
+@connect()
 export default class OrderList extends Component {
     state = {
         state_type: null,
     }
 
     async componentWillMount() {
-        const state_type = this.props.navigation.getParam('state_type')
+        const { navigation } = this.props
+        const { state_type } = navigation.state.params
         if (state_type) {
             this.setState({
                 state_type
@@ -36,17 +38,14 @@ export default class OrderList extends Component {
         Modal.alert('您确认取消吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: async () => {
-                    const result = await orderModel.cancel({
-                        'id': orderInfo.id,
+                text: '确认', onPress: () => {
+                    this.props.dispatch({
+                        type: "order/cancel",
+                        payload: {
+                            id: orderInfo.id
+                        },
+                        callback: () => this.updateListRow(orderInfo.id)
                     })
-                    if (result === true) {
-                        this.updateListRow(orderInfo.id)
-                    } else {
-                        fa.toast.show({
-                            title: fa.code.parse(orderModel.getException().getCode())
-                        })
-                    }
                 }
             }
         ])
@@ -62,16 +61,13 @@ export default class OrderList extends Component {
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: async () => {
-                    const result = await orderModel.confirmReceipt({
-                        'id': orderInfo.id,
+                    this.props.dispatch({
+                        type: "order/confirmReceipt",
+                        payload: {
+                            id: orderInfo.id
+                        },
+                        callback: () => this.updateListRow(orderInfo.id)
                     })
-                    if (result) {
-                        this.updateListRow(orderInfo.id)
-                    } else {
-                        fa.toast.show({
-                            title: fa.code.parse(orderModel.getException().getCode())
-                        })
-                    }
                 }
             }
         ])
@@ -85,19 +81,17 @@ export default class OrderList extends Component {
     }
 
     async onLogistics(orderInfo) {
-        const e = await orderModel.logistics({
-            id: orderInfo.id
-        })
-        if (e) {
-            this.props.navigation.navigate('PublicWebView', {
+        const { dispatch, navigation } = this.props
+        dispatch({
+            type: "order/logistics",
+            payload: {
+                id: orderInfo.id
+            },
+            callback: () => navigation.navigate('PublicWebView', {
                 title: '物流信息',
                 url: e.info.url
             })
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(orderModel.getException().getCode())
-            })
-        }
+        })
     }
 
     updateListRow = async (id) => {

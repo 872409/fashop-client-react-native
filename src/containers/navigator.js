@@ -29,8 +29,8 @@ import UserAddressList from "../pages/user/address/list";
 
 // import CartOrderFill from "../pages/cart/orderFill";
 
-// import OrderList from "../pages/order/list";
-// import OrderDetail from "../pages/order/detail";
+import OrderList from "../pages/order/list";
+import OrderDetail from "../pages/order/detail";
 
 // import RefundDetail from "../pages/refund/detail";
 // import RefundList from "../pages/refund/list";
@@ -186,19 +186,19 @@ const AppStack = createStackNavigator(
         //         title: '提交订单'
         //     }
         // },
-        // // order
-        // OrderList: {
-        //     screen: OrderList,
-        //     navigationOptions: {
-        //         title: '订单列表'
-        //     }
-        // },
-        // OrderDetail: {
-        //     screen: OrderDetail,
-        //     navigationOptions: {
-        //         title: '订单详情'
-        //     }
-        // },
+        // order
+        OrderList: {
+            screen: OrderList,
+            navigationOptions: {
+                title: '订单列表'
+            }
+        },
+        OrderDetail: {
+            screen: OrderDetail,
+            navigationOptions: {
+                title: '订单详情'
+            }
+        },
         // // refund
         // RefundDetail: {
         //     screen: RefundDetail,
