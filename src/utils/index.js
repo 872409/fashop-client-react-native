@@ -37,7 +37,9 @@ initLibraryConfig({
         env,
     },
     removeUserInfo: () => {
-        // store.dispatch(userLogout())
+        store.dispatch({
+            type: "user/logout"
+        })
     },
     showLoading: () => {
         // store.dispatch(setIsShowFetchLoading(true))

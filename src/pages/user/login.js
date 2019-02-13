@@ -25,10 +25,10 @@ import { Button } from '../../components/theme'
 }))
 export default class UserLogin extends Component {
 	state = {
-		username: '13502176003',
-		password: '123456',
-		// username: null,
-		// password: null,
+		// username: '13502176003',
+		// password: '123456',
+		username: null,
+		password: null,
 	}
 	render() {
 		const {

@@ -11,18 +11,7 @@ import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-vi
 
 export default class EvaluateList extends Component {
     state = {
-        order_id: 0,
         evaluate_state: 'un_evaluate'
-    }
-
-    async componentWillMount() {
-        const order_id = this.props.navigation.getParam('order_id')
-        if (order_id > 0) {
-            this.setState({
-                order_id
-            })
-        }
-
     }
 
     onGoods(id) {

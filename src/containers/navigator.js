@@ -42,12 +42,12 @@ import AddressAdd from "../pages/address/add";
 import AddressEdit from "../pages/address/edit";
 import AddressList from "../pages/address/list";
 
-// import EvaluateAdd from "../pages/evaluate/add"
-// import EvaluateAdditional from "../pages/evaluate/additional"
-// import EvaluateDetail from "../pages/evaluate/detail"
-// import EvaluateList from "../pages/evaluate/list"
+import EvaluateAdd from "../pages/evaluate/add"
+import EvaluateAdditional from "../pages/evaluate/additional"
+import EvaluateDetail from "../pages/evaluate/detail"
+import EvaluateList from "../pages/evaluate/list"
 
-// import CollectGoods from "../pages/collect/goods"
+import CollectGoods from "../pages/collect/goods"
 
 const modalStyleStackNames = [
     'UserLogin',
@@ -249,37 +249,37 @@ const AppStack = createStackNavigator(
                 title: '收货地址列表'
             }
         },
-        // // evaluate
-        // EvaluateAdd: {
-        //     screen: EvaluateAdd,
-        //     navigationOptions: {
-        //         title: '评价'
-        //     }
-        // },
-        // EvaluateAdditional: {
-        //     screen: EvaluateAdditional,
-        //     navigationOptions: {
-        //         title: '追加评价'
-        //     }
-        // },
-        // EvaluateDetail: {
-        //     screen: EvaluateDetail,
-        //     navigationOptions: {
-        //         title: '评价详情'
-        //     }
-        // },
-        // EvaluateList: {
-        //     screen: EvaluateList,
-        //     navigationOptions: {
-        //         title: '评价列表'
-        //     }
-        // },
-        // CollectGoods:{
-        //     screen: CollectGoods,
-        //     navigationOptions: {
-        //         title: '商品收藏'
-        //     }
-        // }
+        // evaluate
+        EvaluateAdd: {
+            screen: EvaluateAdd,
+            navigationOptions: {
+                title: '评价'
+            }
+        },
+        EvaluateAdditional: {
+            screen: EvaluateAdditional,
+            navigationOptions: {
+                title: '追加评价'
+            }
+        },
+        EvaluateDetail: {
+            screen: EvaluateDetail,
+            navigationOptions: {
+                title: '评价详情'
+            }
+        },
+        EvaluateList: {
+            screen: EvaluateList,
+            navigationOptions: {
+                title: '评价列表'
+            }
+        },
+        CollectGoods:{
+            screen: CollectGoods,
+            navigationOptions: {
+                title: '商品收藏'
+            }
+        }
     },
     {
         navigationOptions: ({ navigation }) => ({

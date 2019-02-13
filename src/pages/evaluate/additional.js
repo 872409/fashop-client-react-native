@@ -1,6 +1,4 @@
 import fa from '../../utils/fa'
-import goodsEvaluateModel from '../../services/goodsEvaluate'
-import orderModel from '../../services/order'
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -12,7 +10,11 @@ import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
 import { StackActions } from "react-navigation";
 import { NetworkImage } from "../../components/theme"
+import { connect } from 'react-redux'
 
+@connect(({ order }) => ({
+    goodsInfo: order.goodsInfo.result
+}))
 export default class EvaluateAdditional extends Component {
     state = {
         id: 0,
@@ -26,18 +28,16 @@ export default class EvaluateAdditional extends Component {
     }
 
     async componentWillMount() {
-        const order_goods_id = this.props.navigation.getParam('order_goods_id')
-        const delta = this.props.navigation.getParam('delta', 1)
-        const goodsInfoResult = await orderModel.goodsInfo({
-            id: order_goods_id
-        })
-
-        this.setState({
-            id: goodsInfoResult.info.id,
-            delta: typeof delta !== 'undefined' ? delta : 1,
-            goodsInfo: goodsInfoResult.info,
-            orderGoodsId: order_goods_id
-        })
+        const { navigation, goodsInfo } = this.props
+        const { order_goods_id, delta = 1 } = navigation.state.params
+        if (goodsInfo) {
+            this.setState({
+                id: goodsInfo.info.id,
+                delta: typeof delta !== 'undefined' ? delta : 1,
+                goodsInfo: goodsInfo.info,
+                orderGoodsId: order_goods_id
+            })
+        }
     }
 
     onImagesChange({ value }) {
@@ -54,31 +54,29 @@ export default class EvaluateAdditional extends Component {
 
     async onSubmit() {
         const { content, images, orderGoodsId, delta } = this.state
-
+        const { dispatch, navigation } = this.props
+        const { updateListRow } = navigation.state.params
         if (!content) {
             return fa.toast.show({ title: '请输入评价内容' })
         }
 
-        let data = {
+        let payload = {
             order_goods_id: orderGoodsId,
             additional_content: content,
         }
         if (Array.isArray(images) && images.length > 0) {
-            data['additional_images'] = images
+            payload['additional_images'] = images
         }
-
-        const result = await goodsEvaluateModel.append(data)
-        if (result === false) {
-            fa.toast.show({
-                title: fa.code.parse(goodsEvaluateModel.getException().getCode())
-            })
-        } else {
-            const updateListRow = this.props.navigation.getParam('updateListRow')
-            if (updateListRow) {
-                updateListRow(orderGoodsId)
+        dispatch({
+            type: "goodsEvaluate/append",
+            payload,
+            callback: () => {
+                if (updateListRow) {
+                    updateListRow(orderGoodsId)
+                }
+                navigation.dispatch(StackActions.pop({ n: delta }));
             }
-            this.props.navigation.dispatch(StackActions.pop({ n: delta }));
-        }
+        })
     }
 
     updateListRow = () => {

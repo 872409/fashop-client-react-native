@@ -11,15 +11,13 @@ import {
 	ScrollView,
 } from 'react-native';
 import { Toast } from '../../utils/function';
-import Fetch from "../../utils/fetch";
-import { env } from "../../config";
 import {
 	PublicStyles,
 	ThemeStyle
 } from '../../utils/style';
 import { CountdownButton } from '../../utils/view';
-import { userLogin } from '../../actions/user';
-import { Button, InputItem } from 'antd-mobile-rn';
+import Fetch from "../../utils/fetch";
+import { Button } from 'antd-mobile-rn';
 import SafeAreaView from 'react-native-safe-area-view';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { UserApi } from '../../config/api/user';
@@ -51,11 +49,15 @@ export default class UserRegister extends Component {
 			}
 		})
 		if (e.errcode === 0) {
-			// dispatch(
-			// 	userLogin({
-			// 		userInfoData: e.data
-			// 	})
-			// )
+			const payload = {
+				username,
+				password,
+				login_type: "password"
+			}
+			dispatch({
+				type: "user/login",
+				payload
+			})
 		} else {
 			Toast.warn(e.errmsg)
 		}

@@ -27,7 +27,7 @@ export default class UserFindPassword extends Component{
 		secureTextEntry: true
 	}
 	render(){
-		const { secureTextEntry, phone, verify_code, password } = this.state;
+		const { secureTextEntry, phone } = this.state;
 		return(
 			<KeyboardAvoidingView style={[PublicStyles.ViewMax,{backgroundColor:'#fff'}]} behavior={'padding'}>
 				<View
