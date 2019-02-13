@@ -6,28 +6,25 @@ import {
 } from 'react-native';
 import { PublicStyles } from '../../../utils/style';
 import fa from '../../../utils/fa'
-import AddressModel from '../../../models/address'
 import { Modal, Button } from 'antd-mobile-rn';
 import { AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";
 import FlatList from "../../../components/flatList";
+import { connect } from 'react-redux';
 
-const addressModel = new AddressModel()
-
+@connect()
 export default class UserAddressList extends Component {
     async onDelete(id) {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: async () => {
-                    const result = await addressModel.del({ id })
-                    if (result) {
-                        this.initList()
-                    } else {
-                        fa.toast.show({
-                            title: fa.code.parse(addressModel.getException().getCode())
-                        })
-                    }
+                text: '确认', onPress: () => {
+                    this.props.dispatch({
+                        type: "address/del",
+                        payload: {
+                            id
+                        }
+                    })
                 }
             }
         ])

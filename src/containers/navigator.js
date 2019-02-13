@@ -10,6 +10,7 @@ import Ad from "../pages/ad";
 import Index from "../pages/index";
 import PhotoGallery from "../pages/photoGallery";
 import FullScreenVideo from "../pages/fullScreenVideo";
+import PublicWebView from "../pages/webView";
 import PageDetail from "../pages/page/detail";
 
 import GoodsList from "../pages/goods/list";
@@ -20,11 +21,11 @@ import GoodsDetail from "../pages/goods/detail";
 
 import UserLogin from "../pages/user/login";
 import UserInfo from "../pages/user/info";
-// import UserRegister from "../pages/user/register";
-// import UserFindPassword from "../pages/user/findPassword";
-// import UserAddressAdd from "../pages/user/address/add";
-// import UserAddressEdit from "../pages/user/address/edit";
-// import UserAddressList from "../pages/user/address/list";
+import UserRegister from "../pages/user/register";
+import UserFindPassword from "../pages/user/findPassword";
+import UserAddressAdd from "../pages/user/address/add";
+import UserAddressEdit from "../pages/user/address/edit";
+import UserAddressList from "../pages/user/address/list";
 
 // import CartOrderFill from "../pages/cart/orderFill";
 
@@ -37,9 +38,9 @@ import UserInfo from "../pages/user/info";
 // import RefundServiceApply from "../pages/refund/serviceApply";
 // import RefundServiceType from "../pages/refund/serviceType";
 
-// import AddressAdd from "../pages/address/add";
-// import AddressEdit from "../pages/address/edit";
-// import AddressList from "../pages/address/list";
+import AddressAdd from "../pages/address/add";
+import AddressEdit from "../pages/address/edit";
+import AddressList from "../pages/address/list";
 
 // import EvaluateAdd from "../pages/evaluate/add"
 // import EvaluateAdditional from "../pages/evaluate/additional"
@@ -91,15 +92,18 @@ const AppStack = createStackNavigator(
         PageDetail: {
             screen: PageDetail,
         },
+        FullScreenVideo: {
+            screen: FullScreenVideo
+        },
+        PublicWebView: {
+            screen: PublicWebView
+        },
         // 点击查看大图
         PhotoGallery: {
             screen: PhotoGallery,
             navigationOptions: {
                 header: null,
             }
-        },
-        FullScreenVideo: {
-            screen: FullScreenVideo
         },
         // category
         GoodsList: {
@@ -145,36 +149,36 @@ const AppStack = createStackNavigator(
                 title: '个人中心'
             }
         },
-        // UserRegister: {
-        //     screen: UserRegister,
-        //     navigationOptions: {
-        //         title: '注册'
-        //     }
-        // },
-        // UserFindPassword: {
-        //     screen: UserFindPassword,
-        //     navigationOptions: {
-        //         title: '找回密码'
-        //     }
-        // },
-        // UserAddressAdd: {
-        //     screen: UserAddressAdd,
-        //     navigationOptions: {
-        //         title: '收货地址添加'
-        //     }
-        // },
-        // UserAddressEdit: {
-        //     screen: UserAddressEdit,
-        //     navigationOptions: {
-        //         title: '收货地址修改'
-        //     }
-        // },
-        // UserAddressList: {
-        //     screen: UserAddressList,
-        //     navigationOptions: {
-        //         title: '收货地址列表'
-        //     }
-        // },
+        UserRegister: {
+            screen: UserRegister,
+            navigationOptions: {
+                title: '注册'
+            }
+        },
+        UserFindPassword: {
+            screen: UserFindPassword,
+            navigationOptions: {
+                title: '找回密码'
+            }
+        },
+        UserAddressAdd: {
+            screen: UserAddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        UserAddressEdit: {
+            screen: UserAddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        UserAddressList: {
+            screen: UserAddressList,
+            navigationOptions: {
+                title: '收货地址列表'
+            }
+        },
         // // cart
         // CartOrderFill: {
         //     screen: CartOrderFill,
@@ -226,25 +230,25 @@ const AppStack = createStackNavigator(
         //         title: '选择售后服务类型'
         //     }
         // },
-        // // address
-        // AddressAdd: {
-        //     screen: AddressAdd,
-        //     navigationOptions: {
-        //         title: '收货地址添加'
-        //     }
-        // },
-        // AddressEdit: {
-        //     screen: AddressEdit,
-        //     navigationOptions: {
-        //         title: '收货地址修改'
-        //     }
-        // },
-        // AddressList: {
-        //     screen: AddressList,
-        //     navigationOptions: {
-        //         title: '收货地址列表'
-        //     }
-        // },
+        // address
+        AddressAdd: {
+            screen: AddressAdd,
+            navigationOptions: {
+                title: '收货地址添加'
+            }
+        },
+        AddressEdit: {
+            screen: AddressEdit,
+            navigationOptions: {
+                title: '收货地址修改'
+            }
+        },
+        AddressList: {
+            screen: AddressList,
+            navigationOptions: {
+                title: '收货地址列表'
+            }
+        },
         // // evaluate
         // EvaluateAdd: {
         //     screen: EvaluateAdd,

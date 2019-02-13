@@ -12,11 +12,12 @@ import { AddressCard } from "../../components";
 
 export default class AddressList extends Component {
     onAddressChecked(id) {
-        const onAddressChange = this.props.navigation.getParam('onAddressChange')
+        const { navigation } = this.props
+        const { onAddressChange } = navigation.state.params
         if (typeof onAddressChange === 'function') {
             onAddressChange(id)
         }
-        this.props.navigation.goBack()
+        navigation.goBack()
     }
 
     onEdit(id) {

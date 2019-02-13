@@ -6,14 +6,11 @@ import {
     ScrollView
 } from 'react-native';
 import fa from '../../utils/fa'
-import AddressModel from '../../models/address'
 import { Field } from '../../components'
 import { Button } from 'antd-mobile-rn'
 import arrayTreeFilter from "array-tree-filter";
 import { StackActions } from "react-navigation";
 import { connect } from 'react-redux'
-
-const addressModel = new AddressModel()
 
 @connect(({ area })=>({
     areaList: area.list
@@ -71,6 +68,8 @@ export default class UserAddressAdd extends Component {
 
     onSubmit = async() => {
         const { truename, mobile_phone, area_id, address, is_default, type } = this.state
+        const { dispatch, navigation } = this.props
+        const { updateListRow } = navigation.state.params
         if (!truename) {
             return fa.toast.show({ title: '请输入姓名' })
         }
@@ -83,7 +82,7 @@ export default class UserAddressAdd extends Component {
         if (!address) {
             return fa.toast.show({ title: '请填写楼栋楼层或房间号信息' })
         }
-        let data = {
+        let payload = {
             truename,
             mobile_phone,
             address,
@@ -91,19 +90,16 @@ export default class UserAddressAdd extends Component {
             type,
             area_id
         }
-
-        const result = await addressModel.add(data)
-        if (result === false) {
-            fa.toast.show({
-                title: fa.code.parse(addressModel.getException().getCode())
-            })
-        } else {
-            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
-            const updateListRow = this.props.navigation.getParam('updateListRow')
-            if (typeof updateListRow === 'function') {
-                updateListRow(null)
+        dispatch({
+            tupe: 'address/add',
+            payload,
+            callback: () => {
+                navigation.dispatch(StackActions.pop({ n: 1 }));
+                if (typeof updateListRow === 'function') {
+                    updateListRow(null)
+                }
             }
-        }
+        })
     }
 
     render() {

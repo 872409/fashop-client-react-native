@@ -6,7 +6,6 @@ import {
     ScrollView
 } from 'react-native';
 import fa from '../../utils/fa'
-import AddressModel from '../../models/address'
 import { Modal,Button } from 'antd-mobile-rn';
 import { Field } from '../../components'
 import arrayTreeFilter from "array-tree-filter";
@@ -14,10 +13,9 @@ import { StackActions } from "react-navigation";
 import { connect } from 'react-redux'
 import { PublicStyles } from '../../utils/style';
 
-const addressModel = new AddressModel()
-
-@connect(({ area }) => ({
-    areaList: area.list
+@connect(({ area, address }) => ({
+    areaList: area.list,
+    addressInfo: address.info
 }))
 export default class UserAddressEdit extends Component {
     state = {
@@ -34,18 +32,26 @@ export default class UserAddressEdit extends Component {
     }
 
     async componentWillMount() {
-        const id = this.props.navigation.getParam('id')
-        const info = await addressModel.info({ id })
-        this.setState({
-            id,
-            truename: info.truename,
-            mobile_phone: info.phone,
-            type: info.type,
-            area_id: info.area_id,
-            address: info.address,
-            is_default: info.is_default,
-            combine_detail: info.combine_detail,
+        const { navigation, dispatch, addressInfo } = this.props
+        const { id } = navigation.state.params
+        dispatch({
+            type: "address/info",
+            payload: {
+                id
+            }
         })
+        if (addressInfo) {
+            this.setState({
+                id,
+                truename: addressInfo.truename,
+                mobile_phone: addressInfo.phone,
+                type: addressInfo.type,
+                area_id: addressInfo.area_id,
+                address: addressInfo.address,
+                is_default: addressInfo.is_default,
+                combine_detail: addressInfo.combine_detail,
+            })
+        }
     }
 
     onAreaChange({ value }) {
@@ -92,16 +98,14 @@ export default class UserAddressEdit extends Component {
             {
                 text: '确认', onPress: async () => {
                     const { id } = this.state
-                    const result = await addressModel.del({
-                        id
+                    const { dispatch, navigation } = this.props
+                    dispatch({
+                        type: "address/del",
+                        payload: {
+                            id
+                        },
+                        callback: () => navigation.goBack()
                     })
-                    if (result === false) {
-                        fa.toast.show({
-                            title: fa.code.parse(addressModel.getException().getCode())
-                        })
-                    } else {
-                        this.props.navigation.goBack()
-                    }
                 }
             },
         ]);
@@ -109,6 +113,8 @@ export default class UserAddressEdit extends Component {
 
     onSubmit = async() => {
         const { id, truename, mobile_phone, area_id, address, is_default, type } = this.state
+        const { dispatch, navigation } = this.props
+        const { updateListRow } = navigation.state.params
         if (!truename) {
             return fa.toast.show({ title: '请输入姓名' })
         }
@@ -121,7 +127,7 @@ export default class UserAddressEdit extends Component {
         if (!address) {
             return fa.toast.show({ title: '请填写楼栋楼层或房间号信息' })
         }
-        let data = {
+        let payload = {
             id,
             truename,
             mobile_phone,
@@ -130,19 +136,16 @@ export default class UserAddressEdit extends Component {
             type,
             area_id
         }
-
-        const result = await addressModel.edit(data)
-        if (result === false) {
-            fa.toast.show({
-                title: fa.code.parse(addressModel.getException().getCode())
-            })
-        } else {
-            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
-            const updateListRow = this.props.navigation.getParam('updateListRow')
-            if (typeof updateListRow === 'function') {
-                updateListRow(id)
+        dispatch({
+            tupe: 'address/edit',
+            payload,
+            callback: () => {
+                navigation.dispatch(StackActions.pop({ n: 1 }));
+                if (typeof updateListRow === 'function') {
+                    updateListRow(id)
+                }
             }
-        }
+        })
     }
 
     render() {
