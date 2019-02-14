@@ -109,6 +109,8 @@ export default class CartIndex extends Component {
     render() {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         const { login } = this.props
+        console.log('cartList', cartList);
+        
         return <View style={PublicStyles.ViewMax}>
             <ScrollView
                 contentContainerStyle={{ flex: 1 }}
@@ -188,13 +190,16 @@ export default class CartIndex extends Component {
     }
 
     async onStepperChange(goods_sku_id, quantity) {
-        // :bug: Stepper的值没有变化
+        this.setState({
+            refreshing: true
+        })
         this.props.dispatch({
-            type: 'cart/save',
+            type: 'cart/edit',
             payload: {
                 goods_sku_id,
                 quantity
             },
+            callback: this.initCartList
         })
     }
 
