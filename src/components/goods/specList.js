@@ -177,26 +177,16 @@ export default class GoodsSpecList extends Component{
     changeCart = async () => {
         const { current_sku, quantity } = this.state
         const { dispatch, closeModal } = this.props;
-        const e = await info({
-            params: {
-                goods_sku_id: current_sku.id
-            }
-        })
-        const params = {
+        const payload = {
             goods_sku_id: current_sku.id,
-            quantity: e ? e.info.goods_num+quantity : quantity
+            quantity
         }
-        const if_exist = await exist({
-            params: {
-                goods_sku_id: current_sku.id
-            }
+        dispatch({
+            type: 'cart/change',
+            payload,
+            callback: () => closeModal()
         })
-        if(if_exist){
-            dispatch(edit({params}))
-        }else{
-            dispatch(add({params}))
-        }
-        closeModal()
+        
     }
     buyNow = async () => {
         const { current_sku, quantity } = this.state

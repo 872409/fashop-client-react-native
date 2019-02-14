@@ -25,6 +25,26 @@ export default {
             });
             if (callback) callback(response);
         },
+        * change({ payload: { goods_sku_id, quantity }, callback }, { call, put }) {
+            const cartInfo = yield call(cart.info, { goods_sku_id });
+            const cartExist = yield call(cart.exist, { goods_sku_id });
+            const params = {
+                goods_sku_id,
+                quantity: cartInfo ? cartInfo.result.info.goods_num + quantity : quantity
+            }
+            if (cartExist.result.state) {
+                yield put({
+                    type: 'edit',
+                    payload: params
+                })
+            } else {
+                yield put({
+                    type: 'add',
+                    payload: params
+                })
+            }
+            if (callback) callback();
+        },
         * add({ payload, callback }, { call, put }) {
             const response = yield call(cart.add, payload);
             yield put({

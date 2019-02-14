@@ -84,7 +84,8 @@ export default class Fa {
             return true
         }else {
             console.log(`接口：${api.url} 请求fail`)
-            throw new exceptionUtil(e.msg, e.code)
+            return null
+            // throw new exceptionUtil(e.msg, e.code)
         }
     }
 }
