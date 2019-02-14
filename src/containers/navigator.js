@@ -32,11 +32,11 @@ import UserAddressList from "../pages/user/address/list";
 import OrderList from "../pages/order/list";
 import OrderDetail from "../pages/order/detail";
 
-// import RefundDetail from "../pages/refund/detail";
-// import RefundList from "../pages/refund/list";
-// import RefundLogisticsFill from "../pages/refund/logisticsFill";
-// import RefundServiceApply from "../pages/refund/serviceApply";
-// import RefundServiceType from "../pages/refund/serviceType";
+import RefundDetail from "../pages/refund/detail";
+import RefundList from "../pages/refund/list";
+import RefundLogisticsFill from "../pages/refund/logisticsFill";
+import RefundServiceApply from "../pages/refund/serviceApply";
+import RefundServiceType from "../pages/refund/serviceType";
 
 import AddressAdd from "../pages/address/add";
 import AddressEdit from "../pages/address/edit";
@@ -199,37 +199,37 @@ const AppStack = createStackNavigator(
                 title: '订单详情'
             }
         },
-        // // refund
-        // RefundDetail: {
-        //     screen: RefundDetail,
-        //     navigationOptions: {
-        //         title: '退款详情'
-        //     }
-        // },
-        // RefundList: {
-        //     screen: RefundList,
-        //     navigationOptions: {
-        //         title: '退款列表'
-        //     }
-        // },
-        // RefundLogisticsFill: {
-        //     screen: RefundLogisticsFill,
-        //     navigationOptions: {
-        //         title: '填写退款物流信息'
-        //     }
-        // },
-        // RefundServiceApply: {
-        //     screen: RefundServiceApply,
-        //     navigationOptions: {
-        //         title: '退款申请'
-        //     }
-        // },
-        // RefundServiceType: {
-        //     screen: RefundServiceType,
-        //     navigationOptions: {
-        //         title: '选择售后服务类型'
-        //     }
-        // },
+        // refund
+        RefundDetail: {
+            screen: RefundDetail,
+            navigationOptions: {
+                title: '退款详情'
+            }
+        },
+        RefundList: {
+            screen: RefundList,
+            navigationOptions: {
+                title: '退款列表'
+            }
+        },
+        RefundLogisticsFill: {
+            screen: RefundLogisticsFill,
+            navigationOptions: {
+                title: '填写退款物流信息'
+            }
+        },
+        RefundServiceApply: {
+            screen: RefundServiceApply,
+            navigationOptions: {
+                title: '退款申请'
+            }
+        },
+        RefundServiceType: {
+            screen: RefundServiceType,
+            navigationOptions: {
+                title: '选择售后服务类型'
+            }
+        },
         // address
         AddressAdd: {
             screen: AddressAdd,

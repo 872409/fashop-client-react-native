@@ -5,13 +5,9 @@ import {
     SafeAreaView
 } from 'react-native';
 import fa from '../../utils/fa'
-import RefundModel from '../../models/refund'
-import OrderModel from '../../models/order'
 import { Button } from 'antd-mobile-rn';
 import { RefundGoodsCard, Field } from '../../components'
-
-const refundModel = new RefundModel()
-const orderModel = new OrderModel()
+import { connect } from 'react-redux';
 
 /**
  * 添加退货快递单号，只有管理员审核通过(handle_state为20)的退款退货才可以填写订单号
@@ -22,15 +18,16 @@ const orderModel = new OrderModel()
  * @param  string    tracking_explain    说明 非必须
  * @param  string    tracking_images    凭证 最多6张
  */
+@connect(({ order })=>({
+    goodsInfo: order.goodsInfo.result
+}))
 export default class RefundLogisticsFill extends Component {
     state = {
-        id: null,
         tracking_company: '',
         tracking_no: '',
         tracking_phone: '',
         tracking_explain: '',
 
-        goodsInfo: null,
         images: [],
 
         uploaderButtonText: '上传凭证(最多6张)',
@@ -39,12 +36,13 @@ export default class RefundLogisticsFill extends Component {
     }
 
     async componentWillMount() {
-        const goodsInfoResult = await orderModel.goodsInfo({
-            id: this.props.navigation.getParam('order_goods_id')
-        })
-        this.setState({
-            id: this.props.navigation.getParam('id'),
-            goodsInfo: goodsInfoResult.info
+        const { navigation, dispatch } = this.props
+        const { order_goods_id } = navigation.satte.params
+        dispatch({
+            type: 'order/goodsInfo',
+            payload: {
+                id: order_goods_id
+            }
         })
     }
 
@@ -74,13 +72,14 @@ export default class RefundLogisticsFill extends Component {
 
     async onSubmit() {
         const {
-            id,
             tracking_company,
             tracking_no,
             tracking_phone,
             tracking_explain,
             images
         } = this.state
+        const { dispatch, navigation } = this.props
+        const { id } = navigation.satte.params
         if (!tracking_company) {
             return fa.toast.show({ title: '请填写物流公司' })
         }
@@ -95,7 +94,7 @@ export default class RefundLogisticsFill extends Component {
             return fa.toast.show({ title: '退款说明' })
         }
 
-        let data = {
+        let payload = {
             id,
             tracking_company,
             tracking_no,
@@ -103,16 +102,13 @@ export default class RefundLogisticsFill extends Component {
             tracking_explain,
         }
         if (images.length > 0) {
-            data['tracking_images'] = this.state.images
+            payload['tracking_images'] = images
         }
-        const result = await refundModel.setTrackingNo(data)
-        if (result === false) {
-            fa.toast.show({
-                title: refundModel.getException().getMessage()
-            })
-        } else {
-            this.props.navigation.goBack()
-        }
+        dispatch({
+            type: 'refund/setTrackingNo',
+            payload,
+            callback: () => navigation.goBack()
+        })
     }
 
     onImagesChange({ value }) {
@@ -123,9 +119,10 @@ export default class RefundLogisticsFill extends Component {
 
     render() {
         const {
-            goodsInfo, tracking_company, tracking_no, tracking_phone, tracking_explain,
+            tracking_company, tracking_no, tracking_phone, tracking_explain,
             uploaderMaxNum
         } = this.state
+        const { goodsInfo } = this.props
         return goodsInfo ? [<View style={{ backgroundColor: '#fff' }}>
             <RefundGoodsCard
                 goodsTitle={goodsInfo.goods_title}

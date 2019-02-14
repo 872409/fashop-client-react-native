@@ -8,22 +8,21 @@ import {
     SafeAreaView
 } from 'react-native';
 import fa from '../../utils/fa'
-import RefundModel from '../../models/refund'
-import OrderModel from '../../models/order'
 import { Button } from 'antd-mobile-rn';
 import { Field } from '../../components'
 import { StackActions } from "react-navigation";
 import { NetworkImage } from "../../components/theme"
+import { connect } from 'react-redux';
 
-const refundModel = new RefundModel()
-const orderModel = new OrderModel()
+@connect(({ order, refund })=>({
+    goodsInfo: order.goodsInfo.result.info,
+    reasonList: refund.reasonList.result.list
+}))
 export default class ServiceApply extends Component {
     state = {
         delta: 1,
-        noMoreThan: 0,
 
         refundType: 1,
-        reasonList: [],
         receiveStateList: [
             {
                 value: '未收到货',
@@ -39,38 +38,30 @@ export default class ServiceApply extends Component {
         refundAmount: '',
         userExplain: '',
 
-        goodsInfo: null,
         images: [],
         uploaderMaxNum: 6,
         uploaderButtonText: '上传凭证(最多6张)',
     }
 
     async componentWillMount() {
-        const order_goods_id = this.props.navigation.getParam('order_goods_id')
-        const refund_type = this.props.navigation.getParam('refund_type')
-        const delta = this.props.navigation.getParam('delta', 1)
-
-        const goodsInfoResult = await orderModel.goodsInfo({
-            id: order_goods_id
-        })
+        const { navigation, dispatch } = this.props
+        const { order_goods_id, refund_type, delta=1 } = navigation.state.params
         const refundType = parseInt(refund_type) !== 1 ? 2 : 1
-        const result = await refundModel.reasonList({
-            refund_type: refundType
-        })
-        const reasonList = result.list.map(function (item) {
-            return {
-                value: item.title,
-                label: item.title
+        dispatch({
+            type: 'order/goodsInfo',
+            payload: {
+                id: order_goods_id
             }
         })
-        const noMoreThan = parseFloat(goodsInfoResult.info.goods_pay_price) + parseFloat(goodsInfoResult.info.goods_freight_fee)
+        dispatch({
+            type: 'refund/reasonList',
+            payload: {
+                refundType
+            }
+        })
         this.setState({
             refundType,
             delta: parseInt(delta),
-            refundAmount: noMoreThan,
-            noMoreThan,
-            goodsInfo: goodsInfoResult.info,
-            reasonList
         })
     }
 
@@ -105,7 +96,9 @@ export default class ServiceApply extends Component {
     }
 
     async onSubmit() {
-        const { reason, refundAmount, noMoreThan, userExplain, refundType, userReceive, images, delta ,goodsInfo} = this.state
+        const { goodsInfo, dispatch, navigation } = this.props
+        const noMoreThan = parseFloat(goodsInfo.goods_pay_price) + parseFloat(goodsInfo.goods_freight_fee)
+        const { reason, refundAmount, userExplain, refundType, userReceive, images, delta } = this.state
         if (!reason) {
             return fa.toast.show({ title: '请选择退款原因' })
         }
@@ -113,7 +106,7 @@ export default class ServiceApply extends Component {
             return fa.toast.show({ title: '请输入退款金额' })
         }
         if (parseFloat(refundAmount) > noMoreThan) {
-            return fa.toast.show({ title: '退款金额不得超过¥' + this.state.noMoreThan })
+            return fa.toast.show({ title: '退款金额不得超过¥' + noMoreThan })
         }
         if (!userExplain) {
             return fa.toast.show({ title: '请填写退款说明' })
@@ -121,7 +114,7 @@ export default class ServiceApply extends Component {
         if (!refundType === 2 && typeof userReceive !== "number") {
             return fa.toast.show({ title: '请选择货物状态' })
         }
-        let data = {
+        let payload = {
             refund_type: refundType,
             order_goods_id: goodsInfo.id,
             reason,
@@ -129,35 +122,37 @@ export default class ServiceApply extends Component {
             user_explain: userExplain,
         }
         if (images.length > 0) {
-            data['images'] = images
+            payload['images'] = images
         }
         if (refundType === 2) {
-            data['user_receive'] = userReceive + 1
+            payload['user_receive'] = userReceive + 1
         }
-        console.log(data)
-        const result = await refundModel.apply(data)
-        if (result === false) {
-            fa.toast.show({
-                title: refundModel.getException().getMessage()
-            })
-        } else {
-            this.props.navigation.dispatch(StackActions.pop({ n: delta }));
-        }
+        // console.log(payload)
+        dispatch({
+            type: 'refund/apply',
+            payload,
+            callback: () => navigation.dispatch(StackActions.pop({ n: delta }))
+        })
     }
 
     render() {
         const {
-            noMoreThan,
             refundType,
-            reasonList,
             receiveStateList,
             reason,
             userReceive,
             refundAmount,
             userExplain,
-            goodsInfo,
             uploaderMaxNum
         } = this.state
+        const { goodsInfo } = this.props
+        const reasonList = this.props.reasonList.map(item=>{
+            return {
+                value: item.title,
+                label: item.title
+            }
+        })
+        const noMoreThan = parseFloat(goodsInfo.goods_pay_price) + parseFloat(goodsInfo.goods_freight_fee)
         return goodsInfo ? <View>
             <View style={styles.refundGoodsCard}>
                 <View style={styles.item}>

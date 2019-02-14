@@ -5,37 +5,37 @@ import {
     Text,
     Image
 } from 'react-native';
-import OrderModel from '../../models/order'
 import { List } from 'antd-mobile-rn';
 import { Cell } from '../../components'
 import { NetworkImage } from "../../components/theme"
+import { connect } from 'react-redux';
 
-const orderModel = new OrderModel()
-
+@connect(({ order })=>({
+    goodsInfo: order.goodsInfo.result.info
+}))
 export default class ServiceType extends Component {
-    state = {
-        goodsInfo: null,
-    }
 
-    async componentWillMount() {
-        const goodsInfoResult = await orderModel.goodsInfo({
-            id: this.props.navigation.getParam('order_goods_id')
-        })
-        this.setState({
-            goodsInfo: goodsInfoResult.info,
+    componentWillMount() {
+        const { navigation, dispatch } = this.props
+        const { order_goods_id } = navigation.state.params
+        dispatch({
+            type: "order/goodsInfo",
+            payload: {
+                id: order_goods_id
+            }
         })
     }
 
     onClick(refundType) {
         this.props.navigation.navigate('RefundServiceApply', {
-            order_goods_id: this.state.goodsInfo.id,
+            order_goods_id: this.props.goodsInfo.id,
             refund_type: refundType,
             delta: 2
         })
     }
 
     render() {
-        const { goodsInfo } = this.state
+        const { goodsInfo } = this.props
         return goodsInfo ? <View>
                 <View style={styles.refundGoodsCard}>
                     <View style={styles.item}>

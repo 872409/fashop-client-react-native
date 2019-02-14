@@ -1,81 +1,68 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-} from 'react-native';
-import fa from '../../utils/fa'
-import RefundModel from '../../models/refund'
+import { View } from 'react-native';
 import { Modal } from 'antd-mobile-rn';
 import { RefundStateCard, RefundStateReason, RefundGoodsInfo, RefundBaseInfo } from '../../components'
 import { PublicStyles } from "../../utils/style";
 import { StackActions } from "react-navigation";
+import { connect } from 'react-redux';
 
-const refundModel = new RefundModel()
-
+@connect(({ refund })=>({
+    refundInfo: refund.info.result
+}))
 export default class RefundDetail extends Component {
-    state = {
-        id: null,
-        refundInfo: null,
-    }
-
     componentWillMount() {
-        this.setState({
-            id: this.props.navigation.getParam('id')
-        }, () => {
-            this.props.navigation.addListener(
-                'didFocus', async () => {
-                    this.init()
-                }
-            );
-        })
+        this.props.navigation.addListener(
+            'didFocus', this.init
+        );
     }
 
-    async init() {
-        const refundInfo = await refundModel.info({ id: this.state.id })
-        if (refundInfo) {
-            this.setState({
-                refundInfo,
-            })
-        }
+    init = () => {
+        this.props.dispatch({
+            type: 'refund/info'
+        })
     }
 
     onGoods() {
-        const {goods_id} = this.state.refundInfo
-        this.props.navigation.navigate('GoodsDetail', { id: goods_id })
+        const { refundInfo, navigation } = this.props
+        navigation.navigate('GoodsDetail', { 
+            id: refundInfo.goods_id 
+        })
     }
 
     onTrack() {
-        this.props.navigation.navigate('RefundLogisticsFill', {
-            id: this.state.id,
-            order_goods_id: this.state.refundInfo.order_goods_id
+        const { refundInfo, navigation } = this.props
+        const { id } = navigation.state.params
+        navigation.navigate('RefundLogisticsFill', {
+            id,
+            order_goods_id: refundInfo.order_goods_id
         })
 
     }
 
-    async onUndo() {
+    onUndo() {
         Modal.alert('撤销申请', '您将撤销本次申请，如果问题未解决，您还可以再次发起。确定继续吗？', [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: async () => {
-                    const { id } = this.state
-                    const result = await refundModel.revoke({ id })
-                    if (result) {
-                        this.init()
-                    } else {
-                        fa.cache.toast({
-                            title: fa.code.parse(refundModel.getException().getCode())
-                        })
-                    }
+                text: '确认', onPress: () => {
+                    const { dispatch, navigation } = this.props
+                    const { id } = navigation.state.params
+                    dispatch({
+                        type: 'refund/revoke',
+                        payload: {
+                            id
+                        },
+                        callback: this.init
+                    })
                 }
             }
         ])
     }
 
     updateListRow = () => {
-        const { id } = this.state
+        const { navigation } = this.props
+        const { id, updateListRow } = navigation.state.params
         if (id > 0) {
-            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
-            const updateListRow = this.props.navigation.getParam('updateListRow')
+            navigation.dispatch(StackActions.pop({ n: 1 }));
             if (typeof updateListRow === 'function') {
                 updateListRow(id)
             }
@@ -83,7 +70,7 @@ export default class RefundDetail extends Component {
     }
 
     render() {
-        const { refundInfo } = this.state
+        const { refundInfo } = this.props
         return refundInfo ? <View style={[PublicStyles.ViewMax]}>
             <View>
                 <View style={{ marginBottom: 8 }}>
@@ -120,4 +107,3 @@ export default class RefundDetail extends Component {
         </View> : null
     }
 }
-const styles = StyleSheet.create({})
