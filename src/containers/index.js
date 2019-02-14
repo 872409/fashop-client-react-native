@@ -9,10 +9,12 @@ import Navigator from './navigator';
 import NavigationService from "./navigationService";
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
+import { totalNum } from "../actions/cart";
 // import { initUserInfoStorage } from "../actions/user";
 
-@connect(({ page }) => ({
+@connect(({ page, cart }) => ({
     pageData: page.portal.result.info,
+    cartNum: cart.totalNum.result.total_num
 }))
 class App extends Component {
     async componentDidMount() {

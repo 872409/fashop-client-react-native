@@ -13,7 +13,9 @@ export default {
         info: { result: { info: {} } },
         check: {},
         destroy: {},
-        totalNum: {},
+        totalNum: { 
+            result: { total_num: 0 } 
+        },
     },
 
     effects: {
@@ -45,12 +47,51 @@ export default {
             }
             if (callback) callback();
         },
+        * save({ payload: { goods_sku_id, quantity }, callback }, { call, put }) {
+            const cartExist = yield call(cart.exist, { goods_sku_id });
+            const params = {
+                goods_sku_id,
+                quantity
+            }
+            if (cartExist.result.state) {
+                yield put({
+                    type: 'edit',
+                    payload: params
+                })
+            } else {
+                yield put({
+                    type: 'add',
+                    payload: params
+                })
+            }
+            if (callback) callback();
+        },
+        * changeSku({ payload: { goods_sku_id, to_goods_sku_id, quantity }, callback }, { call, put }) {
+            yield put({
+                type: 'save',
+                payload: {
+                    goods_sku_id: to_goods_sku_id,
+                    quantity
+                }
+            })
+            yield put({
+                type: 'del',
+                payload: {
+                    goods_sku_ids: [goods_sku_id]
+                }
+            })
+            if (callback) callback();
+            // 不完善 if 更改的 sku 购物车存在
+        },
         * add({ payload, callback }, { call, put }) {
             const response = yield call(cart.add, payload);
             yield put({
                 type: "_add",
                 payload: response
             });
+            yield put({
+                type: 'totalNum'
+            })
             if (callback) callback(response);
         },
         * edit({ payload, callback }, { call, put }) {
@@ -59,6 +100,9 @@ export default {
                 type: "_edit",
                 payload: response
             });
+            yield put({
+                type: 'totalNum'
+            })
             if (callback) callback(response);
         },
         * del({ payload, callback }, { call, put }) {
@@ -67,6 +111,9 @@ export default {
                 type: "_del",
                 payload: response
             });
+            yield put({
+                type: 'totalNum'
+            })
             if (callback) callback(response);
         },
         * exist({ payload, callback }, { call, put }) {
