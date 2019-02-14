@@ -58,7 +58,7 @@ export default {
             try{
                 const response = yield call(user.login, payload);
                 yield put({
-                    type: 'user/userLoginSuccessAfter',
+                    type: 'userLoginSuccessAfter',
                     user_token: response.result
                 })
                 if (callback) callback(response);
@@ -79,7 +79,7 @@ export default {
                 } else {
                     if (response.code === 0) {
                         yield put({
-                            type: 'user/userLoginSuccessAfter',
+                            type: 'userLoginSuccessAfter',
                             user_token: response.result
                         })
                     } else {
@@ -118,7 +118,7 @@ export default {
                     payload: user_token
                 });
                 yield call(storage.set, { key: 'user_token', value: user_token })
-                yield put({ type: 'user/self' })
+                yield put({ type: 'self' })
                 yield put({ type: 'order/stateNum' })
                 yield put({ type: 'cart/totalNum' })
                 NavigationService.goBack()
