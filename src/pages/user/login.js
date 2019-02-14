@@ -114,10 +114,11 @@ export default class UserLogin extends Component {
 														tokenData,
 														userData,
 													} = await sendWechatAuthRequest()
-													dispatch(wechatLogin({
+													dispatch({
+														type: 'user/wechatLogin',
 														tokenData,
 														userData,
-													}))
+													})
 												} catch (e) {
 													console.log(e);
 												}

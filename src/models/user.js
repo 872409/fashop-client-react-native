@@ -1,6 +1,7 @@
 import user from "../services/user";
 import storage from "../services/storage";
 import NavigationService from "../containers/navigationService";
+import { Toast } from "antd-mobile-rn";
 
 export default {
     namespace: "user",
@@ -26,8 +27,8 @@ export default {
         * initUserinfoStorage({ payload, callback }, { call, put }) {
             let userInfoCache = yield call(storage.getUserInfo)
             let userTokenCache = yield call(storage.get, { key: 'user_token' })
-            console.log('userInfoCache',userInfoCache);
-            console.log('userTokenCache',userTokenCache);
+            // console.log('userInfoCache',userInfoCache);
+            // console.log('userTokenCache',userTokenCache);
             
             if (userInfoCache || userTokenCache) {
                 const userInfo = JSON.parse(userInfoCache)
@@ -54,21 +55,76 @@ export default {
             }
         },
         * login({ payload, callback }, { call, put }) {
-            const response = yield call(user.login, payload);
-            yield put({
-                type: "_login",
-                payload: true
-            });
-            yield put({
-                type: "_userToken",
-                payload: response.result
-            });
-            yield call(storage.set, { key: 'user_token', value: response.result })
-            yield put({type: 'user/self'})
-            yield put({type: 'order/stateNum'})
-            yield put({type: 'cart/totalNum'})
-            NavigationService.goBack()
-            if (callback) callback(response);
+            try{
+                const response = yield call(user.login, payload);
+                yield put({
+                    type: 'user/userLoginSuccessAfter',
+                    user_token: response.result
+                })
+                if (callback) callback(response);
+            }catch(err){
+                Toast.fail('登录失败')
+            }
+        },
+        * wechatLogin({ tokenData, userData }, { call, put }) {
+            try {
+                const payload = {
+                    login_type: 'wechat_app',
+                    wechat_openid: userData.openid
+                }
+                const response = yield call(user.login, payload)
+                
+                if (response.code === 10014) {
+                    yield call(wechatRegister, { tokenData, userData })
+                } else {
+                    if (response.code === 0) {
+                        yield put({
+                            type: 'user/userLoginSuccessAfter',
+                            user_token: response.result
+                        })
+                    } else {
+                        Toast.warn(response.msg)
+                    }
+                }
+            } catch (err) {
+                Toast.fail('登录失败')
+            }
+        },
+        * wechatRegister({ tokenData, userData }, { call, put }) {
+            try {
+                const payload = {
+                    register_type: 'wechat_app',
+                    wechat_openid: userData.openid,
+                    wechat: userData
+                }
+                const response = yield call(user.register, payload)
+                if (response.code === 0) {
+                    yield call(wechatLogin, { tokenData, userData })
+                } else {
+                    Toast.warn(response.msg)
+                }
+            } catch (err) {
+                Toast.fail('登录失败')
+            }
+        },
+        * userLoginSuccessAfter({ user_token }, { call, put }) {
+            try{
+                yield put({
+                    type: "_login",
+                    payload: true
+                });
+                yield put({
+                    type: "_userToken",
+                    payload: user_token
+                });
+                yield call(storage.set, { key: 'user_token', value: user_token })
+                yield put({ type: 'user/self' })
+                yield put({ type: 'order/stateNum' })
+                yield put({ type: 'cart/totalNum' })
+                NavigationService.goBack()
+            }catch(err){
+                Toast.fail('登录失败')
+            }
         },
         * register({ payload, callback }, { call, put }) {
             const response = yield call(user.register, payload);
