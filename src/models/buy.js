@@ -3,7 +3,7 @@ import buy from "../services/buy";
 export default {
     namespace: "buy",
     state: {
-        calculate: {},
+        calculate: { result: null },
         info: { result: { info: {} } },
         create: {},
         pay: {}

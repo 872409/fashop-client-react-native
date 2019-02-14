@@ -45,7 +45,8 @@ export default class CartOrderFill extends Component {
             <View style={PublicStyles.ViewMax}>
                 <ScrollView>
                     <List style={{ marginTop: 8 }}>
-                        {addressId > 0 ?
+                        {
+                            addressId > 0 ?
                             <View style={styles.address}>
                                 <View style={styles.selected}>
                                     <Item arrow={'horizontal'} onClick={() => {
@@ -224,8 +225,8 @@ export default class CartOrderFill extends Component {
                 cart_ids: cartIds,
                 address_id: addressId
             },
-            callback: (calculate) => this.setState({
-                calculate
+            callback: ({result}) => this.setState({
+                calculate: result
             })
         })
     }
@@ -234,29 +235,29 @@ export default class CartOrderFill extends Component {
     async initAddress() {
         const { dispatch } = this.props
         const { addressId } = this.state
-        let address
-        if (addressId > 0) {
+        if (addressId) {
             dispatch({
                 type: 'address/info',
                 payload: {
                     id: addressId
                 },
-                callback: ({result: {info}})=>address = info
+                callback: ({result: { info }})=> {
+                    this.setState({
+                        addressId: info.id,
+                        address: info
+                    })
+                }
             })
         } else {
             dispatch({
                 type: 'address/getDefault',
-                callback: ({result: {info}})=>address = info
+                callback: ({result: { info }})=> {
+                    this.setState({
+                        addressId: info.id,
+                        address: info
+                    })
+                }
             })
-        }
-        if (address) {
-            this.setState({
-                addressId: address.id,
-                address
-            })
-            return address
-        } else {
-            return false
         }
     }
 
@@ -277,17 +278,15 @@ export default class CartOrderFill extends Component {
             }
             const cartListState = await this.initCartList()
             if (cartListState === true) {
-                const address = await this.initAddress()
-                if (address.id > 0) {
+                await this.initAddress()
+                if (this.state.addressId) {
                     await this.initCalculate()
                 }
             } else {
                 fa.toast.show({
                     title: '支付商品状态已变，请重新选择'
                 })
-                // setTimeout(function () {
-                //     wx.navigateBack({ delta: this.state.delta })
-                // }, 1500)
+                navigation.goBack()
             }
         }
 
@@ -299,27 +298,32 @@ export default class CartOrderFill extends Component {
         let checkedGoodsSkuInfoIds = []
         let checkedCartIds = []
         let total = 0
-        dispatch({
-            type: 'cart/list',
-            payload: {
-                ids: cartIds
-            },
-            callback: ({ result: { list } })=>{
-                list.map((item,index)=>{
-                    total += parseFloat(item.goods_price).toFixed(2) * item.goods_num
-                    item['goods_spec_string'] = item.goods_spec.map((specItem) => {
-                        return specItem.id > 0 ? `${specItem.name}:${specItem.value_name}` : ''
-                    }).join(',')
-                })
+        try{
+            dispatch({
+                type: 'cart/list',
+                payload: {
+                    ids: cartIds
+                },
+                callback: ({ result: { list } })=>{
+                    list.map((item,index)=>{
+                        total += parseFloat(item.goods_price).toFixed(2) * item.goods_num
+                        item['goods_spec_string'] = item.goods_spec.map((specItem) => {
+                            return specItem.id > 0 ? `${specItem.name}:${specItem.value_name}` : ''
+                        }).join(',')
+                    })
 
-                this.setState({
-                    checkedGoodsSkuInfoIds,
-                    checkedCartIds,
-                    total,
-                    cartList: list,
-                })
-            }
-        })
+                    this.setState({
+                        checkedGoodsSkuInfoIds,
+                        checkedCartIds,
+                        total,
+                        cartList: list,
+                    })
+                }
+            })
+            return true
+        }catch(err){
+            return false
+        }
     }
 
     async onCreateOrder() {

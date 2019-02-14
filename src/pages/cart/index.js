@@ -109,8 +109,6 @@ export default class CartIndex extends Component {
     render() {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         const { login } = this.props
-        console.log('cartList', cartList);
-        
         return <View style={PublicStyles.ViewMax}>
             <ScrollView
                 contentContainerStyle={{ flex: 1 }}

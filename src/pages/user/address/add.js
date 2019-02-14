@@ -93,7 +93,7 @@ export default class UserAddressAdd extends Component {
             area_id
         }
         dispatch({
-            tupe: 'address/add',
+            type: 'address/add',
             payload,
             callback: ()=>{
                 navigation.dispatch(StackActions.pop({ n: 1 }));

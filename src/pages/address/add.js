@@ -69,7 +69,7 @@ export default class UserAddressAdd extends Component {
     onSubmit = async() => {
         const { truename, mobile_phone, area_id, address, is_default, type } = this.state
         const { dispatch, navigation } = this.props
-        const { updateListRow } = navigation.state.params
+        const { updateListRow } = navigation.state.params||{}
         if (!truename) {
             return fa.toast.show({ title: '请输入姓名' })
         }
@@ -91,7 +91,7 @@ export default class UserAddressAdd extends Component {
             area_id
         }
         dispatch({
-            tupe: 'address/add',
+            type: 'address/add',
             payload,
             callback: () => {
                 navigation.dispatch(StackActions.pop({ n: 1 }));

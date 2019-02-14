@@ -138,7 +138,7 @@ export default class UserAddressEdit extends Component {
             area_id
         }
         dispatch({
-            tupe: 'address/edit',
+            type: 'address/edit',
             payload,
             callback: () => {
                 navigation.dispatch(StackActions.pop({ n: 1 }));

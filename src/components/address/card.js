@@ -60,7 +60,6 @@ export default class AddressCard extends Component {
 };
 const styles = StyleSheet.create({
     addressCard: {
-        padding: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
     },
     info: {
         flexDirection: 'row',
+        padding: 15,
     },
     namePhone: {
         flexDirection: 'row',
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
         color: '#999999'
     },
     action: {
+        padding: 15,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
