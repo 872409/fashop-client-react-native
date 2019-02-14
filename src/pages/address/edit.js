@@ -15,7 +15,7 @@ import { PublicStyles } from '../../utils/style';
 
 @connect(({ area, address }) => ({
     areaList: area.list,
-    addressInfo: address.info
+    addressInfo: address.info.result.info
 }))
 export default class UserAddressEdit extends Component {
     state = {
@@ -41,15 +41,16 @@ export default class UserAddressEdit extends Component {
             }
         })
         if (addressInfo) {
+            const { truename, mobile_phone, type, area_id, address, is_default, combine_detail } = addressInfo
             this.setState({
                 id,
-                truename: addressInfo.truename,
-                mobile_phone: addressInfo.phone,
-                type: addressInfo.type,
-                area_id: addressInfo.area_id,
-                address: addressInfo.address,
-                is_default: addressInfo.is_default,
-                combine_detail: addressInfo.combine_detail,
+                truename,
+                mobile_phone,
+                type,
+                area_id,
+                address,
+                is_default,
+                combine_detail
             })
         }
     }
