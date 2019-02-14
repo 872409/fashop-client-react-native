@@ -3,22 +3,16 @@ import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpaci
 import { PublicStyles, windowWidth } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
-import CartModel from "../../models/cart";
-import BuyModel from "../../models/buy";
-import AddressModel from "../../models/address";
 import { connect } from "react-redux";
 import { Toast } from '../../utils/function';
 import { NetworkImage } from "../../components/theme"
 
-const cartModel = new CartModel()
-const buyModel = new BuyModel()
-const addressModel = new AddressModel()
-
 const Item = List.Item;
 
-@connect(({ user }) => ({
+@connect(({ user, cart }) => ({
     login: user.login,
     userInfo: user.self,
+    cartList: cart.list.result.list
 }))
 export default class CartOrderFill extends Component {
     state = {
@@ -222,31 +216,38 @@ export default class CartOrderFill extends Component {
 
     // 计算费用
     async initCalculate() {
-        const cartIds = this.state.cartIds
-        const calculate = await buyModel.calculate({
-            cart_ids: cartIds,
-            address_id: this.state.addressId
-        })
-        if (calculate) {
-            this.setState({
+        const { cartIds, addressId } = this.state
+        const { dispatch } = this.props
+        dispatch({
+            type: 'buy/calculate',
+            payload: {
+                cart_ids: cartIds,
+                address_id: addressId
+            },
+            callback: (calculate) => this.setState({
                 calculate
             })
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(buyModel.getException().getCode())
-            })
-        }
+        })
     }
 
     // 获得默认地址
     async initAddress() {
+        const { dispatch } = this.props
+        const { addressId } = this.state
         let address
-        if (this.state.addressId > 0) {
-            address = await addressModel.info({
-                id: this.state.addressId
+        if (addressId > 0) {
+            dispatch({
+                type: 'address/info',
+                payload: {
+                    id: addressId
+                },
+                callback: ({result: {info}})=>address = info
             })
         } else {
-            address = await addressModel.getDefault()
+            dispatch({
+                type: 'address/getDefault',
+                callback: ({result: {info}})=>address = info
+            })
         }
         if (address) {
             this.setState({
@@ -293,48 +294,52 @@ export default class CartOrderFill extends Component {
     }
 
     async initCartList() {
-        const cartIds = this.state.cartIds
+        const { cartIds } = this.state
+        const { dispatch } = this.props
         let checkedGoodsSkuInfoIds = []
         let checkedCartIds = []
         let total = 0
-        const result = await cartModel.list({
-            ids: cartIds
-        })
-        if (result.list.length > 0) {
-            const cartList = result.list
-            for (let i = 0; i < cartList.length; i++) {
-                total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num
-                cartList[i]['goods_spec_string'] = cartList[i].goods_spec.map(function (item) {
-                    return item.id > 0 ? `${item.name}:${item.value_name}` : ''
-                }).join(',')
+        dispatch({
+            type: 'cart/list',
+            payload: {
+                ids: cartIds
+            },
+            callback: ({ result: { list } })=>{
+                list.map((item,index)=>{
+                    total += parseFloat(item.goods_price).toFixed(2) * item.goods_num
+                    item['goods_spec_string'] = item.goods_spec.map((specItem) => {
+                        return specItem.id > 0 ? `${specItem.name}:${specItem.value_name}` : ''
+                    }).join(',')
+                })
+
+                this.setState({
+                    checkedGoodsSkuInfoIds,
+                    checkedCartIds,
+                    total,
+                    cartList: list,
+                })
             }
-            this.setState({
-                checkedCartIds,
-                checkedGoodsSkuInfoIds,
-                cartList,
-                total
-            })
-            return true
-        } else {
-            return false
-        }
+        })
     }
 
     async onCreateOrder() {
-        const { calculate, total } = this.state
-        const { navigation } = this.props;
-        if (!this.state.addressId) {
+        const { calculate, total, way, addressId, cartIds, message } = this.state
+        const { navigation, dispatch } = this.props;
+        if (!addressId) {
             return Toast.info("请选择收货地址");
         }
-        const orderInfo = await buyModel.create({
-            'way': this.state.way,
-            'address_id': this.state.addressId,
-            'cart_ids': this.state.cartIds,
-            'message': this.state.message,
-        })
-        navigation.replace('Pay', { 
-            orderInfo,
-            pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total) 
+        dispatch({
+            type: 'buy/create',
+            payload: {
+                'way': way,
+                'address_id': addressId,
+                'cart_ids': cartIds,
+                'message': message,
+            },
+            callback: (orderInfo) => navigation.replace('Pay', { 
+                orderInfo,
+                pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total) 
+            })
         })
     }
 

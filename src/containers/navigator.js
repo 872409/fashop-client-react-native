@@ -16,8 +16,8 @@ import PageDetail from "../pages/page/detail";
 import GoodsList from "../pages/goods/list";
 import GoodsDetail from "../pages/goods/detail";
 
-// import Pay from "../pages/pay";
-// import PaySuccess from "../pages/pay/success";
+import Pay from "../pages/pay";
+import PaySuccess from "../pages/pay/success";
 
 import UserLogin from "../pages/user/login";
 import UserInfo from "../pages/user/info";
@@ -27,7 +27,7 @@ import UserAddressAdd from "../pages/user/address/add";
 import UserAddressEdit from "../pages/user/address/edit";
 import UserAddressList from "../pages/user/address/list";
 
-// import CartOrderFill from "../pages/cart/orderFill";
+import CartOrderFill from "../pages/cart/orderFill";
 
 import OrderList from "../pages/order/list";
 import OrderDetail from "../pages/order/detail";
@@ -118,24 +118,24 @@ const AppStack = createStackNavigator(
                 title: '商品详情'
             }
         },
-        // Pay: {
-        //     screen: Pay,
-        //     navigationOptions: {
-        //         title: '收银台'
-        //     }
-        // },
-        // PaySuccess: {
-        //     screen: PaySuccess,
-        //     navigationOptions: {
-        //         title: '支付成功',
-        //         headerLeft: null,
-        //         headerStyle: {
-        //             backgroundColor: "#fff",
-        //             elevation: 0,//去掉安卓阴影
-        //             borderBottomWidth: 0,
-        //         },
-        //     }
-        // },
+        Pay: {
+            screen: Pay,
+            navigationOptions: {
+                title: '收银台'
+            }
+        },
+        PaySuccess: {
+            screen: PaySuccess,
+            navigationOptions: {
+                title: '支付成功',
+                headerLeft: null,
+                headerStyle: {
+                    backgroundColor: "#fff",
+                    elevation: 0,//去掉安卓阴影
+                    borderBottomWidth: 0,
+                },
+            }
+        },
         // user
         UserLogin: {
             screen: UserLogin,
@@ -180,12 +180,12 @@ const AppStack = createStackNavigator(
             }
         },
         // // cart
-        // CartOrderFill: {
-        //     screen: CartOrderFill,
-        //     navigationOptions: {
-        //         title: '提交订单'
-        //     }
-        // },
+        CartOrderFill: {
+            screen: CartOrderFill,
+            navigationOptions: {
+                title: '提交订单'
+            }
+        },
         // order
         OrderList: {
             screen: OrderList,
@@ -322,6 +322,6 @@ export default createSwitchNavigator(
         Ad: AdStack,
         App: AppStack,
     }, {
-        initialRouteName: 'App',
+        initialRouteName: 'Ad',
     }
 )
