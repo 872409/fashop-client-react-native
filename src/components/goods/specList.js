@@ -191,32 +191,28 @@ export default class GoodsSpecList extends Component{
     buyNow = async () => {
         const { current_sku, quantity } = this.state
         const { dispatch, closeModal, navigation } = this.props;
-        const params = {
-            goods_sku_id: current_sku.id,
-            quantity
-        }
-        const if_exist = await exist({
-            params: {
-                goods_sku_id: current_sku.id
+        dispatch({
+            type: 'cart/save',
+            payload: {
+                goods_sku_id: current_sku.id,
+                quantity
+            },
+            callback: ()=>{
+                dispatch({
+                    type: 'cart/info',
+                    payload: {
+                        goods_sku_id: current_sku.id,
+                    },
+                    callback: ({result}) => {
+                        navigation.navigate("CartOrderFill", {
+                            way: "buy_now",
+                            cart_ids: [result.info.id]
+                        })
+                        closeModal()
+                    }
+                })
             }
         })
-        if (if_exist) {
-            dispatch(edit({ params }))
-        } else {
-            dispatch(add({ params }))
-        }
-        const e = await info({
-            params: {
-                goods_sku_id: current_sku.id
-            }
-        })
-        if (e) {
-            navigation.navigate("CartOrderFill", {
-                way: "buy_now",
-                cart_ids: [e.info.id]
-            })
-        }
-        closeModal()
     }
 }
 
