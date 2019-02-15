@@ -7,13 +7,12 @@ import{
     ScrollView,
     SafeAreaView
 } from 'react-native';
-import Fetch from '../../utils/fetch';
 import { Toast } from "../../utils/function";
 import { PublicStyles, ThemeStyle } from '../../utils/style'
 import { List, NoticeBar, Radio, Button } from "antd-mobile-rn";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import Alipay from "react-native-yunpeng-alipay";
-import { sendWechatAuthRequest } from "../../actions/app/wechat";
+import { sendWechatAuthRequest } from "../../utils/wechat";
 import * as WeChat from 'react-native-wechat';
 
 const RadioItem = Radio.RadioItem;

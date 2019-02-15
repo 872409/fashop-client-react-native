@@ -6,7 +6,6 @@ import {
 	TextInput,
 	View,
 	Keyboard,
-	KeyboardAvoidingView,
 	TouchableOpacity,
 	SafeAreaView
 } from 'react-native';
@@ -16,7 +15,7 @@ import {
 	ThemeStyle
 } from '../../utils/style';
 import { connect } from "react-redux";
-import { sendWechatAuthRequest } from '../../actions/app/wechat';
+import { sendWechatAuthRequest } from "../../utils/wechat";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
 

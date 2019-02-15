@@ -4,14 +4,13 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
     Alert,
 } from 'react-native';
 import { Toast } from '../../utils/function';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
 import { connect } from "react-redux";
-import { sendWechatAuthRequest } from '../../actions/app/wechat';
+import { sendWechatAuthRequest } from "../../utils/wechat";
 import { UserApi } from '../../config/api/user';
 
 const Item = List.Item;

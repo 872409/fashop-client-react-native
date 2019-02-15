@@ -1,7 +1,7 @@
-import Fetch from "../../utils/fetch";
-import { Toast } from "../../utils/function";
+import Fetch from "./fetch";
+import { Toast } from "./function";
 import * as WeChat from 'react-native-wechat';
-import { AppID, AppSecret } from "../../config/wechat"
+import { AppID, AppSecret } from "../config/wechat"
 
 export const sendWechatAuthRequest=async()=>{
     try {
