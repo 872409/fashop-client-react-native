@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-} from 'react-native';
+import { View } from 'react-native';
 import { EvaluateCard } from '../../components'
 import FlatList from "../../components/flatList";
 import { PublicStyles, ThemeStyle, windowWidth } from "../../utils/style";
@@ -36,7 +33,6 @@ export default class EvaluateList extends Component {
         this.FlatList.manuallyRefresh()
     }
 
-
     render() {
         const tabList = [
             {
@@ -69,8 +65,8 @@ export default class EvaluateList extends Component {
                     tabBarActiveTextColor={ThemeStyle.ThemeColor}
                     tabBarInactiveTextColor='#666'
                     tabBarUnderlineStyle={{
-                        width: windowWidth * 0.75 / 2,
-                        left: windowWidth / 14,
+                        width: windowWidth * 0.5 / 4,
+                        left: windowWidth / 5.3,
                         backgroundColor: `${ThemeStyle.ThemeColor}`,
                         height: 3,
                         borderRadius: 4,
@@ -125,4 +121,3 @@ export default class EvaluateList extends Component {
     }
 
 }
-const styles = StyleSheet.create({})

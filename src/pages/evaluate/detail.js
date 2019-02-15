@@ -17,7 +17,7 @@ export default class EvaluateDetail extends Component {
 
     componentWillMount() {
         const { navigation, dispatch } = this.props
-        const { order_goods_id } = navigation.satte.params
+        const { order_goods_id } = navigation.state.params
         navigation.addListener(
             'didFocus', () => {
                 dispatch({

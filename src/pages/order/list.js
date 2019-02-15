@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import { Modal } from "antd-mobile-rn";
-import { PublicStyles, ThemeStyle } from '../../utils/style';
+import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
 import FlatList from "../../components/flatList";
 import { OrderApi } from "../../config/api/order";
@@ -145,6 +145,8 @@ export default class OrderList extends Component {
                     tabBarActiveTextColor={ThemeStyle.ThemeColor}
                     tabBarInactiveTextColor='#666'
                     tabBarUnderlineStyle={{
+                        width: windowWidth * 0.5 / 4,
+                        left: windowWidth / 28,
                         backgroundColor: `${ThemeStyle.ThemeColor}`,
                         height: 3,
                         borderRadius: 4,

@@ -4,7 +4,6 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
 } from 'react-native';
 import { Button } from 'antd-mobile-rn';
 import { Rater, Field } from '../../components'
@@ -13,31 +12,25 @@ import { NetworkImage } from "../../components/theme"
 import { connect } from 'react-redux'
 
 @connect(({ order }) => ({
-    goodsInfo: order.goodsInfo.result
+    goodsInfo: order.goodsInfo.result,info
 }))
 export default class EvaluateAdditional extends Component {
     state = {
-        id: 0,
-        delta: 1,
-        orderGoodsId: 0,
         content: '',
-        goodsInfo: null,
         uploaderMaxNum: 9,
         uploaderButtonText: '上传图片(最多9张)',
         images: []
     }
 
     async componentWillMount() {
-        const { navigation, goodsInfo } = this.props
-        const { order_goods_id, delta = 1 } = navigation.state.params
-        if (goodsInfo) {
-            this.setState({
-                id: goodsInfo.info.id,
-                delta: typeof delta !== 'undefined' ? delta : 1,
-                goodsInfo: goodsInfo.info,
-                orderGoodsId: order_goods_id
-            })
-        }
+        const { navigation, dispatch } = this.props
+        const { order_goods_id } = navigation.state.params
+        dispatch({
+            type: 'order/goodsInfo',
+            payload: {
+                id: order_goods_id
+            }
+        })
     }
 
     onImagesChange({ value }) {
@@ -53,15 +46,15 @@ export default class EvaluateAdditional extends Component {
     }
 
     async onSubmit() {
-        const { content, images, orderGoodsId, delta } = this.state
+        const { content, images } = this.state
         const { dispatch, navigation } = this.props
-        const { updateListRow } = navigation.state.params
+        const { updateListRow, order_goods_id, delta } = navigation.state.params
         if (!content) {
             return fa.toast.show({ title: '请输入评价内容' })
         }
 
         let payload = {
-            order_goods_id: orderGoodsId,
+            order_goods_id,
             additional_content: content,
         }
         if (Array.isArray(images) && images.length > 0) {
@@ -72,28 +65,19 @@ export default class EvaluateAdditional extends Component {
             payload,
             callback: () => {
                 if (updateListRow) {
-                    updateListRow(orderGoodsId)
+                    updateListRow(order_goods_id)
                 }
-                navigation.dispatch(StackActions.pop({ n: delta }));
+                navigation.dispatch(StackActions.pop({ n: typeof delta !== 'undefined' ? delta : 1 }));
             }
         })
-    }
-
-    updateListRow = () => {
-        const { id } = this.state
-        if (id > 0) {
-            const pages = getCurrentPages();
-            const prevPage = pages[pages.length - 2];
-            prevPage.updateListRow(id);
-        }
     }
 
     render() {
         const {
             content,
-            goodsInfo,
             uploaderMaxNum,
         } = this.state
+        const { goodsInfo } = this.props
         return goodsInfo ? <View>
             <View style={{backgroundColor: '#fff'}}>
                 <View style={styles.refundGoodsCard}>

@@ -34,37 +34,43 @@ export default class Rater extends Component {
         return <View style={styles.raterList}>
             {
                 list.map((item, index) => {
-                    return <View>
-                        {index < value ?
+                    return <View key={index}>
+                        {
+                            index < value ?
                             <TouchableOpacity
-                                key={index}
                                 onPress={() => {
                                     this.onChange(index + 1)
                                 }}
-                            ><Image
-                                source={require('../../images/fa/rater/active.png')} style={[styles.image, {
-                                width: size,
-                                height: size,
-                                marginRight: index === list.length ? 0 : 5
-                            }]}
-                                resizeMode="stretch"
-
-                            /></TouchableOpacity> : null}
-                        {index >= value ?
+                            >
+                                <Image
+                                    source={require('../../images/fa/rater/active.png')} 
+                                    style={[styles.image, {
+                                        width: size,
+                                        height: size,
+                                        marginRight: index === list.length ? 0 : 5
+                                    }]}
+                                    resizeMode="stretch"
+                                />
+                            </TouchableOpacity> : null
+                        }
+                        {
+                            index >= value ?
                             <TouchableOpacity
-                                key={`_${index}`}
                                 onPress={() => {
                                     this.onChange(index + 1)
                                 }}
-                            ><Image
-                                source={require('../../images/fa/rater/default.png')}
-                                style={[styles.image, {
-                                    width: size,
-                                    height: size,
-                                    marginRight: index === list.length ? 0 : 5
-                                }]}
-                                resizeMode="stretch"
-                            /></TouchableOpacity> : null}
+                            >
+                                <Image
+                                    source={require('../../images/fa/rater/default.png')}
+                                    style={[styles.image, {
+                                        width: size,
+                                        height: size,
+                                        marginRight: index === list.length ? 0 : 5
+                                    }]}
+                                    resizeMode="stretch"
+                                />
+                            </TouchableOpacity> : null
+                        }
                     </View>
                 })
             }

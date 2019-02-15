@@ -19,7 +19,7 @@ import { connect } from 'react-redux';
  * @param  string    tracking_images    凭证 最多6张
  */
 @connect(({ order })=>({
-    goodsInfo: order.goodsInfo.result
+    goodsInfo: order.goodsInfo.result.info
 }))
 export default class RefundLogisticsFill extends Component {
     state = {
@@ -37,7 +37,7 @@ export default class RefundLogisticsFill extends Component {
 
     async componentWillMount() {
         const { navigation, dispatch } = this.props
-        const { order_goods_id } = navigation.satte.params
+        const { order_goods_id } = navigation.state.params
         dispatch({
             type: 'order/goodsInfo',
             payload: {
@@ -79,7 +79,7 @@ export default class RefundLogisticsFill extends Component {
             images
         } = this.state
         const { dispatch, navigation } = this.props
-        const { id } = navigation.satte.params
+        const { id } = navigation.state.params
         if (!tracking_company) {
             return fa.toast.show({ title: '请填写物流公司' })
         }

@@ -3,7 +3,6 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
 } from 'react-native';
 import fa from '../../utils/fa'
 import { Button } from 'antd-mobile-rn';
@@ -14,32 +13,26 @@ import { NetworkImage } from "../../components/theme"
 import { connect } from 'react-redux'
 
 @connect(({ order })=>({
-    goodsInfo: order.goodsInfo.result
+    goodsInfo: order.goodsInfo.result.info
 }))
 export default class EvaluateAdd extends Component {
     state = {
-        id: 0,
-        delta: 1,
         score: 5,
-        orderGoodsId: 0,
         content: '',
-        goodsInfo: null,
         uploaderMaxNum: 9,
         uploaderButtonText: '上传图片(最多9张)',
         images: []
     }
 
     async componentWillMount() {
-        const { navigation, goodsInfo } = this.props
-        const { order_goods_id, delta=1 } = navigation.state.params
-        if (goodsInfo){
-            this.setState({
-                id: goodsInfo.info.id,
-                delta: typeof delta !== 'undefined' ? delta : 1,
-                goodsInfo: goodsInfo.info,
-                orderGoodsId: order_goods_id
-            })
-        }
+        const { navigation, dispatch } = this.props
+        const { order_goods_id } = navigation.state.params
+        dispatch({
+            type: 'order/goodsInfo',
+            payload: {
+                id: order_goods_id
+            }
+        })
     }
 
     onImagesChange({ value }) {
@@ -60,10 +53,10 @@ export default class EvaluateAdd extends Component {
         })
     }
 
-    async onSubmit() {
-        const { score, content, images, orderGoodsId, delta } = this.state
+    onSubmit = () => {
+        const { score, content, images } = this.state
         const { dispatch, navigation } = this.props
-        const { updateListRow } = navigation.state.params
+        const { updateListRow, order_goods_id, delta } = navigation.state.params
         if (!score) {
             return fa.toast.show({ title: '请选择评分' })
         }
@@ -71,7 +64,7 @@ export default class EvaluateAdd extends Component {
             return fa.toast.show({ title: '请输入评价内容' })
         }
         let payload = {
-            order_goods_id: orderGoodsId,
+            order_goods_id,
             is_anonymous: 0,
             content,
             score,
@@ -84,9 +77,9 @@ export default class EvaluateAdd extends Component {
             payload,
             callback: ()=>{
                 if (updateListRow) {
-                    updateListRow(orderGoodsId)
+                    updateListRow(order_goods_id)
                 }
-                navigation.dispatch(StackActions.pop({ n: delta }));
+                navigation.dispatch(StackActions.pop({ n: typeof delta !== 'undefined' ? delta : 1 }));
             }
         })
     }
@@ -95,9 +88,9 @@ export default class EvaluateAdd extends Component {
         const {
             score,
             content,
-            goodsInfo,
             uploaderMaxNum,
         } = this.state
+        const { goodsInfo } = this.props
         return goodsInfo ? <View style={[PublicStyles.ViewMax]}>
             <View style={{backgroundColor: '#fff'}}>
                 <View style={styles.refundGoodsCard}>
@@ -119,7 +112,8 @@ export default class EvaluateAdd extends Component {
                                         size={20}
                                         onChange={(e) => {
                                             this.onScoreChange(e)
-                                        }} />
+                                        }} 
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -133,8 +127,7 @@ export default class EvaluateAdd extends Component {
                     onChange={(e) => {
                         this.onContentChange(e)
                     }}
-                >
-                </Field>
+                />
                 <Field
                     title={'上传图片(最多9张)'}
                     type={'uploader'}
@@ -143,13 +136,16 @@ export default class EvaluateAdd extends Component {
                     onChange={(e) => {
                         this.onImagesChange(e)
                     }}
-                >
-                </Field>
+                />
             </View>
             <View style={styles.footer}>
-                <Button type={'warning'} size="large" onClick={() => {
-                    this.onSubmit()
-                }}>提交</Button>
+                <Button 
+                    type='warning' 
+                    size="large" 
+                    onClick={this.onSubmit}
+                >
+                    提交
+                </Button>
             </View>
         </View> : null
     }

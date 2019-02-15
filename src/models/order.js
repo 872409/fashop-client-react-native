@@ -28,7 +28,7 @@ export default {
         },
         logistics: { result: { info: {} } },
         goodsList: {},
-        goodsInfo: {},
+        goodsInfo: { result: { info: {} } },
     },
 
     effects: {
