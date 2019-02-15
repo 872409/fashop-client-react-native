@@ -217,12 +217,19 @@ export default {
             });
             if (callback) callback(response);
         },
-        * bindWechat({ payload, callback }, { call, put }) {
-            const response = yield call(user.bindWechat, payload);
+        * bindWechat({ userData }, { call, put }) {
+            const response = yield call(user.bindWechat, {
+                wechat_openid: userData.openid,
+                wechat: userData
+            });
             yield put({
                 type: "_bindWechat",
                 payload: response
             });
+            Toast.info('绑定成功')
+            yield put({
+                type: 'self'
+            })
             if (callback) callback(response);
         },
         * unbindWechat({ payload, callback }, { call, put }) {

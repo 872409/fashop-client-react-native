@@ -11,7 +11,6 @@ import {
 import { connect } from "react-redux";
 import {Fetch} from '../../utils';
 import { List, InputItem, Button } from "antd-mobile-rn";
-import { passiveModifyUserInfo } from "../../actions/user";
 import { UserApi } from "../../config/api/user";
 
 @connect(({ user }) => ({
@@ -86,9 +85,6 @@ export default class UserChangePassword extends Component {
                         })
                         if(e.code===0){
                             Toast.info('修改成功')
-                            dispatch(passiveModifyUserInfo({
-                                data: e.data
-                            }))
                             navigation.goBack()
                         }else {
                             Toast.warn(e.errmsg)

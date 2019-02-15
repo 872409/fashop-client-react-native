@@ -11,8 +11,7 @@ import { Toast } from '../../utils/function';
 import { List } from 'antd-mobile-rn';
 import { Fetch } from '../../utils';
 import { connect } from "react-redux";
-import { sendWechatAuthRequest, wechatBind } from '../../actions/app/wechat';
-import { updateUserInfo } from '../../actions/user';
+import { sendWechatAuthRequest } from '../../actions/app/wechat';
 import { UserApi } from '../../config/api/user';
 
 const Item = List.Item;
@@ -79,7 +78,9 @@ export default class UserRelation extends Component {
                                                     })
                                                     if (e.code === 0) {
                                                         Toast.warn('解除关联成功')
-                                                        dispatch(updateUserInfo())
+                                                        dispatch({
+                                                            type: 'user/self'
+                                                        })
                                                     } else {
                                                         Toast.warn(e.errmsg)
                                                     }
@@ -137,7 +138,9 @@ export default class UserRelation extends Component {
                                                     const e = await Fetch.fetch({ api: UserApi.unbindWechat })
                                                     if (e.code == 0) {
                                                         Toast.info('解除关联成功')
-                                                        dispatch(updateUserInfo())
+                                                        dispatch({
+                                                            type: 'user/self'
+                                                        })
                                                     } else {
                                                         Toast.error(e.errmsg)
                                                     }
@@ -151,13 +154,12 @@ export default class UserRelation extends Component {
                             } else {
                                 try {
                                     const {
-                                        tokenData,
                                         userData,
                                     } = await sendWechatAuthRequest()
-                                    dispatch(wechatBind({
-                                        tokenData,
-                                        userData,
-                                    }))
+                                    dispatch({
+                                        type: 'user/bindWechat',
+                                        userData
+                                    })
                                 } catch (e) {
                                     console.log(e);
                                 }

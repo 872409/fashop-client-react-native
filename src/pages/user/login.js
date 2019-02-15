@@ -16,7 +16,7 @@ import {
 	ThemeStyle
 } from '../../utils/style';
 import { connect } from "react-redux";
-import { sendWechatAuthRequest, wechatLogin } from '../../actions/app/wechat';
+import { sendWechatAuthRequest } from '../../actions/app/wechat';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
 

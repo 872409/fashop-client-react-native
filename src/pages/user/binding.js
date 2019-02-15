@@ -4,8 +4,6 @@ import {
     Text,
     Image,
     StyleSheet,
-    TextInput,
-    TouchableOpacity,
     KeyboardAvoidingView
 } from "react-native";
 import { Toast } from "../../utils/function";
@@ -17,7 +15,6 @@ import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/view";
 import { Button, InputItem } from "antd-mobile-rn";
 import { Button } from "../../components/theme";
-import {updateUserInfo} from '../../actions/user';
 import { UserApi } from "../../config/api/user";
 
 @connect()
@@ -138,7 +135,9 @@ export default class UserBinding extends Component {
             }
         })
         if (e.code === 0) {
-            dispatch(updateUserInfo())
+            dispatch({
+                type: 'user/self'
+            })
             navigation.goBack()
         } else {
             Toast.warn(e.errmsg);
