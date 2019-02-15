@@ -13,10 +13,9 @@ import { PublicStyles, ThemeStyle } from '../../utils/style'
 import { List, NoticeBar, Radio, Button } from "antd-mobile-rn";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import Alipay from "react-native-yunpeng-alipay";
-import { sendWechatAuthRequest, wechatPay } from "../../actions/app/wechat";
-import { BuyApi } from '../../config/api/buy'
+import { sendWechatAuthRequest } from "../../actions/app/wechat";
+import * as WeChat from 'react-native-wechat';
 
-const Item = List.Item;
 const RadioItem = Radio.RadioItem;
 
 @connect(({ wechat })=>({
@@ -128,34 +127,61 @@ export default class Pay extends Component{
         )
     }
     wxPay = async() =>{
-        const { dispatch, navigation } = this.props
+        const { navigation, dispatch } = this.props
         const { orderInfo } = navigation.state.params
         const { tokenData } = await sendWechatAuthRequest()
-        const params = {
+        const payload = {
             order_type: 'goods_buy',
             pay_sn: orderInfo.pay_sn,
             payment_code: 'wechat',
             openid: tokenData.openid,
             payment_channel: 'wechat_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app"
         }
-        dispatch(wechatPay({ params, successCallback: this.paySuccess }))
+        dispatch({
+            type: 'buy/pay',
+            payload,
+            callback: async (e) => {
+                try {
+                    const result = e ? e.result : {}
+                    const payOptions = {
+                        partnerId: result.partnerid,    // 商家向财付通申请的商家id
+                        prepayId: result.prepayid,    // 预支付订单
+                        nonceStr: result.noncestr,    // 随机串，防重发
+                        timeStamp: result.timestamp,    // 时间戳，防重发
+                        package: result.package,    // 商家根据财付通文档填写的数据和签名
+                        sign: result.sign,    // 商家根据微信开放平台文档对数据做的签名
+                    }
+                    await WeChat.pay(payOptions)
+                    Toast.info('支付成功');
+                    this.paySuccess()
+                } catch (err) {
+                    Toast.warn('支付失败');
+                }
+            }
+        })
     }
     aliPay = async() => {
-        const { dispatch, navigation } = this.props
+        const { navigation, dispatch } = this.props
         const { orderInfo } = navigation.state.params
-        const params = {
+        const payload = {
             order_type: 'goods_buy',
             pay_sn: orderInfo.pay_sn,
             payment_code: 'alipay',
             payment_channel: 'alipay_app' // 支付渠道 "wechat"  "wechat_mini" "wechat_app" "alipay_app"
         }
-        const { result } = await Fetch.request(BuyApi.pay, { params })
-        Alipay.pay(result.content)
-        .then((AlipayData)=>{
-			this.paySuccess()
-        },(err)=> {
-			this.paySuccess()
-            Toast.warn('支付失败');
+        dispatch({
+            type: 'buy/pay',
+            payload,
+            callback: async(e)=>{
+                try {
+                    const result = e ? e.result : {}
+                    await Alipay.pay(result.content)
+                    Toast.info('支付成功');
+                    this.paySuccess()
+                } catch (err) {
+                    Toast.warn('支付失败');
+                }
+            }
         })
     }
     paySuccess = () => {

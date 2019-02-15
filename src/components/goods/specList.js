@@ -13,7 +13,6 @@ import { windowWidth, PublicStyles, ThemeStyle } from '../../utils/style';
 // import SafeAreaView from "react-native-safe-area-view";
 import Stepper from "./stepper";
 import { NetworkImage } from "../theme";
-import { add, edit, exist, info } from "../../actions/cart";
 
 export default class GoodsSpecList extends Component{
     state = {

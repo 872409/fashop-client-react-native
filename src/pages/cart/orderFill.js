@@ -340,9 +340,9 @@ export default class CartOrderFill extends Component {
                 'cart_ids': cartIds,
                 'message': message,
             },
-            callback: (orderInfo) => navigation.replace('Pay', { 
-                orderInfo,
-                pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total) 
+            callback: ({ result }) => navigation.replace('Pay', {
+                orderInfo: result,
+                pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total)
             })
         })
     }
