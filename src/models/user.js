@@ -154,6 +154,13 @@ export default {
         },
         * logout({ payload, callback }, { call, put }) {
             const response = yield call(user.logout, payload);
+            yield put ({
+                type: 'userLogoutSuccessAfter',
+                response
+            })
+            if (callback) callback(response);
+        },
+        * userLogoutSuccessAfter({ response }, { call, put }) {
             yield call(storage.removeUserInfo)
             yield call(storage.remove, { key: 'user_token' })
             yield put({
@@ -168,8 +175,26 @@ export default {
                 type: "_logout",
                 payload: response
             });
+            yield put({
+                type: 'order/_stateNum',
+                payload: {
+                    result: {
+                        state_new: 0,
+                        state_send: 0,
+                        state_success: 0,
+                        state_close: 0,
+                        state_unevaluate: 0,
+                        state_refund: 0,
+                    }
+                }
+            })
+            yield put({
+                type: 'cart/_totalNum',
+                payload: {
+                    result: { total_num: 0 }
+                }
+            })
             NavigationService.goBack()
-            if (callback) callback(response);
         },
         * token({ payload, callback }, { call, put }) {
             const response = yield call(user.token, payload);
