@@ -2,10 +2,8 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import fa from '../../utils/fa'
-import orderModel from '../../services/order'
 import React, { Component } from 'react';
-import { Modal, WhiteSpace } from "antd-mobile-rn";
+import { Modal, WhiteSpace, Toast } from "antd-mobile-rn";
 import {
     OrderStateCard,
     OrderAddress,
@@ -14,16 +12,16 @@ import {
     OrderCostList,
     OrderFooterAction
 } from '../../components'
+import { connect } from 'react-redux';
 
+@connect(({ order })=>({
+    orderInfo: order.info.result.info,
+    orderLog: order.info.result.order_log,
+}))
 export default class OrderDetail extends Component {
-    state = {
-        id: null,
-        orderInfo: null,
-        orderLog: null,
-    }
 
     onRefund(goodsInfo) {
-        const orderInfo = this.state.orderInfo
+        const { orderInfo } = this.props
         // 根据类型跳转到是退款还是退款退货  订单状态：0(已取消)10(默认):未付款;20:已付款;30:已发货;40:已收货;    多少天后不可退的业务逻辑
         if (orderInfo.state === 20) {
             // 直接跳转到申请发货
@@ -48,26 +46,21 @@ export default class OrderDetail extends Component {
 
 
     componentWillMount() {
-        this.setState({
-            id: this.props.navigation.getParam('id')
-        }, () => {
-            this.props.navigation.addListener(
-                'didFocus', async () => {
-                    this.init()
-                }
-            );
-        })
+        this.props.navigation.addListener(
+            'didFocus', this.init
+        );
 
     }
 
-    async init() {
-        const result = await orderModel.info({ id: this.state.id })
-        if (result) {
-            this.setState({
-                orderInfo: result.info,
-                orderLog: result.order_log
-            })
-        }
+    init = () => {
+        const { navigation, dispatch } = this.props
+        const { id } = navigation.state.params
+        dispatch({
+            type: 'order/info',
+            payload: {
+                id
+            }
+        })
     }
 
     onGoodsDetail(goodsInfo) {
@@ -81,44 +74,47 @@ export default class OrderDetail extends Component {
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: async () => {
-                    const { orderInfo } = this.state
-                    const result = await orderModel.cancel({
-                        'id': orderInfo.id,
+                    const { orderInfo: { id }, dispatch } = this.props
+                    dispatch({
+                        type: 'order/cancel',
+                        payload: {
+                            id
+                        },
+                        callback: ()=>{
+                            this.init()
+                            this.updateListRow(id)
+                        }
                     })
-                    if (result) {
-                        this.init()
-                        this.updateListRow(orderInfo.id)
-                    } else {
-                        fa.toast.show({
-                            title: fa.code.parse(orderModel.getException().getCode())
-                        })
-                    }
                 }
             }
         ])
     }
 
     onEvaluate() {
-        const { orderInfo } = this.state
+        const { orderInfo } = this.props
         this.props.navigation.navigate('EvaluateList', {
             order_id: orderInfo.id,
         })
     }
     
-    async onLogistics(orderInfo) {
-        const e = await orderModel.logistics({
-            id: orderInfo.id
+    async onLogistics() {
+        const { orderInfo: { id }, dispatch, navigation } = this.props
+        dispatch({
+            type: 'order/logistics',
+            payload: {
+                id
+            },
+            callback: (e)=>{
+                if(e){
+                    navigation.navigate('PublicWebView', {
+                        title: '物流信息',
+                        url: e.result.info.url
+                    })
+                }else{
+                    Toast.info('获取物流信息失败！')
+                }
+            }
         })
-        if (e) {
-            this.props.navigation.navigate('PublicWebView', {
-                title: '物流信息',
-                url: e.info.url
-            })
-        } else {
-            fa.toast.show({
-                title: fa.code.parse(orderModel.getException().getCode())
-            })
-        }
     }
 
     async onReceive() {
@@ -126,25 +122,24 @@ export default class OrderDetail extends Component {
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
                 text: '确认', onPress: async () => {
-                    const { orderInfo } = this.state
-                    const result = await orderModel.confirmReceipt({
-                        'id': orderInfo.id,
+                    const { orderInfo: { id }, dispatch } = this.props
+                    dispatch({
+                        type: 'order/logistics',
+                        payload: {
+                            id
+                        },
+                        callback: () => {
+                            this.init()
+                            this.updateListRow(id)
+                        }
                     })
-                    if (result) {
-                        this.init()
-                        this.updateListRow(orderInfo.id)
-                    } else {
-                        fa.toast.show({
-                            title: fa.code.parse(orderModel.getException().getCode())
-                        })
-                    }
                 }
             }
         ])
     }
 
     async onPay() {
-        const { orderInfo } = this.state;
+        const { orderInfo } = this.props;
         this.props.navigation.navigate('Pay', {
             orderInfo,
             pay_amount: parseFloat(orderInfo.amount)
@@ -152,19 +147,17 @@ export default class OrderDetail extends Component {
     }
 
     updateListRow = () => {
-        const { id } = this.state
-        if (id > 0) {
-            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
-            const updateListRow = this.props.navigation.getParam('updateListRow')
-            if (typeof updateListRow === 'function') {
-                updateListRow(id)
-            }
+        const { navigation } = this.props
+        const { id, updateListRow } = navigation.state.params
+        navigation.dispatch(StackActions.pop({ n: 1 }));
+        if (typeof updateListRow === 'function') {
+            updateListRow(id)
         }
     }
 
 
     render() {
-        const { orderInfo } = this.state
+        const { orderInfo } = this.props
         return orderInfo ? <View>
             <View style={styles.main}>
                 <View style={styles.item}>

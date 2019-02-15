@@ -1,4 +1,5 @@
 import order from "../services/order";
+import { Toast } from "antd-mobile-rn";
 
 export default {
     namespace: "order",
@@ -14,7 +15,12 @@ export default {
             }
         },
         list: { result: { info: {} } },
-        info: {},
+        info: {
+            result: {
+                info: null,
+                order_log: null
+            }
+        },
         cancel: {},
         confirmReceipt: {},
         deliverInfo: {
@@ -75,12 +81,16 @@ export default {
             if (callback) callback(response);
         },
         * logistics({ payload, callback }, { call, put }) {
-            const response = yield call(order.logistics, payload);
-            yield put({
-                type: "_logistics",
-                payload: response
-            });
-            if (callback) callback(response);
+            try{
+                const response = yield call(order.logistics, payload);
+                yield put({
+                    type: "_logistics",
+                    payload: response
+                });
+                if (callback) callback(response);
+            }catch(err){
+                Toast.info('获取物流信息失败！')
+            }
         },
         * goodsList({ payload, callback }, { call, put }) {
             const response = yield call(order.goodsList, payload);
