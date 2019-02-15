@@ -7,8 +7,6 @@ import {
 	TextInput,
 	TouchableOpacity,
 	View,
-	Alert,
-	ScrollView,
 } from 'react-native';
 import { Toast } from '../../utils/function';
 import {
@@ -16,7 +14,6 @@ import {
 	ThemeStyle
 } from '../../utils/style';
 import { CountdownButton } from '../../utils/view';
-import Fetch from "../../utils/fetch";
 import { Button } from 'antd-mobile-rn';
 import SafeAreaView from 'react-native-safe-area-view';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -39,28 +36,16 @@ export default class UserRegister extends Component {
 			verify_code,
 			password,
 		} = this.state
-		const e = await Fetch.fetch({
-			api: UserApi.register,
-			params: {
-				username,
-				verify_code,
-				password,
-				channel_type: "sms",
-			}
-		})
-		if (e.errcode === 0) {
-			const payload = {
-				username,
-				password,
-				login_type: "password"
-			}
-			dispatch({
-				type: "user/login",
-				payload
-			})
-		} else {
-			Toast.warn(e.errmsg)
+		const payload = {
+			username,
+			verify_code,
+			password,
+			channel_type: "sms",
 		}
+		dispatch({
+			type: 'user/register',
+			payload,
+		})
 	}
 	render() {
 		const {

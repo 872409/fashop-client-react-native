@@ -75,7 +75,10 @@ export default {
                 const response = yield call(user.login, payload)
                 
                 if (response.code === 10014) {
-                    yield call(wechatRegister, { tokenData, userData })
+                    yield put({
+                        type: 'wechatRegister',
+                        payload: { tokenData, userData }
+                    })
                 } else {
                     if (response.code === 0) {
                         yield put({
@@ -99,7 +102,10 @@ export default {
                 }
                 const response = yield call(user.register, payload)
                 if (response.code === 0) {
-                    yield call(wechatLogin, { tokenData, userData })
+                    yield put({
+                        type: 'wechatLogin',
+                        payload: { tokenData, userData }
+                    })
                 } else {
                     Toast.warn(response.msg)
                 }
@@ -126,13 +132,25 @@ export default {
                 Toast.fail('登录失败')
             }
         },
-        * register({ payload, callback }, { call, put }) {
-            const response = yield call(user.register, payload);
-            yield put({
-                type: "_register",
-                payload: response
-            });
-            if (callback) callback(response);
+        * register({ payload: { username, password }, callback }, { call, put }) {
+            try {
+                const response = yield call(user.register, payload)
+                if (response.code === 0) {
+                    const params = {
+                        username,
+                        password,
+                        login_type: "password"
+                    }
+                    yield put({
+                        type: 'login',
+                        payload: params
+                    })
+                } else {
+                    Toast.warn(response.msg)
+                }
+            } catch (err) {
+                Toast.fail('操作失败')
+            }
         },
         * logout({ payload, callback }, { call, put }) {
             const response = yield call(user.logout, payload);
@@ -242,6 +260,8 @@ export default {
                 type: "_unbindWechat",
                 payload: response
             });
+            Toast.info('解除关联成功')
+            yield put({ type: 'self' })
             if (callback) callback(response);
         },
         * unbindPhone({ payload, callback }, { call, put }) {
@@ -250,6 +270,8 @@ export default {
                 type: "_unbindPhone",
                 payload: response
             });
+            Toast.info('解除关联成功')
+            yield put({ type: 'self' })
             if (callback) callback(response);
         },
         * evaluatedList({ payload, callback }, { call, put }) {

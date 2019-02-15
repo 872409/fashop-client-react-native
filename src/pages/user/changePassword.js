@@ -9,9 +9,7 @@ import {
     PublicStyles,
 } from "../../utils/style";
 import { connect } from "react-redux";
-import {Fetch} from '../../utils';
 import { List, InputItem, Button } from "antd-mobile-rn";
-import { UserApi } from "../../config/api/user";
 
 @connect(({ user }) => ({
     login: user.login,
@@ -24,10 +22,6 @@ export default class UserChangePassword extends Component {
         repassword : null,
     };
     render() {
-        const {
-            navigation,
-            dispatch,
-        } = this.props
         return (
             <View style={PublicStyles.ViewMax}>
                 <List>
@@ -57,39 +51,7 @@ export default class UserChangePassword extends Component {
                     </InputItem>
                 </List>
 				<Button
-					onClick={async() => {
-                        const {
-                            oldpassword,
-                            password,
-                            repassword,
-                        } = this.state
-                        if(!oldpassword){
-                            return Toast.warn('请填写旧密码')
-                        }
-                        if(!password){
-                            return Toast.warn('请填写新密码')
-                        }
-                        if(!repassword){
-                            return Toast.warn('请填写新密码')
-                        }
-                        if(password!==repassword){
-                            return Toast.warn('两次密码不一致')
-                        }
-                        const e = await Fetch.fetch({
-                            api: UserApi.editPassword,
-                            params: {
-                                oldpassword,
-                                password,
-                                repassword,
-                            }
-                        })
-                        if(e.code===0){
-                            Toast.info('修改成功')
-                            navigation.goBack()
-                        }else {
-                            Toast.warn(e.errmsg)
-                        }
-					}}
+					onClick={this.submit}
 					style={{
 						marginTop: 15,
                         marginHorizontal: 15,
@@ -100,6 +62,42 @@ export default class UserChangePassword extends Component {
 				</Button>
             </View>
         );
+    }
+    submit = () => {
+        const {
+            navigation,
+            dispatch,
+        } = this.props
+        const {
+            oldpassword,
+            password,
+            repassword,
+        } = this.state
+        if (!oldpassword) {
+            return Toast.warn('请填写旧密码')
+        }
+        if (!password) {
+            return Toast.warn('请填写新密码')
+        }
+        if (!repassword) {
+            return Toast.warn('请填写新密码')
+        }
+        if (password !== repassword) {
+            return Toast.warn('两次密码不一致')
+        }
+        const payload = {
+            oldpassword,
+            password,
+            repassword,
+        }
+        dispatch({
+            type: 'user/editPassword',
+            payload,
+            callback: ()=>{
+                Toast.info('修改成功')
+                navigation.goBack()
+            }
+        })
     }
 }
 

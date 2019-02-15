@@ -8,10 +8,8 @@ import {
 } from 'react-native';
 import { Toast } from '../../utils/function';
 import { List } from 'antd-mobile-rn';
-import { Fetch } from '../../utils';
 import { connect } from "react-redux";
 import { sendWechatAuthRequest } from "../../utils/wechat";
-import { UserApi } from '../../config/api/user';
 
 const Item = List.Item;
 
@@ -70,19 +68,11 @@ export default class UserRelation extends Component {
                                         },
                                         {
                                             text: '确定',
-                                            onPress: async () => {
+                                            onPress: () => {
                                                 if (isBindWechat) {
-                                                    const e = await Fetch.fetch({
-                                                        api: UserApi.unbindPhone,
+                                                    dispatch({
+                                                        type: 'user/unbindPhone'
                                                     })
-                                                    if (e.code === 0) {
-                                                        Toast.warn('解除关联成功')
-                                                        dispatch({
-                                                            type: 'user/self'
-                                                        })
-                                                    } else {
-                                                        Toast.warn(e.errmsg)
-                                                    }
                                                 } else {
                                                     Toast.warn('您当前还未关联过其他验证方式，所以无法解除手机')
                                                 }
@@ -132,17 +122,11 @@ export default class UserRelation extends Component {
                                         },
                                         {
                                             text: '解除关联',
-                                            onPress: async () => {
+                                            onPress: () => {
                                                 if (isBindPhone) {
-                                                    const e = await Fetch.fetch({ api: UserApi.unbindWechat })
-                                                    if (e.code == 0) {
-                                                        Toast.info('解除关联成功')
-                                                        dispatch({
-                                                            type: 'user/self'
-                                                        })
-                                                    } else {
-                                                        Toast.error(e.errmsg)
-                                                    }
+                                                    dispatch({
+                                                        type: 'user/unbindWechat'
+                                                    })
                                                 } else {
                                                     Toast.warn('您当前还未关联过其他验证方式，所以无法解除微信')
                                                 }
