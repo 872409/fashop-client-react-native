@@ -9,8 +9,6 @@ import Navigator from './navigator';
 import NavigationService from "./navigationService";
 import { NavigationActions } from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
-import { totalNum } from "../actions/cart";
-// import { initUserInfoStorage } from "../actions/user";
 
 @connect(({ page, cart }) => ({
     pageData: page.portal.result.info,
