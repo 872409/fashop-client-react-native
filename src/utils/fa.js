@@ -4,7 +4,6 @@ import Code from './code'
 import Toast from './toast';
 import Cache from './cache';
 import { env } from "../config/";
-import store from "../store";
 
 const ROOT_URL = `${env.apiHost}/server/`;
 
@@ -78,9 +77,9 @@ export default class Fa {
         if (e.code === 0) {
             return e
         }else if (e.code === 10005) {
-            store.dispatch({
-                type: "user/logout"
-            })
+            // dispatch({
+            //     type: "user/logout"
+            // })
             return true
         }else {
             console.log(`接口：${api.url} 请求fail`)
