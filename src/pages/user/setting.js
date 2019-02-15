@@ -4,12 +4,9 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
-    TouchableOpacity,
     SafeAreaView,
 } from 'react-native';
 import { Button, List } from 'antd-mobile-rn';
-import { userLogout } from '../../actions/user';
 import { Button } from "../../components/theme";
 import { PublicStyles } from '../../utils/style'
 
@@ -22,7 +19,7 @@ const Item = List.Item;
 export default class UserSetting extends Component {
     render() {
         const { navigation, dispatch } = this.props;
-        const list1 = [
+        const list = [
             {
                 title: '修改密码',
                 path: 'UserChangePassword',
@@ -36,7 +33,7 @@ export default class UserSetting extends Component {
                 <View style={PublicStyles.ViewMax}>
                     <List>
                         {
-                            list1.map((item, index) => (
+                            list.map((item, index) => (
                                 <Item
                                     key={index}
                                     arrow="horizontal"
@@ -59,7 +56,9 @@ export default class UserSetting extends Component {
                         borderWidth: 0,
                     }}
                     onClick={() => {
-                        dispatch(userLogout());
+                        dispatch({
+                            type: 'user/logout'
+                        })
                     }}
                 >
                     <Text style={{ color: '#FB3030' }}>

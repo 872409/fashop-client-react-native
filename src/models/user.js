@@ -182,9 +182,9 @@ export default {
             yield call(storage.setUserInfo,{ value: response.result.info })
             yield put({
                 type: "_self",
-                payload: response
+                payload: response.result.info
             });
-            if (callback) callback(response);
+            if (callback) callback(response.result.info);
         },
         * editPasswordByFind({ payload, callback }, { call, put }) {
             const response = yield call(user.editPasswordByFind, payload);
@@ -200,6 +200,13 @@ export default {
                 type: "_editProfile",
                 payload: response
             });
+            yield put({
+                type: 'self',
+                callback: ()=>{
+                    NavigationService.goBack()
+                    Toast.success('修改成功')
+                }
+            })
             if (callback) callback(response);
         },
         * bindPhone({ payload, callback }, { call, put }) {

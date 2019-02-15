@@ -2,8 +2,6 @@ import stateHoc from "./stateHoc";
 import { Toast } from './function';
 import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-react-native-utils";
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
-import { setIsShowFetchLoading } from "../actions/app";
-import { userLogout } from "../actions/user";
 import NavigationService from "../containers/navigationService";
 import { store } from '../index'
 

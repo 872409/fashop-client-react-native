@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {
-    StyleSheet,
     Text,
     View,
     Image,
@@ -11,14 +10,11 @@ import {
     TextInput
 } from 'react-native';
 import { List, Modal, DatePicker } from "antd-mobile-rn";
-import { modifyUserInfo, updateUserInfo, userLogout } from "../../actions/user";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { imagePicker } from '../../utils/imagePicker';
 import { Button } from "../../components/theme";
 import Avatar from "../../components/public/avatar";
-import Fetch from '../../utils/fetch';
 import { Toast } from '../../utils/function';
-import { UserApi } from '../../config/api/user';
 import moment from "moment";
 
 const Item = List.Item;
@@ -58,7 +54,7 @@ export default class UserInfo extends Component {
         }
     }
     render() {
-        const { userInfo, navigation } = this.props
+        const { userInfo } = this.props
         const { profile } = userInfo
         const { avatar, nickname, sex, birthday } = this.state;
         return (
@@ -172,51 +168,15 @@ export default class UserInfo extends Component {
     submit = () => {
         const { avatar, nickname, sex, birthday } = this.state;
         const { dispatch } = this.props
-        dispatch(modifyUserInfo({
-            params: {
-                avatar,
-                nickname,
-                sex,
-                birthday
-            }
-        }))
+        const payload = {
+            avatar,
+            nickname,
+            sex,
+            birthday
+        }
+        dispatch({
+            type: 'user/editProfile',
+            payload,
+        })
     }
 }
-
-const styles = StyleSheet.create({
-    avatarView: {
-        height: 28,
-        width: 28,
-        borderRadius: 14,
-        overflow: 'hidden'
-    },
-    avatar: {
-        height: 28,
-        width: 28,
-    },
-    defaultAvatar: {
-        width: 12,
-        height: 14,
-    },
-    cleanerList: {
-        flex: 1,
-        marginTop: 10,
-        backgroundColor: '#fff'
-    },
-    botAgent: {
-        paddingVertical: 23,
-        marginHorizontal: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#EAEAEA',
-    },
-    textLeft: {
-        fontSize: 16,
-        color: '#333333',
-    },
-    textright: {
-        fontSize: 16,
-        color: '#999999',
-    }
-})
