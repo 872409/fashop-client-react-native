@@ -6,32 +6,28 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import goodsEvaluate from '../../services/goodsEvaluate'
 import { TimeFormat, Rater } from '../../components'
 import { NetworkImage } from "../../components/theme"
+import { connect } from 'react-redux'
 
+@connect(({ goodsEvaluate })=>({
+    evaluateInfo: goodsEvaluate.info.result.info
+}))
 export default class EvaluateDetail extends Component {
-    state = {
-        order_goods_id: null,
-        evaluate: null
-    }
 
     componentWillMount() {
-        this.setState({
-            order_goods_id: this.props.navigation.getParam('order_goods_id')
-        }, () => {
-            this.props.navigation.addListener(
-                'didFocus', async () => {
-                    const { order_goods_id } = this.state
-                    const evaluate = await goodsEvaluate.info({
+        const { navigation, dispatch } = this.props
+        const { order_goods_id } = navigation.satte.params
+        navigation.addListener(
+            'didFocus', () => {
+                dispatch({
+                    type: 'goodsEvaluate/info',
+                    payload: {
                         order_goods_id
-                    })
-                    this.setState({
-                        evaluate
-                    })
-                }
-            );
-        })
+                    }
+                })
+            }
+        );
     }
 
     preViewImage({ images, index }) {
@@ -46,34 +42,38 @@ export default class EvaluateDetail extends Component {
 
     render() {
         const {
-            evaluate
-        } = this.state
-        return evaluate ? <View style={styles.evaluateDetail}>
+            evaluateInfo
+        } = this.props
+        return evaluateInfo ? <View style={styles.evaluateDetail}>
             <View style={styles.goodsEvaluateItem}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
-                        <NetworkImage source={{ uri: evaluate.avatar }} resizeMode={'cover'} style={styles.avatarImage} />
+                        <NetworkImage source={{ uri: evaluateInfo.avatar }} resizeMode={'cover'} style={styles.avatarImage} />
                         <View style={styles.nickname}>
-                            <Text style={styles.nicknameText}>{evaluate.nickname}</Text>
-                            <TimeFormat value={evaluate.create_time} style={{ color: '#999' }} />
+                            <Text style={styles.nicknameText}>{evaluateInfo.nickname}</Text>
+                            <TimeFormat value={evaluateInfo.create_time} style={{ color: '#999' }} />
                         </View>
                     </View>
                     <View style={styles.star}>
-                        <Rater size={12} num={5} value={evaluate.score} />
+                        <Rater size={12} num={5} value={evaluateInfo.score} />
                     </View>
                 </View>
-
-                {evaluate.content ? <View style={styles.content}><Text
-                    style={styles.contentText}>{evaluate.content}</Text></View> : null}
-                {Array.isArray(evaluate.images) && evaluate.images.length > 0 ?
+                {
+                    evaluateInfo.content ? 
+                    <View style={styles.content}>
+                        <Text style={styles.contentText}>{evaluateInfo.content}</Text>
+                    </View> : null
+                }
+                {
+                    Array.isArray(evaluateInfo.images) && evaluateInfo.images.length > 0 ?
                     <View style={styles.photoList}>
                         {
-                            evaluate.images.map((item, index) => {
+                            evaluateInfo.images.map((item, index) => {
                                 return <TouchableOpacity
                                     key={`images_${index}`}
                                     onPress={() => {
                                         this.preViewImage({
-                                            images: evaluate.images,
+                                            images: evaluateInfo.images,
                                             index
                                         })
                                     }}
@@ -83,33 +83,42 @@ export default class EvaluateDetail extends Component {
                                 /></TouchableOpacity>
                             })
                         }
-                    </View>
-                    : null
+                    </View> : null
                 }
-                {evaluate.reply_content ? <View style={styles.replyContent}>
-                    <Text>客服：</Text>
-                    <Text>{evaluate.reply_content}</Text>
-                    <TimeFormat value={evaluate.reply_time} style={{ marginLeft: 5, color: '#999' }} />
-                </View> : null}
-
-                {evaluate.additional_content || evaluate.additional_images ? <View style={styles.content}>
-                    <View style={{ borderLeftWidth: 5, borderColor: 'red', borderStyle: 'solid', paddingLeft: 10 }}>
-                        <Text
-                            style={{ color: '#999' }}>{evaluate.additional_interval_day === 0 ? '当天' : evaluate.additional_interval_day + '天后'}追评</Text>
-                    </View>
-                    {evaluate.additional_content ?
-                        <Text style={{ marginTop: 15, color: '#333' }}>{evaluate.additional_content}</Text> : null}
-                </View> : null}
-
-                {Array.isArray(evaluate.additional_images) && evaluate.additional_images.length > 0 ?
+                {
+                    evaluateInfo.reply_content ? 
+                    <View style={styles.replyContent}>
+                        <Text>客服：</Text>
+                        <Text>{evaluateInfo.reply_content}</Text>
+                        <TimeFormat value={evaluateInfo.reply_time} style={{ marginLeft: 5, color: '#999' }} />
+                    </View> : null
+                }
+                {
+                    evaluateInfo.additional_content || evaluateInfo.additional_images ? 
+                    <View style={styles.content}>
+                        <View style={{ borderLeftWidth: 5, borderColor: 'red', borderStyle: 'solid', paddingLeft: 10 }}>
+                            <Text style={{ color: '#999' }}>
+                                {
+                                    evaluateInfo.additional_interval_day === 0 ? '当天' : evaluateInfo.additional_interval_day + '天后'
+                                }追评
+                            </Text>
+                        </View>
+                        {
+                            evaluateInfo.additional_content ?
+                            <Text style={{ marginTop: 15, color: '#333' }}>{evaluateInfo.additional_content}</Text> : null
+                        }
+                    </View> : null
+                }
+                {
+                    Array.isArray(evaluateInfo.additional_images) && evaluateInfo.additional_images.length > 0 ?
                     <View style={styles.photoList}>
                         {
-                            evaluate.additional_images.map((item, index) => {
+                            evaluateInfo.additional_images.map((item, index) => {
                                 return <TouchableOpacity
                                     key={`additional_images_${index}`}
                                     onPress={() => {
                                         this.preViewImage({
-                                            images: evaluate.additional_images,
+                                            images: evaluateInfo.additional_images,
                                             index
                                         })
                                     }}
@@ -120,21 +129,22 @@ export default class EvaluateDetail extends Component {
                                 /></TouchableOpacity>
                             })
                         }
-                    </View>
-                    : null}
-
-                {evaluate.reply_content2 ? <View style={styles.replyContent}>
-                    <Text>客服：</Text>
-                    <Text>{evaluate.reply_content2}</Text>
-                    <TimeFormat value={evaluate.reply_time2} style={{ marginLeft: 5, color: '#999' }} />
-                </View> : null}
-
+                    </View> : null
+                }
+                {
+                    evaluateInfo.reply_content2 ? 
+                    <View style={styles.replyContent}>
+                        <Text>客服：</Text>
+                        <Text>{evaluateInfo.reply_content2}</Text>
+                        <TimeFormat value={evaluateInfo.reply_time2} style={{ marginLeft: 5, color: '#999' }} />
+                    </View> : null
+                }
                 <View style={styles.spec}>
-                    <Text>{evaluate.goods_spec_string}</Text>
+                    <Text>{evaluateInfo.goods_spec_string}</Text>
                 </View>
                 <View style={styles.goodsEvaluate}>
-                    <Image source={evaluate.goods_img} resizeMode={'cover'} />
-                    <Text>{evaluate.goods_title}</Text>
+                    <Image source={evaluateInfo.goods_img} resizeMode={'cover'} />
+                    <Text>{evaluateInfo.goods_title}</Text>
                 </View>
             </View>
         </View> : null

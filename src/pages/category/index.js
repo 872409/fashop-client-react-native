@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import { PublicStyles, windowWidth, ThemeStyle, windowHeight } from "../../utils/style";
 import { NetworkImage } from "../../components/theme";
-import goodsCategory from '../../services/goodsCategory'
-import shop from '../../services/shop'
 import GoodsItem from "../../components/goods/item";
 import FlatList from "../../components/flatList";
 import { GoodsApi } from "../../config/api/goods";
+import { connect } from 'react-redux';
 
+@connect()
 export default class Category extends Component {
     state = {
         current: 0,
@@ -23,17 +23,26 @@ export default class Category extends Component {
     }
 
     componentDidMount() {
-        this.props.navigation.addListener(
-            'didFocus', async () => {
-                const shopInfo = await shop.info()
-                const categoryData = await goodsCategory.list()
-                if (categoryData.code === 0 && shopInfo.code === 0) {
-                    this.setState({
-                        categoryList: categoryData.result.list,
-                        current: categoryData.result.list[0].id,
-                        goods_category_style: shopInfo.result.info.goods_category_style+1
-                    })
-                }
+        const { navigation, dispatch } = this.props
+        navigation.addListener(
+            'didFocus', () => {
+                dispatch({
+                    type: 'shop/info',
+                    callback: ({result})=>{
+                        this.setState({
+                            goods_category_style: result.info.goods_category_style+1
+                        })
+                    }
+                })
+                dispatch({
+                    type: 'goodsCategory/list',
+                    callback: ({result})=>{
+                        this.setState({
+                            categoryList: result.list,
+                            current: result.list[0].id,
+                        })
+                    }
+                })
             }
         )
     }

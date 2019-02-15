@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { connect } from "react-redux";
 import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
-import { Carousel, Toast } from 'antd-mobile-rn'
+import { Carousel } from 'antd-mobile-rn'
 import {
     Goods,
     Separator,
@@ -23,7 +23,6 @@ import {
 } from '../../components/body'
 import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
-import goodsCollectModel from "../../services/goodsCollect";
 import Badge from "@react-native-component/react-native-smart-badge";
 import { NetworkImage } from "../../components/theme"
 // import WebHtmlView from "../../components/public/webHtmlView";
@@ -282,15 +281,15 @@ export default class GoodsDetail extends Component {
     }
 
     onCollect = async () => {
-        const { navigation, login } = this.props;
+        const { navigation, login, dispatch } = this.props;
         const { id } = navigation.state.params;
         if (login) {
-            const result = await goodsCollectModel.add({
-                goods_id: id
+            dispatch({
+                type: 'goodsCollect/add',
+                payload: {
+                    goods_id: id
+                }
             })
-            if (result !== false) {
-                Toast.info('成功收藏', 1)
-            }
         }else {
             navigation.navigate('UserLogin')
         }

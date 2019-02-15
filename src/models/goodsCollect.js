@@ -1,4 +1,5 @@
 import goodsCollect from "../services/goodsCollect";
+import { Toast } from "antd-mobile-rn";
 
 export default {
     namespace: "goodsCollect",
@@ -25,6 +26,7 @@ export default {
                 type: "_add",
                 payload: response
             });
+            Toast.info('成功收藏', 1)
             if (callback) callback(response);
         },
         * del({ payload, callback }, { call, put }) {

@@ -9,7 +9,9 @@ export default {
         mine: {},
         add: {},
         append: {},
-        info: {},
+        info: {
+            result: { info: null }
+        },
         isEvaluated: {},
     },
 
