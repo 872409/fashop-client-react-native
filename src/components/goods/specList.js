@@ -202,12 +202,14 @@ export default class GoodsSpecList extends Component{
                     payload: {
                         goods_sku_id: current_sku.id,
                     },
-                    callback: ({result}) => {
-                        navigation.navigate("CartOrderFill", {
-                            way: "buy_now",
-                            cart_ids: [result.info.id]
-                        })
-                        closeModal()
+                    callback: (e) => {
+                        if(e){
+                            navigation.navigate("CartOrderFill", {
+                                way: "buy_now",
+                                cart_ids: [e.result.info.id]
+                            })
+                            closeModal()
+                        }
                     }
                 })
             }

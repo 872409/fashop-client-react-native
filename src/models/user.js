@@ -73,42 +73,31 @@ export default {
                     wechat_openid: userData.openid
                 }
                 const response = yield call(user.login, payload)
-                
-                if (response.code === 10014) {
-                    yield put({
-                        type: 'wechatRegister',
-                        payload: { tokenData, userData }
-                    })
-                } else {
-                    if (response.code === 0) {
-                        yield put({
-                            type: 'userLoginSuccessAfter',
-                            user_token: response.result
-                        })
-                    } else {
-                        Toast.warn(response.msg)
-                    }
-                }
+                yield put({
+                    type: 'userLoginSuccessAfter',
+                    user_token: response.result
+                })
             } catch (err) {
                 Toast.fail('登录失败')
+                yield put({
+                    type: 'wechatRegister',
+                    payload: { tokenData, userData }
+                })
             }
         },
-        * wechatRegister({ tokenData, userData }, { call, put }) {
+        * wechatRegister({ payload: { tokenData, userData } }, { call, put }) {
             try {
-                const payload = {
+                const params = {
                     register_type: 'wechat_app',
                     wechat_openid: userData.openid,
                     wechat: userData
                 }
-                const response = yield call(user.register, payload)
-                if (response.code === 0) {
-                    yield put({
-                        type: 'wechatLogin',
-                        payload: { tokenData, userData }
-                    })
-                } else {
-                    Toast.warn(response.msg)
-                }
+                const response = yield call(user.register, params)
+                yield put({
+                    type: 'wechatLogin',
+                    tokenData, 
+                    userData
+                })
             } catch (err) {
                 Toast.fail('登录失败')
             }
