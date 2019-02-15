@@ -215,6 +215,10 @@ export default {
                 type: "_bindPhone",
                 payload: response
             });
+            yield put({
+                type: 'self'
+            })
+            NavigationService.goBack()
             if (callback) callback(response);
         },
         * bindWechat({ userData }, { call, put }) {

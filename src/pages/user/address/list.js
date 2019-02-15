@@ -5,7 +5,6 @@ import {
     SafeAreaView
 } from 'react-native';
 import { PublicStyles } from '../../../utils/style';
-import fa from '../../../utils/fa'
 import { Modal, Button } from 'antd-mobile-rn';
 import { AddressCard } from '../../../components'
 import { AddressApi } from "../../../config/api/address";

@@ -7,15 +7,12 @@ import {
     KeyboardAvoidingView
 } from "react-native";
 import { Toast } from "../../utils/function";
-import { Fetch } from "../../utils";
 import {
     PublicStyles,
 } from "../../utils/style";
 import { connect } from "react-redux";
 import { CountdownButton } from "../../utils/view";
 import { Button, InputItem } from "antd-mobile-rn";
-import { Button } from "../../components/theme";
-import { UserApi } from "../../config/api/user";
 
 @connect()
 export default class UserBinding extends Component {
@@ -108,9 +105,7 @@ export default class UserBinding extends Component {
                     <Button
                         style={styles.buttonbelowcss}
                         type={'primary'}
-                        onClick={() => {
-                            this.bindphonefun()
-                        }}
+                        onClick={this.bindPhone}
                     >
                         <Text style={styles.bindbuttontext}>确认绑定</Text>
                     </Button>
@@ -123,25 +118,18 @@ export default class UserBinding extends Component {
             </KeyboardAvoidingView>
         );
     }
-    async bindphonefun() {
-        const { dispatch, navigation } = this.props
+    bindPhone = () => {
+        const { dispatch } = this.props
         const { phone, smscode, password } = this.state
-        const e = await Fetch.fetch({
-            api: UserApi.bindPhone,
-            params: {
-                phone,
-                smscode,
-                password
-            }
-        })
-        if (e.code === 0) {
-            dispatch({
-                type: 'user/self'
-            })
-            navigation.goBack()
-        } else {
-            Toast.warn(e.errmsg);
+        const payload = {
+            phone,
+            smscode,
+            password
         }
+        dispatch({
+            type: 'user/bindPhone',
+            payload
+        })
     }
 }
 

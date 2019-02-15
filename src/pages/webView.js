@@ -34,16 +34,7 @@ export default class PublicWebView extends Component {
                             />
                         )
                     }}
-                    onNavigationStateChange={(navState) => {
-                        if (!navState.url.includes('react-js-navigation')) {
-                            this.state.url = navState.url
-                            if (navState.url.includes('favorit.ca/api/manage/oauth')) {
-                                this.setState({
-                                    isOnMessage: true
-                                })
-                            }
-                        }
-                    }}
+                    onNavigationStateChange={(navState) => {}}
                     startInLoadingState={true}
                     ref={e => this.webview = e }
                 />
