@@ -26,7 +26,7 @@ export default {
                 type: "_add",
                 payload: response
             });
-            Toast.info('成功收藏', 1)
+            Toast.info('收藏成功', 1)
             if (callback) callback(response);
         },
         * del({ payload, callback }, { call, put }) {

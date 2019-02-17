@@ -171,7 +171,7 @@ export default class GoodsDetail extends Component {
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <Text style={[PublicStyles.boldTitle,styles.price]}>￥{data.price}</Text>
-                        <NetworkImage style={styles.share} source={require('../../images/goodsDetail/share.png')} />
+                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
                     </View>
                 </View>
                 <View style={[styles.titleBot, PublicStyles.rowBetweenCenter]}>

@@ -63,7 +63,7 @@ export default {
                 })
                 if (callback) callback(response);
             }catch(err){
-                Toast.fail('登录失败')
+                Toast.fail('登录失败',1)
             }
         },
         * wechatLogin({ tokenData, userData }, { call, put }) {
@@ -78,7 +78,6 @@ export default {
                     user_token: response.result
                 })
             } catch (err) {
-                Toast.fail('登录失败')
                 yield put({
                     type: 'wechatRegister',
                     payload: { tokenData, userData }
@@ -99,7 +98,7 @@ export default {
                     userData
                 })
             } catch (err) {
-                Toast.fail('登录失败')
+                Toast.fail('登录失败',1)
             }
         },
         * userLoginSuccessAfter({ user_token }, { call, put }) {
@@ -135,10 +134,10 @@ export default {
                         payload: params
                     })
                 } else {
-                    Toast.warn(response.msg)
+                    Toast.warn(response.msg,1)
                 }
             } catch (err) {
-                Toast.fail('操作失败')
+                Toast.fail('操作失败',1)
             }
         },
         * logout({ payload, callback }, { call, put }) {
@@ -236,7 +235,7 @@ export default {
                 type: 'self',
                 callback: ()=>{
                     NavigationService.goBack()
-                    Toast.success('修改成功')
+                    Toast.success('修改成功',1)
                 }
             })
             if (callback) callback(response);
@@ -262,7 +261,7 @@ export default {
                 type: "_bindWechat",
                 payload: response
             });
-            Toast.info('绑定成功')
+            Toast.info('绑定成功',1)
             yield put({
                 type: 'self'
             })
@@ -274,7 +273,7 @@ export default {
                 type: "_unbindWechat",
                 payload: response
             });
-            Toast.info('解除关联成功')
+            Toast.info('解除关联成功',1)
             yield put({ type: 'self' })
             if (callback) callback(response);
         },
@@ -284,7 +283,7 @@ export default {
                 type: "_unbindPhone",
                 payload: response
             });
-            Toast.info('解除关联成功')
+            Toast.info('解除关联成功',1)
             yield put({ type: 'self' })
             if (callback) callback(response);
         },
