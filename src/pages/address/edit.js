@@ -38,21 +38,21 @@ export default class UserAddressEdit extends Component {
             type: "address/info",
             payload: {
                 id
+            },
+            callback: ({ result: { info } }) => {
+                const { truename, mobile_phone, type, area_id, address, is_default, combine_detail } = info
+                this.setState({
+                    id,
+                    truename,
+                    mobile_phone,
+                    type,
+                    area_id,
+                    address,
+                    is_default,
+                    combine_detail
+                })
             }
         })
-        if (addressInfo) {
-            const { truename, mobile_phone, type, area_id, address, is_default, combine_detail } = addressInfo
-            this.setState({
-                id,
-                truename,
-                mobile_phone,
-                type,
-                area_id,
-                address,
-                is_default,
-                combine_detail
-            })
-        }
     }
 
     onAreaChange({ value }) {
