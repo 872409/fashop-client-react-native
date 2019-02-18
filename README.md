@@ -1,5 +1,12 @@
 # FaShop
 长期维护版本，欢迎大家踊跃提交贡献代码；
+
+## 安装
+```bash
+npm install
+
+react-native run-ios
+```
 ## 参与开发
 更多项目请关注：[https://www.fashop.cn](https://www.fashop.cn)
 
