@@ -9,6 +9,7 @@ export default {
         },
         add: {},
         del: {},
+        state: {}
     },
 
     effects: {
@@ -37,6 +38,14 @@ export default {
             });
             if (callback) callback(response);
         },
+        * state({ payload, callback }, { call, put }) {
+            const response = yield call(goodsCollect.state, payload);
+            yield put({
+                type: "_state",
+                payload: response
+            });
+            if (callback) callback(response);
+        },
     },
     reducers: {
         _list(state, action) {
@@ -55,6 +64,12 @@ export default {
             return {
                 ...state,
                 del: action.payload
+            };
+        },
+        _state(state, action) {
+            return {
+                ...state,
+                state: action.payload
             };
         },
     }
