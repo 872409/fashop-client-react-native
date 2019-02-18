@@ -17,7 +17,8 @@ class TabBarItem extends Component {
                 style={[
                     {
                         width: 22,
-                        height: 22
+                        height: 22,
+                        alignSelf: 'center'
                     }
                 ]}
             />
