@@ -38,7 +38,7 @@ export default class Fetch {
                 if (e.code === 0) {
                     return e
                 }else {
-                    console.log(`接口：${api.url} 请求fail`)
+                    console.log(`接口：${api.url} 请求失败`)
                     throw new exceptionUtil(e.msg, e.code)
                 }
             })

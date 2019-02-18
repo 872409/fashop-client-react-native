@@ -56,8 +56,9 @@ import { NetworkImage } from "../../components/theme"
 // @stateHoc({
 //     detail: true,
 // })
-@connect(({ goods, user }) => ({
+@connect(({ goods, user, goodsCollect }) => ({
     data: goods.info.result.info,
+    is_collect: goodsCollect.state,   // goodsCollect/state这个接口不报错后，这块还需要改
     login: user.login
 }))
 export default class GoodsDetail extends Component {
@@ -69,12 +70,17 @@ export default class GoodsDetail extends Component {
     componentDidMount() {
         const {
             navigation,
+            dispatch
         } = this.props
         const { id } = navigation.state.params
-        this.props.dispatch({
+        dispatch({
             type: 'goods/info',
             payload: { id }
-        });
+        })
+        dispatch({
+            type: 'goodsCollect/state',
+            payload: { goods_id: id }
+        })
     }
 
     render() {
@@ -215,9 +221,10 @@ export default class GoodsDetail extends Component {
     }
 
     botView() {
-        const { screenProps, navigation, login } = this.props;
+        const { screenProps, navigation, login, is_collect } = this.props;
         const { cartNum } = screenProps;
         const leftText = [PublicStyles.descTwo9, { fontSize: 10, marginTop: 6 }]
+        const collectImg = is_collect ? require('../../images/goodsDetail/collected.png') : require('../../images/goodsDetail/collect.png')
         return (
             <SafeAreaView style={{ backgroundColor: '#fff' }}>
                 <View style={styles.bot}>
@@ -227,7 +234,7 @@ export default class GoodsDetail extends Component {
                             style={styles.botItem}
                             onPress={this.onCollect}
                         >
-                            <Image source={require('../../images/goodsDetail/collect.png')} />
+                            <Image source={collectImg} />
                             <Text style={leftText}>收藏</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -281,12 +288,13 @@ export default class GoodsDetail extends Component {
     }
 
     onCollect = async () => {
-        const { navigation, login, dispatch } = this.props;
+        const { navigation, login, dispatch, is_collect } = this.props;
         const { id } = navigation.state.params;
         if (login) {
             dispatch({
-                type: 'goodsCollect/add',
+                type: 'goodsCollect/changeState',
                 payload: {
+                    is_collect,
                     goods_id: id
                 }
             })

@@ -9,7 +9,9 @@ export default {
         },
         add: {},
         del: {},
-        state: {}
+        state: {
+            result: { is_collect: false }
+        }
     },
 
     effects: {
@@ -28,6 +30,10 @@ export default {
                 payload: response
             });
             Toast.info('收藏成功', 1)
+            yield put({
+                type: 'state',
+                payload: { id: payload.goods_id }
+            })
             if (callback) callback(response);
         },
         * del({ payload, callback }, { call, put }) {
@@ -36,7 +42,29 @@ export default {
                 type: "_del",
                 payload: response
             });
+            Toast.info('取消收藏成功', 1)
+            yield put({
+                type: 'state',
+                payload: { id: payload.goods_id }
+            })
             if (callback) callback(response);
+        },
+        * changeState({ payload: { is_collect, goods_id }, callback }, { call, put }) {
+            if(is_collect){
+                yield put({
+                    type: 'del',
+                    payload: {
+                        goods_id
+                    },
+                })
+            }else {
+                yield put({
+                    type: 'add',
+                    payload: {
+                        goods_id
+                    },
+                })
+            }
         },
         * state({ payload, callback }, { call, put }) {
             const response = yield call(goodsCollect.state, payload);
