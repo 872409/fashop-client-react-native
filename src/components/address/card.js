@@ -3,45 +3,37 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import PropTypes from "prop-types";
+import { PublicStyles } from '../../utils/style';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 
 export default class AddressCard extends Component {
     static propTypes = {
         name: PropTypes.string,
         phone: PropTypes.string,
         address: PropTypes.string,
-        checked: PropTypes.bool
+        checked: PropTypes.bool,
+        is_default: PropTypes.number,
     };
     static defaultProps = {
         name: null,
         phone: null,
         address: null,
         checked: false,
+        is_default: 0,
     };
 
-    onEdit(id) {
-        if (this.props.onEdit) {
-            this.props.onEdit(id);
-        }
-    }
-
-    onAddressChecked(id) {
-        if (this.props.onAddressChecked) {
-            this.props.onAddressChecked(id);
-        }
-    }
-
     render() {
-        const { id, name, phone, address } = this.props
+        const { id, name, phone, address, is_default, onEdit, onDel, onAddressChecked, onChangeDefault } = this.props
         return <View style={styles.addressCard}>
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.info}
-                onPress={() => {
-                    this.onAddressChecked(id)
-                }}>
+                onPress={() => onAddressChecked(id)}
+            >
                 <View style={styles.user}>
                     <View style={styles.namePhone}>
                         <Text style={styles.name}>{name}</Text>
@@ -50,21 +42,40 @@ export default class AddressCard extends Component {
                     <View style={styles.address}><Text>{address}</Text></View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.action} onPress={() => {
-                this.onEdit(id)
-            }}>
-                <Text style={styles.edit}>编辑</Text>
-            </TouchableOpacity>
+            <View style={PublicStyles.rowBetweenCenter}>
+                <TouchableOpacity 
+                    onPress={() => onChangeDefault(id)}
+                    style={[PublicStyles.rowCenter, {padding: 10}]}
+                >
+                    <AntDesignIcon name="checkcircle" size={16} color={is_default ? 'red' : '#ccc'} />
+                    <Text style={styles.actionText}>{is_default ? '默认地址' : '设为默认'}</Text>
+                </TouchableOpacity>
+                <View style={[PublicStyles.rowCenter,{paddingRight: 10}]}>
+                    <TouchableOpacity
+                        onPress={() => onEdit(id)}
+                        style={[PublicStyles.rowCenter,{marginRight: 10,paddingVertical: 10}]}
+                    >
+                        <Image style={styles.actionImg} source={require('../../images/edit.png')}></Image>
+                        <Text style={styles.actionText}>编辑</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => onDel(id)}
+                        style={[PublicStyles.rowCenter,{paddingVertical: 10}]}
+                    >
+                        <Image style={styles.actionImg} source={require('../../images/del.png')}></Image>
+                        <Text style={styles.actionText}>删除</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     }
 };
 const styles = StyleSheet.create({
     addressCard: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         backgroundColor: '#fff',
         borderBottomColor: '#f1f1f1',
         borderBottomWidth: 1,
+        marginBottom: 10
     },
     checked: {
         flexDirection: 'row',
@@ -102,15 +113,23 @@ const styles = StyleSheet.create({
         color: '#999999'
     },
     action: {
-        padding: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    actionRight: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    edit: {
+    actionImg: {
+        width: 20,
+        height: 20,
+    },
+    actionText: {
+        marginLeft: 5,
         fontSize: 14,
         lineHeight: 14,
-
-        color: '#ff4400'
+        color: '#999'
     }
 })

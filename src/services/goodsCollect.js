@@ -31,4 +31,14 @@ export default {
             }
         )
     },
+    async state(params = {}) {
+        return await fa.request(
+            {
+                url: `goodscollect/state`,
+                method: 'GET'
+            }, {
+                params
+            }
+        )
+    },
 }
