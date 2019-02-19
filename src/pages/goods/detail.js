@@ -58,7 +58,7 @@ import { NetworkImage } from "../../components/theme"
 // })
 @connect(({ goods, user, goodsCollect }) => ({
     data: goods.info.result.info,
-    is_collect: goodsCollect.state,   // goodsCollect/state这个接口不报错后，这块还需要改
+    is_collect: goodsCollect.state.result.state,
     login: user.login
 }))
 export default class GoodsDetail extends Component {
@@ -70,17 +70,20 @@ export default class GoodsDetail extends Component {
     componentDidMount() {
         const {
             navigation,
-            dispatch
+            dispatch,
+            login
         } = this.props
         const { id } = navigation.state.params
         dispatch({
             type: 'goods/info',
             payload: { id }
         })
-        dispatch({
-            type: 'goodsCollect/state',
-            payload: { goods_id: id }
-        })
+        if(login){
+            dispatch({
+                type: 'goodsCollect/state',
+                payload: { goods_id: id }
+            })
+        }
     }
 
     render() {

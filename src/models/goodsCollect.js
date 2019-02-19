@@ -10,7 +10,7 @@ export default {
         add: {},
         del: {},
         state: {
-            result: { is_collect: false }
+            result: { state: 0 }
         }
     },
 
@@ -32,7 +32,7 @@ export default {
             Toast.info('收藏成功', 1)
             yield put({
                 type: 'state',
-                payload: { id: payload.goods_id }
+                payload: { goods_id: payload.goods_id }
             })
             if (callback) callback(response);
         },
@@ -45,7 +45,7 @@ export default {
             Toast.info('取消收藏成功', 1)
             yield put({
                 type: 'state',
-                payload: { id: payload.goods_id }
+                payload: { goods_id: payload.goods_id }
             })
             if (callback) callback(response);
         },
@@ -67,12 +67,16 @@ export default {
             }
         },
         * state({ payload, callback }, { call, put }) {
-            const response = yield call(goodsCollect.state, payload);
-            yield put({
-                type: "_state",
-                payload: response
-            });
-            if (callback) callback(response);
+            try{
+                const response = yield call(goodsCollect.state, payload);
+                yield put({
+                    type: "_state",
+                    payload: response
+                });
+                if (callback) callback(response);
+            }catch(err) {
+                console.log(err);
+            }
         },
     },
     reducers: {
