@@ -478,6 +478,7 @@ const styles = StyleSheet.create({
     footerTotalPrice: {
         fontSize: 14,
         color: ThemeStyle.ThemeColor,
-        fontWeight: '800'
+        fontWeight: '800',
+        fontFamily: 'PingFangSC-Medium',
     },
 })

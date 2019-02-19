@@ -49,9 +49,10 @@ export default class CartOrderFill extends Component {
                             addressId > 0 ?
                             <View style={styles.address}>
                                 <View style={styles.selected}>
-                                    <Item arrow={'horizontal'} onClick={() => {
-                                        this.goAddressList()
-                                    }}>
+                                    <Item 
+                                        arrow='horizontal'
+                                        onClick={this.goAddressList}
+                                    >
                                         <View style={{ paddingVertical: 10 }}>
                                             <View style={styles.selectedNamePhone}>
                                                 <Text style={styles.selectedUserName}>{address.truename}</Text>
@@ -61,8 +62,10 @@ export default class CartOrderFill extends Component {
                                         </View>
                                     </Item>
                                 </View>
-                                <Image source={require('../../images/cart/address-footer-line.png')}
-                                       style={styles.addressFooterLine} />
+                                <Image 
+                                    source={require('../../images/cart/address-footer-line.png')}
+                                    style={styles.addressFooterLine} 
+                                />
                             </View> : <TouchableOpacity 
                                 style={styles.address} 
                                 activeOpacity={.8}
@@ -90,15 +93,17 @@ export default class CartOrderFill extends Component {
                                         key={index}
                                     >
                                         <View style={styles.oneItem}>
-                                            <View>
-                                                <NetworkImage style={styles.oneItemImage}
-                                                       source={{ uri: item.goods_sku_img }} />
-                                            </View>
+                                            <NetworkImage 
+                                                style={styles.oneItemImage}
+                                                source={{ uri: item.goods_sku_img }} 
+                                            />
                                             <View style={styles.oneItemBody}>
                                                 <Text style={styles.oneItemBodyTitle}>{item.goods_title}</Text>
                                                 <View style={styles.oneItemBodySpec}>
                                                     <Text
-                                                        style={styles.oneItemBodySpecText}>{item.goods_pay_type === 2 ? (item.goods_weight > 0 ? '重量:' + item.goods_weight +
+                                                        style={styles.oneItemBodySpecText}
+                                                    >
+                                                    {item.goods_pay_type === 2 ? (item.goods_weight > 0 ? '重量:' + item.goods_weight +
                                                         'kg' : '不计重量') : ''}{item.goods_spec_string ? item.goods_spec_string : ''}
                                                     </Text>
                                                     <Text style={styles.oneItemBodySpecText}>x{item.goods_num}</Text>
@@ -202,7 +207,7 @@ export default class CartOrderFill extends Component {
         this.props.navigation.navigate('AddressAdd')
     }
 
-    goAddressList() {
+    goAddressList = () => {
         this.props.navigation.navigate('AddressList', { onAddressChange: this.onAddressChange })
     }
 
@@ -421,10 +426,10 @@ const styles = StyleSheet.create({
     },
     footerLeftText: {
         fontSize: 18,
-        lineHeight: 18,
         fontWeight: '800',
         color: '#FF635C',
         marginRight: 15,
+        fontFamily: 'PingFangSC-Medium',
     },
     freightPrice: {
         color: '#FF635C',
@@ -442,7 +447,8 @@ const styles = StyleSheet.create({
     totalPrice: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#FF635C'
+        color: '#FF635C',
+        fontFamily: 'PingFangSC-Medium',
     },
     oneItem: {
         paddingVertical: 10,
@@ -468,8 +474,8 @@ const styles = StyleSheet.create({
     oneItemBodyPrice: {
         fontSize: 12,
         color: '#333',
-        lineHeight: 12,
         fontWeight: '800',
+        fontFamily: 'PingFangSC-Medium',
     },
     oneItemBodySpec: {
         flexDirection: 'row',

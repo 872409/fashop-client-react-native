@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     number: {
         fontSize: 14,
         color: "#333333",
-
     },
     priceDesc: {
         fontSize: 14,
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#333333",
         fontWeight: "800",
-
+        fontFamily: 'PingFangSC-Medium',
     },
     footer: {
         borderTopWidth: 1,
