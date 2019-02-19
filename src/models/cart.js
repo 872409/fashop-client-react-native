@@ -1,4 +1,5 @@
 import cart from "../services/cart";
+import { Toast } from "antd-mobile-rn";
 
 export default {
     namespace: "cart",
@@ -85,13 +86,17 @@ export default {
         },
         * add({ payload, callback }, { call, put }) {
             const response = yield call(cart.add, payload);
-            yield put({
-                type: "_add",
-                payload: response
-            });
-            yield put({
-                type: 'totalNum'
-            })
+            if(response){
+                yield put({
+                    type: "_add",
+                    payload: response
+                });
+                yield put({
+                    type: 'totalNum'
+                })
+            }else{
+                Toast.info('商品库存不足',1)
+            }
             if (callback) callback(response);
         },
         * edit({ payload, callback }, { call, put }) {

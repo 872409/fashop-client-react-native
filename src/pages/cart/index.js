@@ -85,6 +85,7 @@ export default class CartIndex extends Component {
                                     cover={item.goods_sku_img}
                                     checked={item.is_check === 1}
                                     number={item.goods_num}
+                                    goodsStock={item.goods_stock}
                                     onStepperChange={(value) => {
                                         this.onStepperChange(item.goods_sku_id, value)
                                     }}

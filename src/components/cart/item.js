@@ -58,7 +58,7 @@ export default class CartItem extends Component {
 
     render() {
         const checked = this.state.checked;
-        const { title, price, spec, number, cover } = this.props
+        const { title, price, spec, number, cover, goodsStock } = this.props
         return <View style={styles.cartCardItem}>
             <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
             <View style={styles.cartCard}>
@@ -76,7 +76,7 @@ export default class CartItem extends Component {
                             <Stepper
                                 size="small"
                                 key="1"
-                                max={99}
+                                max={goodsStock ? Number(goodsStock) : 99}
                                 min={1}
                                 readOnly={false}
                                 defaultValue={1}
