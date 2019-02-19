@@ -34,7 +34,7 @@ export default class Fetch {
             params,
         })
             .then((e) => {
-                // console.log(api, params, e, config.getHeaders())
+                // console.log(api, params, e)
                 if (e.code === 0) {
                     return e
                 }else {

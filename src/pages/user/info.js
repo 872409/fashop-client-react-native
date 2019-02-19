@@ -73,14 +73,11 @@ export default class UserInfo extends Component {
                                     (e) => {
                                         if (e.code === 0) {
                                             this.setState({
-                                                avatar: e.data.url
+                                                avatar: e.result.origin.path
                                             })
                                         } else {
                                             Toast.warn('上传图片异常')
                                         }
-                                    },
-                                    {
-                                        type: 'user_avatar'
                                     }
                                 )
                             }}
