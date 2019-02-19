@@ -24,7 +24,6 @@ import {
 import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
 import Badge from "@react-native-component/react-native-smart-badge";
-import { NetworkImage } from "../../components/theme"
 // import WebHtmlView from "../../components/public/webHtmlView";
 
 // const htmlContent = `
@@ -34,28 +33,6 @@ import { NetworkImage } from "../../components/theme"
 //     </div>
 // `
 
-// @connect(({
-//     view: {
-//         category: {
-//             goodsDetailData,
-//             goodsDetailFetchStatus,
-//         }
-//     },
-//     app: {
-//         user: {
-//             login,
-//             userInfo
-//         }
-//     }
-// }) => ({
-//     data: goodsDetailData,
-//     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
-//     login,
-//     userInfo
-// }))
-// @stateHoc({
-//     detail: true,
-// })
 @connect(({ goods, user, goodsCollect }) => ({
     data: goods.info.result.info,
     is_collect: goodsCollect.state.result.state,

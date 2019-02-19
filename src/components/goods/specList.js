@@ -185,7 +185,6 @@ export default class GoodsSpecList extends Component{
             payload,
             callback: () => closeModal()
         })
-        
     }
     buyNow = async () => {
         const { current_sku, quantity } = this.state
