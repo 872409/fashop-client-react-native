@@ -242,7 +242,7 @@ export default class CartOrderFill extends Component {
                     this.setState({
                         addressId: info.id,
                         address: info
-                    })
+                    },()=>this.initCalculate())
                 }
             })
         } else {
@@ -252,7 +252,7 @@ export default class CartOrderFill extends Component {
                     this.setState({
                         addressId: info.id,
                         address: info
-                    })
+                    },()=>this.initCalculate())
                 }
             })
         }
@@ -276,9 +276,6 @@ export default class CartOrderFill extends Component {
             const cartListState = await this.initCartList()
             if (cartListState === true) {
                 await this.initAddress()
-                if (this.state.addressId) {
-                    await this.initCalculate()
-                }
             } else {
                 fa.toast.show({
                     title: '支付商品状态已变，请重新选择'
