@@ -21,6 +21,17 @@ const Item = List.Item
     orderNum: order.stateNum.result,
 }))
 export default class User extends Component {
+    componentDidMount() {
+        const { navigation, dispatch, login } = this.props
+        navigation.addListener(
+            'didFocus',
+            async () => {
+                if (login) {
+                    dispatch({ type: 'order/stateNum' });
+                }
+            }
+        );
+    }
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
