@@ -47,8 +47,9 @@ export default class OrderList extends Component {
 
     }
 
-    onEvaluate(orderInfo) {
-        this.props.navigation.navigate('OrderDetail', { order_id: orderInfo.id })
+    onEvaluate() {
+        const { navigation } = this.props
+        navigation.navigate('EvaluateList')
     }
 
     async onReceive(orderInfo) {

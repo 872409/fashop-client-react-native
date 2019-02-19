@@ -93,10 +93,8 @@ export default class OrderDetail extends Component {
     }
 
     onEvaluate = () => {
-        const { orderInfo } = this.props
-        this.props.navigation.navigate('EvaluateList', {
-            order_id: orderInfo.id,
-        })
+        const { navigation } = this.props
+        navigation.navigate('EvaluateList')
     }
     
     onLogistics = () => {
@@ -171,7 +169,7 @@ export default class OrderDetail extends Component {
                 <OrderAddress
                     name={orderInfo.extend_order_extend.reciver_name}
                     phone={orderInfo.extend_order_extend.receiver_phone}
-                    address={orderInfo.extend_order_extend.reciver_name}
+                    address={`${orderInfo.extend_order_extend.reciver_info.combine_detail} ${orderInfo.extend_order_extend.reciver_info.address}`}
                 />
                 <WhiteSpace size="sm" />
 

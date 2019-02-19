@@ -45,7 +45,7 @@ export default class OrderFooterAction extends Component {
                     {showCancelBtn === true ? <OrderButton text="取消订单" onClick={onCancel} /> : null}
                     {showPayBtn === true ? <OrderButton text="去支付" type="danger" onClick={onPay} /> : null}
                     {showReceiveBtn === true ? <OrderButton text="确认收货" type="danger" onClick={onReceive} /> : null}
-                    {showEvaluateBtn === true ? <OrderButton text="评价" onClick={onEvaluate} /> : null}
+                    {showEvaluateBtn === true ? <OrderButton text="去评价" onClick={onEvaluate} /> : null}
                     {showLogisticsBtn === true ? <OrderButton text="查看物流" onClick={onLogistics} /> : null}
                 </View>
             </View>

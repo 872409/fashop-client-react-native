@@ -59,7 +59,17 @@ export default class OrderCardFooter extends Component {
                             onClick={onCancel}
                             style={styles.btn}
                         >
-                            取消
+                            取消订单
+                        </Button> : null
+                    }
+                    {
+                        showLogisticsBtn === true ?
+                        <Button
+                            size="small"
+                            onClick={onLogistics}
+                            style={styles.btn}
+                        >
+                            查看物流
                         </Button> : null
                     }
                     {
@@ -93,17 +103,6 @@ export default class OrderCardFooter extends Component {
                             style={styles.btn}
                         >
                             确认收货
-                        </Button> : null
-                    }
-                    {
-                        showLogisticsBtn === true ?
-                        <Button
-                            type="ghost"
-                            size="small"
-                            onClick={onLogistics}
-                            style={styles.btn}
-                        >
-                            查看物流
                         </Button> : null
                     }
                 </View> : null
