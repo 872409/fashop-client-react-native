@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
 import PropTypes from "prop-types";
+import { ThemeStyle } from '../../utils/style';
 
 export default class OrderCostList extends Component {
     static propTypes = {
@@ -76,6 +77,6 @@ const styles = StyleSheet.create({
     footerText: {
         fontSize: 14,
         fontWeight: "800",
-        color: "#ff4400"
+        color: ThemeStyle.ThemeColor
     }
 })

@@ -3,9 +3,9 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
+import { Button } from 'antd-mobile-rn';
 
 export default class OrderCardFooter extends Component {
     static propTypes = {
@@ -27,42 +27,6 @@ export default class OrderCardFooter extends Component {
         showCancelBtn: false,
     };
 
-    onClick() {
-        if (this.props.onClick) {
-            this.props.onClick();
-        }
-    }
-
-    onCancel() {
-        if (this.props.onCancel) {
-            this.props.onCancel();
-        }
-    }
-
-    onReceive() {
-        if (this.props.onReceive) {
-            this.props.onReceive();
-        }
-    }
-
-    onPay() {
-        if (this.props.onPay) {
-            this.props.onPay();
-        }
-    }
-
-    onEvaluate() {
-        if (this.props.onEvaluate) {
-            this.props.onEvaluate();
-        }
-    }
-    
-    onLogistics() {
-        if (this.props.onLogistics) {
-            this.props.onLogistics();
-        }
-    }
-
     render() {
         const {
             goodsNumber,
@@ -71,7 +35,12 @@ export default class OrderCardFooter extends Component {
             showPayBtn,
             showReceiveBtn,
             showCancelBtn,
-            showLogisticsBtn
+            showLogisticsBtn,
+            onCancel,
+            onPay,
+            onEvaluate,
+            onReceive,
+            onLogistics,
         } = this.props
 
         return <View style={styles.orderCardFooter}>
@@ -80,29 +49,65 @@ export default class OrderCardFooter extends Component {
                 <Text style={styles.priceDesc}>实付款：</Text>
                 <Text style={styles.price}>¥{totalCost}</Text>
             </View>
-            {showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn || showLogisticsBtn ?
+            {
+                showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn || showLogisticsBtn ?
                 <View style={styles.footer}>
-                    {showCancelBtn === true ?
-                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
-                            this.onCancel()
-                        }}><Text style={{color:"#ff4400"}}>取消</Text></TouchableOpacity> : null}
-                    {showEvaluateBtn === true ?
-                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
-                            this.onEvaluate()
-                        }}><Text style={{color:"#ff4400"}}>评价</Text></TouchableOpacity> : null}
-                    {showPayBtn === true ?
-                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
-                            this.onPay()
-                        }}><Text style={{color:"#ff4400"}}>去支付</Text></TouchableOpacity> : null}
-                    {showReceiveBtn === true ?
-                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
-                            this.onReceive()
-                        }}><Text style={{color:"#ff4400"}}>确认收货</Text></TouchableOpacity> : null}
-                    {showLogisticsBtn === true ?
-                        <TouchableOpacity style={[styles.btn, styles.btnDanger]} onPress={()=>{
-                            this.onLogistics()
-                        }}><Text style={{color:"#ff4400"}}>查看物流</Text></TouchableOpacity> : null}
-                </View> : null}
+                    {
+                        showCancelBtn === true ?
+                        <Button
+                            size="small"
+                            onClick={onCancel}
+                            style={styles.btn}
+                        >
+                            取消
+                        </Button> : null
+                    }
+                    {
+                        showEvaluateBtn === true ?
+                        <Button
+                            type="ghost"
+                            size="small"
+                            onClick={onEvaluate}
+                            style={styles.btn}
+                        >
+                            去评价
+                        </Button> : null
+                    }
+                    {
+                        showPayBtn === true ?
+                        <Button
+                            type="ghost"
+                            size="small"
+                            onClick={onPay}
+                            style={styles.btn}
+                        >
+                            去支付
+                        </Button> : null
+                    }
+                    {
+                        showReceiveBtn === true ?
+                        <Button
+                            type="ghost"
+                            size="small"
+                            onClick={onReceive}
+                            style={styles.btn}
+                        >
+                            确认收货
+                        </Button> : null
+                    }
+                    {
+                        showLogisticsBtn === true ?
+                        <Button
+                            type="ghost"
+                            size="small"
+                            onClick={onLogistics}
+                            style={styles.btn}
+                        >
+                            查看物流
+                        </Button> : null
+                    }
+                </View> : null
+            }
         </View>
     }
 }
@@ -147,20 +152,8 @@ const styles = StyleSheet.create({
 
     },
     btn: {
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#cccccc",
-        textAlign: "center",
-        fontSize: 14,
-        borderRadius: 100,
-        paddingVertical: 5,
-        paddingHorizontal: 15,
+        paddingLeft: 18, 
+        paddingRight: 18,
         marginLeft: 10
-    },
-    btnDanger: {
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#ff4400",
-        color: "#ff4400"
     }
 })

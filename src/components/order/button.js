@@ -5,6 +5,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
+import { ThemeStyle, PublicStyles } from '../../utils/style';
 
 export default class OrderButton extends Component {
     static propTypes = {
@@ -20,34 +21,27 @@ export default class OrderButton extends Component {
         active: false,
     }
 
-    onClick(e) {
-        if (this.props.onClick) {
-            this.props.onClick();
-        }
-    }
-
     render() {
-        const { size, text, type, active } = this.props
-        return <TouchableOpacity style={[styles.orderButton]} onPress={()=>{                 this.onClick()             }}><Text>{text}</Text></TouchableOpacity>
+        const { size, text, type, active, onClick } = this.props
+        return <TouchableOpacity style={[PublicStyles.rowCenter,styles.orderButton]} onPress={onClick}><Text>{text}</Text></TouchableOpacity>
     }
 }
 const styles = StyleSheet.create({
     orderButton: {
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#cccccc",
-        textAlign: "center",
+        borderColor: "#eaeaea",
         fontSize: 14,
         borderRadius: 3,
-        paddingVertical: 5,
-        paddingHorizontal: 15,
+        height: 30,
+        paddingHorizontal: 18,
         marginLeft: 10,
     },
     active: {
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: '#ff4400',
-        color: "#ff4400"
+        borderColor: ThemeStyle.ThemeColor,
+        color: ThemeStyle.ThemeColor
     },
     small: {
         paddingVertical: 2,
@@ -55,10 +49,10 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     danger: {
-        backgroundColor: "#ff4400",
+        backgroundColor: ThemeStyle.ThemeColor,
         color: "#ffffff",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#ff4400",
+        borderColor: ThemeStyle.ThemeColor,
     }
 })

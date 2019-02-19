@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text
 } from 'react-native';
-import fa from '../../utils/fa'
 import { Modal } from "antd-mobile-rn";
 import { PublicStyles, ThemeStyle, windowWidth } from '../../utils/style';
 import { OrderCard, OrderCardHeader, OrderCardGoods, OrderCardFooter } from '../../components'
 import FlatList from "../../components/flatList";
 import { OrderApi } from "../../config/api/order";
-import { DefaultTabBar } from "react-native-scrollable-tab-view";
-import ScrollableTabView from "react-native-scrollable-tab-view";
+import ScrollableTabView, { DefaultTabBar } from "react-native-scrollable-tab-view";
 import { connect } from 'react-redux';
 
 @connect()
@@ -20,14 +17,12 @@ export default class OrderList extends Component {
         state_type: null,
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         const { navigation } = this.props
-        const { state_type } = navigation.state.params
-        if (state_type) {
-            this.setState({
-                state_type
-            })
-        }
+        const { state_type } = navigation.state.params || {}
+        this.setState({
+            state_type
+        })
     }
 
     goDetail(id) {

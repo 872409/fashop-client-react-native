@@ -150,17 +150,16 @@ export default class CartIndex extends Component {
                             <Text style={styles.footerTotalPrice}>¥{total}</Text>
                         </View>
                     </View>
-                    <View style={styles.footerRight}>
-                        <Button
-                            style={{ borderRadius: 0 }}
-                            type={'warning'}
-                            size={'large'}
-                            activeStyle={false}
-                            onClick={() => {
-                                this.goOrderFill()
-                            }}><Text>去结算({totalNum}件)</Text>
-                        </Button>
-                    </View>
+                    <Button
+                        style={{ borderRadius: 0, height: 50, width: 120 }}
+                        type='primary'
+                        activeStyle={false}
+                        onClick={() => {
+                            this.goOrderFill()
+                        }}
+                    >
+                        <Text>去结算({totalNum}件)</Text>
+                    </Button>
                 </View> : null
             }
         </View>
@@ -446,7 +445,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: 48,
+        height: 50,
         backgroundColor: '#FFF'
     },
     footerLeft: {

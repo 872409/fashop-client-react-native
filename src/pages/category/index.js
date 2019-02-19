@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     // pagethree
     btnWarp: { 
         backgroundColor: '#fff', 
-        height: 48,
+        height: 50,
         paddingHorizontal: 10,
         flexDirection: 'row',
         overflow: 'scroll',

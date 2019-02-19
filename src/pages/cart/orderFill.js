@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
-import { PublicStyles, windowWidth } from '../../utils/style';
+import { PublicStyles, windowWidth, ThemeStyle } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
 import { connect } from "react-redux";
@@ -153,19 +153,16 @@ export default class CartOrderFill extends Component {
                             <Text style={styles.footerLeftLabel}>实付：</Text>
                             <Text style={styles.footerLeftText}>¥{calculate ? calculate.pay_amount : total}</Text>
                         </View>
-                        <View>
-                            <Button
-                                size={'large'}
-                                type={'warning'}
-                                onClick={() => {
-                                    this.onCreateOrder()
-                                }}
-                                disabled={!calculate}
-                                style={{ borderRadius: 0 }}
-                            >
-                                提交订单
-                            </Button>
-                        </View>
+                        <Button
+                            style={{ borderRadius: 0, height: 50, width: 120 }}
+                            type='primary'
+                            onClick={() => {
+                                this.onCreateOrder()
+                            }}
+                            disabled={!calculate}
+                        >
+                            提交订单
+                        </Button>
                     </View>
                 </SafeAreaView>
             </View>
@@ -368,7 +365,7 @@ const styles = StyleSheet.create({
     unSelectText: {
         fontSize: 14,
         lineHeight: 14,
-        color: '#ff4400',
+        color: ThemeStyle.ThemeColor,
         marginBottom: 15,
     },
     selected: {},
@@ -402,7 +399,7 @@ const styles = StyleSheet.create({
     goodsListImage: {
         marginRight: 5,
         width: 48,
-        height: 48,
+        height: 50,
     },
     message: {
         backgroundColor: '#ffffff',
@@ -410,6 +407,7 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     footer: {
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         backgroundColor: '#FFFFFF'

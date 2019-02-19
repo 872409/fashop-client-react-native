@@ -1,6 +1,7 @@
 import {
     StyleSheet,
     View,
+    ScrollView
 } from 'react-native';
 import React, { Component } from 'react';
 import { Modal, WhiteSpace, Toast } from "antd-mobile-rn";
@@ -13,6 +14,7 @@ import {
     OrderFooterAction
 } from '../../components'
 import { connect } from 'react-redux';
+import { PublicStyles } from '../../utils/style';
 
 @connect(({ order })=>({
     orderInfo: order.info.result.info,
@@ -20,7 +22,7 @@ import { connect } from 'react-redux';
 }))
 export default class OrderDetail extends Component {
 
-    onRefund(goodsInfo) {
+    onRefund = (goodsInfo) => {
         const { orderInfo } = this.props
         // 根据类型跳转到是退款还是退款退货  订单状态：0(已取消)10(默认):未付款;20:已付款;30:已发货;40:已收货;    多少天后不可退的业务逻辑
         if (orderInfo.state === 20) {
@@ -38,7 +40,7 @@ export default class OrderDetail extends Component {
         }
     }
 
-    onRefundDetail(goodsInfo) {
+    onRefundDetail = (goodsInfo) => {
         this.props.navigation.navigate('RefundDetail', {
             id: goodsInfo.refund_id,
         })
@@ -63,17 +65,17 @@ export default class OrderDetail extends Component {
         })
     }
 
-    onGoodsDetail(goodsInfo) {
+    onGoodsDetail = (goodsInfo) => {
         this.props.navigation.navigate('GoodsDetail', {
             id: goodsInfo.goods_id,
         })
     }
 
-    async onCancel() {
+    onCancel = () => {
         Modal.alert('您确认取消吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: async () => {
+                text: '确认', onPress: () => {
                     const { orderInfo: { id }, dispatch } = this.props
                     dispatch({
                         type: 'order/cancel',
@@ -90,14 +92,14 @@ export default class OrderDetail extends Component {
         ])
     }
 
-    onEvaluate() {
+    onEvaluate = () => {
         const { orderInfo } = this.props
         this.props.navigation.navigate('EvaluateList', {
             order_id: orderInfo.id,
         })
     }
     
-    async onLogistics() {
+    onLogistics = () => {
         const { orderInfo: { id }, dispatch, navigation } = this.props
         dispatch({
             type: 'order/logistics',
@@ -117,11 +119,11 @@ export default class OrderDetail extends Component {
         })
     }
 
-    async onReceive() {
+    onReceive = () => {
         Modal.alert('您确认收货吗？状态修改后不能变更', null, [
             { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
             {
-                text: '确认', onPress: async () => {
+                text: '确认', onPress: () => {
                     const { orderInfo: { id }, dispatch } = this.props
                     dispatch({
                         type: 'order/logistics',
@@ -138,7 +140,7 @@ export default class OrderDetail extends Component {
         ])
     }
 
-    async onPay() {
+    onPay = () => {
         const { orderInfo } = this.props;
         this.props.navigation.navigate('Pay', {
             orderInfo,
@@ -158,86 +160,65 @@ export default class OrderDetail extends Component {
 
     render() {
         const { orderInfo } = this.props
-        return orderInfo ? <View>
-            <View style={styles.main}>
-                <View style={styles.item}>
-                    <OrderStateCard
-                        orderState={orderInfo.state}
-                        expireSeconds={1000}
-                        cost={orderInfo.amount}
-                    />
+        return orderInfo ? <View style={PublicStyles.ViewMax}>
+            <ScrollView>
+                <OrderStateCard
+                    orderState={orderInfo.state}
+                    expireSeconds={1000}
+                    cost={orderInfo.amount}
+                />
 
-                    <OrderAddress
-                        name={orderInfo.extend_order_extend.reciver_name}
-                        phone={orderInfo.extend_order_extend.receiver_phone}
-                        address={orderInfo.extend_order_extend.reciver_name}
-                    />
-                    <WhiteSpace size="sm" />
-                </View>
+                <OrderAddress
+                    name={orderInfo.extend_order_extend.reciver_name}
+                    phone={orderInfo.extend_order_extend.receiver_phone}
+                    address={orderInfo.extend_order_extend.reciver_name}
+                />
+                <WhiteSpace size="sm" />
 
-                <View style={styles.item}>
-                    <OrderGoodsList
-                        orderInfo={orderInfo}
-                        goodsList={orderInfo.extend_order_goods}
-                        onGoodsDetail={({ goodsInfo }) => {
-                            this.onGoodsDetail(goodsInfo)
-                        }}
-                        onRefund={({ goodsInfo }) => {
-                            this.onRefund(goodsInfo)
-                        }}
-                        onRefundDetail={({ goodsInfo }) => {
-                            this.onRefundDetail(goodsInfo)
-                        }}
-                    />
-                    <WhiteSpace size="sm" />
-                </View>
-                <View style={styles.item}>
-                    <OrderBaseInfo
-                        orderInfo={orderInfo}
-                        orderNumber={orderInfo.sn}
-                        createTime={orderInfo.create_time}
-                        payment="微信支付"
-                        payTime={orderInfo.payment_time}
-                    />
-                    <WhiteSpace size="sm" />
-                </View>
-                <View style={styles.item}>
-                    <OrderCostList
-                        goodsTotal={orderInfo.goods_amount}
-                        freight={orderInfo.freight_fee}
-                        totalCost={orderInfo.amount} />
-                    <OrderFooterAction
-                        orderInfo={orderInfo}
-                        orderState={orderInfo.state}
-                        showDelBtn={false}
-                        showEvaluateBtn={orderInfo.if_evaluate}
-                        showPayBtn={orderInfo.if_pay}
-                        showLogisticsBtn={orderInfo.state === 30 || orderInfo.state === 40}
-                        showReceiveBtn={orderInfo.if_receive}
-                        onPay={() => {
-                            this.onPay()
-                        }}
-                        onReceive={() => {
-                            this.onReceive()
-                        }}
-                        onCancel={() => {
-                            this.onCancel()
-                        }}
-                        onEvaluate={() => {
-                            this.onEvaluate()
-                        }}
-                        onLogistics={() => {
-                            this.onLogistics()
-                        }}
-                    />
-                </View>
-            </View>
+                <OrderGoodsList
+                    orderInfo={orderInfo}
+                    goodsList={orderInfo.extend_order_goods}
+                    onGoodsDetail={({ goodsInfo }) => {
+                        this.onGoodsDetail(goodsInfo)
+                    }}
+                    onRefund={({ goodsInfo }) => {
+                        this.onRefund(goodsInfo)
+                    }}
+                    onRefundDetail={({ goodsInfo }) => {
+                        this.onRefundDetail(goodsInfo)
+                    }}
+                />
+                <WhiteSpace size="sm" />
+                <OrderBaseInfo
+                    orderInfo={orderInfo}
+                    orderNumber={orderInfo.sn}
+                    createTime={orderInfo.create_time}
+                    payment="微信支付"
+                    payTime={orderInfo.payment_time}
+                />
+                <WhiteSpace size="sm" />
+                <OrderCostList
+                    goodsTotal={orderInfo.goods_amount}
+                    freight={orderInfo.freight_fee}
+                    totalCost={orderInfo.amount} 
+                />
+            </ScrollView>
+            <OrderFooterAction
+                orderInfo={orderInfo}
+                orderState={orderInfo.state}
+                showDelBtn={false}
+                showEvaluateBtn={orderInfo.if_evaluate}
+                showPayBtn={orderInfo.if_pay}
+                showLogisticsBtn={orderInfo.state === 30 || orderInfo.state === 40}
+                showReceiveBtn={orderInfo.if_receive}
+                onPay={this.pay}
+                onReceive={this.onReceive}
+                onCancel={this.onCancel}
+                onEvaluate={this.onEvaluate}
+                onLogistics={this.onLogistics}
+            />
         </View> : null
     }
 }
 const styles = StyleSheet.create({
-    main: {
-        backgroundColor: '#f8f8f8',
-    },
-    item: {}
 })
