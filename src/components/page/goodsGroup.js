@@ -197,7 +197,7 @@ export default class PageGoodsGroup extends Component {
                                                         </ImageBackground>
                                                         <View style={styles.carouselGroupBot}>
                                                             <Text style={[PublicStyles.descTwo9,{ color: ThemeStyle.ThemeColor, paddingVertical: 4 }]}>
-                                                                ￥ <Text style={{fontSize: 16, fontWeight: '500'}}>{childItem.group_price}</Text>
+                                                                ￥ <Text style={{ fontSize: 16, fontWeight: '500', fontFamily: 'PingFangSC-Medium'}}>{childItem.group_price}</Text>
                                                             </Text>
                                                             <Text  numberOfLines={1}>{childItem.title}</Text>
                                                         </View>
@@ -259,6 +259,8 @@ const styles = StyleSheet.create({
     },
     listPriceText: {
         color: ThemeStyle.ThemeColor,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 
     // big
@@ -302,6 +304,8 @@ const styles = StyleSheet.create({
     smallPriceText: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 
     // carousel

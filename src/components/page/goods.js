@@ -156,6 +156,8 @@ const styles = StyleSheet.create({
     },
     listPriceText: {
         color: ThemeStyle.ThemeColor,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 
     // big
@@ -184,6 +186,8 @@ const styles = StyleSheet.create({
     bigPriceText: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 
     // small
@@ -211,5 +215,7 @@ const styles = StyleSheet.create({
     smallPriceText: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 });
