@@ -145,8 +145,7 @@ export default class CartIndex extends Component {
                             />
                             <Text style={styles.footerAllActionText}>全选</Text>
                         </View>
-                        <View
-                            style={styles.footerTotal}>
+                        <View style={styles.footerTotal}>
                             <Text style={styles.footerTotalText}>合计：</Text>
                             <Text style={styles.footerTotalPrice}>¥{total}</Text>
                         </View>
@@ -450,10 +449,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
     footerLeft: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 15,
+        paddingLeft: 15,
+        height: 50,
+        borderTopWidth: 0.5,
+        borderTopColor: '#eaeaea',
     },
     footerAllAction: {
         flexDirection: 'row',
@@ -470,15 +473,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginRight: 10
     },
     footerTotalText: {
-        fontSize: 12,
+        fontSize: 14,
         color: '#999',
     },
     footerTotalPrice: {
-        fontSize: 14,
+        fontSize: 18,
         color: ThemeStyle.ThemeColor,
-        fontWeight: '800',
+        fontWeight: '500',
         fontFamily: 'PingFangSC-Medium',
     },
 })

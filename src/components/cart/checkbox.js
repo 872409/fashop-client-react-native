@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet,  Image, TouchableWithoutFeedback } from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import { ThemeStyle } from '../../utils/style';
 
 export default class CartCheckbox extends Component {
     constructor(props, context) {
@@ -35,10 +37,13 @@ export default class CartCheckbox extends Component {
 
     render() {
         const checked = this.state.checked;
-        let imgSrc;
-        imgSrc = checked ? require('../../images/cart/checked.png') : require('../../images/cart/check.png');
         return <TouchableWithoutFeedback onPress={this.onClick}>
-            <Image style={[styles.cartCardCheck,this.props.style]} source={imgSrc}  />
+            <MaterialIcon
+                name={checked ? 'check-box' : 'check-box-outline-blank'}
+                color={checked ? ThemeStyle.ThemeColor : '#EAEAEA'}
+                size={18}
+                style={this.props.style}
+            />
         </TouchableWithoutFeedback>
     }
 }
