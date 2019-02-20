@@ -3,7 +3,9 @@ import {
     createStackNavigator,
     createSwitchNavigator
 } from "react-navigation";
+import { View } from "react-native";
 import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import Ionicon from 'react-native-vector-icons/Ionicons'
 
 import Ad from "../pages/ad";
 
@@ -48,6 +50,7 @@ import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
 
 import CollectGoods from "../pages/collect/goods"
+import { Icon } from "antd-mobile-rn";
 
 const modalStyleStackNames = [
     'UserLogin',
@@ -68,16 +71,20 @@ function getCurrentRouteName(navigationState) {
 
 const indexNavigationOptions = ({ navigation, screenProps }) => ({
     'Home': {
-        title: screenProps.homeTitle
+        title: screenProps.homeTitle,
+        headerRight: null
     },
     'Category': {
-        title: '分类'
+        title: '分类',
+        headerRight: null
     },
     'Cart': {
         title: '购物车',
+        headerRight: null
     },
     'User': {
         title: '我的',
+        headerRight: null
     },
 })
 
@@ -291,10 +298,22 @@ const AppStack = createStackNavigator(
                 borderBottomWidth: 0.5,
                 borderBottomColor: '#dcdcdc',
             },
-            headerTitleStyle: {
-                fontSize: 19
-            },
             headerTintColor: '#000',
+            headerBackImage: (
+                <Ionicon
+                    name='ios-arrow-back'
+                    color="#666"
+                    size={22}
+                    style={{ margin: 12 }}
+                />
+            ),
+            // 以下是 android 标题居中
+            headerTitleStyle: {
+                fontSize: 19,
+                textAlign: 'center',
+                flex: 1,
+            },
+            headerRight: <View />,
         }),
         headerTransitionPreset: 'uikit',
         mode: "card",
