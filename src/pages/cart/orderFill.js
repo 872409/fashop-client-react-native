@@ -253,11 +253,13 @@ export default class CartOrderFill extends Component {
         } else {
             dispatch({
                 type: 'address/getDefault',
-                callback: ({result: { info }})=> {
-                    this.setState({
-                        addressId: info.id,
-                        address: info
-                    },()=>this.initCalculate())
+                callback: ({ result: { info } })=> {
+                    if (info.id){
+                        this.setState({
+                            addressId: info.id,
+                            address: info
+                        },()=>this.initCalculate())
+                    }
                 }
             })
         }

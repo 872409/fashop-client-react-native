@@ -67,12 +67,16 @@ export default {
             if (callback) callback(response);
         },
         * getDefault({ payload, callback }, { call, put }) {
-            const response = yield call(address.getDefault, payload);
-            yield put({
-                type: "_getDefault",
-                payload: response
-            });
-            if (callback) callback(response);
+            try{
+                const response = yield call(address.getDefault, payload);
+                yield put({
+                    type: "_getDefault",
+                    payload: response
+                });
+                if (callback) callback(response);
+            }catch(err) {
+                if (callback) callback({ result: { info: { id: 0 } } });
+            }
         },
         * setDefault({ payload, callback }, { call, put }) {
             const response = yield call(address.setDefault, payload);
