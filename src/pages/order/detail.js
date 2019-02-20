@@ -158,6 +158,10 @@ export default class OrderDetail extends Component {
 
     render() {
         const { orderInfo } = this.props
+        const showLogisticsBtn = orderInfo ? orderInfo.state === 30 || orderInfo.state === 40 : false
+        const showEvaluateBtn = orderInfo ? orderInfo.if_evaluate : false
+        const showReceiveBtn = orderInfo ? orderInfo.if_receive : false
+        const showCancelBtn = orderInfo ? orderInfo.if_cancel : false
         return orderInfo ? <View style={PublicStyles.ViewMax}>
             <ScrollView>
                 <OrderStateCard
@@ -199,16 +203,20 @@ export default class OrderDetail extends Component {
                     goodsTotal={orderInfo.goods_amount}
                     freight={orderInfo.freight_fee}
                     totalCost={orderInfo.amount} 
+                    totalText={
+                        showCancelBtn ? '需付款' : (showLogisticsBtn || showEvaluateBtn || showReceiveBtn) ? '实付款' : '应付款'
+                    }
                 />
             </ScrollView>
             <OrderFooterAction
                 orderInfo={orderInfo}
                 orderState={orderInfo.state}
                 showDelBtn={false}
-                showEvaluateBtn={orderInfo.if_evaluate}
+                showEvaluateBtn={showEvaluateBtn}
                 showPayBtn={orderInfo.if_pay}
-                showLogisticsBtn={orderInfo.state === 30 || orderInfo.state === 40}
-                showReceiveBtn={orderInfo.if_receive}
+                showCancelBtn={showCancelBtn}
+                showLogisticsBtn={showLogisticsBtn}
+                showReceiveBtn={showReceiveBtn}
                 onPay={this.pay}
                 onReceive={this.onReceive}
                 onCancel={this.onCancel}

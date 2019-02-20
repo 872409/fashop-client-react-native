@@ -7,11 +7,13 @@ export default class OrderCostList extends Component {
     static propTypes = {
         goodsTotal: PropTypes.string,
         freight: PropTypes.string,
+        totalText: PropTypes.string,
         totalCost: PropTypes.any,
     };
     static defaultProps = {
         goodsTotal: null,
         freight: null,
+        totalText: null,
         totalCost: null,
     };
 
@@ -19,7 +21,8 @@ export default class OrderCostList extends Component {
         const {
             goodsTotal,
             freight,
-            totalCost
+            totalText,
+            totalCost,
         } = this.props
         return <View style={styles.orderCostList}>
             <View style={styles.item}>
@@ -33,7 +36,7 @@ export default class OrderCostList extends Component {
                 </View>
             </View>
             <View style={styles.footer}>
-                <Text style={styles.footerLabel}>实付款：</Text>
+                <Text style={styles.footerLabel}>{totalText}：</Text>
                 <Text style={styles.footerText}>¥{totalCost}</Text>
             </View>
         </View>

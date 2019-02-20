@@ -47,14 +47,18 @@ export default class OrderCardFooter extends Component {
         return <View style={styles.orderCardFooter}>
             <View style={styles.header}>
                 <Text style={styles.number}>共 {goodsNumber} 件商品</Text>
-                <Text style={styles.priceDesc}>实付：</Text>
+                <Text style={styles.priceDesc}>
+                    {
+                        showCancelBtn ? '需付款' : (showLogisticsBtn || showEvaluateBtn || showReceiveBtn) ? '实付款' : '应付款'
+                    }：
+                </Text>
                 <Text style={styles.price}>¥{totalCost}</Text>
             </View>
             {
                 showCancelBtn || showEvaluateBtn || showPayBtn || showReceiveBtn || showLogisticsBtn ?
                 <View style={styles.footer}>
                     {
-                        showCancelBtn === true ?
+                        showCancelBtn ?
                         <Button
                             size="small"
                             onClick={onCancel}
@@ -64,7 +68,7 @@ export default class OrderCardFooter extends Component {
                         </Button> : null
                     }
                     {
-                        showLogisticsBtn === true ?
+                        showLogisticsBtn ?
                         <Button
                             size="small"
                             onClick={onLogistics}
@@ -74,7 +78,7 @@ export default class OrderCardFooter extends Component {
                         </Button> : null
                     }
                     {
-                        showEvaluateBtn === true ?
+                        showEvaluateBtn ?
                         <Button
                             type="ghost"
                             size="small"
@@ -85,7 +89,7 @@ export default class OrderCardFooter extends Component {
                         </Button> : null
                     }
                     {
-                        showPayBtn === true ?
+                        showPayBtn ?
                         <Button
                             type="ghost"
                             size="small"
@@ -96,7 +100,7 @@ export default class OrderCardFooter extends Component {
                         </Button> : null
                     }
                     {
-                        showReceiveBtn === true ?
+                        showReceiveBtn ?
                         <Button
                             type="ghost"
                             size="small"
