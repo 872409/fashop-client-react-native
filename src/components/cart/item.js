@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import { Stepper } from "antd-mobile-rn";
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { windowWidth } from "../../utils/style";
 import CartCheckbox from "./checkbox"
 import { NetworkImage } from "../theme";
+import Stepper from "../goods/stepper";
 
 export default class CartItem extends Component {
     constructor(props, context) {
@@ -74,13 +74,8 @@ export default class CartItem extends Component {
                         <Text style={styles.cartCardPrice}>¥ {price}</Text>
                         <View style={styles.cartCardStepper}>
                             <Stepper
-                                size="small"
-                                key="1"
-                                max={goodsStock ? Number(goodsStock) : 99}
-                                min={1}
-                                readOnly={false}
-                                defaultValue={1}
-                                value={number}
+                                stock={goodsStock ? Number(goodsStock) : 99}
+                                defaultValue={number}
                                 onChange={this.onStepperChange}
                             />
                         </View>
