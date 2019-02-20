@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
 import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
 import fa from "../../utils/fa"
-import { Button, SwipeAction } from 'antd-mobile-rn';
+import { Button, SwipeAction, Toast } from 'antd-mobile-rn';
 import CartItem from "../../components/cart/item";
 import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
@@ -154,10 +154,9 @@ export default class CartIndex extends Component {
                         style={{ borderRadius: 0, height: 50, width: 120 }}
                         type='primary'
                         activeStyle={false}
-                        disabled={!totalNum}
-                        onClick={this.goOrderFill}
+                        onClick={totalNum ? this.goOrderFill : ()=>Toast.info('您还没有选择商品哦')}
                     >
-                        <Text>去结算{totalNum ? `(${totalNum}件)` : ''}</Text>
+                        <Text>去结算({totalNum}件)</Text>
                     </Button>
                 </View> : null
             }
