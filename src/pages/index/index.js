@@ -121,14 +121,14 @@ export default createBottomTabNavigator(
         lazy: true,
         tabBarOptions: {
             activeTintColor: ThemeStyle.ThemeColor,
-            inactiveTintColor: "#333",
+            inactiveTintColor: "#999999",
             style: {
                 backgroundColor: '#fff',
                 borderTopColor: '#eaeaea',
                 borderTopWidth: 0.5
             },
             labelStyle: {
-                fontSize: 10
+                fontSize: 11
             },
         },
     }
