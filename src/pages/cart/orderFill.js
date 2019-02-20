@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     },
     unSelectImage: {
         width: 32,
-        height: 32,
+        height: 38,
         marginBottom: 10,
     },
     unSelectText: {
