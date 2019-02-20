@@ -18,6 +18,21 @@ export default class PageGoodsList extends Component {
         const showMarketPrice = goods_display_field.indexOf('market_price') > -1
         // 显示内容：商品名称title、商品销售价price、商品原价market_price
         // 展示形式：大图1、小图2、一大两小3、列表4
+        if (layout_style === 4){
+            return <View style={[styles.goodsListWarp, {paddingHorizontal: 0, paddingLeft: 10, backgroundColor: '#fff'}]}>
+                {
+                    data.map((item, index) => {
+                        return this.list({
+                            item,
+                            index,
+                            showTitle,
+                            showPrice,
+                            showMarketPrice
+                        })
+                    })
+                }
+            </View>
+        }
         return <View style={styles.goodsListWarp}>
             {
                 data.map((item,index)=>{
@@ -28,7 +43,6 @@ export default class PageGoodsList extends Component {
                         showPrice,
                         showMarketPrice
                     }
-                    return this.list(params)
                     switch (layout_style) {
                         case 1: return this.small(params);
                         case 2: return this.big(params);
@@ -144,7 +158,7 @@ const styles = StyleSheet.create({
     },
     // list
     listWarp:{
-        width: windowWidth-(10*2),
+        width: windowWidth-10,
         flexDirection: 'row',
         backgroundColor: '#fff',
         paddingVertical: 10,
