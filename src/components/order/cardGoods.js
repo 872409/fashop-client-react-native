@@ -17,52 +17,52 @@ export default class OrderCardGoods extends Component {
     static defaultProps = {
         goodsList: [],
     };
-
-    onClick() {
-        if (this.props.onClick) {
-            this.props.onClick();
-        }
-    }
-
     render() {
         const {
             goodsList,
+            onClick
         } = this.props
         return <View>
-            {goodsList.length > 1 ? <TouchableOpacity onPress={() => {
-                this.onClick()
-            }}>
-                <ScrollView contentContainerStyle={styles.orderCardGoods}>
+            {
+                goodsList.length > 1 ? 
+                <TouchableOpacity onPress={onClick}>
+                    <ScrollView contentContainerStyle={styles.orderCardGoods}>
                         {
-                            goodsList.length > 0 ? goodsList.map((item) => {
-                                return <View style={styles.item} key={item.id}>
+                            goodsList.length > 0 ? goodsList.map((item) => (
+                                <View style={styles.item} key={item.id}>
                                     <NetworkImage style={styles.image} source={{ uri: item.goods_img }} resizeMode={'cover'} />
                                 </View>
-                            }) : null}
-                </ScrollView>
-            </TouchableOpacity> : null}
-            {goodsList.length === 1 ? <TouchableOpacity onPress={() => {
-                this.onClick()
-            }}>
-                <View style={styles.orderCardGoodsOne}>
-                    {goodsList.map((item) => {
-                        return <View style={styles.oneItem} key={item.id}>
-                            <NetworkImage style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'cover'} />
-                            <View style={styles.oneBody}>
-                                <Text style={styles.oneText}>{item.goods_title}</Text>
-                                <View style={styles.oneDesc}>
-                                    <Text style={styles.oneDescLabel}>{item.goods_spec.map(function (spec) {
-                                        return spec.value_id > 0 ? `${spec.name}:${spec.value_name}` : ''
-                                    })}</Text>
-                                    <Text style={styles.oneDescText}>x{item.goods_num}</Text>
+                            )) : null
+                        }
+                    </ScrollView>
+                </TouchableOpacity> : null
+            }
+            {
+                goodsList.length === 1 ? 
+                <TouchableOpacity onPress={onClick}>
+                    <View style={styles.orderCardGoodsOne}>
+                        {
+                            goodsList.map((item) => (
+                                <View style={styles.oneItem} key={item.id}>
+                                    <NetworkImage style={styles.oneImage} source={{ uri: item.goods_img }} resizeMode={'cover'} />
+                                    <View style={styles.oneBody}>
+                                        <Text style={styles.oneText}>{item.goods_title}</Text>
+                                        <View style={styles.oneDesc}>
+                                            <Text style={styles.oneDescLabel}>
+                                                {
+                                                    item.goods_spec.map((spec)=>spec.value_id > 0 ? `${spec.name}:${spec.value_name}` : '')
+                                                }
+                                            </Text>
+                                            <Text style={styles.oneDescText}>x{item.goods_num}</Text>
+                                        </View>
+                                        <Text>¥{item.goods_price}</Text>
+                                    </View>
                                 </View>
-                                <Text>¥{item.goods_price}</Text>
-                            </View>
-                        </View>
-                    })}
-
-                </View>
-            </TouchableOpacity> : null}
+                            ))
+                        }
+                    </View>
+                </TouchableOpacity> : null
+            }
         </View>
     }
 }
