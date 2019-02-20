@@ -230,6 +230,8 @@ export default class GoodsDetail extends Component {
                                 cartNum ? <Badge
                                     textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
                                     style={{ position: 'absolute', right: 4, top: -1 }}
+                                    minHeight={18}
+                                    minWidth={18}
                                 >
                                     {cartNum}
                                 </Badge> : null
