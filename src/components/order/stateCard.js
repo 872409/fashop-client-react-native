@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import { ThemeStyle } from '../../utils/style';
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
 
 export default class OrderStateCard extends Component {
     static propTypes = {
@@ -38,50 +39,77 @@ export default class OrderStateCard extends Component {
             cost,
         } = this.props
         return <View>
-            {orderState === 40 ? <View>
-                <View style={styles.noticebar}>
-                    <Image style={styles.noticebarImage} source={require('../../images/order/horn.png')}
-                           resizeMode="contain" />
-                    <Text style={styles.noticebarText}>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
-                </View>
-            </View> : null}
-            {orderState === 10 ? <View style={styles.orderStateCard}>
-                <View style={styles.left}>
-                    <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')}
-                           resizeMode="stretch" />
-                    <Text style={styles.leftText}>待付款</Text>
-                </View>
-                <View style={styles.right}>
-                    <Text style={styles.rightText}>需付款：¥{ cost }</Text>
-                </View>
-            </View> : null}
-            {orderState === 20 ? <View style={styles.orderStateCard}>
-                <View style={styles.left}>
-                    <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')}
-                           resizeMode="stretch" />
-                    <Text style={styles.leftText}>待发货</Text>
-                </View>
-                <View style={styles.right}>
-                </View>
-            </View> : null}
-            {orderState === 30 ? <View style={styles.orderStateCard}>
-                <View style={styles.left}>
-                    <Image style={styles.leftImage} source={require('../../images/order/order-state-wait.png')}
-                           resizeMode="stretch" />
-                    <Text style={styles.leftText}>待收货</Text>
-                </View>
-                <View style={styles.right}>
-                </View>
-            </View> : null}
-            {orderState === 40 ? <View style={styles.orderStateCard}>
-                <View style={styles.left}>
-                    <Image style={styles.leftImage} source={require('../../images/order/order-state-success.png')}
-                           resizeMode="stretch" />
-                    <Text style={styles.leftText}>完成</Text>
-                </View>
-                <View style={styles.right}>
-                </View>
-            </View> : null}
+            {
+                orderState === 40 ? 
+                <View>
+                    <View style={styles.noticebar}>
+                        <AntDesignIcon
+                            style={styles.noticebarImage} 
+                            color={ThemeStyle.ThemeColor4}
+                            size={16}
+                            name="exclamationcircleo"
+                        />
+                        <Text style={styles.noticebarText}>为了您的财产安全，不要点击陌生链接、不要向任何人透露银行卡或验证码信息、谨防诈骗！</Text>
+                    </View>
+                </View> : null
+            }
+            {
+                orderState === 10 ? 
+                <View style={styles.orderStateCard}>
+                    <View style={styles.left}>
+                        <Image 
+                            style={styles.leftImage} 
+                            source={require('../../images/order/order-state-wait.png')}
+                            resizeMode="stretch" 
+                        />
+                        <Text style={styles.leftText}>待付款</Text>
+                    </View>
+                    <View style={styles.right}>
+                        <Text style={styles.rightText}>需付款：¥{ cost }</Text>
+                    </View>
+                </View> : null
+            }
+            {
+                orderState === 20 ? 
+                <View style={styles.orderStateCard}>
+                    <View style={styles.left}>
+                        <Image 
+                            style={styles.leftImage} 
+                            source={require('../../images/order/order-state-wait.png')}
+                            resizeMode="stretch" 
+                        />
+                        <Text style={styles.leftText}>待发货</Text>
+                    </View>
+                    <View style={styles.right}/>
+                </View> : null
+            }
+            {
+                orderState === 30 ? 
+                <View style={styles.orderStateCard}>
+                    <View style={styles.left}>
+                        <Image 
+                            style={styles.leftImage} 
+                            source={require('../../images/order/order-state-wait.png')}
+                            resizeMode="stretch" 
+                        />
+                        <Text style={styles.leftText}>待收货</Text>
+                    </View>
+                    <View style={styles.right}/>
+                </View> : null
+            }
+            {
+                orderState === 40 ? 
+                <View style={styles.orderStateCard}>
+                    <View style={styles.left}>
+                        <Image 
+                            style={styles.leftImage} 
+                            source={require('../../images/order/order-state-success.png')}
+                            resizeMode="stretch" />
+                        <Text style={styles.leftText}>完成</Text>
+                    </View>
+                    <View style={styles.right}/>
+                </View> : null
+            }
         </View>
     }
 }
@@ -133,8 +161,6 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     noticebarImage: {
-        width: 20,
-        height: 20,
         marginRight: 10
     },
     noticebarText: {
