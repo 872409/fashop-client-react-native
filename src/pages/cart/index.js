@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
     cartCardPrice: {
         lineHeight: 14,
         height: 14,
-        color: '#FF635C',
+        color: ThemeStyle.ThemeColor,
         fontSize: 15,
         fontWeight: '800',
     },

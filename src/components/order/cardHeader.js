@@ -5,6 +5,7 @@ import {
     Text
 } from 'react-native';
 import PropTypes from "prop-types";
+import { ThemeStyle } from '../../utils/style';
 
 export default class OrderCardHeader extends Component {
     static propTypes = {
@@ -53,8 +54,6 @@ const styles = StyleSheet.create({
     leftText: {
         fontSize: 15,
         color: "#999999",
-        lineHeight: 14,
-        height: 14,
     },
     right: {
         justifyContent: "space-between",
@@ -70,18 +69,18 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     state0: {
-        color: "red"
+        color: ThemeStyle.ThemeColor4
     },
     state10: {
-        color: "red"
+        color: ThemeStyle.ThemeColor4
     },
     state20: {
-        color: "red"
+        color: ThemeStyle.ThemeColor4
     },
     state30: {
-        color: "red"
+        color: ThemeStyle.ThemeColor4
     },
     state40: {
-        color: "red"
+        color: ThemeStyle.ThemeColor4
     }
 })

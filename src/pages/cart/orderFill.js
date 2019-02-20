@@ -429,12 +429,12 @@ const styles = StyleSheet.create({
     footerLeftText: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#FF635C',
+        color: ThemeStyle.ThemeColor,
         marginRight: 15,
         fontFamily: 'PingFangSC-Medium',
     },
     freightPrice: {
-        color: '#FF635C',
+        color: ThemeStyle.ThemeColor,
         fontSize: 13,
         lineHeight: 12,
 
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     totalPrice: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#FF635C',
+        color: ThemeStyle.ThemeColor,
         fontFamily: 'PingFangSC-Medium',
     },
     oneItem: {

@@ -71,14 +71,14 @@ export default class Pay extends Component{
                     <NoticeBar
                         icon={
                             <AntDesignIcon
-                                color="#FE7C04"
+                                color={ThemeStyle.ThemeColor4}
                                 size={16}
                                 name="exclamationcircleo"
                             />
                         }
                         style={{backgroundColor: '#FFF7E7'}}
                     >
-                        <Text style={{ color: "#FE7C04" }}>
+                        <Text style={{ color: ThemeStyle.ThemeColor4 }}>
                             请在 {center} 内完成支付
                         </Text>
                     </NoticeBar>

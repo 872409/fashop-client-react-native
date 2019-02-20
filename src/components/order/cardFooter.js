@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 import { Button } from 'antd-mobile-rn';
+import { ThemeStyle } from '../../utils/style';
 
 export default class OrderCardFooter extends Component {
     static propTypes = {
@@ -45,8 +46,8 @@ export default class OrderCardFooter extends Component {
 
         return <View style={styles.orderCardFooter}>
             <View style={styles.header}>
-                <Text style={styles.number}>共{goodsNumber}件商品</Text>
-                <Text style={styles.priceDesc}>实付款：</Text>
+                <Text style={styles.number}>共 {goodsNumber} 件商品</Text>
+                <Text style={styles.priceDesc}>实付：</Text>
                 <Text style={styles.price}>¥{totalCost}</Text>
             </View>
             {
@@ -112,14 +113,13 @@ export default class OrderCardFooter extends Component {
 }
 const styles = StyleSheet.create({
     orderCardFooter: {
-        paddingVertical: 0,
-        paddingHorizontal: 15,
-        borderTopColor: '#f8f8f8',
-        borderTopWidth:1
+        // borderTopColor: '#f8f8f8',
+        // borderTopWidth:1
     },
     header: {
         textAlign: "right",
         paddingVertical:10,
+        paddingHorizontal: 15,
         alignItems: "center",
         justifyContent: "flex-end",
         flexDirection: 'row'
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 17,
-        color: "#333333",
+        color: ThemeStyle.ThemeColor,
         fontWeight: "800",
         fontFamily: 'PingFangSC-Medium',
     },
@@ -145,13 +145,13 @@ const styles = StyleSheet.create({
         borderTopColor: "#f8f8f8",
         justifyContent: "flex-end",
         paddingVertical: 10,
-        paddingHorizontal: 0,
+        paddingHorizontal: 15,
         flexDirection: 'row'
-
     },
     btn: {
         paddingLeft: 18, 
         paddingRight: 18,
-        marginLeft: 10
+        marginLeft: 10,
+        borderRadius: 3,
     }
 })

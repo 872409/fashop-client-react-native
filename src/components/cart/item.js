@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { windowWidth } from "../../utils/style";
+import { windowWidth, ThemeStyle } from "../../utils/style";
 import CartCheckbox from "./checkbox"
 import { NetworkImage } from "../theme";
 import Stepper from "../goods/stepper";
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
 
     },
     cartCardPrice: {
-        color: '#FF635C',
+        color: ThemeStyle.ThemeColor,
         fontSize: 15,
         fontWeight: '800',
         fontFamily: 'PingFang SC',

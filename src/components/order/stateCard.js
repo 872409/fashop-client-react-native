@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import PropTypes from "prop-types";
+import { ThemeStyle } from '../../utils/style';
 
 export default class OrderStateCard extends Component {
     static propTypes = {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:15,
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#FF635C",
+        backgroundColor: ThemeStyle.ThemeColor,
         color: "#FFFFFF",
         flexDirection: 'row'
     },

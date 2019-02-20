@@ -7,6 +7,7 @@ import {
 import PropTypes from "prop-types";
 import TimeFormat from "../fa/timeFormat";
 import StaticCountdown from "../fa/staticCountdown";
+import { ThemeStyle } from '../../utils/style';
 
 export default class RefundStateCard extends Component {
     static propTypes = {
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         paddingVertical: 30,
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#FF635C",
+        backgroundColor: ThemeStyle.ThemeColor,
         color: "#FFFFFF",
         flexDirection: 'row'
     },
