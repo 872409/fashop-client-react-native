@@ -154,11 +154,10 @@ export default class CartIndex extends Component {
                         style={{ borderRadius: 0, height: 50, width: 120 }}
                         type='primary'
                         activeStyle={false}
-                        onClick={() => {
-                            this.goOrderFill()
-                        }}
+                        disabled={!totalNum}
+                        onClick={this.goOrderFill}
                     >
-                        <Text>去结算({totalNum}件)</Text>
+                        <Text>去结算{totalNum ? `(${totalNum}件)` : ''}</Text>
                     </Button>
                 </View> : null
             }
@@ -241,7 +240,7 @@ export default class CartIndex extends Component {
         this.initCartList()
     }
 
-    goOrderFill() {
+    goOrderFill = () => {
         const {checkedCartIds} = this.state
         this.props.navigation.navigate('CartOrderFill', { cart_ids: checkedCartIds })
     }
