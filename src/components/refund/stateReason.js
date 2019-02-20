@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     state: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333333",
     },
     body: {
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
         padding: 15,
         borderBottomWidth: 1,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     address: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333333",
         fontWeight: "800"
     },
@@ -159,10 +159,10 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         marginRight: 10,
         color: "#333333",
-        fontSize: 14,
+        fontSize: 15,
     },
     text: {
         color: "#333333",
-        fontSize: 14,
+        fontSize: 15,
     }
 })

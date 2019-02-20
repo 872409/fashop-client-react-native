@@ -19,7 +19,7 @@ export default class CartEmpty extends Component {
                 }}
                 onClick={()=>navigation.navigate('UserLogin')}
             >
-                <Text style={{fontSize: 14}}>
+                <Text style={{fontSize: 15}}>
                     去登录
                 </Text>
             </Button>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     emptyText: {
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 15,
         color: '#999999',
         marginVertical: 15,
     }

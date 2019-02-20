@@ -106,19 +106,19 @@ const styles = StyleSheet.create({
         position: "relative"
     },
     oneText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "400",
         lineHeight: 18,
     },
     oneLabel: {
-        fontSize: 12,
+        fontSize: 13,
         position: "absolute",
         bottom: "0",
         left: 0,
         color: "#666"
     },
     oneDesc: {
-        fontSize: 12,
+        fontSize: 13,
         color: "#999",
         marginBottom: 10,
         marginTop: 5,

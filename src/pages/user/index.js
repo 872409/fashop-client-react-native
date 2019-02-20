@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     },
     fashopCopyrightText: {
         color: '#cccccc',
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 12,
     }
 });

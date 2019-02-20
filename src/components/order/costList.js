@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     label: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "400"
     },
     text: {
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: "800"
     },
     footer: {
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     footerLabel: {
-        fontSize: 12
+        fontSize: 13
     },
     footerText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         color: ThemeStyle.ThemeColor,
         fontFamily: 'PingFangSC-Medium',

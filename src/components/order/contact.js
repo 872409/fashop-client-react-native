@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     text: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#666"
     }
 })

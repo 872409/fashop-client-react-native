@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
     },
     listTitle: {
         marginBottom: 20,
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: '400',
         lineHeight: 16,
     },
     listMarketPriceText: {
-        fontSize: 12,
+        fontSize: 13,
         marginRight: 6,
         color: '#ccc',
         textDecorationLine: 'line-through',
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     },
     bigTitle: {
         marginVertical: 6,
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: '400',
         lineHeight: 16,
     },
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     },
     smallTitle: {
         marginVertical: 6,
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: '400',
         lineHeight: 20,
         height: 40

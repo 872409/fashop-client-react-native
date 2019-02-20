@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         lineHeight: 20,
         marginBottom: 6,
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         fontFamily: 'PingFangSC-Regular',
     },
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
         lineHeight: 14,
         height: 14,
         color: '#FF635C',
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
     },
     cartCardStepper: {
@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
     footerAllActionText: {
         marginRight: 20,
         marginLeft: 5,
-        fontSize: 14,
+        fontSize: 15,
         color: '#333',
     },
     footerTotal: {
@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     footerTotalText: {
-        fontSize: 14,
+        fontSize: 15,
         color: '#999',
     },
     footerTotalPrice: {

@@ -42,7 +42,7 @@ export default class UserRelation extends Component {
                         extra={(
                             <Text
                                 style={{
-                                    fontSize: 16,
+                                    fontSize: 17,
                                     color: isBindPhone ? '#999' : '#ccc'
                                 }}
                             >
@@ -101,7 +101,7 @@ export default class UserRelation extends Component {
                         extra={(
                             <Text
                                 style={{
-                                    fontSize: 16,
+                                    fontSize: 17,
                                     color: isBindWechat ? '#999' : '#ccc'
                                 }}
                             >
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     botText: {
-        fontSize: 14,
+        fontSize: 15,
         color: '#999999',
         fontFamily: 'PingFangSC-Regular',
         lineHeight: 22,

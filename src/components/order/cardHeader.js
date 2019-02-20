@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     leftText: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#999999",
         lineHeight: 14,
         height: 14,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     state: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333"
     },
     delIcon: {

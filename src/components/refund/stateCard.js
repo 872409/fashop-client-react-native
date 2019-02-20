@@ -100,14 +100,14 @@ const styles = StyleSheet.create({
     },
     rightText: {
         color: "#FFFFFF",
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         marginBottom: 8,
         textAlign: 'right'
     },
     rightLabel: {
         color: "#FFFFFF",
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 12,
         marginTop: 6
     },
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     noticebarText: {
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 16,
         color: "#F07B3F"
     }

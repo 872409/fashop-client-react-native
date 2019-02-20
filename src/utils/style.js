@@ -81,32 +81,32 @@ export const PublicStyles = StyleSheet.create({
         backgroundColor: '#F8F8F8',
     },
     boldTitle: {                                     // 适用于加粗标题
-        fontSize: 16,
+        fontSize: 17,
         color: '#333333',
         fontFamily: 'PingFangSC-Medium',
     },
     title: {                                     // 适用于普通标题
-        fontSize: 16,
+        fontSize: 17,
         color: '#333',
         fontFamily: 'PingFangSC-Regular',
     },
     descFour9: {                                     // 普通描述
-        fontSize: 14,
+        fontSize: 15,
         color: '#999',
         fontFamily: 'PingFangSC-Regular'
     },
     descTwo9: {                                     // 普通描述
-        fontSize: 12,
+        fontSize: 13,
         color: '#999',
         fontFamily: 'PingFangSC-Regular'
     },
     descTwo6: {                                     // time 描述
-        fontSize: 12,
+        fontSize: 13,
         color: '#666',
         fontFamily: 'PingFangSC-Regular'
     },
     descTwoc: {                                     // time 描述
-        fontSize: 12,
+        fontSize: 13,
         color: '#ccc',
         fontFamily: 'PingFangSC-Regular'
     },
@@ -204,10 +204,10 @@ export const PublicStyles = StyleSheet.create({
     },
     defaultBtnText: {
         color: '#333',
-        fontSize: 16
+        fontSize: 17
     },
     primaryBtnText: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 17
     }
 })

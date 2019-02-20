@@ -119,7 +119,7 @@ export default class Category extends Component {
                             }}
                         >
                             <NetworkImage style={styles.rightImg} source={{ uri: item.icon }}/>
-                            <Text style={[PublicStyles.title, { fontSize: 14 }]} numberOfLines={1}>{item.name}</Text>
+                            <Text style={[PublicStyles.title, { fontSize: 15 }]} numberOfLines={1}>{item.name}</Text>
                         </TouchableOpacity>
                     ))
                 }
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     leftName: {
-        fontSize: 16
+        fontSize: 17
     },
     right: {
         width: windowWidth * 0.67,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     itemName: {
-        fontSize: 16,
+        fontSize: 17,
         color: '#333',
         lineHeight: 60,
         textAlign: 'center'
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     },
     childName: {
         color: '#666',
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         marginVertical: 15,
     },
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
     },
     btnItemText: {
-        fontSize: 14, 
+        fontSize: 15, 
         color: '#333333'
     },
     btnItemTextActive: {

@@ -33,6 +33,6 @@ export default class PageTitle extends Component {
 
 const styles = StyleSheet.create({
     title:{
-        fontSize: 14
+        fontSize: 15
     }
 });

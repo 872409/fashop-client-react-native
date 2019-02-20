@@ -125,16 +125,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     number: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333333",
     },
     priceDesc: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333333",
         marginLeft: 10
     },
     price: {
-        fontSize: 16,
+        fontSize: 17,
         color: "#333333",
         fontWeight: "800",
         fontFamily: 'PingFangSC-Medium',

@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     unSelectText: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         color: ThemeStyle.ThemeColor,
         marginBottom: 15,
@@ -378,14 +378,14 @@ const styles = StyleSheet.create({
     },
 
     selectedUserName: {
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: '800',
         marginRight: 10,
         lineHeight: 16,
     },
 
     selectedUserPhone: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         marginRight: 15,
         lineHeight: 14,
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     footerLeftLabel: {
-        fontSize: 16,
+        fontSize: 17,
         lineHeight: 16,
         color: '#999999'
     },
@@ -433,13 +433,13 @@ const styles = StyleSheet.create({
     },
     freightPrice: {
         color: '#FF635C',
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 12,
 
     },
     freightDesc: {
         color: '#CCCCCC',
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 12,
 
         marginTop: 10,
@@ -465,14 +465,14 @@ const styles = StyleSheet.create({
         flex: 1
     },
     oneItemBodyTitle: {
-        fontSize: 14,
+        fontSize: 15,
         color: '#333',
         lineHeight: 20,
         fontWeight: '800',
         marginBottom: 10,
     },
     oneItemBodyPrice: {
-        fontSize: 12,
+        fontSize: 13,
         color: '#333',
         fontWeight: '800',
         fontFamily: 'PingFangSC-Medium',
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     oneItemBodySpecText: {
-        fontSize: 12,
+        fontSize: 13,
         color: '#999',
         lineHeight: 12,
     },

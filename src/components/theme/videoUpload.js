@@ -34,7 +34,7 @@ export default class ThemeVideoUpload extends Component {
             <View style={styles.View3}>
                 {
                     videoLoading ? <View style={styles.View6}>
-                        <Text style={{ color: '#333', fontSize: 14, marginBottom: 10, }}>上传进度：{progressNumber}%</Text>
+                        <Text style={{ color: '#333', fontSize: 15, marginBottom: 10, }}>上传进度：{progressNumber}%</Text>
                         <Progress.Bar progress={progressNumber / 100} width={300} color={ThemeStyle.ThemeColor} />
                     </View> :
                     video ? <ImageBackground

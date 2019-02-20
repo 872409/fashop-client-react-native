@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     emptyText: {
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 15,
         color: '#999999',
     }
 

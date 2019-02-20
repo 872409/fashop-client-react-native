@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#ffffff'
     },
     header: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         paddingTop: 15,
         paddingLeft:15,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     end: {
         justifyContent: "space-between",
         marginTop: 5,
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
         alignItems: "center",
         flexDirection: 'row'

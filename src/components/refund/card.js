@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     header:{},
     body: {
         padding: 15,
-        fontSize: 14,
+        fontSize: 15,
         color: "#333333",
         borderBottomWidth: 1,
         borderStyle: "solid",

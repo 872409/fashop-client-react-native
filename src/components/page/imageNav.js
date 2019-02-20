@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#333',
-        fontSize: 12,
+        fontSize: 13,
         fontFamily: 'PingFangSC-Regular',
     },
 });
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 //     },
 //     title: {
 //         color: '#333',
-//         fontSize: 12,
+//         fontSize: 13,
 //         fontFamily: 'PingFangSC-Regular',
 //     },
 // });

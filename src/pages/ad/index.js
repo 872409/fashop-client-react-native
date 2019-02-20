@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         top: 15
     },
     buttonTitle: {
-        fontSize: 14,
+        fontSize: 15,
         color: 'white',
         textAlign: 'center',
         lineHeight: 30

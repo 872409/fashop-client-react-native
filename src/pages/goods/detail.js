@@ -312,7 +312,8 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     price: {
-        color: ThemeStyle.ThemeColor
+        color: ThemeStyle.ThemeColor,
+        fontSize: 19
     },
     share: {},
     titleBot: {

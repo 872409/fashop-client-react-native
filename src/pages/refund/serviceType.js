@@ -58,7 +58,7 @@ export default class ServiceType extends Component {
                 </View>
                 <List>
                     <Cell
-                        titleStyle={{ fontSize: 14 }}
+                        titleStyle={{ fontSize: 15 }}
                         arrow={'horizontal'}
                         title="仅退款"
                         label="未收到货（包含未签收），或卖家协商同意前提现"
@@ -69,7 +69,7 @@ export default class ServiceType extends Component {
                     >
                     </Cell>
                     <Cell
-                        titleStyle={{ fontSize: 14 }}
+                        titleStyle={{ fontSize: 15 }}
                         arrow={'horizontal'}
                         title="退货退款"
                         label="已收到货，需要退换已收到的货物"
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bodyText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         color: "#333",
         marginBottom: 10
@@ -120,12 +120,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     spec: {
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
     },
     number: {
         marginTop: 5,
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
     },
 })

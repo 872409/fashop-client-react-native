@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     bodyText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         color: "#333",
         lineHeight: 18,
@@ -170,13 +170,13 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     price: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         marginBottom: 10,
         lineHeight: 14,
     },
     number: {
-        fontSize: 14,
+        fontSize: 15,
         marginBottom: 10,
         lineHeight: 14,
     },

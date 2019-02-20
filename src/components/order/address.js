@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     name: {
-        fontSize: 14,
+        fontSize: 15,
         marginRight: 10,
         fontWeight: '800'
     },
     phone: {
-        fontSize: 14,
+        fontSize: 15,
         marginRight: 15,
         fontWeight: '800'
     },
     address: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#999999",
         marginLeft: 25
     }

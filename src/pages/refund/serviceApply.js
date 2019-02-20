@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     bodyText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         color: "#333",
         marginBottom: 10
@@ -272,12 +272,12 @@ const styles = StyleSheet.create({
 
     },
     spec: {
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
     },
     number: {
         marginTop: 5,
-        fontSize: 12,
+        fontSize: 13,
         color: "#999999",
     },
     footer: {

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         width: windowWidth / 2
     },
     bodyText: {
-        fontSize: 12,
+        fontSize: 13,
         color: "#333",
         lineHeight: 20,
         fontWeight: "800",
@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     price: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         marginBottom: 10,
         lineHeight: 14,
         textAlign: 'right'
     },
     number: {
-        fontSize: 14,
+        fontSize: 15,
         marginBottom: 10,
         lineHeight: 14,
         textAlign: 'right'

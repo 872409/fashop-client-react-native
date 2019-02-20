@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#eaeaea",
-        fontSize: 14,
+        fontSize: 15,
         borderRadius: 3,
         height: 30,
         paddingHorizontal: 18,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     small: {
         paddingVertical: 2,
         paddingHorizontal: 10,
-        fontSize: 12
+        fontSize: 13
     },
     danger: {
         backgroundColor: ThemeStyle.ThemeColor,

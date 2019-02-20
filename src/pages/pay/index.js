@@ -83,7 +83,7 @@ export default class Pay extends Component{
                         </Text>
                     </NoticeBar>
                     <View style={styles.totalView}>
-                        <Text style={[PublicStyles.boldTitle, { fontSize: 14, marginBottom: 10 }]}>此次订单共需支付</Text>
+                        <Text style={[PublicStyles.boldTitle, { fontSize: 15, marginBottom: 10 }]}>此次订单共需支付</Text>
                         <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>
                             ￥
                             <Text style={{ fontSize: 25 }}>{pay_amount}</Text>
@@ -100,7 +100,7 @@ export default class Pay extends Component{
                                         onChange={() => this.setState({ payment_code: i.type })}
                                         radioStyle={{ tintColor: ThemeStyle.ThemeColor }}
                                         // disabled={disabled}
-                                        // extra={disabled && <Text style={{ fontSize: 14, color: 'red' }}>不支持此支付方式</Text>}
+                                        // extra={disabled && <Text style={{ fontSize: 15, color: 'red' }}>不支持此支付方式</Text>}
                                     >
                                         {i.name}
                                     </RadioItem>

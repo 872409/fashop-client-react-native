@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         lineHeight: 20,
         marginBottom: 6,
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         fontFamily: 'PingFangSC-Regular',
     },
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     cartCardPrice: {
         color: '#FF635C',
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         fontFamily: 'PingFang SC',
     },

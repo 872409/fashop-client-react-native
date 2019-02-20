@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 	textInput1: {
 		flex: 1,
 		padding: 0,
-		fontSize: 16,
+		fontSize: 17,
 		color: '#333',
 		height: 45,
 		borderBottomWidth: 0.5,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 	},
 	text3: {
-		fontSize: 14,
+		fontSize: 15,
 		color: '#999999',
 	},
 	logoView: {
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
 	},
 	text5: {
 		color: ThemeStyle.ThemeColor,
-		fontSize: 14,
+		fontSize: 15,
 		fontFamily: 'PingFangSC-Regular',
 	}
 });

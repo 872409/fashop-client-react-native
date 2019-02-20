@@ -93,21 +93,21 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     name: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         marginRight: 15,
         lineHeight: 14,
 
     },
     phone: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '800',
         marginRight: 15,
         lineHeight: 14,
 
     },
     address: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
 
         color: '#999999'
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
     actionText: {
         marginLeft: 5,
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         color: '#999'
     }

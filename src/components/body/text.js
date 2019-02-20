@@ -13,7 +13,7 @@ export default class BodyText extends Component {
 
 const styles = StyleSheet.create({
     content: {
-        fontSize: 14,
+        fontSize: 15,
         color: '#333',
         margin: 15,
     }

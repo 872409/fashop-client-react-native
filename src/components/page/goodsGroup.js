@@ -197,7 +197,7 @@ export default class PageGoodsGroup extends Component {
                                                         </ImageBackground>
                                                         <View style={styles.carouselGroupBot}>
                                                             <Text style={[PublicStyles.descTwo9,{ color: ThemeStyle.ThemeColor, paddingVertical: 4 }]}>
-                                                                ￥ <Text style={{ fontSize: 16, fontWeight: '500', fontFamily: 'PingFangSC-Medium'}}>{childItem.group_price}</Text>
+                                                                ￥ <Text style={{ fontSize: 17, fontWeight: '500', fontFamily: 'PingFangSC-Medium'}}>{childItem.group_price}</Text>
                                                             </Text>
                                                             <Text  numberOfLines={1}>{childItem.title}</Text>
                                                         </View>
@@ -248,11 +248,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     listTitle: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '500',
     },
     listMarketPriceText: {
-        fontSize: 12,
+        fontSize: 13,
         marginRight: 6,
         color: '#ccc',
         textDecorationLine: 'line-through',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     },
     bigTitle: {
         marginVertical: 10,
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: '500',
     },
 
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     },
     smallTitle: {
         marginVertical: 6,
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '400',
     },
     smallMarketPriceText: {
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     },
     carouselGroupText: {
         color: '#fff',
-        fontSize: 12,
+        fontSize: 13,
         paddingVertical: 3,
         textAlign: 'center'
     },

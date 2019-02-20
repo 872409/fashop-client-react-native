@@ -177,18 +177,18 @@ const styles = StyleSheet.create({
         flexDirection: "column"
     },
     nicknameText: {
-        fontSize: 14,
+        fontSize: 15,
         marginBottom: 6,
         fontWeight: "800",
     },
 
     content: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333",
         marginTop: 10,
     },
     contentText: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 22,
         color: "#333",
         width: "100%",
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     replyContent: {
         backgroundColor: "#f8f8f8",
         padding: 5,
-        fontSize: 12,
+        fontSize: 13,
         color: "#666",
         borderRadius: 3,
         alignItems: 'center',
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     spec: {
-        fontSize: 12,
+        fontSize: 13,
         lineHeight: 12,
         color: "#999",
         marginTop: 10,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
         borderTopColor: "#F8F8F8",
         textAlign: "center",
         color: "#999999",
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         padding: "15px 0"
     }

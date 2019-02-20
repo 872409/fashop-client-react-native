@@ -296,7 +296,7 @@ export class CountdownButton extends Component {
             >
                 <Text
                     style={[{
-                        fontSize: 16,
+                        fontSize: 17,
                         color: '#999'
                     }, textStyle]}
                 >
@@ -388,8 +388,8 @@ export class POPModal extends Component {
                         ]
                     }}>
                         <View style={{ height: 60, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, color: '#333' }}>{this.state.title}</Text>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 10 }}>{this.state.text}</Text>
+                            <Text style={{ fontSize: 15, color: '#333' }}>{this.state.title}</Text>
+                            <Text style={{ fontSize: 13, color: '#333', marginTop: 10 }}>{this.state.text}</Text>
                         </View>
                         <View style={{ height: 40, flexDirection: 'row', borderTopWidth: 1, borderColor: '#e2e2e2' }}>
                             <TouchableOpacity
@@ -408,7 +408,7 @@ export class POPModal extends Component {
                                     }
                                 }
                             >
-                                <Text style={{ fontSize: 12, color: '#333' }}>{this.state.closeButton.text}</Text>
+                                <Text style={{ fontSize: 13, color: '#333' }}>{this.state.closeButton.text}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{
@@ -424,7 +424,7 @@ export class POPModal extends Component {
                                     }
                                 }
                             >
-                                <Text style={{ fontSize: 12, color: '#fff' }}>{this.state.confirmButton.text}</Text>
+                                <Text style={{ fontSize: 13, color: '#fff' }}>{this.state.confirmButton.text}</Text>
                             </TouchableOpacity>
                         </View>
                     </Animated.View>
@@ -557,7 +557,7 @@ const styles = StyleSheet.create({
         height: windowWidth * 0.30,
     },
     emptyText: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: 'PingFangSC-Regular',
         color: '#999',
         lineHeight: 28,

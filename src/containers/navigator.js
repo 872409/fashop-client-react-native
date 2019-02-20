@@ -291,6 +291,9 @@ const AppStack = createStackNavigator(
                 borderBottomWidth: 0.5,
                 borderBottomColor: '#dcdcdc',
             },
+            headerTitleStyle: {
+                fontSize: 19
+            },
             headerTintColor: '#000',
         }),
         headerTransitionPreset: 'uikit',

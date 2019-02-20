@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     text: {
-        fontSize: 14,
+        fontSize: 15,
         color: "#333",
         lineHeight: 18,
 

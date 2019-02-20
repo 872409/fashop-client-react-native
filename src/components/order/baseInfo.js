@@ -77,18 +77,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     label: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: "800",
         lineHeight: 14,
         color: "#333"
     },
     text: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         color: "#666"
     },
     time: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
         color: "#666"
     }

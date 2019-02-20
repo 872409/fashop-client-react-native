@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     volumeControl: {
-        fontSize: 16,
+        fontSize: 17,
         color: '#fff',
         flex: 1,
         flexDirection: 'row',
@@ -255,6 +255,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginLeft: 10,
         marginRight: 15,
-        fontSize: 12
+        fontSize: 13
     }
 });
