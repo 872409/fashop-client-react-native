@@ -59,7 +59,7 @@ export default class OrderStateCard extends Component {
                     <View style={styles.left}>
                         <Image 
                             style={styles.leftImage} 
-                            source={require('../../images/order/order-state-wait.png')}
+                            source={require('../../images/order/orderStateWait.png')}
                             resizeMode="stretch" 
                         />
                         <Text style={styles.leftText}>待付款</Text>
@@ -75,7 +75,7 @@ export default class OrderStateCard extends Component {
                     <View style={styles.left}>
                         <Image 
                             style={styles.leftImage} 
-                            source={require('../../images/order/order-state-wait.png')}
+                            source={require('../../images/order/orderStateWait.png')}
                             resizeMode="stretch" 
                         />
                         <Text style={styles.leftText}>待发货</Text>
@@ -89,7 +89,7 @@ export default class OrderStateCard extends Component {
                     <View style={styles.left}>
                         <Image 
                             style={styles.leftImage} 
-                            source={require('../../images/order/order-state-wait.png')}
+                            source={require('../../images/order/orderStateWait.png')}
                             resizeMode="stretch" 
                         />
                         <Text style={styles.leftText}>待收货</Text>
@@ -103,7 +103,7 @@ export default class OrderStateCard extends Component {
                     <View style={styles.left}>
                         <Image 
                             style={styles.leftImage} 
-                            source={require('../../images/order/order-state-success.png')}
+                            source={require('../../images/order/orderStateSuccess.png')}
                             resizeMode="stretch" />
                         <Text style={styles.leftText}>完成</Text>
                     </View>
@@ -129,14 +129,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     leftImage: {
-        width: 20,
-        height: 20,
+        width: 22,
+        height: 22,
         marginRight: 10
     },
     leftText: {
-        fontSize: 18,
-        fontWeight: "800",
-        color: "#FFFFFF"
+        fontSize: 19,
+        fontWeight: "500",
+        color: "#FFFFFF",
+        fontFamily: 'PingFangSC-Medium',
     },
     right: {
         textAlign: "right",
@@ -145,7 +146,6 @@ const styles = StyleSheet.create({
     rightText: {
         color: "#FFFFFF",
         fontSize: 15,
-        lineHeight: 14,
     },
     rightLabel: {
         color: "#FFFFFF",
