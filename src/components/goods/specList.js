@@ -34,6 +34,7 @@ export default class GoodsSpecList extends Component{
     render() {
         const { spec_sign, spec_value_sign, quantity, current_sku } = this.state;
         const { spec_list, skus, if_cart, title, login, navigation } = this.props;
+        const showSpec = spec_list && spec_list.length && spec_list[0].id
         return <View style={{flex: 1}}>
             <View style={styles.popModalTitleView}>
                 {
@@ -42,8 +43,8 @@ export default class GoodsSpecList extends Component{
                         style={styles.popModalTitleLeft}
                     /> : <View style={styles.popModalTitleLeft} />
                 }
-                <View style={styles.popModalTitleTight}>
-                    <Text style={[styles.popModalTitleTightP]}> ¥{current_sku ? current_sku.price : 0}</Text>
+                <View style={styles.popModalTitleRight}>
+                    <Text style={[styles.popModalTitleRightP]}> ¥{current_sku ? current_sku.price : 0}</Text>
                     <Text style={[PublicStyles.descTwo9]}>
                         已选：
                         {
@@ -56,7 +57,7 @@ export default class GoodsSpecList extends Component{
             </View>
             <ScrollView style={styles.SpecListView}>
                 {
-                    spec_list && spec_list.length &&spec_list[0].id ? spec_list.map((spec_list_item, i) => {
+                    showSpec ? spec_list.map((spec_list_item, i) => {
                         const family_selected_data = spec_list_item.value_list.find((brotherItem) => {
                             if (spec_value_sign.indexOf(brotherItem.id) > -1) {
                                 return {
@@ -135,8 +136,15 @@ export default class GoodsSpecList extends Component{
                         )
                     }) : null
                 }
-                <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
-                    <Text>数量</Text>
+                <View 
+                    style={[
+                        PublicStyles.rowBetweenCenter, 
+                        styles.SpecListNumView,{
+                            borderTopWidth: showSpec ? .5 : 0
+                        }
+                    ]}
+                >
+                    <Text style={PublicStyles.descFour9}>数量</Text>
                     <Stepper
                         stock={current_sku ? current_sku.stock : 1}
                         defaultValue={quantity}
@@ -218,8 +226,11 @@ export default class GoodsSpecList extends Component{
 
 const styles = StyleSheet.create({
     popModalTitleView: {
-        height: 45,
-        padding: 15,
+        height: 75,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderBottomWidth: .5,
+        borderBottomColor: '#eaeaea'
     },
     popModalTitleLeft: {
         width: 90,
@@ -227,19 +238,21 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         backgroundColor: '#fff',
         position: 'absolute',
-        bottom: 0,
+        bottom: 15,
         left: 15,
         shadowColor: '#000',
         shadowOffset: { width: 5, height: 0 },
         shadowOpacity: 0.07,
     },
-    popModalTitleTight: {
+    popModalTitleRight: {
         alignItems: 'flex-start',
-        marginLeft: 105,
+        marginLeft: 110,
     },
-    popModalTitleTightP: {
-        fontSize: 18,
+    popModalTitleRightP: {
+        fontSize: 19,
         color: ThemeStyle.ThemeColor,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
     specItemView:{
         alignItems: 'flex-start',
@@ -269,7 +282,6 @@ const styles = StyleSheet.create({
     },
     SpecListNumView:{
         paddingVertical: 12,
-        borderTopWidth: .5,
         borderTopColor: '#eaeaea'
     },
 });

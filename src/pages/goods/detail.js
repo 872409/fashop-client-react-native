@@ -333,7 +333,9 @@ const styles = StyleSheet.create({
     },
     botLeft: {
         flexDirection: 'row',
-        width: ((windowWidth * 0.41) / 3) * 2
+        width: ((windowWidth * 0.41) / 3) * 2,
+        borderTopWidth: 0.5,
+        borderTopColor: '#eaeaea',
     },
     botRight: {
         flexDirection: 'row',

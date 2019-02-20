@@ -56,12 +56,12 @@ export default class GoodsStepper extends Component{
         return (
             <View style={PublicStyles.rowCenter}>
                 <TouchableOpacity
-                    style={[styles.imgView,value === 1 ? styles.disabledView : {}]}
+                    style={[styles.imgView, styles.leftBorderRadius, value === 1 ? styles.disabledView : {}]}
                     onPress={this.clickSub}
                     activeOpacity={.8}
                 >
                     <Image
-                        source={require("../../images/goodsDetail/sub.png")}
+                        source={value === 1 ? require("../../images/goodsDetail/sub_dis.png") : require("../../images/goodsDetail/sub.png")}
                         style={styles.img}
                     />
                 </TouchableOpacity>
@@ -69,12 +69,12 @@ export default class GoodsStepper extends Component{
                     <Text style={styles.num}>{value}</Text>
                 </View>
                 <TouchableOpacity
-                    style={[styles.imgView, styles.imgView1,value === stock ? styles.disabledView : {}]}
+                    style={[styles.imgView, styles.rightBorderRadius, value === stock ? styles.disabledView : {}]}
                     onPress={this.clickAdd}
                     activeOpacity={.8}
                 >
                     <Image
-                        source={require('../../images/goodsDetail/add.png')}
+                        source={value === stock ? require('../../images/goodsDetail/add_dis.png') : require('../../images/goodsDetail/add.png')}
                         style={styles.img}
                     />
                 </TouchableOpacity>
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     num: {
         lineHeight: 30,
         textAlign: 'center',
-        color: '#333'
+        color: '#333',
+        fontFamily: 'PingFangSC-Medium',
     },
     imgView:{
         width: 30,
@@ -102,11 +103,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#F4F4F4',
-        borderTopLeftRadius: 3,
-        borderBottomLeftRadius: 3,
         marginHorizontal: 1
     },
-    imgView1:{
+    leftBorderRadius: {
+        borderTopLeftRadius: 3,
+        borderBottomLeftRadius: 3,
+    },
+    rightBorderRadius: {
         borderTopRightRadius: 3,
         borderBottomRightRadius: 3
     },
