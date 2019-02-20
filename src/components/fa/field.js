@@ -224,6 +224,8 @@ export default class Field extends Component {
                 <FieldCell
                     title={title}
                     desc={desc}
+                    leftStyle={{width: 150}}
+                    rightStyle={{flexDirection: 'row',alignItems: 'center',justifyContent: 'flex-end',}}
                     right={
                         <Switch
                             trackColor={{ false: null, true: '#4dd865' }}

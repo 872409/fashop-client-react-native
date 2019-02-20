@@ -19,13 +19,13 @@ export default class FieldCell extends Component {
     };
 
     render() {
-        const { title, desc, right, children } = this.props
+        const { title, desc, right, children, rightStyle, leftStyle } = this.props
         return <View style={styles.cell}>
             {title || desc || right ?
                 <View style={[styles.item,{backgroundColor:'#fff'}]}>
                     {
                         title || desc ?
-                            <View style={styles.left}>
+                            <View style={[styles.left, leftStyle]}>
                                 <Text style={{color:'#666'}}>
                                     {title}
                                 </Text>
@@ -34,7 +34,7 @@ export default class FieldCell extends Component {
                             : null
                     }
                     {right ?
-                        <View style={styles.right}>
+                        <View style={[styles.right, rightStyle]}>
                             {right}
                         </View>
                         : null}
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     item: {
         alignItems: "center",
         flexDirection: 'row',
-
     },
     left:{
         width:120

@@ -7,7 +7,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { Picker } from 'antd-mobile-rn';
+import { Picker, Icon } from 'antd-mobile-rn';
+import { PublicStyles } from '../../utils/style';
 
 const CustomChildren = (props: any) => (
     <TouchableOpacity onPress={props.onClick} style={styles.picker}>
@@ -40,22 +41,24 @@ export default class Area extends Component {
 
     render() {
         const { value, areaNames, placeholder, areaList,columnsNum } = this.props
-        return areaList.length > 0 ? <View style={styles.section}>
-            <Picker
-                title="选择地区"
-                cols={columnsNum}
-                onOk={(e) => {
-                    this.onChange(e)
-                }}
-                value={value}
-                data={areaList}
-
-            >
-                <CustomChildren
-                    areaNames={areaNames}
-                    placeholder={placeholder}
-                />
-            </Picker>
+        return areaList.length > 0 ? <View style={[PublicStyles.rowBetweenCenter,styles.section]}>
+            <View style={{flex: 1}}>
+                <Picker
+                    title="选择地区"
+                    cols={columnsNum}
+                    onOk={(e) => {
+                        this.onChange(e)
+                    }}
+                    value={value}
+                    data={areaList}
+                >
+                    <CustomChildren
+                        areaNames={areaNames}
+                        placeholder={placeholder}
+                    />
+                </Picker>
+            </View>
+            <Icon type="right" size='xxs' color="#CCCCCC" />
         </View> : null
     }
 }
