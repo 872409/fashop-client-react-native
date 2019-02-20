@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     title: {
         marginVertical: 5,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '400',
         lineHeight: 20,
         height: 40
@@ -53,5 +53,7 @@ const styles = StyleSheet.create({
     price: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium',
     },
 });
