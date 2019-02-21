@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { PublicStyles, windowWidth, ThemeStyle } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
@@ -44,112 +44,104 @@ export default class CartOrderFill extends Component {
         return (
             <View style={PublicStyles.ViewMax}>
                 <ScrollView>
-                    <List style={{ marginTop: 8 }}>
-                        {
-                            addressId > 0 ?
-                            <View style={styles.address}>
-                                <View style={styles.selected}>
-                                    <Item 
-                                        arrow='horizontal'
-                                        onClick={this.goAddressList}
-                                    >
-                                        <View style={{ paddingVertical: 10 }}>
-                                            <View style={styles.selectedNamePhone}>
-                                                <Text style={styles.selectedUserName}>{address.truename}</Text>
-                                                <Text style={styles.selectedUserPhone}>{address.phone}</Text>
-                                            </View>
-                                            <Text style={styles.address}>{address.combine_detail}</Text>
-                                        </View>
-                                    </Item>
-                                </View>
-                                <Image 
-                                    source={require('../../images/cart/address-footer-line.png')}
-                                    style={styles.addressFooterLine} 
-                                />
-                            </View> : <TouchableOpacity 
-                                style={styles.address} 
-                                activeOpacity={.8}
-                                onPress={() => {
-                                    this.goAddressAdd()
-                                }}
-                            >
-                                <View style={styles.unSelect}>
-                                    <Image 
-                                        style={styles.unSelectImage}
-                                        source={require('../../images/cart/address.png')} 
-                                    />
-                                    <Text style={styles.unSelectText}>添加地址</Text>
-                                </View>
-                                <Image 
-                                    style={styles.addressFooterLine}
-                                    source={require('../../images/cart/address-footer-line.png')} 
-                                />
-                            </TouchableOpacity>
-                        }
-                        <View>
-                            {
-                                cartList.length > 0 ? cartList.map((item, index) => (
-                                    <Item
-                                        key={index}
-                                    >
-                                        <View style={styles.oneItem}>
-                                            <NetworkImage 
-                                                style={styles.oneItemImage}
-                                                source={{ uri: item.goods_sku_img }} 
-                                            />
-                                            <View style={styles.oneItemBody}>
-                                                <Text style={styles.oneItemBodyTitle}>{item.goods_title}</Text>
-                                                <View style={styles.oneItemBodySpec}>
-                                                    <Text
-                                                        style={styles.oneItemBodySpecText}
-                                                    >
-                                                    {item.goods_pay_type === 2 ? (item.goods_weight > 0 ? '重量:' + item.goods_weight +
-                                                        'kg' : '不计重量') : ''}{item.goods_spec_string ? item.goods_spec_string : ''}
-                                                    </Text>
-                                                    <Text style={styles.oneItemBodySpecText}>x{item.goods_num}</Text>
-                                                </View>
-                                                <Text style={styles.oneItemBodyPrice}>¥{item.goods_price}</Text>
-                                            </View>
-                                        </View>
-                                    </Item>
-                                )) : null
-                            }
-                        </View>
-                    </List>
-                    <View style={styles.message}>
-                        <TextareaItem
-                            rows={3}
-                            value={message}
-                            placeholder={'选填 有什么想对商家说的（45字以内）'}
-                            count={255}
-                            onChange={(value) => {
-                                this.onMessageChange(value)
+                    {
+                        addressId > 0 ?
+                        <View style={styles.address}>
+                            <View style={styles.selected}>
+                                <Item 
+                                    arrow='horizontal'
+                                    onClick={this.goAddressList}
+                                >
+                                    <View style={{ paddingVertical: 10 }}>
+                                        <Text style={styles.selectedNamePhone}>{address.truename} {address.mobile_phone}</Text>
+                                        <Text>{address.combine_detail} {address.address}</Text>
+                                    </View>
+                                </Item>
+                            </View>
+                            <Image 
+                                source={require('../../images/cart/address-footer-line.png')}
+                                style={styles.addressFooterLine} 
+                            />
+                        </View> : <TouchableOpacity 
+                            style={styles.address} 
+                            activeOpacity={.8}
+                            onPress={() => {
+                                this.goAddressAdd()
                             }}
-                        />
+                        >
+                            <View style={styles.unSelect}>
+                                <Image 
+                                    style={styles.unSelectImage}
+                                    source={require('../../images/cart/address.png')} 
+                                />
+                                <Text style={styles.unSelectText}>添加地址</Text>
+                            </View>
+                            <Image 
+                                style={styles.addressFooterLine}
+                                source={require('../../images/cart/address-footer-line.png')} 
+                            />
+                        </TouchableOpacity>
+                    }
+                    <View>
+                        {
+                            cartList.length > 0 ? cartList.map((item, index) => (
+                                <Item key={index}>
+                                    <View style={styles.oneItem}>
+                                        <NetworkImage 
+                                            style={styles.oneItemImage}
+                                            source={{ uri: item.goods_sku_img }} 
+                                        />
+                                        <View style={styles.oneItemBody}>
+                                            <Text style={styles.oneItemBodyTitle}>{item.goods_title}</Text>
+                                            <View style={styles.oneItemBodySpec}>
+                                                <Text style={styles.oneItemBodySpecText}>
+                                                {item.goods_pay_type === 2 ? (item.goods_weight > 0 ? '重量:' + item.goods_weight +
+                                                    'kg' : '不计重量') : ''}{item.goods_spec_string ? item.goods_spec_string : ''}
+                                                </Text>
+                                                <Text style={styles.oneItemBodySpecText}>x{item.goods_num}</Text>
+                                            </View>
+                                            <Text style={styles.oneItemBodyPrice}>¥{item.goods_price}</Text>
+                                        </View>
+                                    </View>
+                                </Item>
+                            )) : null
+                        }
+                    </View>
+                    <View style={styles.message}>
+                        <View style={[styles.textInputView]}>
+                            <TextInput
+                                placeholder='选填 有什么想对商家说的（45字以内）'
+                                multiline
+                                maxLength={45}
+                                style={styles.textInput}
+                                onChangeText={(message) => this.setState({ message })}
+                                underlineColorAndroid="transparent"
+                            />
+                        </View>
                     </View>
                     <List>
-                        <View>
-                            {calculate > 0 ? <Item
+                        {
+                            calculate > 0 ? <Item
                                 extra={
                                     <Text style={styles.freightPrice}>+ ¥{calculate.pay_freight_fee}}</Text>
                                 }
                             >
                                 运费
-                            </Item> : null}
-                            <Item
-                                extra={
-                                    <View slot="footer">
-                                        <Text
-                                            style={styles.totalPrice}
-                                        >
-                                            ¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}
-                                        </Text>
-                                    </View>
-                                }
-                            >
-                                小计
-                            </Item>
-                        </View>
+                            </Item> : null
+                        }
+                        <Item
+                            extra={
+                                <View slot="footer">
+                                    <Text
+                                        style={styles.totalPrice}
+                                    >
+                                        ¥{calculate ? (calculate.goods_amount + calculate.pay_freight_fee) : total}
+                                    </Text>
+                                </View>
+                            }
+                        >
+                            小计
+                        </Item>
                     </List>
                 </ScrollView>
                 <SafeAreaView style={{ backgroundColor: '#fff' }}>
@@ -265,12 +257,6 @@ export default class CartOrderFill extends Component {
         }
     }
 
-    onMessageChange(message) {
-        this.setState({
-            message
-        })
-    }
-
     async onShow() {
         const payState = this.state.payState
         if (payState === false) {
@@ -353,7 +339,8 @@ export default class CartOrderFill extends Component {
 
 const styles = StyleSheet.create({
     address: {
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        marginBottom: 10
     },
     unSelect: {
         justifyContent: 'center',
@@ -374,28 +361,14 @@ const styles = StyleSheet.create({
     },
     selected: {},
     selectedNamePhone: {
-        flexDirection: 'row',
-        alignItems: 'center',
         marginBottom: 10,
-    },
-
-    selectedUserName: {
-        fontSize: 17,
-        fontWeight: '800',
-        marginRight: 10,
-        lineHeight: 16,
-    },
-
-    selectedUserPhone: {
-        fontSize: 15,
-        fontWeight: '800',
-        marginRight: 15,
-        lineHeight: 14,
+        fontSize: 19,
+        fontWeight: '500',
+        fontFamily: 'PingFangSC-Medium'
     },
     addressBottomDecoration: {
         width: windowWidth,
         height: 5,
-
     },
     goodsList: {
         justifyContent: 'flex-start',
@@ -407,19 +380,32 @@ const styles = StyleSheet.create({
     },
     message: {
         backgroundColor: '#ffffff',
-        marginBottom: 8,
-        marginTop: 8
+        padding: 15,
+    },
+    textInputView: {
+        backgroundColor: '#f8f8f8',
+        borderRadius: 3,
+    },
+    textInput: {
+        minHeight: 36,
+        paddingHorizontal: 15,
+        paddingTop: 11,
+        paddingBottom: 11,
+        textAlignVertical: 'top'
     },
     footer: {
         height: 50,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
         backgroundColor: '#FFFFFF'
 
     },
     footerLeft: {
         flexDirection: 'row',
         alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end',
+        borderTopWidth: .5,
+        borderTopColor: '#eaeaea',
     },
     footerLeftLabel: {
         fontSize: 17,
@@ -443,7 +429,6 @@ const styles = StyleSheet.create({
         color: '#CCCCCC',
         fontSize: 13,
         lineHeight: 12,
-
         marginTop: 10,
     },
     totalPrice: {
@@ -462,7 +447,6 @@ const styles = StyleSheet.create({
         height: 75,
         marginRight: 10,
     },
-
     oneItemBody: {
         flex: 1
     },
@@ -470,13 +454,14 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#333',
         lineHeight: 20,
-        fontWeight: '800',
+        fontWeight: '500',
         marginBottom: 10,
+        fontFamily: 'PingFangSC-Medium',
     },
     oneItemBodyPrice: {
         fontSize: 13,
         color: '#333',
-        fontWeight: '800',
+        fontWeight: '500',
         fontFamily: 'PingFangSC-Medium',
     },
     oneItemBodySpec: {
