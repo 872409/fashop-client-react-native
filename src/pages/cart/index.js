@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { StyleSheet, View, ScrollView, RefreshControl, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { windowWidth, PublicStyles, ThemeStyle } from "../../utils/style";
 import fa from "../../utils/fa"
 import { Button, SwipeAction, Toast } from 'antd-mobile-rn';
@@ -8,7 +8,9 @@ import CartItem from "../../components/cart/item";
 import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
 import CartLogin from "../../components/cart/login";
-import ScrollViewLottie from "../../components/scrollView";
+import { LottieIosRefreshControl, LottieAndroidRefreshControl } from '../../components/refreshControl';
+import { ScrollView as ScrollViewLottie } from 'react-native-mjrefresh'
+import { AppPlatform } from '../../config';
 
 @connect(({ user })=> ({
     login: user.login,
@@ -63,7 +65,7 @@ export default class CartIndex extends Component {
         const { login, navigation } = this.props
         return <View style={PublicStyles.ViewMax}>
             {
-                !login ? <CartLogin navigation={navigation} /> : Array.isArray(cartList) && cartList.length > 0 ? <ScrollView>
+                !login ? <CartLogin navigation={navigation} /> : Array.isArray(cartList) && cartList.length > 0 ? <View>
                     {
                         cartList.map((item, index) => (
                             <SwipeAction
@@ -79,7 +81,7 @@ export default class CartIndex extends Component {
                                 ]}
                             >
                                 <CartItem
-                                    key={index}
+                                    index={index}
                                     title={item.goods_title}
                                     price={item.goods_price}
                                     spec={item.goods_spec_string}
@@ -103,7 +105,7 @@ export default class CartIndex extends Component {
                             </SwipeAction>
                         ))
                     }
-                </ScrollView> : <CartEmpty />
+                </View> : <CartEmpty />
             }
         </View>
     }
@@ -112,27 +114,36 @@ export default class CartIndex extends Component {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         const { login } = this.props
         return <View style={PublicStyles.ViewMax}>
-            <ScrollViewLottie
-                contentContainerStyle={{ flex: 1 }}
-                // refreshControl={
-                //     <RefreshControl
-                //         refreshing={refreshing}
-                //         colors={['#fff']}
-                //         progressBackgroundColor={ThemeStyle.ThemeColor}
-                //         tintColor={ThemeStyle.ThemeColor}
-                //         titleColor={ThemeStyle.ThemeColor}
-                //         title="加载中..."
-                //         onRefresh={() => {
-                //             this.initCartList()
-                //         }}
-                //     />
-                // }
-                scrollEventThrottle={50}
-            >
-                {
-                    this.renderInit()
-                }
-            </ScrollViewLottie>
+            {
+                AppPlatform==='ios' ? 
+                <ScrollViewLottie
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieIosRefreshControl
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.initCartList}
+                        />
+                    )}
+                >
+                    {
+                        this.renderInit()
+                    }
+                </ScrollViewLottie> : <ScrollView
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieAndroidRefreshControl 
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.initCartList}
+                        />
+                    )}
+                >
+                    {
+                        this.renderInit()
+                    }
+                </ScrollView>
+            }
             {
                 cartList.length&&login ? 
                 <View style={styles.footer}>
@@ -186,9 +197,9 @@ export default class CartIndex extends Component {
     }
 
     async onStepperChange(goods_sku_id, quantity) {
-        this.setState({
-            refreshing: true
-        })
+        // this.setState({
+        //     refreshing: true
+        // })
         this.props.dispatch({
             type: 'cart/edit',
             payload: {
@@ -245,7 +256,7 @@ export default class CartIndex extends Component {
         this.props.navigation.navigate('CartOrderFill', { cart_ids: checkedCartIds })
     }
 
-    initCartList = () => {
+    initCartList = (callback) => {
         let total = 0
         let totalNum = 0
         let checkedGoodsSkuInfoIds = []
@@ -286,7 +297,7 @@ export default class CartIndex extends Component {
                         totalNum,
                         cartList,
                         refreshing: false
-                    })
+                    }, () => this.lottieRefresh && this.lottieRefresh.finishRefresh())
                 }
             }
         })
