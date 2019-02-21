@@ -13,17 +13,6 @@ import { connect } from 'react-redux';
 
 @connect()
 export default class OrderList extends Component {
-    state = {
-        state_type: null,
-    }
-
-    async componentDidMount() {
-        const { navigation } = this.props
-        const { state_type } = navigation.state.params || {}
-        this.setState({
-            state_type
-        })
-    }
 
     goDetail(id) {
         this.props.navigation.navigate('OrderDetail', { id })
@@ -117,7 +106,8 @@ export default class OrderList extends Component {
                 tabLabel: '已完成'
             }
         ]
-        const { state_type } = this.state
+        const { navigation } = this.props
+        const { state_type } = navigation.state.params || {}
         let params = {}
         if (state_type) {
             params['state_type'] = state_type
