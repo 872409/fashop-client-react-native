@@ -154,6 +154,7 @@ export default class Pay extends Component{
                     Toast.info('支付成功');
                     this.paySuccess()
                 } catch (err) {
+                    this.payFailure()
                     Toast.warn('支付失败');
                 }
             }
@@ -178,6 +179,7 @@ export default class Pay extends Component{
                     Toast.info('支付成功');
                     this.paySuccess()
                 } catch (err) {
+                    this.payFailure()
                     Toast.warn('支付失败');
                 }
             }
@@ -193,9 +195,13 @@ export default class Pay extends Component{
             id: orderInfo.order_id || orderInfo.id
         })
     }
-    // payFailure() {
-
-    // }
+    payFailure = () => {
+        const { navigation } = this.props;
+        const { orderInfo } = navigation.state.params;
+        navigation.replace('OrderDetail', {
+            id: orderInfo.order_id || orderInfo.id
+        })
+    }
 }
 
 const styles = StyleSheet.create({
