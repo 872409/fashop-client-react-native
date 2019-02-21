@@ -84,12 +84,18 @@ export default class Pay extends Component{
                     </NoticeBar>
                     <View style={styles.totalView}>
                         <Text style={[PublicStyles.boldTitle, { fontSize: 15, marginBottom: 10 }]}>此次订单共需支付</Text>
-                        <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor }]}>
+                        <Text style={[PublicStyles.boldTitle, { color: ThemeStyle.ThemeColor, fontSize: 17 }]}>
                             ￥
-                            <Text style={{ fontSize: 25 }}>{pay_amount}</Text>
+                            <Text style={{ fontSize: 26 }}>{pay_amount}</Text>
                         </Text>
                     </View>
-                    <List renderHeader={() => "选择支付方式"}>
+                    <List 
+                        renderHeader={() => (
+                            <View style={styles.listHeaderView}>
+                                <Text style={PublicStyles.descFour9}>选择支付方式</Text>
+                            </View>
+                        )}
+                    >
                         {
                             payment_list.map(i => {
                                 // const disabled = i.type==='wechat'&&isWXAppInstalled===false
@@ -102,7 +108,16 @@ export default class Pay extends Component{
                                         // disabled={disabled}
                                         // extra={disabled && <Text style={{ fontSize: 15, color: 'red' }}>不支持此支付方式</Text>}
                                     >
-                                        {i.name}
+                                        <Text 
+                                            style={[
+                                                PublicStyles.title,{ 
+                                                    lineHeight: 47, 
+                                                    color: payment_code === i.type ? ThemeStyle.ThemeColor : '#333'
+                                                }
+                                            ]}
+                                        >
+                                            {i.name}
+                                        </Text>
                                     </RadioItem>
                                 )
                             })
@@ -209,5 +224,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingVertical: 24,
         alignItems: 'center',
+    },
+    listHeaderView: {
+        padding: 15,
+        backgroundColor: '#fff',
+        marginTop: 10,
     }
 })
