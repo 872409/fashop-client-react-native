@@ -8,6 +8,7 @@ export default class IosScrollView extends Component {
     render() {
         return (
             <ScrollView
+                {...this.props}
                 refreshControl={(<LottieIosRefreshControl />)}
             >
                 {

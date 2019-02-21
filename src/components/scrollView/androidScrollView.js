@@ -10,6 +10,7 @@ export default class AndroidScrollView extends Component {
     render() {
         return (
             <ScrollView
+                {...this.props}
                 refreshControl={(<LottieAndroidRefreshControl />)}
             >
                 {

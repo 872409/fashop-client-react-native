@@ -8,6 +8,7 @@ import CartItem from "../../components/cart/item";
 import CartCheckbox from "../../components/cart/checkbox";
 import CartEmpty from "../../components/cart/empty";
 import CartLogin from "../../components/cart/login";
+import ScrollViewLottie from "../../components/scrollView";
 
 @connect(({ user })=> ({
     login: user.login,
@@ -111,27 +112,27 @@ export default class CartIndex extends Component {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         const { login } = this.props
         return <View style={PublicStyles.ViewMax}>
-            <ScrollView
+            <ScrollViewLottie
                 contentContainerStyle={{ flex: 1 }}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        colors={['#fff']}
-                        progressBackgroundColor={ThemeStyle.ThemeColor}
-                        tintColor={ThemeStyle.ThemeColor}
-                        titleColor={ThemeStyle.ThemeColor}
-                        title="加载中..."
-                        onRefresh={() => {
-                            this.initCartList()
-                        }}
-                    />
-                }
+                // refreshControl={
+                //     <RefreshControl
+                //         refreshing={refreshing}
+                //         colors={['#fff']}
+                //         progressBackgroundColor={ThemeStyle.ThemeColor}
+                //         tintColor={ThemeStyle.ThemeColor}
+                //         titleColor={ThemeStyle.ThemeColor}
+                //         title="加载中..."
+                //         onRefresh={() => {
+                //             this.initCartList()
+                //         }}
+                //     />
+                // }
                 scrollEventThrottle={50}
             >
                 {
                     this.renderInit()
                 }
-            </ScrollView>
+            </ScrollViewLottie>
             {
                 cartList.length&&login ? 
                 <View style={styles.footer}>
