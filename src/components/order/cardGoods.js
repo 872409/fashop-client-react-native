@@ -73,10 +73,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     item: {
-        marginRight: 10,
-        borderBottomWidth: 1,
-        borderStyle: "solid",
-        borderBottomColor: "#F8F8F8",
+        marginRight: 5,
         flexDirection: 'row'
     },
     image: {
