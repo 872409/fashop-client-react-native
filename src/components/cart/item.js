@@ -58,10 +58,10 @@ export default class CartItem extends Component {
 
     render() {
         const checked = this.state.checked;
-        const { title, price, spec, number, cover, goodsStock, key } = this.props
+        const { title, price, spec, number, cover, goodsStock, index } = this.props
         return <View style={[styles.cartCardItemWarp, PublicStyles.rowCenter]}>
             <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
-            <View style={[styles.cartCardItem,{borderTopWidth: key===0 ? 0 : .5}]}>
+            <View style={[styles.cartCardItem,{borderTopWidth: index===0 ? 0 : .5}]}>
                 <View style={styles.cartCard}>
                     <TouchableOpacity onPress={this.onImageClick} activeOpacity={0.5}>
                         <NetworkImage style={styles.cartCardImage} source={{ uri: cover }} />
