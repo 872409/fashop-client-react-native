@@ -48,6 +48,12 @@ export const wechatShare = async ({ type, params }) => {
     }
 }
 
+// launchMini(params)
+// params { Object } 打开小程序的参数
+// userName: gh_0a1a182155f9 { String } // 小程序的原始ID，不是APPID
+// miniProgramType: 1 { Integer } 拉起小程序的类型. 0-正式版 1-开发版 2-体验版
+// path: "/pages/goods/detail/index?id=20" { String } 拉起小程序页面的可带参路径，不填默认拉起小程序首页
+
 const addAuth = (e)=>{
     return new Promise(async(resolve, reject)=>{
         const {

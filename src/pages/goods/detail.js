@@ -24,6 +24,8 @@ import {
 import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
 import Badge from "@react-native-component/react-native-smart-badge";
+import ActionSheet from "react-native-actionsheet";
+import { wechatShare } from '../../utils/wechat'
 // import WebHtmlView from "../../components/public/webHtmlView";
 
 // const htmlContent = `
@@ -66,6 +68,7 @@ export default class GoodsDetail extends Component {
     render() {
         const { specVisible, if_cart } = this.state;
         const { navigation, dispatch, login, data } = this.props;
+        const { id } = navigation.state.params
         return data ? <View style={PublicStyles.ViewMax}>
             <ScrollView>
                 {
@@ -105,6 +108,34 @@ export default class GoodsDetail extends Component {
                     }}
                 />
             </SpecModal>
+            <ActionSheet
+                ref={o => this.ShareActionSheet = o}
+                title={'分享'}
+                options={['好友', '朋友圈', '取消']}
+                cancelButtonIndex={2}
+                onPress={(index) => {
+                    if (index !== 2) {
+                        if (index === 0) {
+                            wechatShare({
+                                type: 'session',
+                                params: {
+                                    type: 'mini',
+                                    userName: 'gh_cbed9edbbc7d',  // 小程序的原始ID，不是APPID
+                                    miniProgramType: 1,  // 拉起小程序的类型. 0-正式版 1-开发版 2-体验版
+                                    path: `/pages/goods/detail/index?id=${id}`, // 拉起小程序页面的可带参路径，不填默认拉起小程序首页
+                                    hdImageData: data.img,
+                                    title: data.title,
+                                    description: `description`,
+                                    thumbImage: 'https://i.ibb.co/m6Z424d/favicon.png',
+                                    webpageUrl: ``
+                                }
+                            })
+                        }else {
+                            console.log('分享到朋友圈');
+                        }
+                    }
+                }}
+            />
         </View> : null
     }
 
@@ -157,7 +188,12 @@ export default class GoodsDetail extends Component {
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
                         <Text style={[PublicStyles.boldTitle,styles.price]}>￥{data.price}</Text>
-                        <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
+                        <TouchableOpacity
+                            activeOpacity={.8}
+                            onPress={() => this.ShareActionSheet.show()}
+                        >
+                            <Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={[styles.titleBot, PublicStyles.rowBetweenCenter]}>

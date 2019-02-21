@@ -4119,6 +4119,11 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
+react-native-actionsheet@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.npmjs.org/react-native-actionsheet/-/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
+  integrity sha512-DBoWIvVwuWXuptF4t46pBqkFxaUxS+rsIdHiA05t0n4BdTIDV2R4s9bLEUVOGzb94D7VxIamsXZPA/3mmw+SXg==
+
 react-native-camera-roll-picker@^1.2.1:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.2.3.tgz#b117fd3a2b9012dcccee1261a9bc427226b8d6d2"
@@ -4294,9 +4299,9 @@ react-native-video@^4.0.1:
     prop-types "^15.5.10"
     shaka-player "2.4.4"
 
-react-native-wechat@^1.9.10:
-  version "1.9.10"
-  resolved "https://registry.yarnpkg.com/react-native-wechat/-/react-native-wechat-1.9.10.tgz#e9e26aba60ecf17d878a17047136cb8d223056bb"
+"react-native-wechat@https://github.com/puti94/react-native-wechat":
+  version "1.10.0"
+  resolved "https://github.com/puti94/react-native-wechat#2c4f6648b9e5562fcf5d891558a2d1f7acb7a92f"
   dependencies:
     events "1.0.2"
 
