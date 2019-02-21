@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { windowWidth, ThemeStyle } from "../../utils/style";
+import { windowWidth, ThemeStyle, PublicStyles } from "../../utils/style";
 import CartCheckbox from "./checkbox"
 import { NetworkImage } from "../theme";
 import Stepper from "../goods/stepper";
@@ -58,26 +58,28 @@ export default class CartItem extends Component {
 
     render() {
         const checked = this.state.checked;
-        const { title, price, spec, number, cover, goodsStock } = this.props
-        return <View style={styles.cartCardItem}>
+        const { title, price, spec, number, cover, goodsStock, key } = this.props
+        return <View style={[styles.cartCardItemWarp, PublicStyles.rowCenter]}>
             <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
-            <View style={styles.cartCard}>
-                <TouchableOpacity onPress={this.onImageClick} activeOpacity={0.5}>
-                    <NetworkImage style={styles.cartCardImage} source={{ uri: cover }} />
-                </TouchableOpacity>
-                <View style={styles.cartCardTitleSpec}>
-                    <TouchableOpacity onPress={this.onTitleClick} activeOpacity={0.5}>
-                        <Text style={styles.cartCardTitle} numberOfLines={2}>{title}</Text>
+            <View style={[styles.cartCardItem,{borderTopWidth: key===0 ? 0 : .5}]}>
+                <View style={styles.cartCard}>
+                    <TouchableOpacity onPress={this.onImageClick} activeOpacity={0.5}>
+                        <NetworkImage style={styles.cartCardImage} source={{ uri: cover }} />
                     </TouchableOpacity>
-                    <Text style={styles.cartCardSpec}>{spec}</Text>
-                    <View style={styles.cartCardFooter}>
-                        <Text style={styles.cartCardPrice}>¥ {price}</Text>
-                        <View style={styles.cartCardStepper}>
-                            <Stepper
-                                stock={goodsStock ? Number(goodsStock) : 99}
-                                defaultValue={number}
-                                onChange={this.onStepperChange}
-                            />
+                    <View style={styles.cartCardTitleSpec}>
+                        <TouchableOpacity onPress={this.onTitleClick} activeOpacity={0.5}>
+                            <Text style={styles.cartCardTitle} numberOfLines={2}>{title}</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.cartCardSpec}>{spec}</Text>
+                        <View style={styles.cartCardFooter}>
+                            <Text style={styles.cartCardPrice}>¥ {price}</Text>
+                            <View style={styles.cartCardStepper}>
+                                <Stepper
+                                    stock={goodsStock ? Number(goodsStock) : 99}
+                                    defaultValue={number}
+                                    onChange={this.onStepperChange}
+                                />
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -88,15 +90,17 @@ export default class CartItem extends Component {
 }
 
 const styles = StyleSheet.create({
+    cartCardItemWarp: {
+        backgroundColor: '#FFFFFF',
+        paddingLeft: 15,
+    },
     cartCardItem: {
         flexDirection: 'row',
-        padding: 15,
-        backgroundColor: '#FFFFFF',
-        borderBottomColor: '#EAEAEA',
-        borderBottomWidth: 1,
+        paddingVertical: 15,
+        paddingRight: 15,
+        borderTopColor: '#EAEAEA',
     },
     cartCard: {
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
@@ -112,7 +116,6 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     cartCardTitleSpec: {
-        // flex: 1
         width: windowWidth - 30 - 16 - 15 - 75 - 10,
     },
     cartCardTitle: {
