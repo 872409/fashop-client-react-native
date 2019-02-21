@@ -4,11 +4,12 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 import { List } from "antd-mobile-rn";
-import { PublicStyles, windowWidth } from '../../utils/style';
+import { PublicStyles } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
+import ScrollView from "../../components/scrollView";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
 import Badge from "@react-native-component/react-native-smart-badge";
@@ -34,15 +35,25 @@ export default class User extends Component {
     }
     render() {
         return <View style={PublicStyles.ViewMax}>
-            {
-                this.top()
-            }
-            {
-                this.mid()
-            }
-            {
-                this.bot()
-            }
+            <ScrollView>
+                {
+                    this.top()
+                }
+                {
+                    this.mid()
+                }
+                {
+                    this.bot()
+                }
+            </ScrollView>
+            <View style={styles.fashopCopyright}>
+                <Image 
+                    source={require('../../images/fashop/copyright.png')} 
+                    mode="aspectFit"    
+                    style={styles.fashopCopyrightImg} 
+                />
+                <Text style={styles.fashopCopyrightText}>提供技术支持</Text>
+            </View>
         </View>;
     }
     top() {
@@ -182,31 +193,22 @@ export default class User extends Component {
             }
         ]
         return (
-            <View style={PublicStyles.ViewMax}>
-                <List style={PublicStyles.ViewMax}>
-                    {
-                        botList.map((item, index) => (
-                            <Item
-                                key={index}
-                                arrow="horizontal"
-                                onClick={() => navigation.navigate(login ? item.path : 'UserLogin')}
-                            >
-                                <View style={PublicStyles.rowCenter}>
-                                    <Image style={styles.botImg} source={item.img} />
-                                    <Text style={PublicStyles.title}>{item.title}</Text>
-                                </View>
-                            </Item>
-                        ))
-                    }
-                </List>
-                <View style={styles.fashopCopyright}>
-                    <View style={styles.fashopCopyrightBody}>
-                        <Image source={require('../../images/fashop/copyright.png')} mode="aspectFit"
-                               style={styles.fashopCopyrightImg} />
-                        <Text style={styles.fashopCopyrightText}>提供技术支持</Text>
-                    </View>
-                </View>
-            </View>
+            <List>
+                {
+                    botList.map((item, index) => (
+                        <Item
+                            key={index}
+                            arrow="horizontal"
+                            onClick={() => navigation.navigate(login ? item.path : 'UserLogin')}
+                        >
+                            <View style={PublicStyles.rowCenter}>
+                                <Image style={styles.botImg} source={item.img} />
+                                <Text style={PublicStyles.title}>{item.title}</Text>
+                            </View>
+                        </Item>
+                    ))
+                }
+            </List>
         )
     }
 }
@@ -238,12 +240,6 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     fashopCopyright: {
-        bottom: 0,
-        width: windowWidth,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    fashopCopyrightBody: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
