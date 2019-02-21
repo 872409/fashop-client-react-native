@@ -14,7 +14,7 @@ import {
     LottieAndroidRefreshControl,
 } from "../refreshControl";
 
-export default class IosFlatList extends Component {
+export default class AndroidFlatList extends Component {
     static propTypes = {
         ListEmptyComponent: PropTypes.func,
         getNativeData: PropTypes.func,
