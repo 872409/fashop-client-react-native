@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ScrollView,
-    Text
+    Text,
+    ScrollView
 } from 'react-native';
 import { connect } from "react-redux";
 import { PublicStyles } from '../../utils/style';
@@ -22,23 +22,33 @@ import {
     Title,
     TextNav,
 } from "../../components/page"
+import { LottieIosRefreshControl, LottieAndroidRefreshControl } from '../../components/refreshControl';
+import { ScrollView as ScrollViewLottie } from 'react-native-mjrefresh'
+import { AppPlatform } from '../../config';
 
-@connect(({ page, loading }) => {
-    // console.log('loading', loading);
-    
+@connect(({ page }) => {
     return ({
         data: page.portal.result.info
     })
 })
 export default class Home extends Component {
-    async componentDidMount(){
-        const { dispatch, navigation, data } = this.props
-        await dispatch({
-            type: "page/portal"
-        })
-        navigation.setParams({
-            title: data.name
-        })
+    componentDidMount() {
+        const { navigation } = this.props
+        navigation.addListener(
+            'didFocus', this.refreshFunc
+        );
+    }
+    refreshFunc = () => {
+        const { dispatch, navigation } = this.props
+        dispatch({
+            type: "page/portal",
+            callback: ({result: {info}}) => {
+                navigation.setParams({
+                    title: info.name
+                })
+                this.lottieRefresh && this.lottieRefresh.finishRefresh()
+            }
+        });
     }
     render() {
         const { data } = this.props
@@ -50,11 +60,37 @@ export default class Home extends Component {
                 }
             ]}
         >
-            <ScrollView>
-                {
-                    body.map((item, index) => this.bodyItem(item, index))
-                }
-            </ScrollView>
+            {
+                AppPlatform==='ios' ? 
+                <ScrollViewLottie
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieIosRefreshControl
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        body.map((item, index) => this.bodyItem(item, index))
+                    }
+                </ScrollViewLottie> : 
+                <ScrollView
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieAndroidRefreshControl 
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        body.map((item, index) => this.bodyItem(item, index))
+                    }
+                </ScrollView>
+            }
         </View>
     }
 

@@ -13,6 +13,9 @@ import GoodsItem from "../../components/goods/item";
 import FlatList from "../../components/flatList";
 import { GoodsApi } from "../../config/api/goods";
 import { connect } from 'react-redux';
+import { LottieIosRefreshControl, LottieAndroidRefreshControl } from '../../components/refreshControl';
+import { ScrollView as ScrollViewLottie } from 'react-native-mjrefresh'
+import { AppPlatform } from '../../config';
 
 @connect()
 export default class Category extends Component {
@@ -23,28 +26,31 @@ export default class Category extends Component {
     }
 
     componentDidMount() {
-        const { navigation, dispatch } = this.props
+        const { navigation } = this.props
         navigation.addListener(
-            'didFocus', () => {
-                dispatch({
-                    type: 'shop/info',
-                    callback: ({result})=>{
-                        this.setState({
-                            goods_category_style: result.info.goods_category_style+1
-                        })
-                    }
-                })
-                dispatch({
-                    type: 'goodsCategory/list',
-                    callback: ({result})=>{
-                        this.setState({
-                            categoryList: result.list,
-                            current: result.list[0].id,
-                        })
-                    }
-                })
-            }
+            'didFocus', this.refreshFunc
         )
+    }
+
+    refreshFunc = () => {
+        const { dispatch } = this.props
+        dispatch({
+            type: 'shop/info',
+            callback: ({ result }) => {
+                this.setState({
+                    goods_category_style: result.info.goods_category_style + 1
+                }, () => this.lottieRefresh && this.lottieRefresh.finishRefresh() )
+            }
+        })
+        dispatch({
+            type: 'goodsCategory/list',
+            callback: ({ result }) => {
+                this.setState({
+                    categoryList: result.list,
+                    current: result.list[0].id,
+                }, () => this.lottieRefresh && this.lottieRefresh.finishRefresh() )
+            }
+        })
     }
 
     render() {
@@ -142,34 +148,61 @@ export default class Category extends Component {
     PageTwo = () => {
         const { categoryList } = this.state;
         const { navigation } = this.props
-        return <View style={[PublicStyles.ViewMax, { flexDirection: 'row' }]}>
-            <ScrollView>
-                {
-                    categoryList.map((item,i)=>(
-                        <View key={i} style={styles.item}>
-                            <Text style={styles.itemName}><Text style={{color: '#ccc'}}>— </Text> {item.name} <Text style={{color: '#ccc'}}>— </Text></Text>
-                            <View style={styles.childView}>
-                                {
-                                    item._child.map((childItem,j)=>(
-                                        <TouchableOpacity 
-                                            key={j} 
-                                            style={styles.childItem}
-                                            onPress={() => {
-                                                navigation.navigate("GoodsList", {
-                                                    category_id: item.id,
-                                                })
-                                            }}
-                                        >
-                                            <NetworkImage style={styles.childImg} source={{ uri: childItem.icon }} />
-                                            <Text style={styles.childName} numberOfLines={1}>{childItem.name}</Text>
-                                        </TouchableOpacity>
-                                    ))
-                                }
-                            </View>
-                        </View>
-                    ))
-                }
-            </ScrollView>
+        const renderPageTwo = categoryList.map((item, i) => (
+            <View key={i} style={styles.item}>
+                <Text style={styles.itemName}><Text style={{ color: '#ccc' }}>— </Text> {item.name} <Text style={{ color: '#ccc' }}>— </Text></Text>
+                <View style={styles.childView}>
+                    {
+                        item._child.map((childItem, j) => (
+                            <TouchableOpacity
+                                key={j}
+                                style={styles.childItem}
+                                onPress={() => {
+                                    navigation.navigate("GoodsList", {
+                                        category_id: item.id,
+                                    })
+                                }}
+                            >
+                                <NetworkImage style={styles.childImg} source={{ uri: childItem.icon }} />
+                                <Text style={styles.childName} numberOfLines={1}>{childItem.name}</Text>
+                            </TouchableOpacity>
+                        ))
+                    }
+                </View>
+            </View>
+        ))
+        return <View style={PublicStyles.ViewMax}>
+            {
+                AppPlatform==='ios' ? 
+                <ScrollViewLottie
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieIosRefreshControl
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        renderPageTwo
+                    }
+                </ScrollViewLottie> :
+                <ScrollView
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieAndroidRefreshControl 
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        renderPageTwo
+                    }
+                </ScrollView>
+            }
         </View>;
     }
 

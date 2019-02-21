@@ -30,8 +30,8 @@ export default class LottieRefreshControl extends Component {
         }
     }
     finishRefresh = () => {
-        this._mjrefresh && this._mjrefresh.finishRefresh();
-        this.lottieView.reset();
+        setTimeout(() => this._mjrefresh && this._mjrefresh.finishRefresh(),1000)
+        // this.lottieView.reset();
     }
     beginRefresh = () => {
         this._mjrefresh && this._mjrefresh.beginRefresh();

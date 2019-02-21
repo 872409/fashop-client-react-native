@@ -40,13 +40,11 @@ export default class CartIndex extends Component {
         userInfo: null,
     }
     componentDidMount() {
-        const { navigation, dispatch, login } = this.props
+        const { navigation, login } = this.props
         navigation.addListener(
-            'didFocus',
-            async () => {
+            'didFocus', () => {
                 if(login){
-                    await this.initCartList()
-                    dispatch({ type: 'cart/totalNum' });
+                    this.refreshFunc()
                 }else {
                     this.setState({
                         refreshing: false
@@ -54,6 +52,11 @@ export default class CartIndex extends Component {
                 }
             }
         );
+    }
+
+    refreshFunc = () => {
+        this.initCartList()
+        this.props.dispatch({ type: 'cart/totalNum' })
     }
 
     renderInit() {
@@ -122,7 +125,7 @@ export default class CartIndex extends Component {
                     refreshControl={(
                         <LottieIosRefreshControl
                             ref={ref => this.lottieRefresh = ref}
-                            onRefresh={this.initCartList}
+                            onRefresh={this.refreshFunc}
                         />
                     )}
                 >
@@ -135,7 +138,7 @@ export default class CartIndex extends Component {
                     refreshControl={(
                         <LottieAndroidRefreshControl 
                             ref={ref => this.lottieRefresh = ref}
-                            onRefresh={this.initCartList}
+                            onRefresh={this.refreshFunc}
                         />
                     )}
                 >

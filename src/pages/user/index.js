@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    ScrollView,
     Text,
     Image,
     TouchableOpacity,
@@ -9,10 +10,12 @@ import {
 import { List } from "antd-mobile-rn";
 import { PublicStyles } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
-import ScrollView from "../../components/scrollView";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
 import Badge from "@react-native-component/react-native-smart-badge";
+import { LottieIosRefreshControl, LottieAndroidRefreshControl } from '../../components/refreshControl';
+import { ScrollView as ScrollViewLottie } from 'react-native-mjrefresh'
+import { AppPlatform } from '../../config';
 
 const Item = List.Item
 
@@ -23,29 +26,65 @@ const Item = List.Item
 }))
 export default class User extends Component {
     componentDidMount() {
-        const { navigation, dispatch, login } = this.props
+        const { navigation } = this.props
         navigation.addListener(
-            'didFocus',
-            async () => {
-                if (login) {
-                    dispatch({ type: 'order/stateNum' });
-                }
-            }
+            'didFocus', this.refreshFunc
         );
+    }
+    refreshFunc = () => {
+        const { dispatch, login } = this.props
+        if (login) {
+            dispatch({ 
+                type: 'order/stateNum',
+                callback: () => this.lottieRefresh && this.lottieRefresh.finishRefresh() 
+            });
+        }
     }
     render() {
         return <View style={PublicStyles.ViewMax}>
-            <ScrollView>
-                {
-                    this.top()
-                }
-                {
-                    this.mid()
-                }
-                {
-                    this.bot()
-                }
-            </ScrollView>
+            {
+                AppPlatform === 'ios' ? 
+                <ScrollViewLottie
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieIosRefreshControl
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        this.top()
+                    }
+                    {
+                        this.mid()
+                    }
+                    {
+                        this.bot()
+                    }
+                </ScrollViewLottie> : 
+                <ScrollView
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEventThrottle={50}
+                    refreshControl={(
+                        <LottieAndroidRefreshControl 
+                            ref={ref => this.lottieRefresh = ref}
+                            onRefresh={this.refreshFunc}
+                        />
+                    )}
+                >
+                    {
+                        this.top()
+                    }
+                    {
+                        this.mid()
+                    }
+                    {
+                        this.bot()
+                    }
+                </ScrollView>
+            }
             <View style={styles.fashopCopyright}>
                 <Image 
                     source={require('../../images/fashop/copyright.png')} 
