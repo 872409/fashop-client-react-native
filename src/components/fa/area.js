@@ -7,8 +7,9 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from "prop-types";
-import { Picker, Icon } from 'antd-mobile-rn';
+import { Picker } from 'antd-mobile-rn';
 import { PublicStyles } from '../../utils/style';
+import Ionicon from 'react-native-vector-icons/Ionicons'
 
 const CustomChildren = (props: any) => (
     <TouchableOpacity onPress={props.onClick} style={styles.picker}>
@@ -58,7 +59,11 @@ export default class Area extends Component {
                     />
                 </Picker>
             </View>
-            <Icon type="right" size='xxs' color="#CCCCCC" />
+            <Ionicon
+                name="ios-arrow-forward"
+                color="#ccc"
+                size={16}
+            />
         </View> : null
     }
 }

@@ -234,7 +234,7 @@ const AppStack = createStackNavigator(
         RefundServiceType: {
             screen: RefundServiceType,
             navigationOptions: {
-                title: '选择售后服务类型'
+                title: '选择服务类型'
             }
         },
         // address
