@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 13,
-        fontWeight: "800"
+        fontWeight: "500",
+        fontFamily: 'PingFangSC-Medium',
     },
     footer: {
         paddingTop: 10,

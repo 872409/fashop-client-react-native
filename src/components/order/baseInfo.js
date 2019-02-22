@@ -79,17 +79,14 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 15,
         fontWeight: "800",
-        lineHeight: 14,
         color: "#333"
     },
     text: {
         fontSize: 15,
-        lineHeight: 14,
         color: "#666"
     },
     time: {
         fontSize: 15,
-        lineHeight: 14,
         color: "#666"
     }
 })

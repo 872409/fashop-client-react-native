@@ -57,8 +57,8 @@ export default class UserAddressList extends Component {
                     <AddressCard
                         id={item.id}
                         name={item.truename}
-                        phone={item.phone}
-                        address={item.combine_detail}
+                        phone={item.mobile_phone}
+                        address={`${item.combine_detail} ${item.address}`}
                         is_default={item.is_default}
                         onEdit={this.onEdit}
                         onDel={this.onDel}

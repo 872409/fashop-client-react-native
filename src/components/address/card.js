@@ -94,22 +94,18 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 15,
-        fontWeight: '800',
+        fontWeight: '500',
         marginRight: 15,
-        lineHeight: 14,
-
+        fontFamily: 'PingFangSC-Medium',
     },
     phone: {
         fontSize: 15,
-        fontWeight: '800',
+        fontWeight: '500',
         marginRight: 15,
-        lineHeight: 14,
-
+        fontFamily: 'PingFangSC-Medium',
     },
     address: {
         fontSize: 15,
-        lineHeight: 14,
-
         color: '#999999'
     },
     action: {
@@ -129,7 +125,6 @@ const styles = StyleSheet.create({
     actionText: {
         marginLeft: 5,
         fontSize: 15,
-        lineHeight: 14,
         color: '#999'
     }
 })

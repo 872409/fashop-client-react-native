@@ -55,12 +55,14 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 15,
         marginRight: 10,
-        fontWeight: '800'
+        fontWeight: "500",
+        fontFamily: 'PingFangSC-Medium',
     },
     phone: {
         fontSize: 15,
         marginRight: 15,
-        fontWeight: '800'
+        fontWeight: "500",
+        fontFamily: 'PingFangSC-Medium',
     },
     address: {
         fontSize: 15,

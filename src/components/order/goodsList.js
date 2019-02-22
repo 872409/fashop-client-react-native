@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 15,
-        fontWeight: "800",
         marginBottom: 10,
-        lineHeight: 14,
-        textAlign: 'right'
+        textAlign: 'right',
+        fontWeight: "500",
+        fontFamily: 'PingFangSC-Medium',
     },
     number: {
         fontSize: 15,
