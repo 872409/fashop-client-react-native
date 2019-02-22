@@ -116,11 +116,12 @@ export default class CartIndex extends Component {
     render() {
         const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
         const { login } = this.props
+        const contentContainerStyle = login && Array.isArray(cartList) && cartList.length !== 0 ? {} : { flex: 1 }
         return <View style={PublicStyles.ViewMax}>
             {
                 AppPlatform==='ios' ? 
                 <ScrollViewLottie
-                    contentContainerStyle={{ flex: 1 }}
+                    contentContainerStyle={contentContainerStyle}
                     scrollEventThrottle={50}
                     refreshControl={(
                         <LottieIosRefreshControl
@@ -133,7 +134,7 @@ export default class CartIndex extends Component {
                         this.renderInit()
                     }
                 </ScrollViewLottie> : <ScrollView
-                    contentContainerStyle={{ flex: 1 }}
+                    contentContainerStyle={contentContainerStyle}
                     scrollEventThrottle={50}
                     refreshControl={(
                         <LottieAndroidRefreshControl 
@@ -267,7 +268,7 @@ export default class CartIndex extends Component {
         this.props.dispatch({
             type: 'cart/list',
             callback: ({result})=>{
-                if (!result.list.length) {
+                if (result.list&&!result.list.length) {
                     this.setState({
                         cartListLoadedState: false,
                         checkedCartIds: [],

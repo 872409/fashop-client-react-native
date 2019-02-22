@@ -63,7 +63,6 @@ export default class Home extends Component {
             {
                 AppPlatform==='ios' ? 
                 <ScrollViewLottie
-                    contentContainerStyle={{ flex: 1 }}
                     scrollEventThrottle={50}
                     refreshControl={(
                         <LottieIosRefreshControl
@@ -77,7 +76,6 @@ export default class Home extends Component {
                     }
                 </ScrollViewLottie> : 
                 <ScrollView
-                    contentContainerStyle={{ flex: 1 }}
                     scrollEventThrottle={50}
                     refreshControl={(
                         <LottieAndroidRefreshControl 
