@@ -13,23 +13,29 @@ export default class GoodsItem extends Component {
         const { data, index, onPress } = this.props;
         return <TouchableOpacity
             onPress={onPress}
-            style={styles.item}
+            style={styles.itemWarp}
         >
-            <NetworkImage style={styles.img} source={{ uri: data.img }} />
-            <View style={styles.right}>
-                <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
-                <Text style={styles.price}>￥{data.price}</Text>
+            <View style={[styles.item,{borderTopWidth: index===0 ? 0 : .5}]}>
+                <NetworkImage style={styles.img} source={{ uri: data.img }} />
+                <View style={styles.right}>
+                    <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
+                    <Text style={styles.price}>￥{data.price}</Text>
+                </View>
             </View>
         </TouchableOpacity>
     }
 }
 
 const styles = StyleSheet.create({
-    item: {
+    itemWarp: {
         width: windowWidth,
-        flexDirection: 'row',
         backgroundColor: '#fff',
-        padding: 15,
+        paddingLeft: 15,
+    },
+    item: {
+        flexDirection: 'row',
+        paddingVertical: 15,
+        borderTopColor: '#eaeaea',
     },
     img: {
         width: 75,

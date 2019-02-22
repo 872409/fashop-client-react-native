@@ -89,7 +89,7 @@ export default {
                 });
                 if (callback) callback(response);
             }catch(err){
-                Toast.info('获取物流信息失败！')
+                Toast.info('没有物流信息')
             }
         },
         * goodsList({ payload, callback }, { call, put }) {

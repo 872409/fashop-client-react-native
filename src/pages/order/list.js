@@ -163,6 +163,7 @@ export default class OrderList extends Component {
                             <OrderCardHeader
                                 orderId={item.id}
                                 state={item.state}
+                                showPayBtn={item.if_pay}
                                 sn={item.sn}
                             />
                             <OrderCardGoods
