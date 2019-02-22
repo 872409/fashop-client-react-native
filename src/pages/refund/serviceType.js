@@ -42,7 +42,7 @@ export default class ServiceType extends Component {
             {
                 title: '仅退款',
                 desc: '未收到货（包含未签收），或已与卖家协商同意',
-            },{
+            }, {
                 title: '退货退款',
                 desc: '已收到货，需要退换已收到的货物',
             }
@@ -50,15 +50,14 @@ export default class ServiceType extends Component {
         return goodsInfo ? <View style={PublicStyles.ViewMax}>
                 <View style={styles.item}>
                     <View style={styles.content}>
-                        <View style={styles.image}>
-                            <NetworkImage 
-                                source={{ uri: goodsInfo.goods_img }} 
-                                style={{
-                                    width: 75,
-                                    height: 75,
-                                }} 
-                            />
-                        </View>
+                        <NetworkImage 
+                            source={{ uri: goodsInfo.goods_img }} 
+                            style={{
+                                width: 60,
+                                height: 60,
+                                marginRight: 10
+                            }} 
+                        />
                         <View style={styles.body}>
                             <Text style={styles.bodyText}>{goodsInfo.goods_title}</Text>
                             <View style={styles.end}>
@@ -107,11 +106,6 @@ const styles = StyleSheet.create({
     },
     content: {
         flexDirection: 'row',
-    },
-    image: {
-        width: 75,
-        height: 75,
-        marginRight: 10
     },
     body: {
         flex: 1
