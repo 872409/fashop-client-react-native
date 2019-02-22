@@ -61,7 +61,7 @@ export default class ServiceType extends Component {
                         titleStyle={{ fontSize: 15 }}
                         arrow={'horizontal'}
                         title="仅退款"
-                        label="未收到货（包含未签收），或卖家协商同意前提现"
+                        label="未收到货（包含未签收），或已与卖家协商同意"
                         onClick={() => {
                             this.onClick(1)
                         }}

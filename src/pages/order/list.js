@@ -122,8 +122,8 @@ export default class OrderList extends Component {
                     renderTabBar={() =>
                         <DefaultTabBar
                             style={{
-                                borderWidth: 0,
-                                borderColor: 'rgba(0,0,0,0)'
+                                borderWidth: 0.5,
+                                borderColor: '#eaeaea'
                             }}
                             tabStyle={{ paddingBottom: 0 }}
                         />
