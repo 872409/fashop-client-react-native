@@ -56,7 +56,7 @@ export default class ServiceApply extends Component {
         dispatch({
             type: 'refund/reasonList',
             payload: {
-                refundType
+                refund_type: refundType
             }
         })
         this.setState({

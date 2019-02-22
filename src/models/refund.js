@@ -10,7 +10,7 @@ export default {
         add: {},
         edit: {},
         del: {},
-        types: {
+        reasonList: {
             result: { list: [], total_number: 0 }
         },
     },

@@ -26,10 +26,12 @@ export default class ServiceType extends Component {
         })
     }
 
-    onClick(refundType) {
-        this.props.navigation.navigate('RefundServiceApply', {
-            order_goods_id: this.props.goodsInfo.id,
-            refund_type: refundType,
+    onClick(refund_type) {
+        const { navigation } = this.props
+        const { order_goods_id } = navigation.state.params
+        navigation.navigate('RefundServiceApply', {
+            order_goods_id,
+            refund_type,
             delta: 2
         })
     }
