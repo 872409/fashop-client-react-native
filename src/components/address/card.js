@@ -17,6 +17,7 @@ export default class AddressCard extends Component {
         address: PropTypes.string,
         checked: PropTypes.bool,
         is_default: PropTypes.number,
+        onAddressChecked: PropTypes.func
     };
     static defaultProps = {
         name: null,
@@ -24,6 +25,7 @@ export default class AddressCard extends Component {
         address: null,
         checked: false,
         is_default: 0,
+        onAddressChecked: () => {}
     };
 
     render() {
