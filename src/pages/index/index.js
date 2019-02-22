@@ -35,7 +35,7 @@ class BadgeItem extends Component {
                 <TabBarItem {...this.props} />
                 {
                     cartNum ? <Badge
-                        textStyle={{ color: '#fff', fontSize: 10 }}
+                        textStyle={{ color: '#fff', fontSize: 11 }}
                         style={{ 
                             position: 'absolute', 
                             right: -20, 

@@ -196,7 +196,7 @@ export default class User extends Component {
                                 {
                                     item.num ?
                                     <Badge
-                                        textStyle={{ color: '#fff', fontSize: 10 }}
+                                        textStyle={{ color: '#fff', fontSize: 11 }}
                                         style={{ position: 'absolute', right: 10, top: -10 }}
                                         minHeight={18}
                                         minWidth={18}

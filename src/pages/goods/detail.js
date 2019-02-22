@@ -264,7 +264,7 @@ export default class GoodsDetail extends Component {
                             <Text style={leftText}>购物车</Text>
                             {
                                 cartNum ? <Badge
-                                    textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
+                                    textStyle={{ color: '#fff', fontSize: 11, paddingHorizontal: 2 }}
                                     style={{ position: 'absolute', right: 4, top: -1 }}
                                     minHeight={18}
                                     minWidth={18}
