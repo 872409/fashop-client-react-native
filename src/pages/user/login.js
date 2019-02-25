@@ -163,7 +163,7 @@ export default class UserLogin extends Component {
 			password,
 		} = this.state
 		if (!username) {
-			return fa.toast.show({ title: '请输入用户名' })
+			return fa.toast.show({ title: '请输入手机号或账号' })
 		}
 		if (!password) {
 			return fa.toast.show({ title: '请输入密码' })

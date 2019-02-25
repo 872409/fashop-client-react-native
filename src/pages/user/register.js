@@ -36,6 +36,15 @@ export default class UserRegister extends Component {
 			verify_code,
 			password,
 		} = this.state
+		if (!username) {
+			return fa.toast.show({ title: '请输入手机号' })
+		}
+		if (!verify_code) {
+			return fa.toast.show({ title: '请输入验证码' })
+		}
+		if (!password) {
+			return fa.toast.show({ title: '请设置密码' })
+		}
 		const payload = {
 			username,
 			verify_code,
