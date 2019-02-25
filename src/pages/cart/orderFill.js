@@ -4,7 +4,6 @@ import { PublicStyles, windowWidth, ThemeStyle } from '../../utils/style';
 import { Button, List, TextareaItem } from 'antd-mobile-rn';
 import fa from "../../utils/fa";
 import { connect } from "react-redux";
-import { Toast } from '../../utils/function';
 import { NetworkImage } from "../../components/theme"
 
 const Item = List.Item;
@@ -317,7 +316,7 @@ export default class CartOrderFill extends Component {
         const { calculate, total, way, addressId, cartIds, message } = this.state
         const { navigation, dispatch } = this.props;
         if (!addressId) {
-            return Toast.info("请选择收货地址");
+            return fa.toast.show({ title: "请选择收货地址", type: 'info' })
         }
         dispatch({
             type: 'buy/create',

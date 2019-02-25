@@ -1,7 +1,7 @@
 import ImagePicker from 'react-native-image-picker'
-import { Toast } from './function';
 import Fetch from './fetch';
 import { UploadApi } from "../config/api/upload";
+import fa from './fa';
 
 var options = {
     title: '选择照片',
@@ -27,7 +27,7 @@ export const imagePicker = (callback)=>{
                 image: 'data:image/jpeg;base64,'+response.data,
                 type: 'base64'
             }
-            Toast.info('图片上传中，请耐心等待');
+            fa.toast.show({ title: '图片上传中，请耐心等待', type: 'info' })
             Fetch.fetch({
                 api: UploadApi.addImage,
                 params,

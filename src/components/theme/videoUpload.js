@@ -144,7 +144,7 @@ export default class ThemeVideoUpload extends Component {
             //         progressNumber: 0,
             //     })
             // }else{
-            //     Toast.info(e.errmsg)
+            //     Toast.info(e.msg)
             // }
         }catch(err){
             alert(`uploadVudio error is ${err}`)

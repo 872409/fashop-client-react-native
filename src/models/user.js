@@ -134,7 +134,7 @@ export default {
                         payload: params
                     })
                 } else {
-                    Toast.warn(response.msg,1)
+                    Toast.info(response.msg,1)
                 }
             } catch (err) {
                 Toast.fail('操作失败',1)

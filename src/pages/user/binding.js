@@ -6,7 +6,7 @@ import {
     StyleSheet,
     KeyboardAvoidingView
 } from "react-native";
-import { Toast } from "../../utils/function";
+import fa from '../../utils/fa';
 import {
     PublicStyles,
 } from "../../utils/style";
@@ -57,9 +57,9 @@ export default class UserBinding extends Component {
                                 }}
                                 getData={e => {
                                     if (e.code === 0) {
-                                        Toast.info("验证码已发送");
+                                        fa.toast.show({ title: "验证码已发送", type: 'info' });
                                     } else {
-                                        Toast.warn(e.errmsg);
+                                        fa.toast.show({ title: e.msg });
                                     }
                                 }}
                             />

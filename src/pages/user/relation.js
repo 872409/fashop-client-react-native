@@ -6,10 +6,10 @@ import {
     Image,
     Alert,
 } from 'react-native';
-import { Toast } from '../../utils/function';
 import { List } from 'antd-mobile-rn';
 import { connect } from "react-redux";
 import { sendWechatAuthRequest } from "../../utils/wechat";
+import fa from '../../utils/fa';
 
 const Item = List.Item;
 
@@ -74,7 +74,7 @@ export default class UserRelation extends Component {
                                                         type: 'user/unbindPhone'
                                                     })
                                                 } else {
-                                                    Toast.warn('您当前还未关联过其他验证方式，所以无法解除手机')
+                                                    fa.toast.show({ title: '您当前还未关联过其他验证方式，所以无法解除手机' })
                                                 }
                                             }
                                         }
@@ -128,7 +128,7 @@ export default class UserRelation extends Component {
                                                         type: 'user/unbindWechat'
                                                     })
                                                 } else {
-                                                    Toast.warn('您当前还未关联过其他验证方式，所以无法解除微信')
+                                                    fa.toast.show({ title:'您当前还未关联过其他验证方式，所以无法解除微信'})
                                                 }
                                             }
                                         },

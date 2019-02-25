@@ -14,8 +14,8 @@ import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { imagePicker } from '../../utils/imagePicker';
 import { Button } from "../../components/theme";
 import Avatar from "../../components/public/avatar";
-import { Toast } from '../../utils/function';
 import moment from "moment";
+import fa from '../../utils/fa';
 
 const Item = List.Item;
 
@@ -76,7 +76,7 @@ export default class UserInfo extends Component {
                                                 avatar: e.result.origin.path
                                             })
                                         } else {
-                                            Toast.warn('上传图片异常')
+                                            fa.toast.show({ title: '上传图片异常' })
                                         }
                                     }
                                 )

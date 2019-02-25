@@ -1,27 +1,26 @@
-import RootSiblings from "react-native-root-siblings";
 import React from "react";
-import DropdownAlert from "react-native-dropdownalert";
+import { Toast } from 'antd-mobile-rn'
 
-export default class Toast {
-    durationTime: 1000
+export default class Alert {
+    durationTime: 1
 
-    show(options = { title: '', time: 1000, type: 'warn' }) {
+    show(options = { title: '', time: 1, type: 'fail' }) {
         if (typeof options['time'] === "undefined") {
-            options['time'] = 1000
+            options['time'] = 1
         }
         if (typeof options['type'] === "undefined") {
-            options['type'] = 'warn'
+            options['type'] = 'fail'
         }
         this.setDurationTime(options.time)
         switch (options.type) {
             case 'info':
                 this.info(options.title)
                 break
-            case 'warn':
-                this.warn(options.title)
+            case 'success':
+                this.success(options.title)
                 break
-            case 'error':
-                this.error(options.title)
+            case 'fail':
+                this.fail(options.title)
                 break
             default:
                 this.info(options.title)
@@ -29,32 +28,15 @@ export default class Toast {
     }
 
     info(e) {
-        this.dropdownAlert("info", "提示", e);
+        Toast.info(e, this.durationTime)
     }
 
-    warn(e) {
-        this.dropdownAlert("warn", "警告", e);
+    success(e) {
+        Toast.success(e, this.durationTime)
     }
 
-    error(e) {
-        this.dropdownAlert("error", "错误", e);
-    }
-
-    dropdownAlert(type, title, text) {
-        const textString = String(text)
-        const durationTime = this.durationTime
-        new RootSiblings(
-            (
-                <DropdownAlert
-                    ref={ref => {
-                        ref && ref.alertWithType(type, title, textString);
-                    }}
-                    infoColor={'#5bc0de'}
-                    warnColor={'#f0ad4e'}
-                    closeInterval={durationTime}
-                />
-            )
-        );
+    fail(e) {
+        Toast.fail(e, this.durationTime)
     }
 
     setDurationTime(time) {

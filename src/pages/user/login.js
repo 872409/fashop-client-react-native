@@ -9,7 +9,6 @@ import {
 	TouchableOpacity,
 	SafeAreaView
 } from 'react-native';
-import { Toast } from '../../utils/function';
 import {
 	PublicStyles,
 	ThemeStyle
@@ -18,6 +17,7 @@ import { connect } from "react-redux";
 import { sendWechatAuthRequest } from "../../utils/wechat";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '../../components/theme'
+import fa from '../../utils/fa';
 
 @connect(({ wechat }) => ({
 	isWXAppInstalled: wechat.isWXAppInstalled,
@@ -163,10 +163,10 @@ export default class UserLogin extends Component {
 			password,
 		} = this.state
 		if (!username) {
-			return Toast.warn('请输入用户名')
+			return fa.toast.show({ title: '请输入用户名' })
 		}
 		if (!password) {
-			return Toast.warn('请输入密码')
+			return fa.toast.show({ title: '请输入密码' })
 		}
 		const payload = {
 			username,

@@ -1,12 +1,9 @@
 import React from "react";
-import {
-    Linking,
-} from "react-native";
-import RootSiblings from "react-native-root-siblings";
-import DropdownAlert from "react-native-dropdownalert";
-import { ThemeStyle } from './style';
+import { Linking } from "react-native";
 import moment from "moment";
+import { Toast } from "antd-mobile-rn";
 // import RNFS from "react-native-fs";
+
 export const getPickerText = (list, values) => {
     const one = list.find((e) => e.value === values[0])
     const two = one.children.find((e) => e.value === values[1])
@@ -102,33 +99,6 @@ export const removeEmpty = value => {
   }
   return value;
 };
-
-
-export class Toast {
-    static info(e) {
-        Toast.DropdownAlert("info", "提示", e);
-    }
-    static warn(e) {
-        Toast.DropdownAlert("warn", "警告", e);
-    }
-    static error(e) {
-        Toast.DropdownAlert("error", "错误", e);
-    }
-    static DropdownAlert(type, title, text) {
-        const textString = String(text)
-        let sibling = new RootSiblings(
-            (
-                <DropdownAlert
-                    ref={ref => {
-                        ref&&ref.alertWithType(type, title, textString);
-                    }}
-                    infoColor={ThemeStyle.ThemeColor}
-                    closeInterval = {4000}
-                />
-            )
-        );
-    }
-}
 
 export class LinkingFunc {
     static openTel(e) {

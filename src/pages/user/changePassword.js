@@ -4,7 +4,7 @@ import {
     Text,
     View,
 } from "react-native";
-import { Toast } from "../../utils/function";
+import fa from '../../utils/fa';
 import {
     PublicStyles,
 } from "../../utils/style";
@@ -74,16 +74,16 @@ export default class UserChangePassword extends Component {
             repassword,
         } = this.state
         if (!oldpassword) {
-            return Toast.warn('请填写旧密码')
+            return fa.toast.show({ title: '请填写旧密码' })
         }
         if (!password) {
-            return Toast.warn('请填写新密码')
+            return fa.toast.show({ title: '请填写新密码' })
         }
         if (!repassword) {
-            return Toast.warn('请填写新密码')
+            return fa.toast.show({ title: '请填写新密码' })
         }
         if (password !== repassword) {
-            return Toast.warn('两次密码不一致')
+            return fa.toast.show({ title: '两次密码不一致' })
         }
         const payload = {
             oldpassword,
@@ -94,7 +94,7 @@ export default class UserChangePassword extends Component {
             type: 'user/editPassword',
             payload,
             callback: ()=>{
-                Toast.info('修改成功')
+                fa.toast.show({ title: '修改成功', type: 'success' })
                 navigation.goBack()
             }
         })

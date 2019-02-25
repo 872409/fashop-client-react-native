@@ -12,10 +12,10 @@ import {
     Keyboard,
     ViewPropTypes,
 } from 'react-native';
-import { Toast } from './function';
 import { windowWidth } from './style';
 import Fetch from './fetch';
 import { Button } from 'antd-mobile-rn';
+import fa from './fa';
 
 
 /**
@@ -276,7 +276,7 @@ export class CountdownButton extends Component {
                     if (e.code === 0) {
                         this.intervalFunc()
                     } else {
-                        Toast.warn(e.msg)
+                        fa.toast.show({ title: e.msg })
                         this.setState({
                             ready: true
                         })

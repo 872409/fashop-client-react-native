@@ -1,8 +1,8 @@
 import SYImagePicker from "react-native-syan-image-picker";
-import { Toast } from './function';
 import Fetch from './fetch';
 import { windowWidth } from "./style";
 import { UploadApi } from "../config/api/upload";
+import fa from './fa';
 
 /**
  * 默认参数
@@ -29,7 +29,6 @@ export const asynImagePicker = async ({ type, options, getResult }) => {
                 image: item.base64,
                 type: 'base64'
             }
-            // Toast.info('图片上传中，请耐心等待');
             const e = await Fetch.fetch({
                 api: UploadApi.addImage,
                 params,
@@ -39,10 +38,10 @@ export const asynImagePicker = async ({ type, options, getResult }) => {
                 getResult(images)
             }else{
                 getResult(images)
-                Toast.warn(e.msg)
+                fa.toast.show({ title:e.msg })
             }
         })
     } catch (err) {
-        Toast.info(err.message)
+        fa.toast.show({ title:err.message })
     }
 }

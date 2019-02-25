@@ -9,7 +9,7 @@ import {
 	View,
 	KeyboardAvoidingView,
 } from 'react-native';
-import { Toast } from '../../utils/function';
+import fa from '../../utils/fa';
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { CountdownButton } from '../../utils/view';
 import { Button } from 'antd-mobile-rn';
@@ -61,9 +61,9 @@ export default class UserFindPassword extends Component{
 								}}
 								getData={(e) => {
 									if (e.code == 0) {
-										Toast.info('验证码已发送')
+										fa.toast.show({ title: '验证码已发送', type: 'info' })
 									} else {
-										Toast.warn(e.msg)
+										fa.toast.show(e.msg)
 									}
 								}}
 							/>
@@ -132,20 +132,20 @@ export default class UserFindPassword extends Component{
 		const { navigation, dispatch } = this.props;
 		const { phone, verify_code, password } = this.state;
 		if(!phone){
-			return Toast.warn('请输入手机号')
+			return fa.toast.show({ title: '请输入手机号' })
 		}
 		if(!verify_code){
-			return Toast.warn('请输入验证码')
+			return fa.toast.show({ title: '请输入验证码' })
 		}
 		if(!password){
-			return Toast.warn('请输入新密码')
+			return fa.toast.show({ title: '请输入新密码' })
 		}
 		const payload = { phone, verify_code, password }
 		dispatch({
 			type: 'user/editPasswordByFind',
 			payload,
 			callback: () => {
-				Toast.info('找回密码成功，请重新登录')
+				fa.toast.show({ title: '找回密码成功，请重新登录', type: 'info' })
 				navigation.goBack()
 			}
 		})

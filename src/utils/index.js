@@ -1,5 +1,5 @@
 import stateHoc from "./stateHoc";
-import { Toast } from './function';
+import fa from './fa';
 import { initLibraryConfig, config, fetchStatus, storageModule } from "moji-react-native-utils";
 import { AppName, AppPlatform, errorCollectApi, env } from "../config";
 import NavigationService from "../containers/navigationService";
@@ -7,13 +7,13 @@ import { store } from '../index'
 
 initLibraryConfig({
     ToastInfo: (content) => {
-        Toast.info(content)
+        fa.toast.show({ title: content, type: 'info' })
     },
     ToastError: (content) => {
-        Toast.warn(content)
+        fa.toast.show({ title: content })
     },
     ToastWarn: (content) => {
-        Toast.error(content)
+        fa.toast.show({ title: content })
     },
     // API_URL,
     getLogin: () => {

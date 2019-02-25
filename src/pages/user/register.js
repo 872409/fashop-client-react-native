@@ -8,7 +8,6 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import { Toast } from '../../utils/function';
 import {
 	PublicStyles,
 	ThemeStyle
@@ -18,6 +17,7 @@ import { Button } from 'antd-mobile-rn';
 import SafeAreaView from 'react-native-safe-area-view';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { UserApi } from '../../config/api/user';
+import fa from '../../utils/fa';
 
 @connect(({ user }) => ({
 	login: user.login,
@@ -93,9 +93,9 @@ export default class UserRegister extends Component {
 									}}
 									getData={(e) => {
 										if (e.code == 0) {
-											Toast.info('验证码已发送')
+											fa.toast.show({ title: '验证码已发送', type: 'info' })
 										} else {
-											Toast.warn(e.msg)
+											fa.toast.show({ title: e.msg })
 										}
 									}}
 								/>

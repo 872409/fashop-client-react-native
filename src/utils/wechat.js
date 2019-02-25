@@ -1,5 +1,5 @@
 import Fetch from "./fetch";
-import { Toast } from "./function";
+import fa from "./fa";
 import * as WeChat from 'react-native-wechat';
 import { AppID, AppSecret } from "../config/wechat"
 
@@ -9,13 +9,13 @@ export const sendWechatAuthRequest=async()=>{
         try {
             return addAuth(e)
         } catch (err) {
-            Toast.error(err)
+            fa.toast.show({ title: err})
             return new Promise((resolve, reject)=>{
                 reject(err)
             })
         }
     } catch (e) {
-        Toast.warn('授权失败')
+        fa.toast.show({title: '授权失败'})
         return new Promise((resolve, reject)=>{
             reject('授权失败')
         })
@@ -36,14 +36,14 @@ export const wechatShare = async ({ type, params }) => {
             func = WeChat.shareToFavorite
             break;
         default:
-            return Toast.warn('分享类型异常')
+            return fa.toast.show({title: '分享类型异常'})
     }
     if (func) {
         const e = await func(params)
         if (parseInt(e.errCode) === 0) {
-            Toast.info('分享成功');
+            fa.toast.show({ title: '分享成功', type: 'success' })
         } else {
-            Toast.warn('分享失败');
+            fa.toast.show({title: '分享失败'});
         }
     }
 }

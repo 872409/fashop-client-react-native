@@ -7,7 +7,7 @@ import{
     ScrollView,
     SafeAreaView
 } from 'react-native';
-import { Toast } from "../../utils/function";
+import fa from '../../utils/fa';
 import { PublicStyles, ThemeStyle } from '../../utils/style'
 import { List, NoticeBar, Radio, Button } from "antd-mobile-rn";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
@@ -166,11 +166,11 @@ export default class Pay extends Component{
                         sign: result.sign,    // 商家根据微信开放平台文档对数据做的签名
                     }
                     await WeChat.pay(payOptions)
-                    Toast.info('支付成功');
+                    fa.toast.show({ title: '支付成功', type: 'success' });
                     this.paySuccess()
                 } catch (err) {
                     this.payFailure()
-                    Toast.warn('支付失败');
+                    fa.toast.show({ title: '支付失败' });
                 }
             }
         })
@@ -191,11 +191,11 @@ export default class Pay extends Component{
                 try {
                     const result = e ? e.result : {}
                     await Alipay.pay(result.content)
-                    Toast.info('支付成功');
+                    fa.toast.show({ title: '支付成功', type: 'success' });
                     this.paySuccess()
                 } catch (err) {
                     this.payFailure()
-                    Toast.warn('支付失败');
+                    fa.toast.show({ title: '支付失败' });
                 }
             }
         })

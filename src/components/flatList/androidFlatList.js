@@ -9,7 +9,8 @@ import {
 import { ThemeStyle } from '../../utils/style';
 import Fetch from '../../utils/fetch';
 import { ListEmptyView } from '../../utils/view';
-import { removeEmpty, Toast } from "../../utils/function";
+import { removeEmpty } from "../../utils/function";
+import fa from "../../utils/fa";
 import {
     LottieAndroidRefreshControl,
 } from "../refreshControl";
@@ -88,7 +89,7 @@ export default class AndroidFlatList extends Component {
                     this.listViewRender(e.result)
                     getNativeData(e)
                 } else {
-                    Toast.warn(e.errmsg)
+                    fa.toast.show({ title: e.msg })
                 }
             } catch (e) {
                 this.setState({
