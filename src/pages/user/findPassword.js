@@ -31,15 +31,9 @@ export default class UserFindPassword extends Component{
 			<KeyboardAvoidingView style={[PublicStyles.ViewMax,{backgroundColor:'#fff'}]} behavior={'padding'}>
 				<View
 					style={{
-						paddingHorizontal: 30,
+						padding: 30,
 					}}
 				>
-					<View style={styles.logoView}>
-						<Image
-							source={require('../../images/login-logo.png')}
-							style={styles.logo}
-						/>
-					</View>
 					<View style={styles.view1}>
 						<TextInput
 							style={styles.textInput1}
@@ -47,6 +41,7 @@ export default class UserFindPassword extends Component{
 							onChangeText={(e) => this.setState({ phone: e })}
 							underlineColorAndroid={'transparent'}
 							placeholderTextColor={'#CCCCCC'}
+							keyboardType="number-pad"
 						/>
 						<TouchableOpacity
 							style={{
@@ -83,6 +78,7 @@ export default class UserFindPassword extends Component{
 							}}
 							underlineColorAndroid={'transparent'}
 							placeholderTextColor={'#CCCCCC'}
+							keyboardType="number-pad"
 						/>
 					</View>
 					<View style={styles.view1}>
@@ -121,6 +117,9 @@ export default class UserFindPassword extends Component{
 					</View>
 					<Button
 						onClick={this.submit}
+						style={{
+							marginTop: 15
+						}}
 						type='primary'
 					>
 						<Text style={styles.undertextcss}>找回密码</Text>

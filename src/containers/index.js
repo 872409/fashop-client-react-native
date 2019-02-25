@@ -75,23 +75,3 @@ class App extends Component {
 }
 
 export default App;
-// const mapStateToProps = store => {
-//     const {
-//         user: { login, cartNum },
-//         initial: { showBootPage },
-//     } = store.app
-//     const {
-//         home: { homeView, homeViewFetchStatus }, 
-//         address: { areaList }
-//     } = store.view
-//     return {
-//         login,
-//         cartNum,
-//         showBootPage,
-//         areaList,
-//         homeView,
-//         homeViewFetchStatus,
-//     };
-// };
-
-// export default connect(mapStateToProps)(App);

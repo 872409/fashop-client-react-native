@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
+    StatusBar
 } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -56,33 +56,26 @@ export default class PhotoGallery extends Component {
             images,
             index,
         } = navigation.state.params
-
         return (
             <View style={styles.viewMax}>
+                <StatusBar
+                    barStyle="light-content"
+                />
                 <Gallery
                     style={{ flex: 1, backgroundColor: 'black' }}
                     initialPage={index}
+                    images={images}
                     onPageSelected={(index) => {
                         this.setState({ index });
                     }}
-                    images={images}
+                    onSingleTapConfirmed={()=>{
+                        // console.log('onSingleTapConfirmed---单击后即可触发');
+                        navigation.goBack()
+                    }}
+                    onLongPress={()=>{
+                        // console.log('onLongPress---长时间按下后触发');
+                    }}
                 />
-                <View style={styles.TopBar}>
-                    <TouchableOpacity
-                        style={styles.BackButton}
-                        onPress={() => {
-                            navigation.goBack()
-                        }}
-                        activeOpacity={1}
-                    >
-                        <MaterialIcon
-                            name={'chevron-left'}
-                            color={'#fff'}
-                            size={30}
-                        />
-                        <Text style={styles.BackButtonText}>返回</Text>
-                    </TouchableOpacity>
-                </View>
                 {
                     this.galleryCount()
                 }
@@ -121,16 +114,19 @@ var styles = StyleSheet.create({
         left: 0,
     },
     galleryCount: {
-        top: 30,
-        height: 65,
-        right: 15,
         position: 'absolute',
-        justifyContent: 'center',
+        width: 60,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: '#ccc',
+        right: 15,
+        top: 50
     },
     galleryCountText: {
-        color: 'white',
         fontSize: 15,
-        fontStyle: 'italic',
+        color: 'white',
+        textAlign: 'center',
+        lineHeight: 30
     },
     caption: {
         bottom: 30,

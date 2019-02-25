@@ -45,13 +45,15 @@ export default class GoodsSpecList extends Component{
                 }
                 <View style={styles.popModalTitleRight}>
                     <Text style={[styles.popModalTitleRightP]}> ¥{current_sku ? current_sku.price : 0}</Text>
-                    <Text style={[PublicStyles.descTwo9]}>
+                    <Text style={[PublicStyles.descTwo9,{marginLeft: 5}]}>
                         已选：
-                        {
-                            current_sku && current_sku.spec && current_sku.spec[0].id ? current_sku.spec.map((item) => {
-                                return `${item.value_name} `;
-                            }) : title
-                        }
+                        <Text style={{color: '#333'}}>
+                            {
+                                current_sku && current_sku.spec && current_sku.spec[0].id ? current_sku.spec.map((item) => {
+                                    return `${item.value_name} `;
+                                }) : title
+                            }
+                        </Text>
                     </Text>
                 </View>
             </View>

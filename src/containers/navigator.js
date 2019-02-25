@@ -50,7 +50,6 @@ import EvaluateDetail from "../pages/evaluate/detail"
 import EvaluateList from "../pages/evaluate/list"
 
 import CollectGoods from "../pages/collect/goods"
-import { Icon } from "antd-mobile-rn";
 
 const modalStyleStackNames = [
     'UserLogin',
@@ -67,6 +66,12 @@ function getCurrentRouteName(navigationState) {
         return getCurrentRouteName(route);
     }
     return route.routeName;
+}
+
+const noBorderHeaderStyle = {
+    backgroundColor: "#fff",
+    elevation: 0,//去掉安卓阴影
+    borderBottomWidth: 0,
 }
 
 const indexNavigationOptions = ({ navigation, screenProps }) => ({
@@ -136,18 +141,15 @@ const AppStack = createStackNavigator(
             navigationOptions: {
                 title: '支付成功',
                 headerLeft: null,
-                headerStyle: {
-                    backgroundColor: "#fff",
-                    elevation: 0,//去掉安卓阴影
-                    borderBottomWidth: 0,
-                },
+                headerStyle: noBorderHeaderStyle,
             }
         },
         // user
         UserLogin: {
             screen: UserLogin,
             navigationOptions: {
-                title: '登录'
+                title: '登录',
+                headerStyle: noBorderHeaderStyle,
             }
         },
         UserInfo: {
@@ -159,7 +161,8 @@ const AppStack = createStackNavigator(
         UserRegister: {
             screen: UserRegister,
             navigationOptions: {
-                title: '注册'
+                title: '注册',
+                headerStyle: noBorderHeaderStyle,
             }
         },
         UserFindPassword: {
@@ -197,7 +200,8 @@ const AppStack = createStackNavigator(
         OrderList: {
             screen: OrderList,
             navigationOptions: {
-                title: '订单列表'
+                title: '订单列表',
+                headerStyle: noBorderHeaderStyle,
             }
         },
         OrderDetail: {

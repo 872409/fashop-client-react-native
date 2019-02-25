@@ -285,9 +285,7 @@ export class CountdownButton extends Component {
                 }}
                 size={'small'}
                 style={[{
-                    width: 100,
-                    height: 30,
-                    borderRadius: 16,
+                    borderRadius: 3,
                     justifyContent: 'center',
                     alignItems: 'center',
                     backgroundColor: '#ffffff',

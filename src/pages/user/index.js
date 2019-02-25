@@ -10,7 +10,7 @@ import {
 import { List } from "antd-mobile-rn";
 import { PublicStyles } from '../../utils/style';
 import Avatar from "../../components/public/avatar";
-import EntypoIcon from "react-native-vector-icons/Entypo";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import { connect } from "react-redux";
 import Badge from "@react-native-component/react-native-smart-badge";
 import { LottieIosRefreshControl, LottieAndroidRefreshControl } from '../../components/refreshControl';
@@ -119,9 +119,9 @@ export default class User extends Component {
                 </View>
                 <View style={PublicStyles.rowCenter}>
                     <Text style={PublicStyles.descFour9}>设置</Text>
-                    <EntypoIcon
-                        name="chevron-small-right"
-                        size={24}
+                    <FeatherIcon
+                        name="chevron-right"
+                        size={22}
                         color="#CCCCCC"
                     />
                 </View>
@@ -172,7 +172,7 @@ export default class User extends Component {
             <View style={{ marginVertical: 10 }}>
                 <List>
                     <Item
-                        extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)}
+                        extra={(<Text style={[PublicStyles.descFour9, { marginTop: 3 }]}>全部订单</Text>)}
                         arrow="horizontal"
                         onClick={() => navigation.navigate(login ? 'OrderList' : 'UserLogin')}
                     >
@@ -253,7 +253,8 @@ export default class User extends Component {
 const styles = StyleSheet.create({
     topWarp: {
         height: 100,
-        paddingHorizontal: 15,
+        paddingLeft: 15,
+        paddingRight: 10,
         backgroundColor: '#fff'
     },
     midList: {

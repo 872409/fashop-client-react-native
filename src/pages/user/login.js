@@ -59,6 +59,7 @@ export default class UserLogin extends Component {
 								value={this.state.username}
 								underlineColorAndroid={'transparent'}
 								placeholderTextColor={'#CCCCCC'}
+								keyboardType="number-pad"
 							/>
 						</View>
 						<View style={styles.view1}>
@@ -95,7 +96,7 @@ export default class UserLogin extends Component {
 							}}
 							type='primary'
 						>
-							登 录
+							登录
 						</Button>
 						{
 							isWXAppInstalled && (

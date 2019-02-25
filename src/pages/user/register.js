@@ -73,6 +73,7 @@ export default class UserRegister extends Component {
 								onChangeText={(e) => this.setState({username: e})}
 								underlineColorAndroid={'transparent'}
 								placeholderTextColor={'#CCCCCC'}
+								keyboardType="number-pad"
 							/>
 							<TouchableOpacity
 								style={{
@@ -110,6 +111,7 @@ export default class UserRegister extends Component {
 								value={this.state.verify_code}
 								underlineColorAndroid={'transparent'}
 								placeholderTextColor={'#CCCCCC'}
+								keyboardType="number-pad"
 							/>
 						</View>
 						<View style={styles.view1}>
@@ -151,7 +153,7 @@ export default class UserRegister extends Component {
 							onClick={this.submit}
 							type='primary'
 						>
-							注 册
+							注册
 						</Button>
 					</View>
 				</KeyboardAwareScrollView>
