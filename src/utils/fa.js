@@ -1,8 +1,6 @@
 import { fetchData } from "moji-react-native-utils";
-import exceptionUtil from "./exception";
 import Code from './code'
 import Toast from './toast';
-import Cache from './cache';
 import { env } from "../config/";
 
 const ROOT_URL = `${env.apiHost}/server/`;
@@ -10,7 +8,6 @@ const ROOT_URL = `${env.apiHost}/server/`;
 export default class Fa {
     static code = new Code()
     static toast = new Toast()
-    static cache = new Cache()
 
     /**
      * 检测数组中是否存在某个字符串

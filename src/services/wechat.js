@@ -11,7 +11,7 @@ export default {
             }
         )
     },
-    async info(params = {}) {
+    async code(params = {}) {
         return await fa.request(
             {
                 url: `wechat/code`,
@@ -21,7 +21,7 @@ export default {
             }
         )
     },
-    async info(params = {}) {
+    async userinfo(params = {}) {
         return await fa.request(
             {
                 url: `wechat/userinfo`,
