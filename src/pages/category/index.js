@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
     childName: {
         color: '#666',
         fontSize: 15,
-        lineHeight: 14,
+        // lineHeight: 15,
         marginVertical: 15,
     },
     // pagethree
